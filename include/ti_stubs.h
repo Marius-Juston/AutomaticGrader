@@ -5,33 +5,35 @@
 #ifndef AUTOMATICGRADER_TI_STUBS_H
 #define AUTOMATICGRADER_TI_STUBS_H
 
+#include <stdint.h>
+
 #define interrupt
 #define __interrupt
 #define __cregister
 
-#define __asm(x)       ((void)0)
 #define asm(x)         ((void)0)
 
 #define EALLOW
 #define EDIS
 #define DINT
 
-typedef unsigned short uint16_t;
-typedef short int16_t;
+// typedef unsigned short uint16_t;
+// typedef short int16_t;
+//
+// typedef unsigned int uint32_t;
+// typedef int int32_t;
 
-typedef unsigned int uint32_t;
-typedef int int32_t;
 
+// It is not used as a variable for it to ma
+
+#define Uint16 uint16_t
+#define Uint8 uint16_t
+#define Uint32 uint32_t
 
 #define uint8_t uint16_t
 #define int8_t  int16_t
-
-#define Uint16 uint16_t
-#define Uint8 uint8_t
-#define Uint32 uint32_t
-
+#define int8 int16_t
 #define int16 int16_t
-#define int8 int8_t
 #define int32 int32_t
 
 #define DATA_SECTION(x, y)

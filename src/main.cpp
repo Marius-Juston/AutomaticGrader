@@ -1,6 +1,5 @@
 #include <iostream>
 #include "ti_stubs.h"
-#include "../include/ti_stubs.h"
 
 
 extern "C" {
