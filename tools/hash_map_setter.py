@@ -19,7 +19,7 @@ def generate_hashmap_initializer(header_text):
         var_name = match.group(2)
 
         # Generate the lambda function that binds the specific struct to check_zero
-        cpp_code += f'    tracker_["{var_name}"] = []() {{ \n'
+        cpp_code += f'    tracker_["{var_name}"] = [] {{ \n'
         cpp_code += f'        return check_zero(const_cast<const {struct_type}&>({var_name}), "{var_name}"); \n'
         cpp_code += f'    }};\n\n'
 

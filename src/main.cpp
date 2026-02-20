@@ -1,66 +1,15 @@
 #include <iostream>
-#include "ti_stubs.h"
 #include "checks/validator.h"
 
-#ifdef HW1
-#include "checks/hw1.h"
-#endif
 
 
-#ifdef HW2
-#include "checks/hw2.h"
-#endif
-
-#ifdef HW3
-#include "checks/hw3.h"
-#endif
-
-#ifdef HW4
-#include "checks/hw4.h"
-#endif
-
-
-extern "C" {
-int temp_main();
-
-void cpu_timer0_isr();
-
-void cpu_timer1_isr();
-
-void cpu_timer2_isr();
-
-//
-// // Resolves to null if it does not exist
-float saturate(float, float) __attribute__((weak));
-}
-
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
-
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
-    }
-
-
     const Validator validator = get_validator();
     int result = validator.check();
 
-    int out = temp_main();
+    std::cout << "Homework: " << HW << std::endl;
 
-    cpu_timer0_isr();
-
-    std::cout << gpiosSetup[19].output << std::endl;
-
-    if (saturate) {
-        std::cout << saturate(1, 2) << std::endl;
-    } else {
-        std::cout << "saturate() not available\n";
-    }
+    std::cout << result << std::endl;
 
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }
