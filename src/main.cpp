@@ -4,9 +4,18 @@
 
 
 extern "C" {
-    int temp_main();
-}
+int temp_main();
 
+void cpu_timer0_isr();
+
+void cpu_timer1_isr();
+
+void cpu_timer2_isr();
+
+//
+// // Resolves to null if it does not exist
+float saturate(float, float) __attribute__((weak));
+}
 
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 int main() {
@@ -21,7 +30,15 @@ int main() {
 
     int out = temp_main();
 
+    cpu_timer0_isr();
+
     std::cout << gpiosSetup[19].output << std::endl;
+
+    if (saturate) {
+        std::cout << saturate(1, 2) << std::endl;
+    } else {
+        std::cout << "saturate() not available\n";
+    }
 
     return 0;
     // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
