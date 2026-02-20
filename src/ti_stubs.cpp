@@ -18,6 +18,22 @@ uint16_t init_serialSCIB(serialSCIB_t *s, Uint32 baud) {
     return 0;
 }
 
+uint16_t init_serialSCIC(serialSCIC_t *s, Uint32 baud) {
+    return 0;
+}
+
+uint16_t init_serialSCID(serialSCID_t *s, Uint32 baud) {
+    return 0;
+}
+
+uint16_t serial_sendSCIC(serialSCIC_t *s, char *data, uint16_t len) {
+    return 0;
+}
+
+uint16_t serial_sendSCID(serialSCID_t *s, char *data, uint16_t len) {
+    return 0;
+}
+
 void UART_printfLine(unsigned char line, char *format, ...) {
 }
 

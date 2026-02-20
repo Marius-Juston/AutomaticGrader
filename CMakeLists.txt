@@ -13,6 +13,11 @@ set(CMAKE_CXX_STANDARD 20)
 #)
 
 add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/ti_stubs.cpp
+        src/OptiTrack.c
+        src/SE423Lib.c
+        src/user_xy.c
+        src/MatrixMath.c
+        src/lidar.cpp
         #        ${DRIVER_SOURCES}
         #        ${DEVICE_SOURCES}
 )

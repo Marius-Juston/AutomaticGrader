@@ -5,8 +5,6 @@
 #ifndef AUTOMATICGRADER_F28379DSERIAL_H
 #define AUTOMATICGRADER_F28379DSERIAL_H
 
-#ifndef F28379DSERIAL_H_
-#define F28379DSERIAL_H_
 #include <buffer.h>
 
 
@@ -74,9 +72,5 @@ __interrupt void RXAINT_recv_ready(void);
 __interrupt void RXBINT_recv_ready(void);
 __interrupt void RXCINT_recv_ready(void);
 __interrupt void RXDINT_recv_ready(void);
-
-#endif /* F28379DSERIAL_H_ */
-
-
 
 #endif //AUTOMATICGRADER_F28379DSERIAL_H

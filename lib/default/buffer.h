@@ -13,7 +13,7 @@ typedef volatile struct bufferSCIA_s {
 	volatile Uint16 head, tail, size;
 } bufferSCIA_t;
 
-extern inline void init_bufferSCIA(bufferSCIA_t *b)
+static inline void init_bufferSCIA(bufferSCIA_t *b)
 {
 	b->size = b->head = b->tail = 0;
 }
@@ -22,7 +22,7 @@ extern inline void init_bufferSCIA(bufferSCIA_t *b)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_writeSCIA_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_writeSCIA_1(bufferSCIA_t *b, char data)
+static inline uint16_t buf_writeSCIA_1(bufferSCIA_t *b, char data)
 {
 	if (b->size == BUF_SIZESCIA) return 2;
 	b->buf[b->head] = data;
@@ -34,7 +34,7 @@ extern inline uint16_t buf_writeSCIA_1(bufferSCIA_t *b, char data)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_readSCIA_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_readSCIA_1(bufferSCIA_t *b, Uint16 offset, char *data)
+static inline uint16_t buf_readSCIA_1(bufferSCIA_t *b, Uint16 offset, char *data)
 {
 	if (b->size == 0 || b->size < offset) return 3;
 	*data = b->buf[ (b->tail+offset)%BUF_SIZESCIA ];
@@ -44,7 +44,7 @@ extern inline uint16_t buf_readSCIA_1(bufferSCIA_t *b, Uint16 offset, char *data
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_removeSCIA, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_removeSCIA(bufferSCIA_t *b, Uint16 len)
+static inline uint16_t buf_removeSCIA(bufferSCIA_t *b, Uint16 len)
 {
 	len = (len > b->size) ? b->size : len;
 	b->tail = (b->tail+len)%BUF_SIZESCIA;
@@ -58,7 +58,7 @@ typedef volatile struct bufferSCIB_s {
 	volatile Uint16 head, tail, size;
 } bufferSCIB_t;
 
-extern inline void init_bufferSCIB(bufferSCIB_t *b)
+static inline void init_bufferSCIB(bufferSCIB_t *b)
 {
 	b->size = b->head = b->tail = 0;
 }
@@ -67,7 +67,7 @@ extern inline void init_bufferSCIB(bufferSCIB_t *b)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_writeSCIB_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_writeSCIB_1(bufferSCIB_t *b, char data)
+static inline uint16_t buf_writeSCIB_1(bufferSCIB_t *b, char data)
 {
 	if (b->size == BUF_SIZESCIB) return 2;
 	b->buf[b->head] = data;
@@ -79,7 +79,7 @@ extern inline uint16_t buf_writeSCIB_1(bufferSCIB_t *b, char data)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_readSCIB_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_readSCIB_1(bufferSCIB_t *b, Uint16 offset, char *data)
+static inline uint16_t buf_readSCIB_1(bufferSCIB_t *b, Uint16 offset, char *data)
 {
 	if (b->size == 0 || b->size < offset) return 3;
 	*data = b->buf[ (b->tail+offset)%BUF_SIZESCIB ];
@@ -89,7 +89,7 @@ extern inline uint16_t buf_readSCIB_1(bufferSCIB_t *b, Uint16 offset, char *data
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_removeSCIB, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_removeSCIB(bufferSCIB_t *b, Uint16 len)
+static inline uint16_t buf_removeSCIB(bufferSCIB_t *b, Uint16 len)
 {
 	len = (len > b->size) ? b->size : len;
 	b->tail = (b->tail+len)%BUF_SIZESCIB;
@@ -105,7 +105,7 @@ typedef volatile struct bufferSCIC_s {
 
 
 
-extern inline void init_bufferSCIC(bufferSCIC_t *b)
+static inline void init_bufferSCIC(bufferSCIC_t *b)
 {
 	b->size = b->head = b->tail = 0;
 }
@@ -114,7 +114,7 @@ extern inline void init_bufferSCIC(bufferSCIC_t *b)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_writeSCIC_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_writeSCIC_1(bufferSCIC_t *b, char data)
+static inline uint16_t buf_writeSCIC_1(bufferSCIC_t *b, char data)
 {
 	if (b->size == BUF_SIZESCIC) return 2;
 	b->buf[b->head] = data;
@@ -126,7 +126,7 @@ extern inline uint16_t buf_writeSCIC_1(bufferSCIC_t *b, char data)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_readSCIC_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_readSCIC_1(bufferSCIC_t *b, Uint16 offset, char *data)
+static inline uint16_t buf_readSCIC_1(bufferSCIC_t *b, Uint16 offset, char *data)
 {
 	if (b->size == 0 || b->size < offset) return 3;
 	*data = b->buf[ (b->tail+offset)%BUF_SIZESCIC ];
@@ -136,7 +136,7 @@ extern inline uint16_t buf_readSCIC_1(bufferSCIC_t *b, Uint16 offset, char *data
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_removeSCIC, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_removeSCIC(bufferSCIC_t *b, Uint16 len)
+static inline uint16_t buf_removeSCIC(bufferSCIC_t *b, Uint16 len)
 {
 	len = (len > b->size) ? b->size : len;
 	b->tail = (b->tail+len)%BUF_SIZESCIC;
@@ -150,7 +150,7 @@ typedef volatile struct bufferSCID_s {
 	volatile Uint16 head, tail, size;
 } bufferSCID_t;
 
-extern inline void init_bufferSCID(bufferSCID_t *b)
+static inline void init_bufferSCID(bufferSCID_t *b)
 {
 	b->size = b->head = b->tail = 0;
 }
@@ -159,7 +159,7 @@ extern inline void init_bufferSCID(bufferSCID_t *b)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_writeSCID_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_writeSCID_1(bufferSCID_t *b, char data)
+static inline uint16_t buf_writeSCID_1(bufferSCID_t *b, char data)
 {
 	if (b->size == BUF_SIZESCID) return 2;
 	b->buf[b->head] = data;
@@ -171,7 +171,7 @@ extern inline uint16_t buf_writeSCID_1(bufferSCID_t *b, char data)
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_readSCID_1, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_readSCID_1(bufferSCID_t *b, Uint16 offset, char *data)
+static inline uint16_t buf_readSCID_1(bufferSCID_t *b, Uint16 offset, char *data)
 {
 	if (b->size == 0 || b->size < offset) return 3;
 	*data = b->buf[ (b->tail+offset)%BUF_SIZESCID ];
@@ -181,7 +181,7 @@ extern inline uint16_t buf_readSCID_1(bufferSCID_t *b, Uint16 offset, char *data
 #ifdef _FLASH
 #pragma CODE_SECTION(buf_removeSCID, ".TI.ramfunc");
 #endif
-extern inline uint16_t buf_removeSCID(bufferSCID_t *b, Uint16 len)
+static inline uint16_t buf_removeSCID(bufferSCID_t *b, Uint16 len)
 {
 	len = (len > b->size) ? b->size : len;
 	b->tail = (b->tail+len)%BUF_SIZESCID;
