@@ -18,6 +18,7 @@ add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/t
         src/user_xy.c
         src/MatrixMath.c
         src/lidar.cpp
+        src/LEDPatterns.c
         #        ${DRIVER_SOURCES}
         #        ${DEVICE_SOURCES}
 )

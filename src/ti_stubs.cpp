@@ -3,6 +3,10 @@
 //
 #include "ti_stubs.h"
 
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+
 
 serialSCIA_t SerialA;
 serialSCIB_t SerialB;
@@ -34,7 +38,15 @@ uint16_t serial_sendSCID(serialSCID_t *s, char *data, uint16_t len) {
     return 0;
 }
 
+char UART_printf_bufferSCIB[BUF_SIZESCIB];
+
 void UART_printfLine(unsigned char line, char *format, ...) {
+    va_list ap;
+    va_start(ap, format);
+    vsprintf(UART_printf_bufferSCIB, format, ap);
+    va_end(ap);
+
+    printf(UART_printf_bufferSCIB, format, ap);
 }
 
 void TXDINT_data_sent(void) {
@@ -67,6 +79,17 @@ void InitCpuTimers(void) {
 void ConfigCpuTimer(struct CPUTIMER_VARS *Timer, float Freq, float Period) {
 }
 
+char serial_printf_bufSCIA[BUF_SIZESCIA];
+
+uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
+    va_list ap;
+
+    va_start(ap, fmt);
+    vsprintf(serial_printf_bufSCIA, fmt, ap);
+    va_end(ap);
+
+    return printf(fmt, ap);
+}
 
 uint16_t step_execution(void) {
     static uint32_t execution_cycles = 0;

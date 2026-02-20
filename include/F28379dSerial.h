@@ -73,4 +73,8 @@ __interrupt void RXBINT_recv_ready(void);
 __interrupt void RXCINT_recv_ready(void);
 __interrupt void RXDINT_recv_ready(void);
 
+
+uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...);
+
+
 #endif //AUTOMATICGRADER_F28379DSERIAL_H
