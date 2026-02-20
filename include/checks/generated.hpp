@@ -1,0 +1,3119 @@
+#pragma once
+
+#include <string>
+#include <type_traits>
+#include <cstdint>
+
+
+template<typename T>
+std::enable_if_t<std::is_arithmetic_v<T>, bool>
+check_zero(const T &value, const std::string &name);
+
+template<typename T, std::size_t N>
+bool check_zero(const T (&arr)[N], const std::string &name);
+
+bool check_zero(const PINT &obj, const std::string &name);
+
+bool check_zero(const FRDCNTL_BITS &obj, const std::string &name);
+
+bool check_zero(const FRDCNTL_REG &obj, const std::string &name);
+
+bool check_zero(const FBAC_BITS &obj, const std::string &name);
+
+bool check_zero(const FBAC_REG &obj, const std::string &name);
+
+bool check_zero(const FBFALLBACK_BITS &obj, const std::string &name);
+
+bool check_zero(const FBFALLBACK_REG &obj, const std::string &name);
+
+bool check_zero(const FBPRDY_BITS &obj, const std::string &name);
+
+bool check_zero(const FBPRDY_REG &obj, const std::string &name);
+
+bool check_zero(const FPAC1_BITS &obj, const std::string &name);
+
+bool check_zero(const FPAC1_REG &obj, const std::string &name);
+
+bool check_zero(const FMSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const FMSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const FRD_INTF_CTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const FRD_INTF_CTRL_REG &obj, const std::string &name);
+
+bool check_zero(const FLASH_CTRL_REGS &obj, const std::string &name);
+
+bool check_zero(const ECC_ENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const ECC_ENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_STATUS_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_STATUS_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_POS_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_POS_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_STATUS_CLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_STATUS_CLR_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_CNT_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_CNT_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_THRESHOLD_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_THRESHOLD_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_INTFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_INTFLG_REG &obj, const std::string &name);
+
+bool check_zero(const ERR_INTCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ERR_INTCLR_REG &obj, const std::string &name);
+
+bool check_zero(const FADDR_TEST_BITS &obj, const std::string &name);
+
+bool check_zero(const FADDR_TEST_REG &obj, const std::string &name);
+
+bool check_zero(const FECC_TEST_BITS &obj, const std::string &name);
+
+bool check_zero(const FECC_TEST_REG &obj, const std::string &name);
+
+bool check_zero(const FECC_CTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const FECC_CTRL_REG &obj, const std::string &name);
+
+bool check_zero(const FECC_STATUS_BITS &obj, const std::string &name);
+
+bool check_zero(const FECC_STATUS_REG &obj, const std::string &name);
+
+bool check_zero(const FLASH_ECC_REGS &obj, const std::string &name);
+
+bool check_zero(const PUMPREQUEST_BITS &obj, const std::string &name);
+
+bool check_zero(const PUMPREQUEST_REG &obj, const std::string &name);
+
+bool check_zero(const FLASH_PUMP_SEMAPHORE_REGS &obj, const std::string &name);
+
+bool check_zero(const DxLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const DxLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const DxCOMMIT_BITS &obj, const std::string &name);
+
+bool check_zero(const DxCOMMIT_REG &obj, const std::string &name);
+
+bool check_zero(const DxACCPROT0_BITS &obj, const std::string &name);
+
+bool check_zero(const DxACCPROT0_REG &obj, const std::string &name);
+
+bool check_zero(const DxTEST_BITS &obj, const std::string &name);
+
+bool check_zero(const DxTEST_REG &obj, const std::string &name);
+
+bool check_zero(const DxINIT_BITS &obj, const std::string &name);
+
+bool check_zero(const DxINIT_REG &obj, const std::string &name);
+
+bool check_zero(const DxINITDONE_BITS &obj, const std::string &name);
+
+bool check_zero(const DxINITDONE_REG &obj, const std::string &name);
+
+bool check_zero(const LSxLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const LSxCOMMIT_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxCOMMIT_REG &obj, const std::string &name);
+
+bool check_zero(const LSxMSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxMSEL_REG &obj, const std::string &name);
+
+bool check_zero(const LSxCLAPGM_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxCLAPGM_REG &obj, const std::string &name);
+
+bool check_zero(const LSxACCPROT0_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxACCPROT0_REG &obj, const std::string &name);
+
+bool check_zero(const LSxACCPROT1_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxACCPROT1_REG &obj, const std::string &name);
+
+bool check_zero(const LSxTEST_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxTEST_REG &obj, const std::string &name);
+
+bool check_zero(const LSxINIT_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxINIT_REG &obj, const std::string &name);
+
+bool check_zero(const LSxINITDONE_BITS &obj, const std::string &name);
+
+bool check_zero(const LSxINITDONE_REG &obj, const std::string &name);
+
+bool check_zero(const GSxLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GSxCOMMIT_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxCOMMIT_REG &obj, const std::string &name);
+
+bool check_zero(const GSxMSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxMSEL_REG &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT0_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT0_REG &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT1_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT1_REG &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT2_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT2_REG &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT3_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxACCPROT3_REG &obj, const std::string &name);
+
+bool check_zero(const GSxTEST_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxTEST_REG &obj, const std::string &name);
+
+bool check_zero(const GSxINIT_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxINIT_REG &obj, const std::string &name);
+
+bool check_zero(const GSxINITDONE_BITS &obj, const std::string &name);
+
+bool check_zero(const GSxINITDONE_REG &obj, const std::string &name);
+
+bool check_zero(const MSGxTEST_BITS &obj, const std::string &name);
+
+bool check_zero(const MSGxTEST_REG &obj, const std::string &name);
+
+bool check_zero(const MSGxINIT_BITS &obj, const std::string &name);
+
+bool check_zero(const MSGxINIT_REG &obj, const std::string &name);
+
+bool check_zero(const MSGxINITDONE_BITS &obj, const std::string &name);
+
+bool check_zero(const MSGxINITDONE_REG &obj, const std::string &name);
+
+bool check_zero(const MEM_CFG_REGS &obj, const std::string &name);
+
+bool check_zero(const EMIF1LOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF1LOCK_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF1COMMIT_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF1COMMIT_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF1MSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF1MSEL_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF1ACCPROT0_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF1ACCPROT0_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF1_CONFIG_REGS &obj, const std::string &name);
+
+bool check_zero(const EMIF2LOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF2LOCK_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF2COMMIT_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF2COMMIT_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF2ACCPROT0_BITS &obj, const std::string &name);
+
+bool check_zero(const EMIF2ACCPROT0_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF2_CONFIG_REGS &obj, const std::string &name);
+
+bool check_zero(const NMAVFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const NMAVFLG_REG &obj, const std::string &name);
+
+bool check_zero(const NMAVSET_BITS &obj, const std::string &name);
+
+bool check_zero(const NMAVSET_REG &obj, const std::string &name);
+
+bool check_zero(const NMAVCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const NMAVCLR_REG &obj, const std::string &name);
+
+bool check_zero(const NMAVINTEN_BITS &obj, const std::string &name);
+
+bool check_zero(const NMAVINTEN_REG &obj, const std::string &name);
+
+bool check_zero(const MAVFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const MAVFLG_REG &obj, const std::string &name);
+
+bool check_zero(const MAVSET_BITS &obj, const std::string &name);
+
+bool check_zero(const MAVSET_REG &obj, const std::string &name);
+
+bool check_zero(const MAVCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const MAVCLR_REG &obj, const std::string &name);
+
+bool check_zero(const MAVINTEN_BITS &obj, const std::string &name);
+
+bool check_zero(const MAVINTEN_REG &obj, const std::string &name);
+
+bool check_zero(const ACCESS_PROTECTION_REGS &obj, const std::string &name);
+
+bool check_zero(const UCERRFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const UCERRFLG_REG &obj, const std::string &name);
+
+bool check_zero(const UCERRSET_BITS &obj, const std::string &name);
+
+bool check_zero(const UCERRSET_REG &obj, const std::string &name);
+
+bool check_zero(const UCERRCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const UCERRCLR_REG &obj, const std::string &name);
+
+bool check_zero(const CERRFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const CERRFLG_REG &obj, const std::string &name);
+
+bool check_zero(const CERRSET_BITS &obj, const std::string &name);
+
+bool check_zero(const CERRSET_REG &obj, const std::string &name);
+
+bool check_zero(const CERRCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const CERRCLR_REG &obj, const std::string &name);
+
+bool check_zero(const CEINTFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const CEINTFLG_REG &obj, const std::string &name);
+
+bool check_zero(const CEINTCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const CEINTCLR_REG &obj, const std::string &name);
+
+bool check_zero(const CEINTSET_BITS &obj, const std::string &name);
+
+bool check_zero(const CEINTSET_REG &obj, const std::string &name);
+
+bool check_zero(const CEINTEN_BITS &obj, const std::string &name);
+
+bool check_zero(const CEINTEN_REG &obj, const std::string &name);
+
+bool check_zero(const MEMORY_ERROR_REGS &obj, const std::string &name);
+
+bool check_zero(const ROMWAITSTATE_BITS &obj, const std::string &name);
+
+bool check_zero(const ROMWAITSTATE_REG &obj, const std::string &name);
+
+bool check_zero(const ROM_WAIT_STATE_REGS &obj, const std::string &name);
+
+bool check_zero(const ROMPREFETCH_BITS &obj, const std::string &name);
+
+bool check_zero(const ROMPREFETCH_REG &obj, const std::string &name);
+
+bool check_zero(const ROM_PREFETCH_REGS &obj, const std::string &name);
+
+bool check_zero(const NMICFG_BITS &obj, const std::string &name);
+
+bool check_zero(const NMICFG_REG &obj, const std::string &name);
+
+bool check_zero(const NMIFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const NMIFLG_REG &obj, const std::string &name);
+
+bool check_zero(const NMIFLGCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const NMIFLGCLR_REG &obj, const std::string &name);
+
+bool check_zero(const NMIFLGFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const NMIFLGFRC_REG &obj, const std::string &name);
+
+bool check_zero(const NMISHDFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const NMISHDFLG_REG &obj, const std::string &name);
+
+bool check_zero(const NMI_INTRUPT_REGS &obj, const std::string &name);
+
+bool check_zero(const MCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const MCTL_REG &obj, const std::string &name);
+
+bool check_zero(const MIFR_BITS &obj, const std::string &name);
+
+bool check_zero(const MIFR_REG &obj, const std::string &name);
+
+bool check_zero(const MIOVF_BITS &obj, const std::string &name);
+
+bool check_zero(const MIOVF_REG &obj, const std::string &name);
+
+bool check_zero(const MIFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const MIFRC_REG &obj, const std::string &name);
+
+bool check_zero(const MICLR_BITS &obj, const std::string &name);
+
+bool check_zero(const MICLR_REG &obj, const std::string &name);
+
+bool check_zero(const MICLROVF_BITS &obj, const std::string &name);
+
+bool check_zero(const MICLROVF_REG &obj, const std::string &name);
+
+bool check_zero(const MIER_BITS &obj, const std::string &name);
+
+bool check_zero(const MIER_REG &obj, const std::string &name);
+
+bool check_zero(const MIRUN_BITS &obj, const std::string &name);
+
+bool check_zero(const MIRUN_REG &obj, const std::string &name);
+
+bool check_zero(const _MSTF_BITS &obj, const std::string &name);
+
+bool check_zero(const _MSTF_REG &obj, const std::string &name);
+
+bool check_zero(const MR_REG &obj, const std::string &name);
+
+bool check_zero(const CLA_REGS &obj, const std::string &name);
+
+bool check_zero(const SOFTINTEN_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTINTEN_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTINTFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTINTFRC_REG &obj, const std::string &name);
+
+bool check_zero(const CLA_SOFTINT_REGS &obj, const std::string &name);
+
+bool check_zero(const RCSR_BITS &obj, const std::string &name);
+
+bool check_zero(const RCSR_REG &obj, const std::string &name);
+
+bool check_zero(const ASYNC_WCCR_BITS &obj, const std::string &name);
+
+bool check_zero(const ASYNC_WCCR_REG &obj, const std::string &name);
+
+bool check_zero(const SDRAM_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const SDRAM_CR_REG &obj, const std::string &name);
+
+bool check_zero(const SDRAM_RCR_BITS &obj, const std::string &name);
+
+bool check_zero(const SDRAM_RCR_REG &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS2_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS2_CR_REG &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS3_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS3_CR_REG &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS4_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const ASYNC_CS4_CR_REG &obj, const std::string &name);
+
+bool check_zero(const SDRAM_TR_BITS &obj, const std::string &name);
+
+bool check_zero(const SDRAM_TR_REG &obj, const std::string &name);
+
+bool check_zero(const SDR_EXT_TMNG_BITS &obj, const std::string &name);
+
+bool check_zero(const SDR_EXT_TMNG_REG &obj, const std::string &name);
+
+bool check_zero(const INT_RAW_BITS &obj, const std::string &name);
+
+bool check_zero(const INT_RAW_REG &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_BITS &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_REG &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_SET_BITS &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_SET_REG &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_CLR_BITS &obj, const std::string &name);
+
+bool check_zero(const INT_MSK_CLR_REG &obj, const std::string &name);
+
+bool check_zero(const EMIF_REGS &obj, const std::string &name);
+
+bool check_zero(const DRR2_BITS &obj, const std::string &name);
+
+bool check_zero(const DRR2_REG &obj, const std::string &name);
+
+bool check_zero(const DRR1_BITS &obj, const std::string &name);
+
+bool check_zero(const DRR1_REG &obj, const std::string &name);
+
+bool check_zero(const DXR2_BITS &obj, const std::string &name);
+
+bool check_zero(const DXR2_REG &obj, const std::string &name);
+
+bool check_zero(const DXR1_BITS &obj, const std::string &name);
+
+bool check_zero(const DXR1_REG &obj, const std::string &name);
+
+bool check_zero(const SPCR2_BITS &obj, const std::string &name);
+
+bool check_zero(const SPCR2_REG &obj, const std::string &name);
+
+bool check_zero(const SPCR1_BITS &obj, const std::string &name);
+
+bool check_zero(const SPCR1_REG &obj, const std::string &name);
+
+bool check_zero(const RCR2_BITS &obj, const std::string &name);
+
+bool check_zero(const RCR2_REG &obj, const std::string &name);
+
+bool check_zero(const RCR1_BITS &obj, const std::string &name);
+
+bool check_zero(const RCR1_REG &obj, const std::string &name);
+
+bool check_zero(const XCR2_BITS &obj, const std::string &name);
+
+bool check_zero(const XCR2_REG &obj, const std::string &name);
+
+bool check_zero(const XCR1_BITS &obj, const std::string &name);
+
+bool check_zero(const XCR1_REG &obj, const std::string &name);
+
+bool check_zero(const SRGR2_BITS &obj, const std::string &name);
+
+bool check_zero(const SRGR2_REG &obj, const std::string &name);
+
+bool check_zero(const SRGR1_BITS &obj, const std::string &name);
+
+bool check_zero(const SRGR1_REG &obj, const std::string &name);
+
+bool check_zero(const MCR2_BITS &obj, const std::string &name);
+
+bool check_zero(const MCR2_REG &obj, const std::string &name);
+
+bool check_zero(const MCR1_BITS &obj, const std::string &name);
+
+bool check_zero(const MCR1_REG &obj, const std::string &name);
+
+bool check_zero(const PCR_BITS &obj, const std::string &name);
+
+bool check_zero(const PCR_REG &obj, const std::string &name);
+
+bool check_zero(const MFFINT_BITS &obj, const std::string &name);
+
+bool check_zero(const MFFINT_REG &obj, const std::string &name);
+
+bool check_zero(const McBSP_REGS &obj, const std::string &name);
+
+bool check_zero(const PIE_VECT_TABLE &obj, const std::string &name);
+
+bool check_zero(const Z1_LINKPOINTER_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_LINKPOINTER_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_OTPSECLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_OTPSECLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_BOOTCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_BOOTCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_CR_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_GRABSECTR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_GRABSECTR_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_GRABRAMR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_GRABRAMR_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_EXEONLYSECTR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_EXEONLYSECTR_REG &obj, const std::string &name);
+
+bool check_zero(const Z1_EXEONLYRAMR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z1_EXEONLYRAMR_REG &obj, const std::string &name);
+
+bool check_zero(const DCSM_Z1_REGS &obj, const std::string &name);
+
+bool check_zero(const Z2_LINKPOINTER_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_LINKPOINTER_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_OTPSECLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_OTPSECLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_BOOTCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_BOOTCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_CR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_CR_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_GRABSECTR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_GRABSECTR_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_GRABRAMR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_GRABRAMR_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_EXEONLYSECTR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_EXEONLYSECTR_REG &obj, const std::string &name);
+
+bool check_zero(const Z2_EXEONLYRAMR_BITS &obj, const std::string &name);
+
+bool check_zero(const Z2_EXEONLYRAMR_REG &obj, const std::string &name);
+
+bool check_zero(const DCSM_Z2_REGS &obj, const std::string &name);
+
+bool check_zero(const FLSEM_BITS &obj, const std::string &name);
+
+bool check_zero(const FLSEM_REG &obj, const std::string &name);
+
+bool check_zero(const SECTSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const SECTSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const RAMSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const RAMSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const DCSM_COMMON_REGS &obj, const std::string &name);
+
+bool check_zero(const MODE_BITS &obj, const std::string &name);
+
+bool check_zero(const MODE_REG &obj, const std::string &name);
+
+bool check_zero(const CONTROL_BITS &obj, const std::string &name);
+
+bool check_zero(const CONTROL_REG &obj, const std::string &name);
+
+bool check_zero(const BURST_SIZE_BITS &obj, const std::string &name);
+
+bool check_zero(const BURST_SIZE_REG &obj, const std::string &name);
+
+bool check_zero(const BURST_COUNT_BITS &obj, const std::string &name);
+
+bool check_zero(const BURST_COUNT_REG &obj, const std::string &name);
+
+bool check_zero(const CH_REGS &obj, const std::string &name);
+
+bool check_zero(const DMACTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const DMACTRL_REG &obj, const std::string &name);
+
+bool check_zero(const DEBUGCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const DEBUGCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const PRIORITYCTRL1_BITS &obj, const std::string &name);
+
+bool check_zero(const PRIORITYCTRL1_REG &obj, const std::string &name);
+
+bool check_zero(const PRIORITYSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const PRIORITYSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const DMA_REGS &obj, const std::string &name);
+
+bool check_zero(const SDIFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const SDIFLG_REG &obj, const std::string &name);
+
+bool check_zero(const SDIFLGCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const SDIFLGCLR_REG &obj, const std::string &name);
+
+bool check_zero(const SDCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCTL_REG &obj, const std::string &name);
+
+bool check_zero(const SDMFILEN_BITS &obj, const std::string &name);
+
+bool check_zero(const SDMFILEN_REG &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM1_REG &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM1_REG &obj, const std::string &name);
+
+bool check_zero(const SDDPARM1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDPARM1_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPH1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPH1_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPL1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPL1_REG &obj, const std::string &name);
+
+bool check_zero(const SDCPARM1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCPARM1_REG &obj, const std::string &name);
+
+bool check_zero(const SDDATA1_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDATA1_REG &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM2_REG &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM2_REG &obj, const std::string &name);
+
+bool check_zero(const SDDPARM2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDPARM2_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPH2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPH2_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPL2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPL2_REG &obj, const std::string &name);
+
+bool check_zero(const SDCPARM2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCPARM2_REG &obj, const std::string &name);
+
+bool check_zero(const SDDATA2_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDATA2_REG &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM3_REG &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM3_REG &obj, const std::string &name);
+
+bool check_zero(const SDDPARM3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDPARM3_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPH3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPH3_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPL3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPL3_REG &obj, const std::string &name);
+
+bool check_zero(const SDCPARM3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCPARM3_REG &obj, const std::string &name);
+
+bool check_zero(const SDDATA3_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDATA3_REG &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCTLPARM4_REG &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDFPARM4_REG &obj, const std::string &name);
+
+bool check_zero(const SDDPARM4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDPARM4_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPH4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPH4_REG &obj, const std::string &name);
+
+bool check_zero(const SDCMPL4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCMPL4_REG &obj, const std::string &name);
+
+bool check_zero(const SDCPARM4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDCPARM4_REG &obj, const std::string &name);
+
+bool check_zero(const SDDATA4_BITS &obj, const std::string &name);
+
+bool check_zero(const SDDATA4_REG &obj, const std::string &name);
+
+bool check_zero(const SDFM_REGS &obj, const std::string &name);
+
+bool check_zero(const QDECCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const QDECCTL_REG &obj, const std::string &name);
+
+bool check_zero(const QEPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const QEPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const QCAPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const QCAPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const QPOSCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const QPOSCTL_REG &obj, const std::string &name);
+
+bool check_zero(const QEINT_BITS &obj, const std::string &name);
+
+bool check_zero(const QEINT_REG &obj, const std::string &name);
+
+bool check_zero(const QFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const QFLG_REG &obj, const std::string &name);
+
+bool check_zero(const QCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const QCLR_REG &obj, const std::string &name);
+
+bool check_zero(const QFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const QFRC_REG &obj, const std::string &name);
+
+bool check_zero(const QEPSTS_BITS &obj, const std::string &name);
+
+bool check_zero(const QEPSTS_REG &obj, const std::string &name);
+
+bool check_zero(const EQEP_REGS &obj, const std::string &name);
+
+bool check_zero(const ECCTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const ECCTL1_REG &obj, const std::string &name);
+
+bool check_zero(const ECCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const ECCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const ECEINT_BITS &obj, const std::string &name);
+
+bool check_zero(const ECEINT_REG &obj, const std::string &name);
+
+bool check_zero(const ECFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const ECFLG_REG &obj, const std::string &name);
+
+bool check_zero(const ECCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ECCLR_REG &obj, const std::string &name);
+
+bool check_zero(const ECFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const ECFRC_REG &obj, const std::string &name);
+
+bool check_zero(const ECAP_REGS &obj, const std::string &name);
+
+bool check_zero(const DEVCFGLOCK1_BITS &obj, const std::string &name);
+
+bool check_zero(const DEVCFGLOCK1_REG &obj, const std::string &name);
+
+bool check_zero(const PARTIDL_BITS &obj, const std::string &name);
+
+bool check_zero(const PARTIDL_REG &obj, const std::string &name);
+
+bool check_zero(const PARTIDH_BITS &obj, const std::string &name);
+
+bool check_zero(const PARTIDH_REG &obj, const std::string &name);
+
+bool check_zero(const DC0_BITS &obj, const std::string &name);
+
+bool check_zero(const DC0_REG &obj, const std::string &name);
+
+bool check_zero(const DC1_BITS &obj, const std::string &name);
+
+bool check_zero(const DC1_REG &obj, const std::string &name);
+
+bool check_zero(const DC2_BITS &obj, const std::string &name);
+
+bool check_zero(const DC2_REG &obj, const std::string &name);
+
+bool check_zero(const DC3_BITS &obj, const std::string &name);
+
+bool check_zero(const DC3_REG &obj, const std::string &name);
+
+bool check_zero(const DC4_BITS &obj, const std::string &name);
+
+bool check_zero(const DC4_REG &obj, const std::string &name);
+
+bool check_zero(const DC5_BITS &obj, const std::string &name);
+
+bool check_zero(const DC5_REG &obj, const std::string &name);
+
+bool check_zero(const DC6_BITS &obj, const std::string &name);
+
+bool check_zero(const DC6_REG &obj, const std::string &name);
+
+bool check_zero(const DC7_BITS &obj, const std::string &name);
+
+bool check_zero(const DC7_REG &obj, const std::string &name);
+
+bool check_zero(const DC8_BITS &obj, const std::string &name);
+
+bool check_zero(const DC8_REG &obj, const std::string &name);
+
+bool check_zero(const DC9_BITS &obj, const std::string &name);
+
+bool check_zero(const DC9_REG &obj, const std::string &name);
+
+bool check_zero(const DC10_BITS &obj, const std::string &name);
+
+bool check_zero(const DC10_REG &obj, const std::string &name);
+
+bool check_zero(const DC11_BITS &obj, const std::string &name);
+
+bool check_zero(const DC11_REG &obj, const std::string &name);
+
+bool check_zero(const DC12_BITS &obj, const std::string &name);
+
+bool check_zero(const DC12_REG &obj, const std::string &name);
+
+bool check_zero(const DC13_BITS &obj, const std::string &name);
+
+bool check_zero(const DC13_REG &obj, const std::string &name);
+
+bool check_zero(const DC14_BITS &obj, const std::string &name);
+
+bool check_zero(const DC14_REG &obj, const std::string &name);
+
+bool check_zero(const DC15_BITS &obj, const std::string &name);
+
+bool check_zero(const DC15_REG &obj, const std::string &name);
+
+bool check_zero(const DC17_BITS &obj, const std::string &name);
+
+bool check_zero(const DC17_REG &obj, const std::string &name);
+
+bool check_zero(const DC18_BITS &obj, const std::string &name);
+
+bool check_zero(const DC18_REG &obj, const std::string &name);
+
+bool check_zero(const DC19_BITS &obj, const std::string &name);
+
+bool check_zero(const DC19_REG &obj, const std::string &name);
+
+bool check_zero(const DC20_BITS &obj, const std::string &name);
+
+bool check_zero(const DC20_REG &obj, const std::string &name);
+
+bool check_zero(const PERCNF1_BITS &obj, const std::string &name);
+
+bool check_zero(const PERCNF1_REG &obj, const std::string &name);
+
+bool check_zero(const FUSEERR_BITS &obj, const std::string &name);
+
+bool check_zero(const FUSEERR_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES0_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES0_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES1_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES1_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES2_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES2_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES3_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES3_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES4_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES4_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES6_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES6_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES7_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES7_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES8_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES8_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES9_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES9_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES11_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES11_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES13_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES13_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES14_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES14_REG &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES16_BITS &obj, const std::string &name);
+
+bool check_zero(const SOFTPRES16_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL0_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL0_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL5_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL5_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL6_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL6_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL7_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL7_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL8_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL8_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL9_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL9_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL11_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL11_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL12_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL12_REG &obj, const std::string &name);
+
+bool check_zero(const CPUSEL14_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSEL14_REG &obj, const std::string &name);
+
+bool check_zero(const CPU2RESCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CPU2RESCTL_REG &obj, const std::string &name);
+
+bool check_zero(const RSTSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const RSTSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const LPMSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const LPMSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const SYSDBGCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const SYSDBGCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DEV_CFG_REGS &obj, const std::string &name);
+
+bool check_zero(const CLKSEM_BITS &obj, const std::string &name);
+
+bool check_zero(const CLKSEM_REG &obj, const std::string &name);
+
+bool check_zero(const CLKCFGLOCK1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLKCFGLOCK1_REG &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL1_REG &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL3_BITS &obj, const std::string &name);
+
+bool check_zero(const CLKSRCCTL3_REG &obj, const std::string &name);
+
+bool check_zero(const SYSPLLCTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const SYSPLLCTL1_REG &obj, const std::string &name);
+
+bool check_zero(const SYSPLLMULT_BITS &obj, const std::string &name);
+
+bool check_zero(const SYSPLLMULT_REG &obj, const std::string &name);
+
+bool check_zero(const SYSPLLSTS_BITS &obj, const std::string &name);
+
+bool check_zero(const SYSPLLSTS_REG &obj, const std::string &name);
+
+bool check_zero(const AUXPLLCTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXPLLCTL1_REG &obj, const std::string &name);
+
+bool check_zero(const AUXPLLMULT_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXPLLMULT_REG &obj, const std::string &name);
+
+bool check_zero(const AUXPLLSTS_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXPLLSTS_REG &obj, const std::string &name);
+
+bool check_zero(const SYSCLKDIVSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const SYSCLKDIVSEL_REG &obj, const std::string &name);
+
+bool check_zero(const AUXCLKDIVSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXCLKDIVSEL_REG &obj, const std::string &name);
+
+bool check_zero(const PERCLKDIVSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const PERCLKDIVSEL_REG &obj, const std::string &name);
+
+bool check_zero(const XCLKOUTDIVSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const XCLKOUTDIVSEL_REG &obj, const std::string &name);
+
+bool check_zero(const LOSPCP_BITS &obj, const std::string &name);
+
+bool check_zero(const LOSPCP_REG &obj, const std::string &name);
+
+bool check_zero(const MCDCR_BITS &obj, const std::string &name);
+
+bool check_zero(const MCDCR_REG &obj, const std::string &name);
+
+bool check_zero(const X1CNT_BITS &obj, const std::string &name);
+
+bool check_zero(const X1CNT_REG &obj, const std::string &name);
+
+bool check_zero(const CLK_CFG_REGS &obj, const std::string &name);
+
+bool check_zero(const CPUSYSLOCK1_BITS &obj, const std::string &name);
+
+bool check_zero(const CPUSYSLOCK1_REG &obj, const std::string &name);
+
+bool check_zero(const IORESTOREADDR_BITS &obj, const std::string &name);
+
+bool check_zero(const IORESTOREADDR_REG &obj, const std::string &name);
+
+bool check_zero(const PIEVERRADDR_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEVERRADDR_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR0_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR0_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR1_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR1_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR2_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR2_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR3_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR3_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR4_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR4_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR6_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR6_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR7_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR7_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR8_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR8_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR9_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR9_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR10_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR10_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR11_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR11_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR12_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR12_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR13_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR13_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR14_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR14_REG &obj, const std::string &name);
+
+bool check_zero(const PCLKCR16_BITS &obj, const std::string &name);
+
+bool check_zero(const PCLKCR16_REG &obj, const std::string &name);
+
+bool check_zero(const SECMSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const SECMSEL_REG &obj, const std::string &name);
+
+bool check_zero(const LPMCR_BITS &obj, const std::string &name);
+
+bool check_zero(const LPMCR_REG &obj, const std::string &name);
+
+bool check_zero(const GPIOLPMSEL0_BITS &obj, const std::string &name);
+
+bool check_zero(const GPIOLPMSEL0_REG &obj, const std::string &name);
+
+bool check_zero(const GPIOLPMSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPIOLPMSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const TMR2CLKCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const TMR2CLKCTL_REG &obj, const std::string &name);
+
+bool check_zero(const RESC_BITS &obj, const std::string &name);
+
+bool check_zero(const RESC_REG &obj, const std::string &name);
+
+bool check_zero(const CPU_SYS_REGS &obj, const std::string &name);
+
+bool check_zero(const SCSR_BITS &obj, const std::string &name);
+
+bool check_zero(const SCSR_REG &obj, const std::string &name);
+
+bool check_zero(const WDCNTR_BITS &obj, const std::string &name);
+
+bool check_zero(const WDCNTR_REG &obj, const std::string &name);
+
+bool check_zero(const WDKEY_BITS &obj, const std::string &name);
+
+bool check_zero(const WDKEY_REG &obj, const std::string &name);
+
+bool check_zero(const WDCR_BITS &obj, const std::string &name);
+
+bool check_zero(const WDCR_REG &obj, const std::string &name);
+
+bool check_zero(const WDWCR_BITS &obj, const std::string &name);
+
+bool check_zero(const WDWCR_REG &obj, const std::string &name);
+
+bool check_zero(const WD_REGS &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSELLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSELLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSELLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSELLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLA1TASKSRCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const DMACHSRCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const DMA_CLA_SRC_SEL_REGS &obj, const std::string &name);
+
+bool check_zero(const SYNCSELECT_BITS &obj, const std::string &name);
+
+bool check_zero(const SYNCSELECT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOUTSELECT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOUTSELECT_REG &obj, const std::string &name);
+
+bool check_zero(const SYNCSOCLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const SYNCSOCLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const SYNC_SOC_REGS &obj, const std::string &name);
+
+bool check_zero(const TBCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const TBCTL_REG &obj, const std::string &name);
+
+bool check_zero(const TBCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const TBCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const TBSTS_BITS &obj, const std::string &name);
+
+bool check_zero(const TBSTS_REG &obj, const std::string &name);
+
+bool check_zero(const CMPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CMPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const CMPCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const CMPCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const DBCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DBCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DBCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const DBCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const AQCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCTL_REG &obj, const std::string &name);
+
+bool check_zero(const AQTSRCSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const AQTSRCSEL_REG &obj, const std::string &name);
+
+bool check_zero(const PCCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const PCCTL_REG &obj, const std::string &name);
+
+bool check_zero(const VCAPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const VCAPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const VCNTCFG_BITS &obj, const std::string &name);
+
+bool check_zero(const VCNTCFG_REG &obj, const std::string &name);
+
+bool check_zero(const HRCNFG_BITS &obj, const std::string &name);
+
+bool check_zero(const HRCNFG_REG &obj, const std::string &name);
+
+bool check_zero(const HRPWR_BITS &obj, const std::string &name);
+
+bool check_zero(const HRPWR_REG &obj, const std::string &name);
+
+bool check_zero(const HRMSTEP_BITS &obj, const std::string &name);
+
+bool check_zero(const HRMSTEP_REG &obj, const std::string &name);
+
+bool check_zero(const HRCNFG2_BITS &obj, const std::string &name);
+
+bool check_zero(const HRCNFG2_REG &obj, const std::string &name);
+
+bool check_zero(const HRPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const HRPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const TRREM_BITS &obj, const std::string &name);
+
+bool check_zero(const TRREM_REG &obj, const std::string &name);
+
+bool check_zero(const GLDCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const GLDCTL_REG &obj, const std::string &name);
+
+bool check_zero(const GLDCFG_BITS &obj, const std::string &name);
+
+bool check_zero(const GLDCFG_REG &obj, const std::string &name);
+
+bool check_zero(const EPWMXLINK_BITS &obj, const std::string &name);
+
+bool check_zero(const EPWMXLINK_REG &obj, const std::string &name);
+
+bool check_zero(const AQCTLA_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCTLA_REG &obj, const std::string &name);
+
+bool check_zero(const AQCTLA2_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCTLA2_REG &obj, const std::string &name);
+
+bool check_zero(const AQCTLB_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCTLB_REG &obj, const std::string &name);
+
+bool check_zero(const AQCTLB2_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCTLB2_REG &obj, const std::string &name);
+
+bool check_zero(const AQSFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const AQSFRC_REG &obj, const std::string &name);
+
+bool check_zero(const AQCSFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const AQCSFRC_REG &obj, const std::string &name);
+
+bool check_zero(const DBREDHR_BITS &obj, const std::string &name);
+
+bool check_zero(const DBREDHR_REG &obj, const std::string &name);
+
+bool check_zero(const DBRED_BITS &obj, const std::string &name);
+
+bool check_zero(const DBRED_REG &obj, const std::string &name);
+
+bool check_zero(const DBFEDHR_BITS &obj, const std::string &name);
+
+bool check_zero(const DBFEDHR_REG &obj, const std::string &name);
+
+bool check_zero(const DBFED_BITS &obj, const std::string &name);
+
+bool check_zero(const DBFED_REG &obj, const std::string &name);
+
+bool check_zero(const TBPHS_BITS &obj, const std::string &name);
+
+bool check_zero(const TBPHS_REG &obj, const std::string &name);
+
+bool check_zero(const CMPA_BITS &obj, const std::string &name);
+
+bool check_zero(const CMPA_REG &obj, const std::string &name);
+
+bool check_zero(const CMPB_BITS &obj, const std::string &name);
+
+bool check_zero(const CMPB_REG &obj, const std::string &name);
+
+bool check_zero(const GLDCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GLDCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const TZSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const TZSEL_REG &obj, const std::string &name);
+
+bool check_zero(const TZDCSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const TZDCSEL_REG &obj, const std::string &name);
+
+bool check_zero(const TZCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCTL_REG &obj, const std::string &name);
+
+bool check_zero(const TZCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const TZCTLDCA_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCTLDCA_REG &obj, const std::string &name);
+
+bool check_zero(const TZCTLDCB_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCTLDCB_REG &obj, const std::string &name);
+
+bool check_zero(const TZEINT_BITS &obj, const std::string &name);
+
+bool check_zero(const TZEINT_REG &obj, const std::string &name);
+
+bool check_zero(const TZFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const TZFLG_REG &obj, const std::string &name);
+
+bool check_zero(const TZCBCFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCBCFLG_REG &obj, const std::string &name);
+
+bool check_zero(const TZOSTFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const TZOSTFLG_REG &obj, const std::string &name);
+
+bool check_zero(const TZCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCLR_REG &obj, const std::string &name);
+
+bool check_zero(const TZCBCCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const TZCBCCLR_REG &obj, const std::string &name);
+
+bool check_zero(const TZOSTCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const TZOSTCLR_REG &obj, const std::string &name);
+
+bool check_zero(const TZFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const TZFRC_REG &obj, const std::string &name);
+
+bool check_zero(const ETSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const ETSEL_REG &obj, const std::string &name);
+
+bool check_zero(const ETPS_BITS &obj, const std::string &name);
+
+bool check_zero(const ETPS_REG &obj, const std::string &name);
+
+bool check_zero(const ETFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const ETFLG_REG &obj, const std::string &name);
+
+bool check_zero(const ETCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ETCLR_REG &obj, const std::string &name);
+
+bool check_zero(const ETFRC_BITS &obj, const std::string &name);
+
+bool check_zero(const ETFRC_REG &obj, const std::string &name);
+
+bool check_zero(const ETINTPS_BITS &obj, const std::string &name);
+
+bool check_zero(const ETINTPS_REG &obj, const std::string &name);
+
+bool check_zero(const ETSOCPS_BITS &obj, const std::string &name);
+
+bool check_zero(const ETSOCPS_REG &obj, const std::string &name);
+
+bool check_zero(const ETCNTINITCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ETCNTINITCTL_REG &obj, const std::string &name);
+
+bool check_zero(const ETCNTINIT_BITS &obj, const std::string &name);
+
+bool check_zero(const ETCNTINIT_REG &obj, const std::string &name);
+
+bool check_zero(const DCTRIPSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCTRIPSEL_REG &obj, const std::string &name);
+
+bool check_zero(const DCACTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCACTL_REG &obj, const std::string &name);
+
+bool check_zero(const DCBCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCBCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DCFCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCFCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DCCAPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCCAPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DCAHTRIPSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCAHTRIPSEL_REG &obj, const std::string &name);
+
+bool check_zero(const DCALTRIPSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCALTRIPSEL_REG &obj, const std::string &name);
+
+bool check_zero(const DCBHTRIPSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCBHTRIPSEL_REG &obj, const std::string &name);
+
+bool check_zero(const DCBLTRIPSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const DCBLTRIPSEL_REG &obj, const std::string &name);
+
+bool check_zero(const EPWM_REGS &obj, const std::string &name);
+
+bool check_zero(const DACREV_BITS &obj, const std::string &name);
+
+bool check_zero(const DACREV_REG &obj, const std::string &name);
+
+bool check_zero(const DACCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const DACCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DACVALA_BITS &obj, const std::string &name);
+
+bool check_zero(const DACVALA_REG &obj, const std::string &name);
+
+bool check_zero(const DACVALS_BITS &obj, const std::string &name);
+
+bool check_zero(const DACVALS_REG &obj, const std::string &name);
+
+bool check_zero(const DACOUTEN_BITS &obj, const std::string &name);
+
+bool check_zero(const DACOUTEN_REG &obj, const std::string &name);
+
+bool check_zero(const DACLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const DACLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const DACTRIM_BITS &obj, const std::string &name);
+
+bool check_zero(const DACTRIM_REG &obj, const std::string &name);
+
+bool check_zero(const DAC_REGS &obj, const std::string &name);
+
+bool check_zero(const SCICCR_BITS &obj, const std::string &name);
+
+bool check_zero(const SCICCR_REG &obj, const std::string &name);
+
+bool check_zero(const SCICTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const SCICTL1_REG &obj, const std::string &name);
+
+bool check_zero(const SCIHBAUD_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIHBAUD_REG &obj, const std::string &name);
+
+bool check_zero(const SCILBAUD_BITS &obj, const std::string &name);
+
+bool check_zero(const SCILBAUD_REG &obj, const std::string &name);
+
+bool check_zero(const SCICTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const SCICTL2_REG &obj, const std::string &name);
+
+bool check_zero(const SCIRXST_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIRXST_REG &obj, const std::string &name);
+
+bool check_zero(const SCIRXEMU_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIRXEMU_REG &obj, const std::string &name);
+
+bool check_zero(const SCIRXBUF_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIRXBUF_REG &obj, const std::string &name);
+
+bool check_zero(const SCITXBUF_BITS &obj, const std::string &name);
+
+bool check_zero(const SCITXBUF_REG &obj, const std::string &name);
+
+bool check_zero(const SCIFFTX_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIFFTX_REG &obj, const std::string &name);
+
+bool check_zero(const SCIFFRX_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIFFRX_REG &obj, const std::string &name);
+
+bool check_zero(const SCIFFCT_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIFFCT_REG &obj, const std::string &name);
+
+bool check_zero(const SCIPRI_BITS &obj, const std::string &name);
+
+bool check_zero(const SCIPRI_REG &obj, const std::string &name);
+
+bool check_zero(const SCI_REGS &obj, const std::string &name);
+
+bool check_zero(const I2COAR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2COAR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CIER_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CIER_REG &obj, const std::string &name);
+
+bool check_zero(const I2CSTR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CSTR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CDRR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CDRR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CSAR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CSAR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CDXR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CDXR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CMDR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CMDR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CISRC_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CISRC_REG &obj, const std::string &name);
+
+bool check_zero(const I2CEMDR_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CEMDR_REG &obj, const std::string &name);
+
+bool check_zero(const I2CPSC_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CPSC_REG &obj, const std::string &name);
+
+bool check_zero(const I2CFFTX_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CFFTX_REG &obj, const std::string &name);
+
+bool check_zero(const I2CFFRX_BITS &obj, const std::string &name);
+
+bool check_zero(const I2CFFRX_REG &obj, const std::string &name);
+
+bool check_zero(const I2C_REGS &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_RESET_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_RESET_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_MODE_1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_MODE_1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_MODE_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_MODE_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_EVENT_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_COUNT_EVENT_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTRA_IN0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTRA_IN0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTERNAL_IN0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTERNAL_IN0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTERNAL_IN1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTERNAL_IN1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTRA_IN1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_EXTRA_IN1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN3_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_IN3_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_LUT_FN1_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_LUT_FN1_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_LUT_FN2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_LUT_FN2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_FN1_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_FN1_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_FN2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LUT4_FN2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_FSM_NEXT_STATE_2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_MISC_CONTROL_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_MISC_CONTROL_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_3_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_3_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_4_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_4_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_5_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_5_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_6_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_6_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_7_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_OUTPUT_LUT_7_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_HLC_EVENT_SEL_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_HLC_EVENT_SEL_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LOGIC_CONFIG_REGS &obj, const std::string &name);
+
+bool check_zero(const CLB_LOAD_EN_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LOAD_EN_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LOAD_ADDR_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LOAD_ADDR_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_INPUT_FILTER_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_INPUT_FILTER_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_IN_MUX_SEL_0_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_IN_MUX_SEL_0_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LCL_MUX_SEL_1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LCL_MUX_SEL_1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LCL_MUX_SEL_2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LCL_MUX_SEL_2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_BUF_PTR_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_BUF_PTR_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_GP_REG_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_GP_REG_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_GLBL_MUX_SEL_1_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_GLBL_MUX_SEL_1_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_GLBL_MUX_SEL_2_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_GLBL_MUX_SEL_2_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_INTR_TAG_REG_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_INTR_TAG_REG_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_LOCK_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_DBG_OUT_BITS &obj, const std::string &name);
+
+bool check_zero(const CLB_DBG_OUT_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_LOGIC_CONTROL_REGS &obj, const std::string &name);
+
+bool check_zero(const CLB_DATA_EXCHANGE_REGS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG0MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG1MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG2MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG3MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG4MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG5MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG6MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIG7MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIGOUTINV_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIGOUTINV_REG &obj, const std::string &name);
+
+bool check_zero(const AUXSIGLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const AUXSIGLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const CLB_XBAR_REGS &obj, const std::string &name);
+
+bool check_zero(const GPACTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPAQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPAQSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAQSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPAMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPAMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPADIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPADIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPAPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPAINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPAODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPAGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPAGMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPAGMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPACSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPACSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPACSEL3_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACSEL3_REG &obj, const std::string &name);
+
+bool check_zero(const GPACSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const GPALOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPALOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPACR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACR_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPBQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPBQSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBQSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPBMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPBMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPBDIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBDIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPBPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPBINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPBODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPBAMSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBAMSEL_REG &obj, const std::string &name);
+
+bool check_zero(const GPBGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPBGMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBGMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL3_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL3_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const GPBLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCR_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPCQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPCQSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCQSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPCMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPCMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPCDIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCDIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPCPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPCINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPCODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPCGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPCGMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCGMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL3_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL3_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const GPCLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCR_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPDQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPDQSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDQSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPDMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPDMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPDDIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDDIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPDPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPDINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPDODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPDGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPDGMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDGMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL3_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL3_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const GPDLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCR_REG &obj, const std::string &name);
+
+bool check_zero(const GPECTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPEQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPEQSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEQSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPEMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPEMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPEDIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEDIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPEPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPEINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPEODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPEGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPEGMUX2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEGMUX2_REG &obj, const std::string &name);
+
+bool check_zero(const GPECSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPECSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPECSEL3_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECSEL3_REG &obj, const std::string &name);
+
+bool check_zero(const GPECSEL4_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECSEL4_REG &obj, const std::string &name);
+
+bool check_zero(const GPELOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPELOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPECR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECR_REG &obj, const std::string &name);
+
+bool check_zero(const GPFCTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFCTRL_REG &obj, const std::string &name);
+
+bool check_zero(const GPFQSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFQSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPFMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPFDIR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFDIR_REG &obj, const std::string &name);
+
+bool check_zero(const GPFPUD_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFPUD_REG &obj, const std::string &name);
+
+bool check_zero(const GPFINV_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFINV_REG &obj, const std::string &name);
+
+bool check_zero(const GPFODR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFODR_REG &obj, const std::string &name);
+
+bool check_zero(const GPFGMUX1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFGMUX1_REG &obj, const std::string &name);
+
+bool check_zero(const GPFCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const GPFCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const GPFLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const GPFCR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFCR_REG &obj, const std::string &name);
+
+bool check_zero(const GPIO_CTRL_REGS &obj, const std::string &name);
+
+bool check_zero(const GPADAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPADAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPASET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPASET_REG &obj, const std::string &name);
+
+bool check_zero(const GPACLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPACLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPATOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPATOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPBDAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBDAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPBSET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBSET_REG &obj, const std::string &name);
+
+bool check_zero(const GPBCLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBCLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPBTOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPBTOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPCDAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCDAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPCSET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCSET_REG &obj, const std::string &name);
+
+bool check_zero(const GPCCLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCCLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPCTOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPCTOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPDDAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDDAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPDSET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDSET_REG &obj, const std::string &name);
+
+bool check_zero(const GPDCLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDCLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPDTOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPDTOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPEDAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPEDAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPESET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPESET_REG &obj, const std::string &name);
+
+bool check_zero(const GPECLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPECLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPETOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPETOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPFDAT_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFDAT_REG &obj, const std::string &name);
+
+bool check_zero(const GPFSET_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFSET_REG &obj, const std::string &name);
+
+bool check_zero(const GPFCLEAR_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFCLEAR_REG &obj, const std::string &name);
+
+bool check_zero(const GPFTOGGLE_BITS &obj, const std::string &name);
+
+bool check_zero(const GPFTOGGLE_REG &obj, const std::string &name);
+
+bool check_zero(const GPIO_DATA_REGS &obj, const std::string &name);
+
+bool check_zero(const PIECTRL_BITS &obj, const std::string &name);
+
+bool check_zero(const PIECTRL_REG &obj, const std::string &name);
+
+bool check_zero(const PIEACK_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEACK_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER1_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER1_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR1_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR1_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER2_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER2_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR2_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR2_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER3_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER3_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR3_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR3_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER4_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER4_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR4_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR4_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER5_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER5_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR5_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR5_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER6_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER6_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR6_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR6_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER7_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER7_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR7_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR7_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER8_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER8_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR8_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR8_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER9_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER9_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR9_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR9_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER10_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER10_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR10_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR10_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER11_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER11_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR11_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR11_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIER12_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIER12_REG &obj, const std::string &name);
+
+bool check_zero(const PIEIFR12_BITS &obj, const std::string &name);
+
+bool check_zero(const PIEIFR12_REG &obj, const std::string &name);
+
+bool check_zero(const PIE_CTRL_REGS &obj, const std::string &name);
+
+bool check_zero(const XINT1CR_BITS &obj, const std::string &name);
+
+bool check_zero(const XINT1CR_REG &obj, const std::string &name);
+
+bool check_zero(const XINT2CR_BITS &obj, const std::string &name);
+
+bool check_zero(const XINT2CR_REG &obj, const std::string &name);
+
+bool check_zero(const XINT3CR_BITS &obj, const std::string &name);
+
+bool check_zero(const XINT3CR_REG &obj, const std::string &name);
+
+bool check_zero(const XINT4CR_BITS &obj, const std::string &name);
+
+bool check_zero(const XINT4CR_REG &obj, const std::string &name);
+
+bool check_zero(const XINT5CR_BITS &obj, const std::string &name);
+
+bool check_zero(const XINT5CR_REG &obj, const std::string &name);
+
+bool check_zero(const XINT_REGS &obj, const std::string &name);
+
+bool check_zero(const COMPCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPCTL_REG &obj, const std::string &name);
+
+bool check_zero(const COMPHYSCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPHYSCTL_REG &obj, const std::string &name);
+
+bool check_zero(const COMPSTS_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPSTS_REG &obj, const std::string &name);
+
+bool check_zero(const COMPSTSCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPSTSCLR_REG &obj, const std::string &name);
+
+bool check_zero(const COMPDACCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPDACCTL_REG &obj, const std::string &name);
+
+bool check_zero(const DACHVALS_BITS &obj, const std::string &name);
+
+bool check_zero(const DACHVALS_REG &obj, const std::string &name);
+
+bool check_zero(const DACHVALA_BITS &obj, const std::string &name);
+
+bool check_zero(const DACHVALA_REG &obj, const std::string &name);
+
+bool check_zero(const DACLVALS_BITS &obj, const std::string &name);
+
+bool check_zero(const DACLVALS_REG &obj, const std::string &name);
+
+bool check_zero(const DACLVALA_BITS &obj, const std::string &name);
+
+bool check_zero(const DACLVALA_REG &obj, const std::string &name);
+
+bool check_zero(const RAMPDLYA_BITS &obj, const std::string &name);
+
+bool check_zero(const RAMPDLYA_REG &obj, const std::string &name);
+
+bool check_zero(const RAMPDLYS_BITS &obj, const std::string &name);
+
+bool check_zero(const RAMPDLYS_REG &obj, const std::string &name);
+
+bool check_zero(const CTRIPLFILCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CTRIPLFILCTL_REG &obj, const std::string &name);
+
+bool check_zero(const CTRIPLFILCLKCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CTRIPLFILCLKCTL_REG &obj, const std::string &name);
+
+bool check_zero(const CTRIPHFILCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CTRIPHFILCTL_REG &obj, const std::string &name);
+
+bool check_zero(const CTRIPHFILCLKCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const CTRIPHFILCLKCTL_REG &obj, const std::string &name);
+
+bool check_zero(const COMPLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const COMPLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const CMPSS_REGS &obj, const std::string &name);
+
+bool check_zero(const TIM_BITS &obj, const std::string &name);
+
+bool check_zero(const TIM_REG &obj, const std::string &name);
+
+bool check_zero(const PRD_BITS &obj, const std::string &name);
+
+bool check_zero(const PRD_REG &obj, const std::string &name);
+
+bool check_zero(const TCR_BITS &obj, const std::string &name);
+
+bool check_zero(const TCR_REG &obj, const std::string &name);
+
+bool check_zero(const TPR_BITS &obj, const std::string &name);
+
+bool check_zero(const TPR_REG &obj, const std::string &name);
+
+bool check_zero(const TPRH_BITS &obj, const std::string &name);
+
+bool check_zero(const TPRH_REG &obj, const std::string &name);
+
+bool check_zero(const CPUTIMER_REGS &obj, const std::string &name);
+
+bool check_zero(const SPICCR_BITS &obj, const std::string &name);
+
+bool check_zero(const SPICCR_REG &obj, const std::string &name);
+
+bool check_zero(const SPICTL_BITS &obj, const std::string &name);
+
+bool check_zero(const SPICTL_REG &obj, const std::string &name);
+
+bool check_zero(const SPISTS_BITS &obj, const std::string &name);
+
+bool check_zero(const SPISTS_REG &obj, const std::string &name);
+
+bool check_zero(const SPIBRR_BITS &obj, const std::string &name);
+
+bool check_zero(const SPIBRR_REG &obj, const std::string &name);
+
+bool check_zero(const SPIFFTX_BITS &obj, const std::string &name);
+
+bool check_zero(const SPIFFTX_REG &obj, const std::string &name);
+
+bool check_zero(const SPIFFRX_BITS &obj, const std::string &name);
+
+bool check_zero(const SPIFFRX_REG &obj, const std::string &name);
+
+bool check_zero(const SPIFFCT_BITS &obj, const std::string &name);
+
+bool check_zero(const SPIFFCT_REG &obj, const std::string &name);
+
+bool check_zero(const SPIPRI_BITS &obj, const std::string &name);
+
+bool check_zero(const SPIPRI_REG &obj, const std::string &name);
+
+bool check_zero(const SPI_REGS &obj, const std::string &name);
+
+bool check_zero(const ADCCTL1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCCTL1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCCTL2_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCCTL2_REG &obj, const std::string &name);
+
+bool check_zero(const ADCBURSTCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCBURSTCTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTFLG_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTFLG_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTFLGCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTFLGCLR_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTOVF_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTOVF_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTOVFCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTOVFCLR_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTSEL1N2_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTSEL1N2_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTSEL3N4_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTSEL3N4_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCPRICTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCPRICTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTSOCSEL1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTSOCSEL1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCINTSOCSEL2_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCINTSOCSEL2_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCFLG1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCFLG1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCFRC1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCFRC1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOVF1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOVF1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOVFCLR1_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOCOVFCLR1_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC0CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC0CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC1CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC1CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC2CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC2CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC3CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC3CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC4CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC4CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC5CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC5CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC6CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC6CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC7CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC7CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC8CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC8CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC9CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC9CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC10CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC10CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC11CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC11CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC12CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC12CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC13CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC13CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC14CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC14CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCSOC15CTL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCSOC15CTL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCEVTSTAT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCEVTSTAT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCEVTCLR_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCEVTCLR_REG &obj, const std::string &name);
+
+bool check_zero(const ADCEVTSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCEVTSEL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCEVTINTSEL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCEVTINTSEL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCOSDETECT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCOSDETECT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCCOUNTER_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCCOUNTER_REG &obj, const std::string &name);
+
+bool check_zero(const ADCREV_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCREV_REG &obj, const std::string &name);
+
+bool check_zero(const ADCOFFTRIM_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCOFFTRIM_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1CONFIG_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1CONFIG_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1STAMP_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1STAMP_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1OFFCAL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1OFFCAL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1TRIPHI_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1TRIPHI_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1TRIPLO_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1TRIPLO_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2CONFIG_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2CONFIG_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2STAMP_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2STAMP_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2OFFCAL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2OFFCAL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2TRIPHI_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2TRIPHI_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2TRIPLO_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2TRIPLO_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3CONFIG_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3CONFIG_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3STAMP_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3STAMP_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3OFFCAL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3OFFCAL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3TRIPHI_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3TRIPHI_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3TRIPLO_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3TRIPLO_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4CONFIG_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4CONFIG_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4STAMP_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4STAMP_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4OFFCAL_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4OFFCAL_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4TRIPHI_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4TRIPHI_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4TRIPLO_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4TRIPLO_REG &obj, const std::string &name);
+
+bool check_zero(const ADC_REGS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1RESULT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB1RESULT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2RESULT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB2RESULT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3RESULT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB3RESULT_REG &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4RESULT_BITS &obj, const std::string &name);
+
+bool check_zero(const ADCPPB4RESULT_REG &obj, const std::string &name);
+
+bool check_zero(const ADC_RESULT_REGS &obj, const std::string &name);
+
+bool check_zero(const INTOSC1TRIM_BITS &obj, const std::string &name);
+
+bool check_zero(const INTOSC1TRIM_REG &obj, const std::string &name);
+
+bool check_zero(const INTOSC2TRIM_BITS &obj, const std::string &name);
+
+bool check_zero(const INTOSC2TRIM_REG &obj, const std::string &name);
+
+bool check_zero(const TSNSCTL_BITS &obj, const std::string &name);
+
+bool check_zero(const TSNSCTL_REG &obj, const std::string &name);
+
+bool check_zero(const LOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const LOCK_REG &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMA_BITS &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMA_REG &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMB_BITS &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMB_REG &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMC_BITS &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMC_REG &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMD_BITS &obj, const std::string &name);
+
+bool check_zero(const ANAREFTRIMD_REG &obj, const std::string &name);
+
+bool check_zero(const ANALOG_SUBSYS_REGS &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUX0TO15CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUX0TO15CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUX16TO31CFG_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUX16TO31CFG_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP4MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP5MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP7MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP8MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP9MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP10MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP11MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUXENABLE_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIP12MUXENABLE_REG &obj, const std::string &name);
+
+bool check_zero(const TRIPOUTINV_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIPOUTINV_REG &obj, const std::string &name);
+
+bool check_zero(const TRIPLOCK_BITS &obj, const std::string &name);
+
+bool check_zero(const TRIPLOCK_REG &obj, const std::string &name);
+
+bool check_zero(const EPWM_XBAR_REGS &obj, const std::string &name);
