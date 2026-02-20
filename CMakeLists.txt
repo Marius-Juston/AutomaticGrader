@@ -12,6 +12,14 @@ set(CMAKE_CXX_STANDARD 20)
 #        "${PROJECT_SOURCE_DIR}/lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/source/*.c"
 #)
 
+if(DEFINED ENV{HW})
+    set(HW $ENV{HW} CACHE STRING "Homework number to build" FORCE)
+elseif(NOT DEFINED HW)
+    set(HW 1 CACHE STRING "Homework number to build" FORCE)
+endif()
+
+message(STATUS "Building for Homework: HW=${HW}")
+
 add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/ti_stubs.cpp
         src/OptiTrack.c
         src/SE423Lib.c
@@ -19,13 +27,15 @@ add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/t
         src/MatrixMath.c
         src/lidar.cpp
         src/LEDPatterns.c
-        src/checks/hw1.cpp
+        src/checks/hw${HW}.cpp
         src/checks/validator.cpp
         src/checks/stat_checker.cpp
         src/checks/generated.cpp
         #        ${DRIVER_SOURCES}
         #        ${DEVICE_SOURCES}
 )
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE HW=${HW})
 
 
 #target_compile_definitions(${PROJECT_NAME} PRIVATE CPU1)
@@ -43,8 +53,9 @@ target_include_directories(${PROJECT_NAME}
         ${PROJECT_SOURCE_DIR}/include
 )
 
-target_compile_options(${PROJECT_NAME}
-        PRIVATE
+target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:-Wno-volatile>
+        $<$<COMPILE_LANGUAGE:C>:-Wno-pointer-to-int-cast>
         -include ti_stubs.h
 )
 
@@ -62,9 +73,6 @@ target_include_directories(${PROJECT_NAME}
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -Wno-pointer-to-int-cast")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-volatile -Wno-pointer-to-int-cast")
 
 set_source_files_properties(
         student_work/LABstarter_main.c
