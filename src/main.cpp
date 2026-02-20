@@ -1,5 +1,23 @@
 #include <iostream>
 #include "ti_stubs.h"
+#include "checks/validator.h"
+
+#ifdef HW1
+#include "checks/hw1.h"
+#endif
+
+
+#ifdef HW2
+#include "checks/hw2.h"
+#endif
+
+#ifdef HW3
+#include "checks/hw3.h"
+#endif
+
+#ifdef HW4
+#include "checks/hw4.h"
+#endif
 
 
 extern "C" {
@@ -26,6 +44,10 @@ int main() {
         // TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
         std::cout << "i = " << i << std::endl;
     }
+
+
+    const Validator validator = get_validator();
+    int result = validator.check();
 
     int out = temp_main();
 

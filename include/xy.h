@@ -5,6 +5,7 @@
 #define MAX(A,B)		(((A) > (B)) ? (A) : (B));
 
 /* USER_XY.C */
-int16_t xy_control(float *vref_forxy, float *turn_forxy,float turn_thres, float x_pos,float y_pos,float x_desired,float y_desired,float thetaabs,float target_radius,float target_radius_near);
+int16_t xy_control(float *vref_forxy, float *turn_forxy, float turn_thres, float x_pos, float y_pos, float x_desired,
+                   float y_desired, float thetaabs, float target_radius, float target_radius_near);
 
 #endif

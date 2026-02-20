@@ -18,23 +18,23 @@
 #define LSPCLK_HZ       (LSPCLK_KHZ*1000L)
 
 typedef struct serialSCIA_s {
-	volatile struct bufferSCIA_s TX;
-	volatile struct SCI_REGS *sci;
+    volatile struct bufferSCIA_s TX;
+    volatile struct SCI_REGS *sci;
 } serialSCIA_t;
 
 typedef struct serialSCIB_s {
-	volatile struct bufferSCIB_s TX;
-	volatile struct SCI_REGS *sci;
+    volatile struct bufferSCIB_s TX;
+    volatile struct SCI_REGS *sci;
 } serialSCIB_t;
 
 typedef struct serialSCIC_s {
-	volatile struct bufferSCIC_s TX;
-	volatile struct SCI_REGS *sci;
+    volatile struct bufferSCIC_s TX;
+    volatile struct SCI_REGS *sci;
 } serialSCIC_t;
 
 typedef struct serialSCID_s {
-	volatile struct bufferSCID_s TX;
-	volatile struct SCI_REGS *sci;
+    volatile struct bufferSCID_s TX;
+    volatile struct SCI_REGS *sci;
 } serialSCID_t;
 
 
@@ -44,33 +44,50 @@ extern serialSCIC_t SerialC;
 extern serialSCID_t SerialD;
 
 uint16_t init_serialSCIA(serialSCIA_t *s, Uint32 baud);
+
 void uninit_serialSCIA(serialSCIA_t *s);
+
 uint16_t serial_sendSCIA(serialSCIA_t *s, char *data, Uint16 len);
+
 uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...);
 
 // For Text LCD
 void UART_printfLine(unsigned char line, char *format, ...);
+
 // void UART_vprintfLine(unsigned char line, char *format, va_list ap);
 
 uint16_t init_serialSCIB(serialSCIB_t *s, Uint32 baud);
+
 void uninit_serialSCIB(serialSCIB_t *s);
+
 uint16_t serial_sendSCIB(serialSCIB_t *s, char *data, Uint16 len);
 
 uint16_t init_serialSCIC(serialSCIC_t *s, Uint32 baud);
+
 void uninit_serialSCIC(serialSCIC_t *s);
+
 uint16_t serial_sendSCIC(serialSCIC_t *s, char *data, Uint16 len);
 
 uint16_t init_serialSCID(serialSCID_t *s, Uint32 baud);
+
 void uninit_serialSCID(serialSCID_t *s);
+
 uint16_t serial_sendSCID(serialSCID_t *s, char *data, Uint16 len);
 
 __interrupt void TXAINT_data_sent(void);
+
 __interrupt void TXBINT_data_sent(void);
+
 __interrupt void TXCINT_data_sent(void);
+
 __interrupt void TXDINT_data_sent(void);
+
 __interrupt void RXAINT_recv_ready(void);
+
 __interrupt void RXBINT_recv_ready(void);
+
 __interrupt void RXCINT_recv_ready(void);
+
 __interrupt void RXDINT_recv_ready(void);
 
 

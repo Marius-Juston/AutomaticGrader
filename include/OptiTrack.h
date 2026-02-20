@@ -3,7 +3,8 @@
 
 #include "lidar.h"
 
-pose UpdateOptitrackStates(pose localROBOTps, int16_t * flag);
+pose UpdateOptitrackStates(pose localROBOTps, int16_t *flag);
+
 #define FEETINONEMETER 3.28083989501312
 
 #endif

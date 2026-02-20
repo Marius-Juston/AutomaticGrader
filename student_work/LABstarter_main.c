@@ -642,3 +642,14 @@ void InitDma(void)
 } // end InitDma()
 //!!!!!!!!!!!!!!!!!!!!!!  End of Block
 
+
+
+float saturate(float value, float sat) {
+    float actual = value;
+
+    if (value > sat) {
+        actual = sat;
+    }
+
+    return actual;
+}

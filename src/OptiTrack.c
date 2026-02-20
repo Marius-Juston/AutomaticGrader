@@ -15,31 +15,31 @@ uint32_t OptitrackableIDerror = 0;
 uint16_t Optifirstdata = 1;
 int32_t OptitrackableID = -1;
 
-pose UpdateOptitrackStates(pose localROBOTps, int16_t * flag) {
-
+pose UpdateOptitrackStates(pose localROBOTps, int16_t *flag) {
     pose localOPTITRACKps;
 
     // Check for frame errors / packet loss
-    if (Optiprevious_frame == Optitrackdata[OPTITRACKDATASIZE-1]) {
+    if (Optiprevious_frame == Optitrackdata[OPTITRACKDATASIZE - 1]) {
         Optiframe_error++;
     }
-    Optiprevious_frame = Optitrackdata[OPTITRACKDATASIZE-1];
+    Optiprevious_frame = Optitrackdata[OPTITRACKDATASIZE - 1];
 
     // Set local trackableID if first receive data
-    if (Optifirstdata){
+    if (Optifirstdata) {
         //trackableID = (int)Optitrackdata[OPTITRACKDATASIZE-1]; // removed to add new trackableID in shared memory
-        OptitrackableID = Optitrackdata[OPTITRACKDATASIZE-2];
+        OptitrackableID = Optitrackdata[OPTITRACKDATASIZE - 2];
         Optifirstdata = 0;
     }
 
     // Check if local trackableID has changed - should never happen
-    if (OptitrackableID != Optitrackdata[OPTITRACKDATASIZE-2]) {
+    if (OptitrackableID != Optitrackdata[OPTITRACKDATASIZE - 2]) {
         OptitrackableIDerror++;
         // do some sort of reset(?)
     }
 
     // Save position and yaw data
-    if (isnan(Optitrackdata[0]) != 1) {  // this checks if the position data being received contains NaNs
+    if (isnan(Optitrackdata[0]) != 1) {
+        // this checks if the position data being received contains NaNs
         // check if x,y,yaw all equal 0.0 (almost certainly means the robot is untracked)
         if ((Optitrackdata[0] != 0.0) && (Optitrackdata[1] != 0.0) && (Optitrackdata[2] != 0.0)) {
             // save x,y
@@ -49,37 +49,49 @@ pose UpdateOptitrackStates(pose localROBOTps, int16_t * flag) {
             //localOPTITRACKps.y = -1.0*Optitrackdata[1]*FEETINONEMETER+4.0;
 
             // This is the new coordinates for Motive
-            localOPTITRACKps.x = -1.0*Optitrackdata[0]*FEETINONEMETER;
-            localOPTITRACKps.y = Optitrackdata[1]*FEETINONEMETER+4.0;
+            localOPTITRACKps.x = -1.0 * Optitrackdata[0] * FEETINONEMETER;
+            localOPTITRACKps.y = Optitrackdata[1] * FEETINONEMETER + 4.0;
 
             // make this a function
-            Optitemp_theta = fmodf(localROBOTps.theta,(float)(2*PI));//(theta[trackableID]%(2*PI));
+            Optitemp_theta = fmodf(localROBOTps.theta, (float) (2 * PI)); //(theta[trackableID]%(2*PI));
             OptitempOPTITRACK_theta = Optitrackdata[2];
             if (Optitemp_theta > 0) {
                 if (Optitemp_theta < PI) {
                     if (OptitempOPTITRACK_theta >= 0.0) {
                         // THETA > 0, kal in QI/II, OT in QI/II
-                        localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                        localOPTITRACKps.theta =
+                                ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + OptitempOPTITRACK_theta * 2 *
+                                PI / 360.0;
                     } else {
-                        if (Optitemp_theta > (PI/2)) {
+                        if (Optitemp_theta > (PI / 2)) {
                             // THETA > 0, kal in QII, OT in QIII
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + PI + (PI + OptitempOPTITRACK_theta*2*PI/360.0);
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + PI + (
+                                        PI + OptitempOPTITRACK_theta * 2 * PI / 360.0);
                         } else {
                             // THETA > 0, kal in QI, OT in QIV
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + OptitempOPTITRACK_theta *
+                                    2 * PI / 360.0;
                         }
                     }
                 } else {
                     if (OptitempOPTITRACK_theta <= 0.0) {
                         // THETA > 0, kal in QIII, OT in QIII
-                        localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + PI + (PI + OptitempOPTITRACK_theta*2*PI/360.0);
+                        localOPTITRACKps.theta =
+                                ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + PI + (
+                                    PI + OptitempOPTITRACK_theta * 2 * PI / 360.0);
                     } else {
-                        if (Optitemp_theta > (3*PI/2)) {
+                        if (Optitemp_theta > (3 * PI / 2)) {
                             // THETA > 0, kal in QIV, OT in QI
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + 2*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + 2 * PI +
+                                    OptitempOPTITRACK_theta * 2 * PI / 360.0;
                         } else {
                             // THETA > 0, kal in QIII, OT in QII
-                            localOPTITRACKps.theta = (floorf((localROBOTps.theta)/((float)(2.0*PI))))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    (floorf((localROBOTps.theta) / ((float) (2.0 * PI)))) * 2.0 * PI +
+                                    OptitempOPTITRACK_theta * 2 * PI / 360.0;
                         }
                     }
                 }
@@ -87,27 +99,39 @@ pose UpdateOptitrackStates(pose localROBOTps, int16_t * flag) {
                 if (Optitemp_theta > -PI) {
                     if (OptitempOPTITRACK_theta <= 0.0) {
                         // THETA < 0, kal in QIII/IV, OT in QIII/IV
-                        localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                        localOPTITRACKps.theta =
+                                ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + OptitempOPTITRACK_theta * 2 *
+                                PI / 360.0;
                     } else {
-                        if (Optitemp_theta < (-PI/2)) {
+                        if (Optitemp_theta < (-PI / 2)) {
                             // THETA < 0, kal in QIII, OT in QII
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI - PI + (-PI + OptitempOPTITRACK_theta*2*PI/360.0);
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI - PI + (
+                                        -PI + OptitempOPTITRACK_theta * 2 * PI / 360.0);
                         } else {
                             // THETA < 0, kal in QIV, OT in QI
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + OptitempOPTITRACK_theta *
+                                    2 * PI / 360.0;
                         }
                     }
                 } else {
                     if (OptitempOPTITRACK_theta >= 0.0) {
                         // THETA < 0, kal in QI/II, OT in QI/II
-                        localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI - PI + (-PI + OptitempOPTITRACK_theta*2*PI/360.0);
+                        localOPTITRACKps.theta =
+                                ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI - PI + (
+                                    -PI + OptitempOPTITRACK_theta * 2 * PI / 360.0);
                     } else {
-                        if (Optitemp_theta < (-3*PI/2)) {
+                        if (Optitemp_theta < (-3 * PI / 2)) {
                             // THETA < 0, kal in QI, OT in QIV
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI - 2*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI - 2 * PI +
+                                    OptitempOPTITRACK_theta * 2 * PI / 360.0;
                         } else {
                             // THETA < 0, kal in QII, OT in QIII
-                            localOPTITRACKps.theta = ((int16_t)((localROBOTps.theta)/(2*PI)))*2.0*PI + OptitempOPTITRACK_theta*2*PI/360.0;
+                            localOPTITRACKps.theta =
+                                    ((int16_t)((localROBOTps.theta) / (2 * PI))) * 2.0 * PI + OptitempOPTITRACK_theta *
+                                    2 * PI / 360.0;
                         }
                     }
                 }
@@ -117,4 +141,3 @@ pose UpdateOptitrackStates(pose localROBOTps, int16_t * flag) {
     }
     return localOPTITRACKps;
 }
-
