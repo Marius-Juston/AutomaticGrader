@@ -1,0 +1,8 @@
+//
+// Created by Marius on 2/20/2026.
+//
+
+#ifndef AUTOMATICGRADER_DEVICE_H
+#define AUTOMATICGRADER_DEVICE_H
+
+#endif //AUTOMATICGRADER_DEVICE_H
