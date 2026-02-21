@@ -28,7 +28,8 @@ int Validator::check() const {
     return result;
 }
 
-__attribute__((weak))
+__attribute__ ((weak))
+
 CheckFunctions checker() {
     return {};
 }

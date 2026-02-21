@@ -24,7 +24,7 @@ public:
     }
 
     template<typename T>
-    void register_comparison(const std::string &reg_name, const T &actual_reg, const T& expected_state) {
+    void register_comparison(const std::string &reg_name, const T &actual_reg, const T &expected_state) {
         tracker_[reg_name] = [&actual_reg, expected_state = std::move(expected_state), reg_name]() -> bool {
             return check_compare(actual_reg, expected_state, reg_name);
         };
@@ -33,7 +33,7 @@ public:
     template<typename T, std::size_t N>
     void register_comparison(const std::string &reg_name, const T (&actual_reg)[N], const T (&expected_state)[N]) {
         tracker_[reg_name] = [&actual_reg, expected_state = std::to_array(expected_state), reg_name]() -> bool {
-        return check_compare(actual_reg, expected_state, reg_name);
+            return check_compare(actual_reg, expected_state, reg_name);
         };
     }
 

@@ -4,7 +4,7 @@
 template<typename T>
 bool check_compare(const T &value, const T &expected, const std::string &name) {
     if (value != expected) {
-        std::cout << name << " expected to be "<< expected << " but was " << value<< std::endl ;
+        std::cout << name << " expected to be " << expected << " but was " << value << std::endl;
         return false;
     }
     return true;
@@ -90,7 +90,8 @@ bool check_compare(const ADCCTL2_REG &obj, const ADCCTL2_REG &expected, const st
 bool check_compare(const ADCBURSTCTL_BITS &obj, const ADCBURSTCTL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.BURSTTRIGSEL, expected.BURSTTRIGSEL, name + " " + "5:0 SOC Burst Trigger Source Select");
+    all_zero &= check_compare(obj.BURSTTRIGSEL, expected.BURSTTRIGSEL,
+                              name + " " + "5:0 SOC Burst Trigger Source Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:6 Reserved");
     all_zero &= check_compare(obj.BURSTSIZE, expected.BURSTSIZE, name + " " + "11:8 SOC Burst Size Select");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "14:12 Reserved");
@@ -420,12 +421,18 @@ bool check_compare(const ADCSOCOVFCLR1_BITS &obj, const ADCSOCOVFCLR1_BITS &expe
     all_zero &= check_compare(obj.SOC7, expected.SOC7, name + " " + "7 SOC7 Clear Start of Conversion Overflow Bit");
     all_zero &= check_compare(obj.SOC8, expected.SOC8, name + " " + "8 SOC8 Clear Start of Conversion Overflow Bit");
     all_zero &= check_compare(obj.SOC9, expected.SOC9, name + " " + "9 SOC9 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC10, expected.SOC10, name + " " + "10 SOC10 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC11, expected.SOC11, name + " " + "11 SOC11 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC12, expected.SOC12, name + " " + "12 SOC12 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC13, expected.SOC13, name + " " + "13 SOC13 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC14, expected.SOC14, name + " " + "14 SOC14 Clear Start of Conversion Overflow Bit");
-    all_zero &= check_compare(obj.SOC15, expected.SOC15, name + " " + "15 SOC15 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC10, expected.SOC10,
+                              name + " " + "10 SOC10 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC11, expected.SOC11,
+                              name + " " + "11 SOC11 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC12, expected.SOC12,
+                              name + " " + "12 SOC12 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC13, expected.SOC13,
+                              name + " " + "13 SOC13 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC14, expected.SOC14,
+                              name + " " + "14 SOC14 Clear Start of Conversion Overflow Bit");
+    all_zero &= check_compare(obj.SOC15, expected.SOC15,
+                              name + " " + "15 SOC15 Clear Start of Conversion Overflow Bit");
 
     return all_zero;
 }
@@ -794,21 +801,33 @@ bool check_compare(const ADCSOC15CTL_REG &obj, const ADCSOC15CTL_REG &expected, 
 bool check_compare(const ADCEVTSTAT_BITS &obj, const ADCEVTSTAT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI, name + " " + "0 Post Processing Block 1 Trip High Flag");
-    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO, name + " " + "1 Post Processing Block 1 Trip Low Flag");
-    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO, name + " " + "2 Post Processing Block 1 Zero Crossing Flag");
+    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI,
+                              name + " " + "0 Post Processing Block 1 Trip High Flag");
+    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO,
+                              name + " " + "1 Post Processing Block 1 Trip Low Flag");
+    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO,
+                              name + " " + "2 Post Processing Block 1 Zero Crossing Flag");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI, name + " " + "4 Post Processing Block 2 Trip High Flag");
-    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO, name + " " + "5 Post Processing Block 2 Trip Low Flag");
-    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO, name + " " + "6 Post Processing Block 2 Zero Crossing Flag");
+    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI,
+                              name + " " + "4 Post Processing Block 2 Trip High Flag");
+    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO,
+                              name + " " + "5 Post Processing Block 2 Trip Low Flag");
+    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO,
+                              name + " " + "6 Post Processing Block 2 Zero Crossing Flag");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI, name + " " + "8 Post Processing Block 3 Trip High Flag");
-    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO, name + " " + "9 Post Processing Block 3 Trip Low Flag");
-    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO, name + " " + "10 Post Processing Block 3 Zero Crossing Flag");
+    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI,
+                              name + " " + "8 Post Processing Block 3 Trip High Flag");
+    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO,
+                              name + " " + "9 Post Processing Block 3 Trip Low Flag");
+    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO,
+                              name + " " + "10 Post Processing Block 3 Zero Crossing Flag");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
-    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI, name + " " + "12 Post Processing Block 4 Trip High Flag");
-    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO, name + " " + "13 Post Processing Block 4 Trip Low Flag");
-    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO, name + " " + "14 Post Processing Block 4 Zero Crossing Flag");
+    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI,
+                              name + " " + "12 Post Processing Block 4 Trip High Flag");
+    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO,
+                              name + " " + "13 Post Processing Block 4 Trip Low Flag");
+    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO,
+                              name + " " + "14 Post Processing Block 4 Zero Crossing Flag");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "15 Reserved");
 
     return all_zero;
@@ -826,21 +845,33 @@ bool check_compare(const ADCEVTSTAT_REG &obj, const ADCEVTSTAT_REG &expected, co
 bool check_compare(const ADCEVTCLR_BITS &obj, const ADCEVTCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI, name + " " + "0 Post Processing Block 1 Trip High Clear");
-    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO, name + " " + "1 Post Processing Block 1 Trip Low Clear");
-    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO, name + " " + "2 Post Processing Block 1 Zero Crossing Clear");
+    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI,
+                              name + " " + "0 Post Processing Block 1 Trip High Clear");
+    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO,
+                              name + " " + "1 Post Processing Block 1 Trip Low Clear");
+    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO,
+                              name + " " + "2 Post Processing Block 1 Zero Crossing Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI, name + " " + "4 Post Processing Block 2 Trip High Clear");
-    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO, name + " " + "5 Post Processing Block 2 Trip Low Clear");
-    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO, name + " " + "6 Post Processing Block 2 Zero Crossing Clear");
+    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI,
+                              name + " " + "4 Post Processing Block 2 Trip High Clear");
+    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO,
+                              name + " " + "5 Post Processing Block 2 Trip Low Clear");
+    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO,
+                              name + " " + "6 Post Processing Block 2 Zero Crossing Clear");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI, name + " " + "8 Post Processing Block 3 Trip High Clear");
-    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO, name + " " + "9 Post Processing Block 3 Trip Low Clear");
-    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO, name + " " + "10 Post Processing Block 3 Zero Crossing Clear");
+    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI,
+                              name + " " + "8 Post Processing Block 3 Trip High Clear");
+    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO,
+                              name + " " + "9 Post Processing Block 3 Trip Low Clear");
+    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO,
+                              name + " " + "10 Post Processing Block 3 Zero Crossing Clear");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
-    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI, name + " " + "12 Post Processing Block 4 Trip High Clear");
-    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO, name + " " + "13 Post Processing Block 4 Trip Low Clear");
-    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO, name + " " + "14 Post Processing Block 4 Zero Crossing Clear");
+    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI,
+                              name + " " + "12 Post Processing Block 4 Trip High Clear");
+    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO,
+                              name + " " + "13 Post Processing Block 4 Trip Low Clear");
+    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO,
+                              name + " " + "14 Post Processing Block 4 Zero Crossing Clear");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "15 Reserved");
 
     return all_zero;
@@ -858,21 +889,33 @@ bool check_compare(const ADCEVTCLR_REG &obj, const ADCEVTCLR_REG &expected, cons
 bool check_compare(const ADCEVTSEL_BITS &obj, const ADCEVTSEL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI, name + " " + "0 Post Processing Block 1 Trip High Event Enable");
-    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO, name + " " + "1 Post Processing Block 1 Trip Low Event Enable");
-    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO, name + " " + "2 Post Processing Block 1 Zero Crossing Event Enable");
+    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI,
+                              name + " " + "0 Post Processing Block 1 Trip High Event Enable");
+    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO,
+                              name + " " + "1 Post Processing Block 1 Trip Low Event Enable");
+    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO,
+                              name + " " + "2 Post Processing Block 1 Zero Crossing Event Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI, name + " " + "4 Post Processing Block 2 Trip High Event Enable");
-    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO, name + " " + "5 Post Processing Block 2 Trip Low Event Enable");
-    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO, name + " " + "6 Post Processing Block 2 Zero Crossing Event Enable");
+    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI,
+                              name + " " + "4 Post Processing Block 2 Trip High Event Enable");
+    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO,
+                              name + " " + "5 Post Processing Block 2 Trip Low Event Enable");
+    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO,
+                              name + " " + "6 Post Processing Block 2 Zero Crossing Event Enable");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI, name + " " + "8 Post Processing Block 3 Trip High Event Enable");
-    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO, name + " " + "9 Post Processing Block 3 Trip Low Event Enable");
-    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO, name + " " + "10 Post Processing Block 3 Zero Crossing Event Enable");
+    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI,
+                              name + " " + "8 Post Processing Block 3 Trip High Event Enable");
+    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO,
+                              name + " " + "9 Post Processing Block 3 Trip Low Event Enable");
+    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO,
+                              name + " " + "10 Post Processing Block 3 Zero Crossing Event Enable");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
-    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI, name + " " + "12 Post Processing Block 4 Trip High Event Enable");
-    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO, name + " " + "13 Post Processing Block 4 Trip Low Event Enable");
-    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO, name + " " + "14 Post Processing Block 4 Zero Crossing Event Enable");
+    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI,
+                              name + " " + "12 Post Processing Block 4 Trip High Event Enable");
+    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO,
+                              name + " " + "13 Post Processing Block 4 Trip Low Event Enable");
+    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO,
+                              name + " " + "14 Post Processing Block 4 Zero Crossing Event Enable");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "15 Reserved");
 
     return all_zero;
@@ -890,21 +933,33 @@ bool check_compare(const ADCEVTSEL_REG &obj, const ADCEVTSEL_REG &expected, cons
 bool check_compare(const ADCEVTINTSEL_BITS &obj, const ADCEVTINTSEL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI, name + " " + "0 Post Processing Block 1 Trip High Interrupt Enable");
-    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO, name + " " + "1 Post Processing Block 1 Trip Low Interrupt Enable");
-    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO, name + " " + "2 Post Processing Block 1 Zero Crossing Interrupt Enable");
+    all_zero &= check_compare(obj.PPB1TRIPHI, expected.PPB1TRIPHI,
+                              name + " " + "0 Post Processing Block 1 Trip High Interrupt Enable");
+    all_zero &= check_compare(obj.PPB1TRIPLO, expected.PPB1TRIPLO,
+                              name + " " + "1 Post Processing Block 1 Trip Low Interrupt Enable");
+    all_zero &= check_compare(obj.PPB1ZERO, expected.PPB1ZERO,
+                              name + " " + "2 Post Processing Block 1 Zero Crossing Interrupt Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI, name + " " + "4 Post Processing Block 2 Trip High Interrupt Enable");
-    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO, name + " " + "5 Post Processing Block 2 Trip Low Interrupt Enable");
-    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO, name + " " + "6 Post Processing Block 2 Zero Crossing Interrupt Enable");
+    all_zero &= check_compare(obj.PPB2TRIPHI, expected.PPB2TRIPHI,
+                              name + " " + "4 Post Processing Block 2 Trip High Interrupt Enable");
+    all_zero &= check_compare(obj.PPB2TRIPLO, expected.PPB2TRIPLO,
+                              name + " " + "5 Post Processing Block 2 Trip Low Interrupt Enable");
+    all_zero &= check_compare(obj.PPB2ZERO, expected.PPB2ZERO,
+                              name + " " + "6 Post Processing Block 2 Zero Crossing Interrupt Enable");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI, name + " " + "8 Post Processing Block 3 Trip High Interrupt Enable");
-    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO, name + " " + "9 Post Processing Block 3 Trip Low Interrupt Enable");
-    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO, name + " " + "10 Post Processing Block 3 Zero Crossing Interrupt Enable");
+    all_zero &= check_compare(obj.PPB3TRIPHI, expected.PPB3TRIPHI,
+                              name + " " + "8 Post Processing Block 3 Trip High Interrupt Enable");
+    all_zero &= check_compare(obj.PPB3TRIPLO, expected.PPB3TRIPLO,
+                              name + " " + "9 Post Processing Block 3 Trip Low Interrupt Enable");
+    all_zero &= check_compare(obj.PPB3ZERO, expected.PPB3ZERO,
+                              name + " " + "10 Post Processing Block 3 Zero Crossing Interrupt Enable");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
-    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI, name + " " + "12 Post Processing Block 4 Trip High Interrupt Enable");
-    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO, name + " " + "13 Post Processing Block 4 Trip Low Interrupt Enable");
-    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO, name + " " + "14 Post Processing Block 4 Zero Crossing Interrupt Enable");
+    all_zero &= check_compare(obj.PPB4TRIPHI, expected.PPB4TRIPHI,
+                              name + " " + "12 Post Processing Block 4 Trip High Interrupt Enable");
+    all_zero &= check_compare(obj.PPB4TRIPLO, expected.PPB4TRIPLO,
+                              name + " " + "13 Post Processing Block 4 Trip Low Interrupt Enable");
+    all_zero &= check_compare(obj.PPB4ZERO, expected.PPB4ZERO,
+                              name + " " + "14 Post Processing Block 4 Zero Crossing Interrupt Enable");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "15 Reserved");
 
     return all_zero;
@@ -922,7 +977,8 @@ bool check_compare(const ADCEVTINTSEL_REG &obj, const ADCEVTINTSEL_REG &expected
 bool check_compare(const ADCOSDETECT_BITS &obj, const ADCOSDETECT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DETECTCFG, expected.DETECTCFG, name + " " + "2:0 ADC Opens and Shorts Detect Configuration");
+    all_zero &= check_compare(obj.DETECTCFG, expected.DETECTCFG,
+                              name + " " + "2:0 ADC Opens and Shorts Detect Configuration");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
 
     return all_zero;
@@ -994,8 +1050,10 @@ bool check_compare(const ADCOFFTRIM_REG &obj, const ADCOFFTRIM_REG &expected, co
 bool check_compare(const ADCPPB1CONFIG_BITS &obj, const ADCPPB1CONFIG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CONFIG, expected.CONFIG, name + " " + "3:0 ADC Post Processing Block 1 Configuration");
-    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN, name + " " + "4 ADC Post Processing Block 1 Two's Complement Enable");
+    all_zero &= check_compare(obj.CONFIG, expected.CONFIG,
+                              name + " " + "3:0 ADC Post Processing Block 1 Configuration");
+    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN,
+                              name + " " + "4 ADC Post Processing Block 1 Two's Complement Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:5 Reserved");
 
     return all_zero;
@@ -1013,7 +1071,8 @@ bool check_compare(const ADCPPB1CONFIG_REG &obj, const ADCPPB1CONFIG_REG &expect
 bool check_compare(const ADCPPB1STAMP_BITS &obj, const ADCPPB1STAMP_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP, name + " " + "11:0 ADC Post Processing Block 1 Delay Time Stamp");
+    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP,
+                              name + " " + "11:0 ADC Post Processing Block 1 Delay Time Stamp");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -1031,7 +1090,8 @@ bool check_compare(const ADCPPB1STAMP_REG &obj, const ADCPPB1STAMP_REG &expected
 bool check_compare(const ADCPPB1OFFCAL_BITS &obj, const ADCPPB1OFFCAL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL, name + " " + "9:0 ADC Post Processing Block Offset Correction");
+    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL,
+                              name + " " + "9:0 ADC Post Processing Block Offset Correction");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
     return all_zero;
@@ -1049,7 +1109,8 @@ bool check_compare(const ADCPPB1OFFCAL_REG &obj, const ADCPPB1OFFCAL_REG &expect
 bool check_compare(const ADCPPB1TRIPHI_BITS &obj, const ADCPPB1TRIPHI_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI, name + " " + "15:0 ADC Post Processing Block 1 Trip High Limit");
+    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI,
+                              name + " " + "15:0 ADC Post Processing Block 1 Trip High Limit");
     all_zero &= check_compare(obj.HSIGN, expected.HSIGN, name + " " + "16 High Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:17 Reserved");
 
@@ -1068,10 +1129,12 @@ bool check_compare(const ADCPPB1TRIPHI_REG &obj, const ADCPPB1TRIPHI_REG &expect
 bool check_compare(const ADCPPB1TRIPLO_BITS &obj, const ADCPPB1TRIPLO_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO, name + " " + "15:0 ADC Post Processing Block 1 Trip Low Limit");
+    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO,
+                              name + " " + "15:0 ADC Post Processing Block 1 Trip Low Limit");
     all_zero &= check_compare(obj.LSIGN, expected.LSIGN, name + " " + "16 Low Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:17 Reserved");
-    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP, name + " " + "31:20 ADC Post Processing Block 1 Request Time Stamp");
+    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP,
+                              name + " " + "31:20 ADC Post Processing Block 1 Request Time Stamp");
 
     return all_zero;
 }
@@ -1088,8 +1151,10 @@ bool check_compare(const ADCPPB1TRIPLO_REG &obj, const ADCPPB1TRIPLO_REG &expect
 bool check_compare(const ADCPPB2CONFIG_BITS &obj, const ADCPPB2CONFIG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CONFIG, expected.CONFIG, name + " " + "3:0 ADC Post Processing Block 2 Configuration");
-    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN, name + " " + "4 ADC Post Processing Block 2 Two's Complement Enable");
+    all_zero &= check_compare(obj.CONFIG, expected.CONFIG,
+                              name + " " + "3:0 ADC Post Processing Block 2 Configuration");
+    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN,
+                              name + " " + "4 ADC Post Processing Block 2 Two's Complement Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:5 Reserved");
 
     return all_zero;
@@ -1107,7 +1172,8 @@ bool check_compare(const ADCPPB2CONFIG_REG &obj, const ADCPPB2CONFIG_REG &expect
 bool check_compare(const ADCPPB2STAMP_BITS &obj, const ADCPPB2STAMP_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP, name + " " + "11:0 ADC Post Processing Block 2 Delay Time Stamp");
+    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP,
+                              name + " " + "11:0 ADC Post Processing Block 2 Delay Time Stamp");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -1125,7 +1191,8 @@ bool check_compare(const ADCPPB2STAMP_REG &obj, const ADCPPB2STAMP_REG &expected
 bool check_compare(const ADCPPB2OFFCAL_BITS &obj, const ADCPPB2OFFCAL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL, name + " " + "9:0 ADC Post Processing Block Offset Correction");
+    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL,
+                              name + " " + "9:0 ADC Post Processing Block Offset Correction");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
     return all_zero;
@@ -1143,7 +1210,8 @@ bool check_compare(const ADCPPB2OFFCAL_REG &obj, const ADCPPB2OFFCAL_REG &expect
 bool check_compare(const ADCPPB2TRIPHI_BITS &obj, const ADCPPB2TRIPHI_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI, name + " " + "15:0 ADC Post Processing Block 2 Trip High Limit");
+    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI,
+                              name + " " + "15:0 ADC Post Processing Block 2 Trip High Limit");
     all_zero &= check_compare(obj.HSIGN, expected.HSIGN, name + " " + "16 High Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:17 Reserved");
 
@@ -1162,10 +1230,12 @@ bool check_compare(const ADCPPB2TRIPHI_REG &obj, const ADCPPB2TRIPHI_REG &expect
 bool check_compare(const ADCPPB2TRIPLO_BITS &obj, const ADCPPB2TRIPLO_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO, name + " " + "15:0 ADC Post Processing Block 2 Trip Low Limit");
+    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO,
+                              name + " " + "15:0 ADC Post Processing Block 2 Trip Low Limit");
     all_zero &= check_compare(obj.LSIGN, expected.LSIGN, name + " " + "16 Low Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:17 Reserved");
-    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP, name + " " + "31:20 ADC Post Processing Block 2 Request Time Stamp");
+    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP,
+                              name + " " + "31:20 ADC Post Processing Block 2 Request Time Stamp");
 
     return all_zero;
 }
@@ -1182,8 +1252,10 @@ bool check_compare(const ADCPPB2TRIPLO_REG &obj, const ADCPPB2TRIPLO_REG &expect
 bool check_compare(const ADCPPB3CONFIG_BITS &obj, const ADCPPB3CONFIG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CONFIG, expected.CONFIG, name + " " + "3:0 ADC Post Processing Block 3 Configuration");
-    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN, name + " " + "4 ADC Post Processing Block 3 Two's Complement Enable");
+    all_zero &= check_compare(obj.CONFIG, expected.CONFIG,
+                              name + " " + "3:0 ADC Post Processing Block 3 Configuration");
+    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN,
+                              name + " " + "4 ADC Post Processing Block 3 Two's Complement Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:5 Reserved");
 
     return all_zero;
@@ -1201,7 +1273,8 @@ bool check_compare(const ADCPPB3CONFIG_REG &obj, const ADCPPB3CONFIG_REG &expect
 bool check_compare(const ADCPPB3STAMP_BITS &obj, const ADCPPB3STAMP_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP, name + " " + "11:0 ADC Post Processing Block 3 Delay Time Stamp");
+    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP,
+                              name + " " + "11:0 ADC Post Processing Block 3 Delay Time Stamp");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -1219,7 +1292,8 @@ bool check_compare(const ADCPPB3STAMP_REG &obj, const ADCPPB3STAMP_REG &expected
 bool check_compare(const ADCPPB3OFFCAL_BITS &obj, const ADCPPB3OFFCAL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL, name + " " + "9:0 ADC Post Processing Block Offset Correction");
+    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL,
+                              name + " " + "9:0 ADC Post Processing Block Offset Correction");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
     return all_zero;
@@ -1237,7 +1311,8 @@ bool check_compare(const ADCPPB3OFFCAL_REG &obj, const ADCPPB3OFFCAL_REG &expect
 bool check_compare(const ADCPPB3TRIPHI_BITS &obj, const ADCPPB3TRIPHI_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI, name + " " + "15:0 ADC Post Processing Block 3 Trip High Limit");
+    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI,
+                              name + " " + "15:0 ADC Post Processing Block 3 Trip High Limit");
     all_zero &= check_compare(obj.HSIGN, expected.HSIGN, name + " " + "16 High Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:17 Reserved");
 
@@ -1256,10 +1331,12 @@ bool check_compare(const ADCPPB3TRIPHI_REG &obj, const ADCPPB3TRIPHI_REG &expect
 bool check_compare(const ADCPPB3TRIPLO_BITS &obj, const ADCPPB3TRIPLO_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO, name + " " + "15:0 ADC Post Processing Block 3 Trip Low Limit");
+    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO,
+                              name + " " + "15:0 ADC Post Processing Block 3 Trip Low Limit");
     all_zero &= check_compare(obj.LSIGN, expected.LSIGN, name + " " + "16 Low Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:17 Reserved");
-    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP, name + " " + "31:20 ADC Post Processing Block 3 Request Time Stamp");
+    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP,
+                              name + " " + "31:20 ADC Post Processing Block 3 Request Time Stamp");
 
     return all_zero;
 }
@@ -1276,8 +1353,10 @@ bool check_compare(const ADCPPB3TRIPLO_REG &obj, const ADCPPB3TRIPLO_REG &expect
 bool check_compare(const ADCPPB4CONFIG_BITS &obj, const ADCPPB4CONFIG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CONFIG, expected.CONFIG, name + " " + "3:0 ADC Post Processing Block 4 Configuration");
-    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN, name + " " + "4 ADC Post Processing Block 4 Two's Complement Enable");
+    all_zero &= check_compare(obj.CONFIG, expected.CONFIG,
+                              name + " " + "3:0 ADC Post Processing Block 4 Configuration");
+    all_zero &= check_compare(obj.TWOSCOMPEN, expected.TWOSCOMPEN,
+                              name + " " + "4 ADC Post Processing Block 4 Two's Complement Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:5 Reserved");
 
     return all_zero;
@@ -1295,7 +1374,8 @@ bool check_compare(const ADCPPB4CONFIG_REG &obj, const ADCPPB4CONFIG_REG &expect
 bool check_compare(const ADCPPB4STAMP_BITS &obj, const ADCPPB4STAMP_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP, name + " " + "11:0 ADC Post Processing Block 4 Delay Time Stamp");
+    all_zero &= check_compare(obj.DLYSTAMP, expected.DLYSTAMP,
+                              name + " " + "11:0 ADC Post Processing Block 4 Delay Time Stamp");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -1313,7 +1393,8 @@ bool check_compare(const ADCPPB4STAMP_REG &obj, const ADCPPB4STAMP_REG &expected
 bool check_compare(const ADCPPB4OFFCAL_BITS &obj, const ADCPPB4OFFCAL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL, name + " " + "9:0 ADC Post Processing Block Offset Correction");
+    all_zero &= check_compare(obj.OFFCAL, expected.OFFCAL,
+                              name + " " + "9:0 ADC Post Processing Block Offset Correction");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
     return all_zero;
@@ -1331,7 +1412,8 @@ bool check_compare(const ADCPPB4OFFCAL_REG &obj, const ADCPPB4OFFCAL_REG &expect
 bool check_compare(const ADCPPB4TRIPHI_BITS &obj, const ADCPPB4TRIPHI_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI, name + " " + "15:0 ADC Post Processing Block 4 Trip High Limit");
+    all_zero &= check_compare(obj.LIMITHI, expected.LIMITHI,
+                              name + " " + "15:0 ADC Post Processing Block 4 Trip High Limit");
     all_zero &= check_compare(obj.HSIGN, expected.HSIGN, name + " " + "16 High Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:17 Reserved");
 
@@ -1350,10 +1432,12 @@ bool check_compare(const ADCPPB4TRIPHI_REG &obj, const ADCPPB4TRIPHI_REG &expect
 bool check_compare(const ADCPPB4TRIPLO_BITS &obj, const ADCPPB4TRIPLO_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO, name + " " + "15:0 ADC Post Processing Block 4 Trip Low Limit");
+    all_zero &= check_compare(obj.LIMITLO, expected.LIMITLO,
+                              name + " " + "15:0 ADC Post Processing Block 4 Trip Low Limit");
     all_zero &= check_compare(obj.LSIGN, expected.LSIGN, name + " " + "16 Low Limit Sign Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:17 Reserved");
-    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP, name + " " + "31:20 ADC Post Processing Block 4 Request Time Stamp");
+    all_zero &= check_compare(obj.REQSTAMP, expected.REQSTAMP,
+                              name + " " + "31:20 ADC Post Processing Block 4 Request Time Stamp");
 
     return all_zero;
 }
@@ -1374,18 +1458,26 @@ bool check_compare(const ADC_REGS &obj, const ADC_REGS &expected, const std::str
     all_zero &= check_compare(obj.ADCCTL2, expected.ADCCTL2, name + " " + "ADC Control 2 Register");
     all_zero &= check_compare(obj.ADCBURSTCTL, expected.ADCBURSTCTL, name + " " + "ADC Burst Control Register");
     all_zero &= check_compare(obj.ADCINTFLG, expected.ADCINTFLG, name + " " + "ADC Interrupt Flag Register");
-    all_zero &= check_compare(obj.ADCINTFLGCLR, expected.ADCINTFLGCLR, name + " " + "ADC Interrupt Flag Clear Register");
+    all_zero &= check_compare(obj.ADCINTFLGCLR, expected.ADCINTFLGCLR,
+                              name + " " + "ADC Interrupt Flag Clear Register");
     all_zero &= check_compare(obj.ADCINTOVF, expected.ADCINTOVF, name + " " + "ADC Interrupt Overflow Register");
-    all_zero &= check_compare(obj.ADCINTOVFCLR, expected.ADCINTOVFCLR, name + " " + "ADC Interrupt Overflow Clear Register");
-    all_zero &= check_compare(obj.ADCINTSEL1N2, expected.ADCINTSEL1N2, name + " " + "ADC Interrupt 1 and 2 Selection Register");
-    all_zero &= check_compare(obj.ADCINTSEL3N4, expected.ADCINTSEL3N4, name + " " + "ADC Interrupt 3 and 4 Selection Register");
-    all_zero &= check_compare(obj.ADCSOCPRICTL, expected.ADCSOCPRICTL, name + " " + "ADC SOC Priority Control Register");
-    all_zero &= check_compare(obj.ADCINTSOCSEL1, expected.ADCINTSOCSEL1, name + " " + "ADC Interrupt SOC Selection 1 Register");
-    all_zero &= check_compare(obj.ADCINTSOCSEL2, expected.ADCINTSOCSEL2, name + " " + "ADC Interrupt SOC Selection 2 Register");
+    all_zero &= check_compare(obj.ADCINTOVFCLR, expected.ADCINTOVFCLR,
+                              name + " " + "ADC Interrupt Overflow Clear Register");
+    all_zero &= check_compare(obj.ADCINTSEL1N2, expected.ADCINTSEL1N2,
+                              name + " " + "ADC Interrupt 1 and 2 Selection Register");
+    all_zero &= check_compare(obj.ADCINTSEL3N4, expected.ADCINTSEL3N4,
+                              name + " " + "ADC Interrupt 3 and 4 Selection Register");
+    all_zero &= check_compare(obj.ADCSOCPRICTL, expected.ADCSOCPRICTL,
+                              name + " " + "ADC SOC Priority Control Register");
+    all_zero &= check_compare(obj.ADCINTSOCSEL1, expected.ADCINTSOCSEL1,
+                              name + " " + "ADC Interrupt SOC Selection 1 Register");
+    all_zero &= check_compare(obj.ADCINTSOCSEL2, expected.ADCINTSOCSEL2,
+                              name + " " + "ADC Interrupt SOC Selection 2 Register");
     all_zero &= check_compare(obj.ADCSOCFLG1, expected.ADCSOCFLG1, name + " " + "ADC SOC Flag 1 Register");
     all_zero &= check_compare(obj.ADCSOCFRC1, expected.ADCSOCFRC1, name + " " + "ADC SOC Force 1 Register");
     all_zero &= check_compare(obj.ADCSOCOVF1, expected.ADCSOCOVF1, name + " " + "ADC SOC Overflow 1 Register");
-    all_zero &= check_compare(obj.ADCSOCOVFCLR1, expected.ADCSOCOVFCLR1, name + " " + "ADC SOC Overflow Clear 1 Register");
+    all_zero &= check_compare(obj.ADCSOCOVFCLR1, expected.ADCSOCOVFCLR1,
+                              name + " " + "ADC SOC Overflow Clear 1 Register");
     all_zero &= check_compare(obj.ADCSOC0CTL, expected.ADCSOC0CTL, name + " " + "ADC SOC0 Control Register");
     all_zero &= check_compare(obj.ADCSOC1CTL, expected.ADCSOC1CTL, name + " " + "ADC SOC1 Control Register");
     all_zero &= check_compare(obj.ADCSOC2CTL, expected.ADCSOC2CTL, name + " " + "ADC SOC2 Control Register");
@@ -1408,37 +1500,55 @@ bool check_compare(const ADC_REGS &obj, const ADC_REGS &expected, const std::str
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.ADCEVTSEL, expected.ADCEVTSEL, name + " " + "ADC Event Selection Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
-    all_zero &= check_compare(obj.ADCEVTINTSEL, expected.ADCEVTINTSEL, name + " " + "ADC Event Interrupt Selection Register");
+    all_zero &= check_compare(obj.ADCEVTINTSEL, expected.ADCEVTINTSEL,
+                              name + " " + "ADC Event Interrupt Selection Register");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
-    all_zero &= check_compare(obj.ADCOSDETECT, expected.ADCOSDETECT, name + " " + "ADC Open and Shorts Detect Register");
+    all_zero &= check_compare(obj.ADCOSDETECT, expected.ADCOSDETECT,
+                              name + " " + "ADC Open and Shorts Detect Register");
     all_zero &= check_compare(obj.ADCCOUNTER, expected.ADCCOUNTER, name + " " + "ADC Counter Register");
     all_zero &= check_compare(obj.ADCREV, expected.ADCREV, name + " " + "ADC Revision Register");
     all_zero &= check_compare(obj.ADCOFFTRIM, expected.ADCOFFTRIM, name + " " + "ADC Offset Trim Register");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
     all_zero &= check_compare(obj.ADCPPB1CONFIG, expected.ADCPPB1CONFIG, name + " " + "ADC PPB1 Config Register");
-    all_zero &= check_compare(obj.ADCPPB1STAMP, expected.ADCPPB1STAMP, name + " " + "ADC PPB1 Sample Delay Time Stamp Register");
-    all_zero &= check_compare(obj.ADCPPB1OFFCAL, expected.ADCPPB1OFFCAL, name + " " + "ADC PPB1 Offset Calibration Register");
-    all_zero &= check_compare(obj.ADCPPB1OFFREF, expected.ADCPPB1OFFREF, name + " " + "ADC PPB1 Offset Reference Register");
+    all_zero &= check_compare(obj.ADCPPB1STAMP, expected.ADCPPB1STAMP,
+                              name + " " + "ADC PPB1 Sample Delay Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB1OFFCAL, expected.ADCPPB1OFFCAL,
+                              name + " " + "ADC PPB1 Offset Calibration Register");
+    all_zero &= check_compare(obj.ADCPPB1OFFREF, expected.ADCPPB1OFFREF,
+                              name + " " + "ADC PPB1 Offset Reference Register");
     all_zero &= check_compare(obj.ADCPPB1TRIPHI, expected.ADCPPB1TRIPHI, name + " " + "ADC PPB1 Trip High Register");
-    all_zero &= check_compare(obj.ADCPPB1TRIPLO, expected.ADCPPB1TRIPLO, name + " " + "ADC PPB1 Trip Low/Trigger Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB1TRIPLO, expected.ADCPPB1TRIPLO,
+                              name + " " + "ADC PPB1 Trip Low/Trigger Time Stamp Register");
     all_zero &= check_compare(obj.ADCPPB2CONFIG, expected.ADCPPB2CONFIG, name + " " + "ADC PPB2 Config Register");
-    all_zero &= check_compare(obj.ADCPPB2STAMP, expected.ADCPPB2STAMP, name + " " + "ADC PPB2 Sample Delay Time Stamp Register");
-    all_zero &= check_compare(obj.ADCPPB2OFFCAL, expected.ADCPPB2OFFCAL, name + " " + "ADC PPB2 Offset Calibration Register");
-    all_zero &= check_compare(obj.ADCPPB2OFFREF, expected.ADCPPB2OFFREF, name + " " + "ADC PPB2 Offset Reference Register");
+    all_zero &= check_compare(obj.ADCPPB2STAMP, expected.ADCPPB2STAMP,
+                              name + " " + "ADC PPB2 Sample Delay Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB2OFFCAL, expected.ADCPPB2OFFCAL,
+                              name + " " + "ADC PPB2 Offset Calibration Register");
+    all_zero &= check_compare(obj.ADCPPB2OFFREF, expected.ADCPPB2OFFREF,
+                              name + " " + "ADC PPB2 Offset Reference Register");
     all_zero &= check_compare(obj.ADCPPB2TRIPHI, expected.ADCPPB2TRIPHI, name + " " + "ADC PPB2 Trip High Register");
-    all_zero &= check_compare(obj.ADCPPB2TRIPLO, expected.ADCPPB2TRIPLO, name + " " + "ADC PPB2 Trip Low/Trigger Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB2TRIPLO, expected.ADCPPB2TRIPLO,
+                              name + " " + "ADC PPB2 Trip Low/Trigger Time Stamp Register");
     all_zero &= check_compare(obj.ADCPPB3CONFIG, expected.ADCPPB3CONFIG, name + " " + "ADC PPB3 Config Register");
-    all_zero &= check_compare(obj.ADCPPB3STAMP, expected.ADCPPB3STAMP, name + " " + "ADC PPB3 Sample Delay Time Stamp Register");
-    all_zero &= check_compare(obj.ADCPPB3OFFCAL, expected.ADCPPB3OFFCAL, name + " " + "ADC PPB3 Offset Calibration Register");
-    all_zero &= check_compare(obj.ADCPPB3OFFREF, expected.ADCPPB3OFFREF, name + " " + "ADC PPB3 Offset Reference Register");
+    all_zero &= check_compare(obj.ADCPPB3STAMP, expected.ADCPPB3STAMP,
+                              name + " " + "ADC PPB3 Sample Delay Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB3OFFCAL, expected.ADCPPB3OFFCAL,
+                              name + " " + "ADC PPB3 Offset Calibration Register");
+    all_zero &= check_compare(obj.ADCPPB3OFFREF, expected.ADCPPB3OFFREF,
+                              name + " " + "ADC PPB3 Offset Reference Register");
     all_zero &= check_compare(obj.ADCPPB3TRIPHI, expected.ADCPPB3TRIPHI, name + " " + "ADC PPB3 Trip High Register");
-    all_zero &= check_compare(obj.ADCPPB3TRIPLO, expected.ADCPPB3TRIPLO, name + " " + "ADC PPB3 Trip Low/Trigger Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB3TRIPLO, expected.ADCPPB3TRIPLO,
+                              name + " " + "ADC PPB3 Trip Low/Trigger Time Stamp Register");
     all_zero &= check_compare(obj.ADCPPB4CONFIG, expected.ADCPPB4CONFIG, name + " " + "ADC PPB4 Config Register");
-    all_zero &= check_compare(obj.ADCPPB4STAMP, expected.ADCPPB4STAMP, name + " " + "ADC PPB4 Sample Delay Time Stamp Register");
-    all_zero &= check_compare(obj.ADCPPB4OFFCAL, expected.ADCPPB4OFFCAL, name + " " + "ADC PPB4 Offset Calibration Register");
-    all_zero &= check_compare(obj.ADCPPB4OFFREF, expected.ADCPPB4OFFREF, name + " " + "ADC PPB4 Offset Reference Register");
+    all_zero &= check_compare(obj.ADCPPB4STAMP, expected.ADCPPB4STAMP,
+                              name + " " + "ADC PPB4 Sample Delay Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB4OFFCAL, expected.ADCPPB4OFFCAL,
+                              name + " " + "ADC PPB4 Offset Calibration Register");
+    all_zero &= check_compare(obj.ADCPPB4OFFREF, expected.ADCPPB4OFFREF,
+                              name + " " + "ADC PPB4 Offset Reference Register");
     all_zero &= check_compare(obj.ADCPPB4TRIPHI, expected.ADCPPB4TRIPHI, name + " " + "ADC PPB4 Trip High Register");
-    all_zero &= check_compare(obj.ADCPPB4TRIPLO, expected.ADCPPB4TRIPLO, name + " " + "ADC PPB4 Trip Low/Trigger Time Stamp Register");
+    all_zero &= check_compare(obj.ADCPPB4TRIPLO, expected.ADCPPB4TRIPLO,
+                              name + " " + "ADC PPB4 Trip Low/Trigger Time Stamp Register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
     all_zero &= check_compare(obj.ADCINLTRIM1, expected.ADCINLTRIM1, name + " " + "ADC Linearity Trim 1 Register");
     all_zero &= check_compare(obj.ADCINLTRIM2, expected.ADCINLTRIM2, name + " " + "ADC Linearity Trim 2 Register");
@@ -1541,10 +1651,14 @@ bool check_compare(const ADC_RESULT_REGS &obj, const ADC_RESULT_REGS &expected, 
     all_zero &= check_compare(obj.ADCRESULT13, expected.ADCRESULT13, name + " " + "ADC Result 13 Register");
     all_zero &= check_compare(obj.ADCRESULT14, expected.ADCRESULT14, name + " " + "ADC Result 14 Register");
     all_zero &= check_compare(obj.ADCRESULT15, expected.ADCRESULT15, name + " " + "ADC Result 15 Register");
-    all_zero &= check_compare(obj.ADCPPB1RESULT, expected.ADCPPB1RESULT, name + " " + "ADC Post Processing Block 1 Result Register");
-    all_zero &= check_compare(obj.ADCPPB2RESULT, expected.ADCPPB2RESULT, name + " " + "ADC Post Processing Block 2 Result Register");
-    all_zero &= check_compare(obj.ADCPPB3RESULT, expected.ADCPPB3RESULT, name + " " + "ADC Post Processing Block 3 Result Register");
-    all_zero &= check_compare(obj.ADCPPB4RESULT, expected.ADCPPB4RESULT, name + " " + "ADC Post Processing Block 4 Result Register");
+    all_zero &= check_compare(obj.ADCPPB1RESULT, expected.ADCPPB1RESULT,
+                              name + " " + "ADC Post Processing Block 1 Result Register");
+    all_zero &= check_compare(obj.ADCPPB2RESULT, expected.ADCPPB2RESULT,
+                              name + " " + "ADC Post Processing Block 2 Result Register");
+    all_zero &= check_compare(obj.ADCPPB3RESULT, expected.ADCPPB3RESULT,
+                              name + " " + "ADC Post Processing Block 3 Result Register");
+    all_zero &= check_compare(obj.ADCPPB4RESULT, expected.ADCPPB4RESULT,
+                              name + " " + "ADC Post Processing Block 4 Result Register");
 
     return all_zero;
 }
@@ -1552,7 +1666,8 @@ bool check_compare(const ADC_RESULT_REGS &obj, const ADC_RESULT_REGS &expected, 
 bool check_compare(const INTOSC1TRIM_BITS &obj, const INTOSC1TRIM_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.VALFINETRIM, expected.VALFINETRIM, name + " " + "11:0 Oscillator Value Fine Trim Bits");
+    all_zero &= check_compare(obj.VALFINETRIM, expected.VALFINETRIM,
+                              name + " " + "11:0 Oscillator Value Fine Trim Bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "23:16 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:24 Reserved");
@@ -1572,7 +1687,8 @@ bool check_compare(const INTOSC1TRIM_REG &obj, const INTOSC1TRIM_REG &expected, 
 bool check_compare(const INTOSC2TRIM_BITS &obj, const INTOSC2TRIM_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.VALFINETRIM, expected.VALFINETRIM, name + " " + "11:0 Oscillator Value Fine Trim Bits");
+    all_zero &= check_compare(obj.VALFINETRIM, expected.VALFINETRIM,
+                              name + " " + "11:0 Oscillator Value Fine Trim Bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "23:16 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:24 Reserved");
@@ -1623,10 +1739,14 @@ bool check_compare(const LOCK_BITS &obj, const LOCK_BITS &expected, const std::s
     all_zero &= check_compare(obj.rsvd10, expected.rsvd10, name + " " + "20 Reserved");
     all_zero &= check_compare(obj.rsvd11, expected.rsvd11, name + " " + "21 Reserved");
     all_zero &= check_compare(obj.rsvd12, expected.rsvd12, name + " " + "22 Reserved");
-    all_zero &= check_compare(obj.ANAREFTRIMA, expected.ANAREFTRIMA, name + " " + "23 Analog Reference A Trim Register Lock");
-    all_zero &= check_compare(obj.ANAREFTRIMB, expected.ANAREFTRIMB, name + " " + "24 Analog Reference B Trim Register Lock");
-    all_zero &= check_compare(obj.ANAREFTRIMC, expected.ANAREFTRIMC, name + " " + "25 Analog Reference C Trim Register Lock");
-    all_zero &= check_compare(obj.ANAREFTRIMD, expected.ANAREFTRIMD, name + " " + "26 Analog Reference D Trim Register Lock");
+    all_zero &= check_compare(obj.ANAREFTRIMA, expected.ANAREFTRIMA,
+                              name + " " + "23 Analog Reference A Trim Register Lock");
+    all_zero &= check_compare(obj.ANAREFTRIMB, expected.ANAREFTRIMB,
+                              name + " " + "24 Analog Reference B Trim Register Lock");
+    all_zero &= check_compare(obj.ANAREFTRIMC, expected.ANAREFTRIMC,
+                              name + " " + "25 Analog Reference C Trim Register Lock");
+    all_zero &= check_compare(obj.ANAREFTRIMD, expected.ANAREFTRIMD,
+                              name + " " + "26 Analog Reference D Trim Register Lock");
     all_zero &= check_compare(obj.rsvd13, expected.rsvd13, name + " " + "27 Reserved");
     all_zero &= check_compare(obj.rsvd14, expected.rsvd14, name + " " + "28 Reserved");
     all_zero &= check_compare(obj.rsvd15, expected.rsvd15, name + " " + "29 Reserved");
@@ -1733,8 +1853,10 @@ bool check_compare(const ANALOG_SUBSYS_REGS &obj, const ANALOG_SUBSYS_REGS &expe
     bool all_zero = true;
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.INTOSC1TRIM, expected.INTOSC1TRIM, name + " " + "Internal Oscillator 1 Trim Register");
-    all_zero &= check_compare(obj.INTOSC2TRIM, expected.INTOSC2TRIM, name + " " + "Internal Oscillator 2 Trim Register");
+    all_zero &= check_compare(obj.INTOSC1TRIM, expected.INTOSC1TRIM,
+                              name + " " + "Internal Oscillator 1 Trim Register");
+    all_zero &= check_compare(obj.INTOSC2TRIM, expected.INTOSC2TRIM,
+                              name + " " + "Internal Oscillator 2 Trim Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.TSNSCTL, expected.TSNSCTL, name + " " + "Temperature Sensor Control Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
@@ -2022,14 +2144,22 @@ bool check_compare(const CLA_REGS &obj, const CLA_REGS &expected, const std::str
 bool check_compare(const SOFTINTEN_BITS &obj, const SOFTINTEN_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TASK1, expected.TASK1, name + " " + "0 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK2, expected.TASK2, name + " " + "1 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK3, expected.TASK3, name + " " + "2 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK4, expected.TASK4, name + " " + "3 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK5, expected.TASK5, name + " " + "4 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK6, expected.TASK6, name + " " + "5 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK7, expected.TASK7, name + " " + "6 Configure Software Interrupt or End of Task interrupt.");
-    all_zero &= check_compare(obj.TASK8, expected.TASK8, name + " " + "7 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK1, expected.TASK1,
+                              name + " " + "0 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK2, expected.TASK2,
+                              name + " " + "1 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK3, expected.TASK3,
+                              name + " " + "2 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK4, expected.TASK4,
+                              name + " " + "3 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK5, expected.TASK5,
+                              name + " " + "4 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK6, expected.TASK6,
+                              name + " " + "5 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK7, expected.TASK7,
+                              name + " " + "6 Configure Software Interrupt or End of Task interrupt.");
+    all_zero &= check_compare(obj.TASK8, expected.TASK8,
+                              name + " " + "7 Configure Software Interrupt or End of Task interrupt.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
 
     return all_zero;
@@ -2047,14 +2177,22 @@ bool check_compare(const SOFTINTEN_REG &obj, const SOFTINTEN_REG &expected, cons
 bool check_compare(const SOFTINTFRC_BITS &obj, const SOFTINTFRC_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TASK1, expected.TASK1, name + " " + "0 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK2, expected.TASK2, name + " " + "1 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK3, expected.TASK3, name + " " + "2 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK4, expected.TASK4, name + " " + "3 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK5, expected.TASK5, name + " " + "4 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK6, expected.TASK6, name + " " + "5 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK7, expected.TASK7, name + " " + "6 Force CLA software interrupt for the corresponding task.");
-    all_zero &= check_compare(obj.TASK8, expected.TASK8, name + " " + "7 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK1, expected.TASK1,
+                              name + " " + "0 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK2, expected.TASK2,
+                              name + " " + "1 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK3, expected.TASK3,
+                              name + " " + "2 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK4, expected.TASK4,
+                              name + " " + "3 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK5, expected.TASK5,
+                              name + " " + "4 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK6, expected.TASK6,
+                              name + " " + "5 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK7, expected.TASK7,
+                              name + " " + "6 Force CLA software interrupt for the corresponding task.");
+    all_zero &= check_compare(obj.TASK8, expected.TASK8,
+                              name + " " + "7 Force CLA software interrupt for the corresponding task.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
 
     return all_zero;
@@ -2074,7 +2212,8 @@ bool check_compare(const CLA_SOFTINT_REGS &obj, const CLA_SOFTINT_REGS &expected
 
     all_zero &= check_compare(obj.SOFTINTEN, expected.SOFTINTEN, name + " " + "CLA Software Interrupt Enable Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.SOFTINTFRC, expected.SOFTINTFRC, name + " " + "CLA Software Interrupt Force Register");
+    all_zero &= check_compare(obj.SOFTINTFRC, expected.SOFTINTFRC,
+                              name + " " + "CLA Software Interrupt Force Register");
 
     return all_zero;
 }
@@ -2184,7 +2323,8 @@ bool check_compare(const CLB_FSM_EXTRA_IN0_REG &obj, const CLB_FSM_EXTRA_IN0_REG
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_EXTERNAL_IN0_BITS &obj, const CLB_FSM_EXTERNAL_IN0_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_EXTERNAL_IN0_BITS &obj, const CLB_FSM_EXTERNAL_IN0_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.SEL_0, expected.SEL_0, name + " " + "4:0 FSM EXT_IN0 select input for unit 0");
@@ -2196,7 +2336,8 @@ bool check_compare(const CLB_FSM_EXTERNAL_IN0_BITS &obj, const CLB_FSM_EXTERNAL_
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_EXTERNAL_IN0_REG &obj, const CLB_FSM_EXTERNAL_IN0_REG &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_EXTERNAL_IN0_REG &obj, const CLB_FSM_EXTERNAL_IN0_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -2205,7 +2346,8 @@ bool check_compare(const CLB_FSM_EXTERNAL_IN0_REG &obj, const CLB_FSM_EXTERNAL_I
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_EXTERNAL_IN1_BITS &obj, const CLB_FSM_EXTERNAL_IN1_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_EXTERNAL_IN1_BITS &obj, const CLB_FSM_EXTERNAL_IN1_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.SEL_0, expected.SEL_0, name + " " + "4:0 FSM EXT_IN1 select input for unit 0");
@@ -2217,7 +2359,8 @@ bool check_compare(const CLB_FSM_EXTERNAL_IN1_BITS &obj, const CLB_FSM_EXTERNAL_
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_EXTERNAL_IN1_REG &obj, const CLB_FSM_EXTERNAL_IN1_REG &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_EXTERNAL_IN1_REG &obj, const CLB_FSM_EXTERNAL_IN1_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -2403,7 +2546,8 @@ bool check_compare(const CLB_LUT4_FN2_REG &obj, const CLB_LUT4_FN2_REG &expected
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_0_BITS &obj, const CLB_FSM_NEXT_STATE_0_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_0_BITS &obj, const CLB_FSM_NEXT_STATE_0_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.S0, expected.S0, name + " " + "15:0 FSM next state function for S0");
@@ -2412,7 +2556,8 @@ bool check_compare(const CLB_FSM_NEXT_STATE_0_BITS &obj, const CLB_FSM_NEXT_STAT
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_0_REG &obj, const CLB_FSM_NEXT_STATE_0_REG &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_0_REG &obj, const CLB_FSM_NEXT_STATE_0_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -2421,7 +2566,8 @@ bool check_compare(const CLB_FSM_NEXT_STATE_0_REG &obj, const CLB_FSM_NEXT_STATE
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_1_BITS &obj, const CLB_FSM_NEXT_STATE_1_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_1_BITS &obj, const CLB_FSM_NEXT_STATE_1_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.S0, expected.S0, name + " " + "15:0 FSM next state function for S0");
@@ -2430,7 +2576,8 @@ bool check_compare(const CLB_FSM_NEXT_STATE_1_BITS &obj, const CLB_FSM_NEXT_STAT
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_1_REG &obj, const CLB_FSM_NEXT_STATE_1_REG &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_1_REG &obj, const CLB_FSM_NEXT_STATE_1_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -2439,7 +2586,8 @@ bool check_compare(const CLB_FSM_NEXT_STATE_1_REG &obj, const CLB_FSM_NEXT_STATE
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_2_BITS &obj, const CLB_FSM_NEXT_STATE_2_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_2_BITS &obj, const CLB_FSM_NEXT_STATE_2_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.S0, expected.S0, name + " " + "15:0 FSM next state function for S0");
@@ -2448,7 +2596,8 @@ bool check_compare(const CLB_FSM_NEXT_STATE_2_BITS &obj, const CLB_FSM_NEXT_STAT
     return all_zero;
 }
 
-bool check_compare(const CLB_FSM_NEXT_STATE_2_REG &obj, const CLB_FSM_NEXT_STATE_2_REG &expected, const std::string &name) {
+bool check_compare(const CLB_FSM_NEXT_STATE_2_REG &obj, const CLB_FSM_NEXT_STATE_2_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -2460,18 +2609,27 @@ bool check_compare(const CLB_FSM_NEXT_STATE_2_REG &obj, const CLB_FSM_NEXT_STATE
 bool check_compare(const CLB_MISC_CONTROL_BITS &obj, const CLB_MISC_CONTROL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_0, expected.COUNT_ADD_SHIFT_0, name + " " + "0 Add/Shift for counter 0");
+    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_0, expected.COUNT_ADD_SHIFT_0,
+                              name + " " + "0 Add/Shift for counter 0");
     all_zero &= check_compare(obj.COUNT_DIR_0, expected.COUNT_DIR_0, name + " " + "1 Direction for counter 0");
-    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_0, expected.COUNT_EVENT_CTRL_0, name + " " + "2 Event control for counter 0");
-    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_1, expected.COUNT_ADD_SHIFT_1, name + " " + "3 Add/Shift for counter 1");
+    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_0, expected.COUNT_EVENT_CTRL_0,
+                              name + " " + "2 Event control for counter 0");
+    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_1, expected.COUNT_ADD_SHIFT_1,
+                              name + " " + "3 Add/Shift for counter 1");
     all_zero &= check_compare(obj.COUNT_DIR_1, expected.COUNT_DIR_1, name + " " + "4 Direction for counter 1");
-    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_1, expected.COUNT_EVENT_CTRL_1, name + " " + "5 Event control for counter 1");
-    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_2, expected.COUNT_ADD_SHIFT_2, name + " " + "6 Add/Shift for counter 2");
+    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_1, expected.COUNT_EVENT_CTRL_1,
+                              name + " " + "5 Event control for counter 1");
+    all_zero &= check_compare(obj.COUNT_ADD_SHIFT_2, expected.COUNT_ADD_SHIFT_2,
+                              name + " " + "6 Add/Shift for counter 2");
     all_zero &= check_compare(obj.COUNT_DIR_2, expected.COUNT_DIR_2, name + " " + "7 Direction for counter 2");
-    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_2, expected.COUNT_EVENT_CTRL_2, name + " " + "8 Event control for counter 2");
-    all_zero &= check_compare(obj.COUNT_SERIALIZER_0, expected.COUNT_SERIALIZER_0, name + " " + "9 Serializer enable 0");
-    all_zero &= check_compare(obj.COUNT_SERIALIZER_1, expected.COUNT_SERIALIZER_1, name + " " + "10 Serializer enable 1");
-    all_zero &= check_compare(obj.COUNT_SERIALIZER_2, expected.COUNT_SERIALIZER_2, name + " " + "11 Serializer enable 2");
+    all_zero &= check_compare(obj.COUNT_EVENT_CTRL_2, expected.COUNT_EVENT_CTRL_2,
+                              name + " " + "8 Event control for counter 2");
+    all_zero &= check_compare(obj.COUNT_SERIALIZER_0, expected.COUNT_SERIALIZER_0,
+                              name + " " + "9 Serializer enable 0");
+    all_zero &= check_compare(obj.COUNT_SERIALIZER_1, expected.COUNT_SERIALIZER_1,
+                              name + " " + "10 Serializer enable 1");
+    all_zero &= check_compare(obj.COUNT_SERIALIZER_2, expected.COUNT_SERIALIZER_2,
+                              name + " " + "11 Serializer enable 2");
     all_zero &= check_compare(obj.FSM_EXTRA_SEL0_0, expected.FSM_EXTRA_SEL0_0, name + " " + "12 FSM extra_sel0 for 0");
     all_zero &= check_compare(obj.FSM_EXTRA_SEL1_0, expected.FSM_EXTRA_SEL1_0, name + " " + "13 FSM extra_sel1 for 0");
     all_zero &= check_compare(obj.FSM_EXTRA_SEL0_1, expected.FSM_EXTRA_SEL0_1, name + " " + "14 FSM extra_sel0 for 1");
@@ -2698,23 +2856,40 @@ bool check_compare(const CLB_LOGIC_CONFIG_REGS &obj, const CLB_LOGIC_CONFIG_REGS
     all_zero &= check_compare(obj.CLB_LUT4_IN2, expected.CLB_LUT4_IN2, name + " " + "LUT4_0/1/2 IN2 input source");
     all_zero &= check_compare(obj.CLB_LUT4_IN3, expected.CLB_LUT4_IN3, name + " " + "LUT4_0/1/2 IN3 input source");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
-    all_zero &= check_compare(obj.CLB_FSM_LUT_FN1_0, expected.CLB_FSM_LUT_FN1_0, name + " " + "LUT function for FSM Unit 1 and Unit 0");
-    all_zero &= check_compare(obj.CLB_FSM_LUT_FN2, expected.CLB_FSM_LUT_FN2, name + " " + "LUT function for FSM Unit 2");
-    all_zero &= check_compare(obj.CLB_LUT4_FN1_0, expected.CLB_LUT4_FN1_0, name + " " + "LUT function for LUT4 block of Unit 1 and 0");
-    all_zero &= check_compare(obj.CLB_LUT4_FN2, expected.CLB_LUT4_FN2, name + " " + "LUT function for LUT4 block of Unit 2");
-    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_0, expected.CLB_FSM_NEXT_STATE_0, name + " " + "FSM Next state equations for Unit 0");
-    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_1, expected.CLB_FSM_NEXT_STATE_1, name + " " + "FSM Next state equations for Unit 1");
-    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_2, expected.CLB_FSM_NEXT_STATE_2, name + " " + "FSM Next state equations for Unit 2");
-    all_zero &= check_compare(obj.CLB_MISC_CONTROL, expected.CLB_MISC_CONTROL, name + " " + "Static controls for Ctr,FSM");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_0, expected.CLB_OUTPUT_LUT_0, name + " " + "Inp Sel, LUT fns for Out0");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_1, expected.CLB_OUTPUT_LUT_1, name + " " + "Inp Sel, LUT fns for Out1");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_2, expected.CLB_OUTPUT_LUT_2, name + " " + "Inp Sel, LUT fns for Out2");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_3, expected.CLB_OUTPUT_LUT_3, name + " " + "Inp Sel, LUT fns for Out3");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_4, expected.CLB_OUTPUT_LUT_4, name + " " + "Inp Sel, LUT fns for Out4");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_5, expected.CLB_OUTPUT_LUT_5, name + " " + "Inp Sel, LUT fns for Out5");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_6, expected.CLB_OUTPUT_LUT_6, name + " " + "Inp Sel, LUT fns for Out6");
-    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_7, expected.CLB_OUTPUT_LUT_7, name + " " + "Inp Sel, LUT fns for Out7");
-    all_zero &= check_compare(obj.CLB_HLC_EVENT_SEL, expected.CLB_HLC_EVENT_SEL, name + " " + "Event Selector register for the High Level controller");
+    all_zero &= check_compare(obj.CLB_FSM_LUT_FN1_0, expected.CLB_FSM_LUT_FN1_0,
+                              name + " " + "LUT function for FSM Unit 1 and Unit 0");
+    all_zero &= check_compare(obj.CLB_FSM_LUT_FN2, expected.CLB_FSM_LUT_FN2,
+                              name + " " + "LUT function for FSM Unit 2");
+    all_zero &= check_compare(obj.CLB_LUT4_FN1_0, expected.CLB_LUT4_FN1_0,
+                              name + " " + "LUT function for LUT4 block of Unit 1 and 0");
+    all_zero &= check_compare(obj.CLB_LUT4_FN2, expected.CLB_LUT4_FN2,
+                              name + " " + "LUT function for LUT4 block of Unit 2");
+    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_0, expected.CLB_FSM_NEXT_STATE_0,
+                              name + " " + "FSM Next state equations for Unit 0");
+    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_1, expected.CLB_FSM_NEXT_STATE_1,
+                              name + " " + "FSM Next state equations for Unit 1");
+    all_zero &= check_compare(obj.CLB_FSM_NEXT_STATE_2, expected.CLB_FSM_NEXT_STATE_2,
+                              name + " " + "FSM Next state equations for Unit 2");
+    all_zero &= check_compare(obj.CLB_MISC_CONTROL, expected.CLB_MISC_CONTROL,
+                              name + " " + "Static controls for Ctr,FSM");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_0, expected.CLB_OUTPUT_LUT_0,
+                              name + " " + "Inp Sel, LUT fns for Out0");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_1, expected.CLB_OUTPUT_LUT_1,
+                              name + " " + "Inp Sel, LUT fns for Out1");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_2, expected.CLB_OUTPUT_LUT_2,
+                              name + " " + "Inp Sel, LUT fns for Out2");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_3, expected.CLB_OUTPUT_LUT_3,
+                              name + " " + "Inp Sel, LUT fns for Out3");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_4, expected.CLB_OUTPUT_LUT_4,
+                              name + " " + "Inp Sel, LUT fns for Out4");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_5, expected.CLB_OUTPUT_LUT_5,
+                              name + " " + "Inp Sel, LUT fns for Out5");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_6, expected.CLB_OUTPUT_LUT_6,
+                              name + " " + "Inp Sel, LUT fns for Out6");
+    all_zero &= check_compare(obj.CLB_OUTPUT_LUT_7, expected.CLB_OUTPUT_LUT_7,
+                              name + " " + "Inp Sel, LUT fns for Out7");
+    all_zero &= check_compare(obj.CLB_HLC_EVENT_SEL, expected.CLB_HLC_EVENT_SEL,
+                              name + " " + "Event Selector register for the High Level controller");
 
     return all_zero;
 }
@@ -2898,13 +3073,18 @@ bool check_compare(const CLB_GP_REG_REG &obj, const CLB_GP_REG_REG &expected, co
     return all_zero;
 }
 
-bool check_compare(const CLB_GLBL_MUX_SEL_1_BITS &obj, const CLB_GLBL_MUX_SEL_1_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_GLBL_MUX_SEL_1_BITS &obj, const CLB_GLBL_MUX_SEL_1_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_0, expected.GLBL_MUX_SEL_IN_0, name + " " + "6:0 Global Mux select 0");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_1, expected.GLBL_MUX_SEL_IN_1, name + " " + "13:7 Global Mux select 1");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_2, expected.GLBL_MUX_SEL_IN_2, name + " " + "20:14 Global Mux select 2");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_3, expected.GLBL_MUX_SEL_IN_3, name + " " + "27:21 Global Mux select 3");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_0, expected.GLBL_MUX_SEL_IN_0,
+                              name + " " + "6:0 Global Mux select 0");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_1, expected.GLBL_MUX_SEL_IN_1,
+                              name + " " + "13:7 Global Mux select 1");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_2, expected.GLBL_MUX_SEL_IN_2,
+                              name + " " + "20:14 Global Mux select 2");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_3, expected.GLBL_MUX_SEL_IN_3,
+                              name + " " + "27:21 Global Mux select 3");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:28 Reserved");
 
     return all_zero;
@@ -2919,13 +3099,18 @@ bool check_compare(const CLB_GLBL_MUX_SEL_1_REG &obj, const CLB_GLBL_MUX_SEL_1_R
     return all_zero;
 }
 
-bool check_compare(const CLB_GLBL_MUX_SEL_2_BITS &obj, const CLB_GLBL_MUX_SEL_2_BITS &expected, const std::string &name) {
+bool check_compare(const CLB_GLBL_MUX_SEL_2_BITS &obj, const CLB_GLBL_MUX_SEL_2_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_4, expected.GLBL_MUX_SEL_IN_4, name + " " + "6:0 Global Mux select 4");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_5, expected.GLBL_MUX_SEL_IN_5, name + " " + "13:7 Global Mux select 5");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_6, expected.GLBL_MUX_SEL_IN_6, name + " " + "20:14 Global Mux select 6");
-    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_7, expected.GLBL_MUX_SEL_IN_7, name + " " + "27:21 Global Mux select 7");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_4, expected.GLBL_MUX_SEL_IN_4,
+                              name + " " + "6:0 Global Mux select 4");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_5, expected.GLBL_MUX_SEL_IN_5,
+                              name + " " + "13:7 Global Mux select 5");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_6, expected.GLBL_MUX_SEL_IN_6,
+                              name + " " + "20:14 Global Mux select 6");
+    all_zero &= check_compare(obj.GLBL_MUX_SEL_IN_7, expected.GLBL_MUX_SEL_IN_7,
+                              name + " " + "27:21 Global Mux select 7");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:28 Reserved");
 
     return all_zero;
@@ -3028,19 +3213,27 @@ bool check_compare(const CLB_DBG_OUT_REG &obj, const CLB_DBG_OUT_REG &expected, 
 bool check_compare(const CLB_LOGIC_CONTROL_REGS &obj, const CLB_LOGIC_CONTROL_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CLB_LOAD_EN, expected.CLB_LOAD_EN, name + " " + "Global enable & indirect load enable control");
+    all_zero &= check_compare(obj.CLB_LOAD_EN, expected.CLB_LOAD_EN,
+                              name + " " + "Global enable & indirect load enable control");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.CLB_LOAD_ADDR, expected.CLB_LOAD_ADDR, name + " " + "Indirect address");
     all_zero &= check_compare(obj.CLB_LOAD_DATA, expected.CLB_LOAD_DATA, name + " " + "Data for indirect loads");
-    all_zero &= check_compare(obj.CLB_INPUT_FILTER, expected.CLB_INPUT_FILTER, name + " " + "Input filter selection for both edge detection and synchronizers");
-    all_zero &= check_compare(obj.CLB_IN_MUX_SEL_0, expected.CLB_IN_MUX_SEL_0, name + " " + "Input selection to decide between Signals and GP register");
-    all_zero &= check_compare(obj.CLB_LCL_MUX_SEL_1, expected.CLB_LCL_MUX_SEL_1, name + " " + "Input Mux selection for local mux");
-    all_zero &= check_compare(obj.CLB_LCL_MUX_SEL_2, expected.CLB_LCL_MUX_SEL_2, name + " " + "Input Mux selection for local mux");
+    all_zero &= check_compare(obj.CLB_INPUT_FILTER, expected.CLB_INPUT_FILTER,
+                              name + " " + "Input filter selection for both edge detection and synchronizers");
+    all_zero &= check_compare(obj.CLB_IN_MUX_SEL_0, expected.CLB_IN_MUX_SEL_0,
+                              name + " " + "Input selection to decide between Signals and GP register");
+    all_zero &= check_compare(obj.CLB_LCL_MUX_SEL_1, expected.CLB_LCL_MUX_SEL_1,
+                              name + " " + "Input Mux selection for local mux");
+    all_zero &= check_compare(obj.CLB_LCL_MUX_SEL_2, expected.CLB_LCL_MUX_SEL_2,
+                              name + " " + "Input Mux selection for local mux");
     all_zero &= check_compare(obj.CLB_BUF_PTR, expected.CLB_BUF_PTR, name + " " + "PUSH and PULL pointers");
-    all_zero &= check_compare(obj.CLB_GP_REG, expected.CLB_GP_REG, name + " " + "General purpose register for CELL inputs");
+    all_zero &= check_compare(obj.CLB_GP_REG, expected.CLB_GP_REG,
+                              name + " " + "General purpose register for CELL inputs");
     all_zero &= check_compare(obj.CLB_OUT_EN, expected.CLB_OUT_EN, name + " " + "CELL output enable register");
-    all_zero &= check_compare(obj.CLB_GLBL_MUX_SEL_1, expected.CLB_GLBL_MUX_SEL_1, name + " " + "Global Mux select for CELL inputs");
-    all_zero &= check_compare(obj.CLB_GLBL_MUX_SEL_2, expected.CLB_GLBL_MUX_SEL_2, name + " " + "Global Mux select for CELL inputs");
+    all_zero &= check_compare(obj.CLB_GLBL_MUX_SEL_1, expected.CLB_GLBL_MUX_SEL_1,
+                              name + " " + "Global Mux select for CELL inputs");
+    all_zero &= check_compare(obj.CLB_GLBL_MUX_SEL_2, expected.CLB_GLBL_MUX_SEL_2,
+                              name + " " + "Global Mux select for CELL inputs");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.CLB_INTR_TAG_REG, expected.CLB_INTR_TAG_REG, name + " " + "Interrupt Tag register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
@@ -3053,7 +3246,8 @@ bool check_compare(const CLB_LOGIC_CONTROL_REGS &obj, const CLB_LOGIC_CONTROL_RE
     all_zero &= check_compare(obj.CLB_DBG_C0, expected.CLB_DBG_C0, name + " " + "Count of Unit 0");
     all_zero &= check_compare(obj.CLB_DBG_C1, expected.CLB_DBG_C1, name + " " + "Count of Unit 1");
     all_zero &= check_compare(obj.CLB_DBG_C2, expected.CLB_DBG_C2, name + " " + "Count of Unit 2");
-    all_zero &= check_compare(obj.CLB_DBG_OUT, expected.CLB_DBG_OUT, name + " " + "Outputs of various units in the Cell");
+    all_zero &= check_compare(obj.CLB_DBG_OUT, expected.CLB_DBG_OUT,
+                              name + " " + "Outputs of various units in the Cell");
 
     return all_zero;
 }
@@ -3068,7 +3262,8 @@ bool check_compare(const CLB_DATA_EXCHANGE_REGS &obj, const CLB_DATA_EXCHANGE_RE
     return all_zero;
 }
 
-bool check_compare(const AUXSIG0MUX0TO15CFG_BITS &obj, const AUXSIG0MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG0MUX0TO15CFG_BITS &obj, const AUXSIG0MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG0 of CLB-XBAR");
@@ -3081,12 +3276,18 @@ bool check_compare(const AUXSIG0MUX0TO15CFG_BITS &obj, const AUXSIG0MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG0 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG0 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG0 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3100,30 +3301,48 @@ bool check_compare(const AUXSIG0MUX0TO15CFG_REG &obj, const AUXSIG0MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG0MUX16TO31CFG_BITS &obj, const AUXSIG0MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG0MUX16TO31CFG_BITS &obj, const AUXSIG0MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG0 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG0 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG0 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG0MUX16TO31CFG_REG &obj, const AUXSIG0MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG0MUX16TO31CFG_REG &obj, const AUXSIG0MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3132,7 +3351,8 @@ bool check_compare(const AUXSIG0MUX16TO31CFG_REG &obj, const AUXSIG0MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG1MUX0TO15CFG_BITS &obj, const AUXSIG1MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG1MUX0TO15CFG_BITS &obj, const AUXSIG1MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG1 of CLB-XBAR");
@@ -3145,12 +3365,18 @@ bool check_compare(const AUXSIG1MUX0TO15CFG_BITS &obj, const AUXSIG1MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG1 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG1 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG1 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3164,30 +3390,48 @@ bool check_compare(const AUXSIG1MUX0TO15CFG_REG &obj, const AUXSIG1MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG1MUX16TO31CFG_BITS &obj, const AUXSIG1MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG1MUX16TO31CFG_BITS &obj, const AUXSIG1MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG1 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG1 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG1 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG1MUX16TO31CFG_REG &obj, const AUXSIG1MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG1MUX16TO31CFG_REG &obj, const AUXSIG1MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3196,7 +3440,8 @@ bool check_compare(const AUXSIG1MUX16TO31CFG_REG &obj, const AUXSIG1MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG2MUX0TO15CFG_BITS &obj, const AUXSIG2MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG2MUX0TO15CFG_BITS &obj, const AUXSIG2MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG2 of CLB-XBAR");
@@ -3209,12 +3454,18 @@ bool check_compare(const AUXSIG2MUX0TO15CFG_BITS &obj, const AUXSIG2MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG2 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG2 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG2 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3228,30 +3479,48 @@ bool check_compare(const AUXSIG2MUX0TO15CFG_REG &obj, const AUXSIG2MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG2MUX16TO31CFG_BITS &obj, const AUXSIG2MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG2MUX16TO31CFG_BITS &obj, const AUXSIG2MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG2 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG2 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG2 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG2MUX16TO31CFG_REG &obj, const AUXSIG2MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG2MUX16TO31CFG_REG &obj, const AUXSIG2MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3260,7 +3529,8 @@ bool check_compare(const AUXSIG2MUX16TO31CFG_REG &obj, const AUXSIG2MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG3MUX0TO15CFG_BITS &obj, const AUXSIG3MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG3MUX0TO15CFG_BITS &obj, const AUXSIG3MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG3 of CLB-XBAR");
@@ -3273,12 +3543,18 @@ bool check_compare(const AUXSIG3MUX0TO15CFG_BITS &obj, const AUXSIG3MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG3 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG3 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG3 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3292,30 +3568,48 @@ bool check_compare(const AUXSIG3MUX0TO15CFG_REG &obj, const AUXSIG3MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG3MUX16TO31CFG_BITS &obj, const AUXSIG3MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG3MUX16TO31CFG_BITS &obj, const AUXSIG3MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG3 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG3 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG3 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG3MUX16TO31CFG_REG &obj, const AUXSIG3MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG3MUX16TO31CFG_REG &obj, const AUXSIG3MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3324,7 +3618,8 @@ bool check_compare(const AUXSIG3MUX16TO31CFG_REG &obj, const AUXSIG3MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG4MUX0TO15CFG_BITS &obj, const AUXSIG4MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG4MUX0TO15CFG_BITS &obj, const AUXSIG4MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG4 of CLB-XBAR");
@@ -3337,12 +3632,18 @@ bool check_compare(const AUXSIG4MUX0TO15CFG_BITS &obj, const AUXSIG4MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG4 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG4 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG4 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3356,30 +3657,48 @@ bool check_compare(const AUXSIG4MUX0TO15CFG_REG &obj, const AUXSIG4MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG4MUX16TO31CFG_BITS &obj, const AUXSIG4MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG4MUX16TO31CFG_BITS &obj, const AUXSIG4MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG4 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG4 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG4 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG4MUX16TO31CFG_REG &obj, const AUXSIG4MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG4MUX16TO31CFG_REG &obj, const AUXSIG4MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3388,7 +3707,8 @@ bool check_compare(const AUXSIG4MUX16TO31CFG_REG &obj, const AUXSIG4MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG5MUX0TO15CFG_BITS &obj, const AUXSIG5MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG5MUX0TO15CFG_BITS &obj, const AUXSIG5MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG5 of CLB-XBAR");
@@ -3401,12 +3721,18 @@ bool check_compare(const AUXSIG5MUX0TO15CFG_BITS &obj, const AUXSIG5MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG5 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG5 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG5 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3420,30 +3746,48 @@ bool check_compare(const AUXSIG5MUX0TO15CFG_REG &obj, const AUXSIG5MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG5MUX16TO31CFG_BITS &obj, const AUXSIG5MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG5MUX16TO31CFG_BITS &obj, const AUXSIG5MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG5 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG5 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG5 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG5MUX16TO31CFG_REG &obj, const AUXSIG5MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG5MUX16TO31CFG_REG &obj, const AUXSIG5MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3452,7 +3796,8 @@ bool check_compare(const AUXSIG5MUX16TO31CFG_REG &obj, const AUXSIG5MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG6MUX0TO15CFG_BITS &obj, const AUXSIG6MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG6MUX0TO15CFG_BITS &obj, const AUXSIG6MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG6 of CLB-XBAR");
@@ -3465,12 +3810,18 @@ bool check_compare(const AUXSIG6MUX0TO15CFG_BITS &obj, const AUXSIG6MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG6 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG6 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG6 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3484,30 +3835,48 @@ bool check_compare(const AUXSIG6MUX0TO15CFG_REG &obj, const AUXSIG6MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG6MUX16TO31CFG_BITS &obj, const AUXSIG6MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG6MUX16TO31CFG_BITS &obj, const AUXSIG6MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG6 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG6 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG6 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG6MUX16TO31CFG_REG &obj, const AUXSIG6MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG6MUX16TO31CFG_REG &obj, const AUXSIG6MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -3516,7 +3885,8 @@ bool check_compare(const AUXSIG6MUX16TO31CFG_REG &obj, const AUXSIG6MUX16TO31CFG
     return all_zero;
 }
 
-bool check_compare(const AUXSIG7MUX0TO15CFG_BITS &obj, const AUXSIG7MUX0TO15CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG7MUX0TO15CFG_BITS &obj, const AUXSIG7MUX0TO15CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.MUX0, expected.MUX0, name + " " + "1:0 MUX0 Configuration for AUXSIG7 of CLB-XBAR");
@@ -3529,12 +3899,18 @@ bool check_compare(const AUXSIG7MUX0TO15CFG_BITS &obj, const AUXSIG7MUX0TO15CFG_
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 MUX7 Configuration for AUXSIG7 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 MUX8 Configuration for AUXSIG7 of CLB-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 MUX9 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 MUX10 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 MUX11 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 MUX12 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 MUX13 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 MUX14 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 MUX15 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 MUX10 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 MUX11 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 MUX12 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 MUX13 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 MUX14 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 MUX15 Configuration for AUXSIG7 of CLB-XBAR");
 
     return all_zero;
 }
@@ -3548,30 +3924,48 @@ bool check_compare(const AUXSIG7MUX0TO15CFG_REG &obj, const AUXSIG7MUX0TO15CFG_R
     return all_zero;
 }
 
-bool check_compare(const AUXSIG7MUX16TO31CFG_BITS &obj, const AUXSIG7MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const AUXSIG7MUX16TO31CFG_BITS &obj, const AUXSIG7MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 MUX16 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 MUX17 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 MUX18 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 MUX19 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 MUX20 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 MUX21 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 MUX22 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 MUX23 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 MUX24 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 MUX25 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 MUX26 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 MUX27 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 MUX28 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 MUX29 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 MUX30 Configuration for AUXSIG7 of CLB-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 MUX31 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 MUX16 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 MUX17 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 MUX18 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 MUX19 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 MUX20 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 MUX21 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 MUX22 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 MUX23 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 MUX24 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 MUX25 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 MUX26 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 MUX27 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 MUX28 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 MUX29 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 MUX30 Configuration for AUXSIG7 of CLB-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 MUX31 Configuration for AUXSIG7 of CLB-XBAR");
 
     return all_zero;
 }
 
-bool check_compare(const AUXSIG7MUX16TO31CFG_REG &obj, const AUXSIG7MUX16TO31CFG_REG &expected, const std::string &name) {
+bool check_compare(const AUXSIG7MUX16TO31CFG_REG &obj, const AUXSIG7MUX16TO31CFG_REG &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
     all_zero &= check_compare(obj.all, expected.all, name + " " + "all");
@@ -4012,32 +4406,57 @@ bool check_compare(const AUXSIGLOCK_REG &obj, const AUXSIGLOCK_REG &expected, co
 bool check_compare(const CLB_XBAR_REGS &obj, const CLB_XBAR_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.AUXSIG0MUX0TO15CFG, expected.AUXSIG0MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-0");
-    all_zero &= check_compare(obj.AUXSIG0MUX16TO31CFG, expected.AUXSIG0MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-0");
-    all_zero &= check_compare(obj.AUXSIG1MUX0TO15CFG, expected.AUXSIG1MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-1");
-    all_zero &= check_compare(obj.AUXSIG1MUX16TO31CFG, expected.AUXSIG1MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-1");
-    all_zero &= check_compare(obj.AUXSIG2MUX0TO15CFG, expected.AUXSIG2MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-2");
-    all_zero &= check_compare(obj.AUXSIG2MUX16TO31CFG, expected.AUXSIG2MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-2");
-    all_zero &= check_compare(obj.AUXSIG3MUX0TO15CFG, expected.AUXSIG3MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-3");
-    all_zero &= check_compare(obj.AUXSIG3MUX16TO31CFG, expected.AUXSIG3MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-3");
-    all_zero &= check_compare(obj.AUXSIG4MUX0TO15CFG, expected.AUXSIG4MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-4");
-    all_zero &= check_compare(obj.AUXSIG4MUX16TO31CFG, expected.AUXSIG4MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-4");
-    all_zero &= check_compare(obj.AUXSIG5MUX0TO15CFG, expected.AUXSIG5MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-5");
-    all_zero &= check_compare(obj.AUXSIG5MUX16TO31CFG, expected.AUXSIG5MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-5");
-    all_zero &= check_compare(obj.AUXSIG6MUX0TO15CFG, expected.AUXSIG6MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-6");
-    all_zero &= check_compare(obj.AUXSIG6MUX16TO31CFG, expected.AUXSIG6MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-6");
-    all_zero &= check_compare(obj.AUXSIG7MUX0TO15CFG, expected.AUXSIG7MUX0TO15CFG, name + " " + "CLB XBAR Mux Configuration for Output-7");
-    all_zero &= check_compare(obj.AUXSIG7MUX16TO31CFG, expected.AUXSIG7MUX16TO31CFG, name + " " + "CLB XBAR Mux Configuration for Output-7");
-    all_zero &= check_compare(obj.AUXSIG0MUXENABLE, expected.AUXSIG0MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-0");
-    all_zero &= check_compare(obj.AUXSIG1MUXENABLE, expected.AUXSIG1MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-1");
-    all_zero &= check_compare(obj.AUXSIG2MUXENABLE, expected.AUXSIG2MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-2");
-    all_zero &= check_compare(obj.AUXSIG3MUXENABLE, expected.AUXSIG3MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-3");
-    all_zero &= check_compare(obj.AUXSIG4MUXENABLE, expected.AUXSIG4MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-4");
-    all_zero &= check_compare(obj.AUXSIG5MUXENABLE, expected.AUXSIG5MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-5");
-    all_zero &= check_compare(obj.AUXSIG6MUXENABLE, expected.AUXSIG6MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-6");
-    all_zero &= check_compare(obj.AUXSIG7MUXENABLE, expected.AUXSIG7MUXENABLE, name + " " + "CLB XBAR Mux Enable Register for Output-7");
+    all_zero &= check_compare(obj.AUXSIG0MUX0TO15CFG, expected.AUXSIG0MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-0");
+    all_zero &= check_compare(obj.AUXSIG0MUX16TO31CFG, expected.AUXSIG0MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-0");
+    all_zero &= check_compare(obj.AUXSIG1MUX0TO15CFG, expected.AUXSIG1MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-1");
+    all_zero &= check_compare(obj.AUXSIG1MUX16TO31CFG, expected.AUXSIG1MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-1");
+    all_zero &= check_compare(obj.AUXSIG2MUX0TO15CFG, expected.AUXSIG2MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-2");
+    all_zero &= check_compare(obj.AUXSIG2MUX16TO31CFG, expected.AUXSIG2MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-2");
+    all_zero &= check_compare(obj.AUXSIG3MUX0TO15CFG, expected.AUXSIG3MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-3");
+    all_zero &= check_compare(obj.AUXSIG3MUX16TO31CFG, expected.AUXSIG3MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-3");
+    all_zero &= check_compare(obj.AUXSIG4MUX0TO15CFG, expected.AUXSIG4MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-4");
+    all_zero &= check_compare(obj.AUXSIG4MUX16TO31CFG, expected.AUXSIG4MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-4");
+    all_zero &= check_compare(obj.AUXSIG5MUX0TO15CFG, expected.AUXSIG5MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-5");
+    all_zero &= check_compare(obj.AUXSIG5MUX16TO31CFG, expected.AUXSIG5MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-5");
+    all_zero &= check_compare(obj.AUXSIG6MUX0TO15CFG, expected.AUXSIG6MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-6");
+    all_zero &= check_compare(obj.AUXSIG6MUX16TO31CFG, expected.AUXSIG6MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-6");
+    all_zero &= check_compare(obj.AUXSIG7MUX0TO15CFG, expected.AUXSIG7MUX0TO15CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-7");
+    all_zero &= check_compare(obj.AUXSIG7MUX16TO31CFG, expected.AUXSIG7MUX16TO31CFG,
+                              name + " " + "CLB XBAR Mux Configuration for Output-7");
+    all_zero &= check_compare(obj.AUXSIG0MUXENABLE, expected.AUXSIG0MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-0");
+    all_zero &= check_compare(obj.AUXSIG1MUXENABLE, expected.AUXSIG1MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-1");
+    all_zero &= check_compare(obj.AUXSIG2MUXENABLE, expected.AUXSIG2MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-2");
+    all_zero &= check_compare(obj.AUXSIG3MUXENABLE, expected.AUXSIG3MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-3");
+    all_zero &= check_compare(obj.AUXSIG4MUXENABLE, expected.AUXSIG4MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-4");
+    all_zero &= check_compare(obj.AUXSIG5MUXENABLE, expected.AUXSIG5MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-5");
+    all_zero &= check_compare(obj.AUXSIG6MUXENABLE, expected.AUXSIG6MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-6");
+    all_zero &= check_compare(obj.AUXSIG7MUXENABLE, expected.AUXSIG7MUXENABLE,
+                              name + " " + "CLB XBAR Mux Enable Register for Output-7");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.AUXSIGOUTINV, expected.AUXSIGOUTINV, name + " " + "CLB XBAR Output Inversion Register");
+    all_zero &= check_compare(obj.AUXSIGOUTINV, expected.AUXSIGOUTINV,
+                              name + " " + "CLB XBAR Output Inversion Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.AUXSIGLOCK, expected.AUXSIGLOCK, name + " " + "ClbXbar Configuration Lock register");
 
@@ -4050,14 +4469,18 @@ bool check_compare(const COMPCTL_BITS &obj, const COMPCTL_BITS &expected, const 
     all_zero &= check_compare(obj.COMPHSOURCE, expected.COMPHSOURCE, name + " " + "0 High Comparator Source Select");
     all_zero &= check_compare(obj.COMPHINV, expected.COMPHINV, name + " " + "1 High Comparator Invert Select");
     all_zero &= check_compare(obj.CTRIPHSEL, expected.CTRIPHSEL, name + " " + "3:2 High Comparator Trip Select");
-    all_zero &= check_compare(obj.CTRIPOUTHSEL, expected.CTRIPOUTHSEL, name + " " + "5:4 High Comparator Trip Output Select");
-    all_zero &= check_compare(obj.ASYNCHEN, expected.ASYNCHEN, name + " " + "6 High Comparator Asynchronous Path Enable");
+    all_zero &= check_compare(obj.CTRIPOUTHSEL, expected.CTRIPOUTHSEL,
+                              name + " " + "5:4 High Comparator Trip Output Select");
+    all_zero &= check_compare(obj.ASYNCHEN, expected.ASYNCHEN,
+                              name + " " + "6 High Comparator Asynchronous Path Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.COMPLSOURCE, expected.COMPLSOURCE, name + " " + "8 Low Comparator Source Select");
     all_zero &= check_compare(obj.COMPLINV, expected.COMPLINV, name + " " + "9 Low Comparator Invert Select");
     all_zero &= check_compare(obj.CTRIPLSEL, expected.CTRIPLSEL, name + " " + "11:10 Low Comparator Trip Select");
-    all_zero &= check_compare(obj.CTRIPOUTLSEL, expected.CTRIPOUTLSEL, name + " " + "13:12 Low Comparator Trip Output Select");
-    all_zero &= check_compare(obj.ASYNCLEN, expected.ASYNCLEN, name + " " + "14 Low Comparator Asynchronous Path Enable");
+    all_zero &= check_compare(obj.CTRIPOUTLSEL, expected.CTRIPOUTLSEL,
+                              name + " " + "13:12 Low Comparator Trip Output Select");
+    all_zero &= check_compare(obj.ASYNCLEN, expected.ASYNCLEN,
+                              name + " " + "14 Low Comparator Asynchronous Path Enable");
     all_zero &= check_compare(obj.COMPDACE, expected.COMPDACE, name + " " + "15 Comparator/DAC Enable");
 
     return all_zero;
@@ -4117,10 +4540,12 @@ bool check_compare(const COMPSTSCLR_BITS &obj, const COMPSTSCLR_BITS &expected, 
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "0 Reserved");
     all_zero &= check_compare(obj.HLATCHCLR, expected.HLATCHCLR, name + " " + "1 High Comparator Latched Status Clear");
-    all_zero &= check_compare(obj.HSYNCCLREN, expected.HSYNCCLREN, name + " " + "2 High Comparator EPWMSYNCPER Clear Enable");
+    all_zero &= check_compare(obj.HSYNCCLREN, expected.HSYNCCLREN,
+                              name + " " + "2 High Comparator EPWMSYNCPER Clear Enable");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "8:3 Reserved");
     all_zero &= check_compare(obj.LLATCHCLR, expected.LLATCHCLR, name + " " + "9 Low Comparator Latched Status Clear");
-    all_zero &= check_compare(obj.LSYNCCLREN, expected.LSYNCCLREN, name + " " + "10 Low Comparator EPWMSYNCPER Clear Enable");
+    all_zero &= check_compare(obj.LSYNCCLREN, expected.LSYNCCLREN,
+                              name + " " + "10 Low Comparator EPWMSYNCPER Clear Enable");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:11 Reserved");
 
     return all_zero;
@@ -4370,20 +4795,26 @@ bool check_compare(const CMPSS_REGS &obj, const CMPSS_REGS &expected, const std:
     bool all_zero = true;
 
     all_zero &= check_compare(obj.COMPCTL, expected.COMPCTL, name + " " + "CMPSS Comparator Control Register");
-    all_zero &= check_compare(obj.COMPHYSCTL, expected.COMPHYSCTL, name + " " + "CMPSS Comparator Hysteresis Control Register");
+    all_zero &= check_compare(obj.COMPHYSCTL, expected.COMPHYSCTL,
+                              name + " " + "CMPSS Comparator Hysteresis Control Register");
     all_zero &= check_compare(obj.COMPSTS, expected.COMPSTS, name + " " + "CMPSS Comparator Status Register");
-    all_zero &= check_compare(obj.COMPSTSCLR, expected.COMPSTSCLR, name + " " + "CMPSS Comparator Status Clear Register");
+    all_zero &= check_compare(obj.COMPSTSCLR, expected.COMPSTSCLR,
+                              name + " " + "CMPSS Comparator Status Clear Register");
     all_zero &= check_compare(obj.COMPDACCTL, expected.COMPDACCTL, name + " " + "CMPSS DAC Control Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.DACHVALS, expected.DACHVALS, name + " " + "CMPSS High DAC Value Shadow Register");
     all_zero &= check_compare(obj.DACHVALA, expected.DACHVALA, name + " " + "CMPSS High DAC Value Active Register");
-    all_zero &= check_compare(obj.RAMPMAXREFA, expected.RAMPMAXREFA, name + " " + "CMPSS Ramp Max Reference Active Register");
+    all_zero &= check_compare(obj.RAMPMAXREFA, expected.RAMPMAXREFA,
+                              name + " " + "CMPSS Ramp Max Reference Active Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
-    all_zero &= check_compare(obj.RAMPMAXREFS, expected.RAMPMAXREFS, name + " " + "CMPSS Ramp Max Reference Shadow Register");
+    all_zero &= check_compare(obj.RAMPMAXREFS, expected.RAMPMAXREFS,
+                              name + " " + "CMPSS Ramp Max Reference Shadow Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
-    all_zero &= check_compare(obj.RAMPDECVALA, expected.RAMPDECVALA, name + " " + "CMPSS Ramp Decrement Value Active Register");
+    all_zero &= check_compare(obj.RAMPDECVALA, expected.RAMPDECVALA,
+                              name + " " + "CMPSS Ramp Decrement Value Active Register");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
-    all_zero &= check_compare(obj.RAMPDECVALS, expected.RAMPDECVALS, name + " " + "CMPSS Ramp Decrement Value Shadow Register");
+    all_zero &= check_compare(obj.RAMPDECVALS, expected.RAMPDECVALS,
+                              name + " " + "CMPSS Ramp Decrement Value Shadow Register");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
     all_zero &= check_compare(obj.RAMPSTS, expected.RAMPSTS, name + " " + "CMPSS Ramp Status Register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
@@ -4392,9 +4823,11 @@ bool check_compare(const CMPSS_REGS &obj, const CMPSS_REGS &expected, const std:
     all_zero &= check_compare(obj.RAMPDLYA, expected.RAMPDLYA, name + " " + "CMPSS Ramp Delay Active Register");
     all_zero &= check_compare(obj.RAMPDLYS, expected.RAMPDLYS, name + " " + "CMPSS Ramp Delay Shadow Register");
     all_zero &= check_compare(obj.CTRIPLFILCTL, expected.CTRIPLFILCTL, name + " " + "CTRIPL Filter Control Register");
-    all_zero &= check_compare(obj.CTRIPLFILCLKCTL, expected.CTRIPLFILCLKCTL, name + " " + "CTRIPL Filter Clock Control Register");
+    all_zero &= check_compare(obj.CTRIPLFILCLKCTL, expected.CTRIPLFILCLKCTL,
+                              name + " " + "CTRIPL Filter Clock Control Register");
     all_zero &= check_compare(obj.CTRIPHFILCTL, expected.CTRIPHFILCTL, name + " " + "CTRIPH Filter Control Register");
-    all_zero &= check_compare(obj.CTRIPHFILCLKCTL, expected.CTRIPHFILCLKCTL, name + " " + "CTRIPH Filter Clock Control Register");
+    all_zero &= check_compare(obj.CTRIPHFILCLKCTL, expected.CTRIPHFILCLKCTL,
+                              name + " " + "CTRIPH Filter Clock Control Register");
     all_zero &= check_compare(obj.COMPLOCK, expected.COMPLOCK, name + " " + "CMPSS Lock Register");
 
     return all_zero;
@@ -4873,10 +5306,13 @@ bool check_compare(const DCSM_Z1_REGS &obj, const DCSM_Z1_REGS &expected, const 
     all_zero &= check_compare(obj.Z1_CSMKEY3, expected.Z1_CSMKEY3, name + " " + "Zone 1 CSM Key 3");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.Z1_CR, expected.Z1_CR, name + " " + "Zone 1 CSM Control Register");
-    all_zero &= check_compare(obj.Z1_GRABSECTR, expected.Z1_GRABSECTR, name + " " + "Zone 1 Grab Flash Sectors Register");
+    all_zero &= check_compare(obj.Z1_GRABSECTR, expected.Z1_GRABSECTR,
+                              name + " " + "Zone 1 Grab Flash Sectors Register");
     all_zero &= check_compare(obj.Z1_GRABRAMR, expected.Z1_GRABRAMR, name + " " + "Zone 1 Grab RAM Blocks Register");
-    all_zero &= check_compare(obj.Z1_EXEONLYSECTR, expected.Z1_EXEONLYSECTR, name + " " + "Zone 1 Flash Execute_Only Sector Register");
-    all_zero &= check_compare(obj.Z1_EXEONLYRAMR, expected.Z1_EXEONLYRAMR, name + " " + "Zone 1 RAM Execute_Only Block Register");
+    all_zero &= check_compare(obj.Z1_EXEONLYSECTR, expected.Z1_EXEONLYSECTR,
+                              name + " " + "Zone 1 Flash Execute_Only Sector Register");
+    all_zero &= check_compare(obj.Z1_EXEONLYRAMR, expected.Z1_EXEONLYRAMR,
+                              name + " " + "Zone 1 RAM Execute_Only Block Register");
 
     return all_zero;
 }
@@ -5096,10 +5532,13 @@ bool check_compare(const DCSM_Z2_REGS &obj, const DCSM_Z2_REGS &expected, const 
     all_zero &= check_compare(obj.Z2_CSMKEY3, expected.Z2_CSMKEY3, name + " " + "Zone 2 CSM Key 3");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.Z2_CR, expected.Z2_CR, name + " " + "Zone 2 CSM Control Register");
-    all_zero &= check_compare(obj.Z2_GRABSECTR, expected.Z2_GRABSECTR, name + " " + "Zone 2 Grab Flash Sectors Register");
+    all_zero &= check_compare(obj.Z2_GRABSECTR, expected.Z2_GRABSECTR,
+                              name + " " + "Zone 2 Grab Flash Sectors Register");
     all_zero &= check_compare(obj.Z2_GRABRAMR, expected.Z2_GRABRAMR, name + " " + "Zone 2 Grab RAM Blocks Register");
-    all_zero &= check_compare(obj.Z2_EXEONLYSECTR, expected.Z2_EXEONLYSECTR, name + " " + "Zone 2 Flash Execute_Only Sector Register");
-    all_zero &= check_compare(obj.Z2_EXEONLYRAMR, expected.Z2_EXEONLYRAMR, name + " " + "Zone 2 RAM Execute_Only Block Register");
+    all_zero &= check_compare(obj.Z2_EXEONLYSECTR, expected.Z2_EXEONLYSECTR,
+                              name + " " + "Zone 2 Flash Execute_Only Sector Register");
+    all_zero &= check_compare(obj.Z2_EXEONLYRAMR, expected.Z2_EXEONLYRAMR,
+                              name + " " + "Zone 2 RAM Execute_Only Block Register");
 
     return all_zero;
 }
@@ -5196,7 +5635,8 @@ bool check_compare(const DCSM_COMMON_REGS &obj, const DCSM_COMMON_REGS &expected
 bool check_compare(const MODE_BITS &obj, const MODE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PERINTSEL, expected.PERINTSEL, name + " " + "4:0 Peripheral Interrupt and Sync Select");
+    all_zero &= check_compare(obj.PERINTSEL, expected.PERINTSEL,
+                              name + " " + "4:0 Peripheral Interrupt and Sync Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "6:5 Reserved");
     all_zero &= check_compare(obj.OVRINTE, expected.OVRINTE, name + " " + "7 Overflow Interrupt Enable");
     all_zero &= check_compare(obj.PERINTE, expected.PERINTE, name + " " + "8 Peripheral Interrupt Enable");
@@ -5296,25 +5736,37 @@ bool check_compare(const CH_REGS &obj, const CH_REGS &expected, const std::strin
     all_zero &= check_compare(obj.BURST_SIZE, expected.BURST_SIZE, name + " " + "Burst Size Register");
     all_zero &= check_compare(obj.BURST_COUNT, expected.BURST_COUNT, name + " " + "Burst Count Register");
     all_zero &= check_compare(obj.SRC_BURST_STEP, expected.SRC_BURST_STEP, name + " " + "Source Burst Step Register");
-    all_zero &= check_compare(obj.DST_BURST_STEP, expected.DST_BURST_STEP, name + " " + "Destination Burst Step Register");
+    all_zero &= check_compare(obj.DST_BURST_STEP, expected.DST_BURST_STEP,
+                              name + " " + "Destination Burst Step Register");
     all_zero &= check_compare(obj.TRANSFER_SIZE, expected.TRANSFER_SIZE, name + " " + "Transfer Size Register");
     all_zero &= check_compare(obj.TRANSFER_COUNT, expected.TRANSFER_COUNT, name + " " + "Transfer Count Register");
-    all_zero &= check_compare(obj.SRC_TRANSFER_STEP, expected.SRC_TRANSFER_STEP, name + " " + "Source Transfer Step Register");
-    all_zero &= check_compare(obj.DST_TRANSFER_STEP, expected.DST_TRANSFER_STEP, name + " " + "Destination Transfer Step Register");
+    all_zero &= check_compare(obj.SRC_TRANSFER_STEP, expected.SRC_TRANSFER_STEP,
+                              name + " " + "Source Transfer Step Register");
+    all_zero &= check_compare(obj.DST_TRANSFER_STEP, expected.DST_TRANSFER_STEP,
+                              name + " " + "Destination Transfer Step Register");
     all_zero &= check_compare(obj.SRC_WRAP_SIZE, expected.SRC_WRAP_SIZE, name + " " + "Source Wrap Size Register");
     all_zero &= check_compare(obj.SRC_WRAP_COUNT, expected.SRC_WRAP_COUNT, name + " " + "Source Wrap Count Register");
     all_zero &= check_compare(obj.SRC_WRAP_STEP, expected.SRC_WRAP_STEP, name + " " + "Source Wrap Step Register");
     all_zero &= check_compare(obj.DST_WRAP_SIZE, expected.DST_WRAP_SIZE, name + " " + "Destination Wrap Size Register");
-    all_zero &= check_compare(obj.DST_WRAP_COUNT, expected.DST_WRAP_COUNT, name + " " + "Destination Wrap Count Register");
+    all_zero &= check_compare(obj.DST_WRAP_COUNT, expected.DST_WRAP_COUNT,
+                              name + " " + "Destination Wrap Count Register");
     all_zero &= check_compare(obj.DST_WRAP_STEP, expected.DST_WRAP_STEP, name + " " + "Destination Wrap Step Register");
-    all_zero &= check_compare(obj.SRC_BEG_ADDR_SHADOW, expected.SRC_BEG_ADDR_SHADOW, name + " " + "Source Begin Address Shadow Register");
-    all_zero &= check_compare(obj.SRC_ADDR_SHADOW, expected.SRC_ADDR_SHADOW, name + " " + "Source Address Shadow Register");
-    all_zero &= check_compare(obj.SRC_BEG_ADDR_ACTIVE, expected.SRC_BEG_ADDR_ACTIVE, name + " " + "Source Begin Address Active Register");
-    all_zero &= check_compare(obj.SRC_ADDR_ACTIVE, expected.SRC_ADDR_ACTIVE, name + " " + "Source Address Active Register");
-    all_zero &= check_compare(obj.DST_BEG_ADDR_SHADOW, expected.DST_BEG_ADDR_SHADOW, name + " " + "Destination Begin Address Shadow Register");
-    all_zero &= check_compare(obj.DST_ADDR_SHADOW, expected.DST_ADDR_SHADOW, name + " " + "Destination Address Shadow Register");
-    all_zero &= check_compare(obj.DST_BEG_ADDR_ACTIVE, expected.DST_BEG_ADDR_ACTIVE, name + " " + "Destination Begin Address Active Register");
-    all_zero &= check_compare(obj.DST_ADDR_ACTIVE, expected.DST_ADDR_ACTIVE, name + " " + "Destination Address Active Register");
+    all_zero &= check_compare(obj.SRC_BEG_ADDR_SHADOW, expected.SRC_BEG_ADDR_SHADOW,
+                              name + " " + "Source Begin Address Shadow Register");
+    all_zero &= check_compare(obj.SRC_ADDR_SHADOW, expected.SRC_ADDR_SHADOW,
+                              name + " " + "Source Address Shadow Register");
+    all_zero &= check_compare(obj.SRC_BEG_ADDR_ACTIVE, expected.SRC_BEG_ADDR_ACTIVE,
+                              name + " " + "Source Begin Address Active Register");
+    all_zero &= check_compare(obj.SRC_ADDR_ACTIVE, expected.SRC_ADDR_ACTIVE,
+                              name + " " + "Source Address Active Register");
+    all_zero &= check_compare(obj.DST_BEG_ADDR_SHADOW, expected.DST_BEG_ADDR_SHADOW,
+                              name + " " + "Destination Begin Address Shadow Register");
+    all_zero &= check_compare(obj.DST_ADDR_SHADOW, expected.DST_ADDR_SHADOW,
+                              name + " " + "Destination Address Shadow Register");
+    all_zero &= check_compare(obj.DST_BEG_ADDR_ACTIVE, expected.DST_BEG_ADDR_ACTIVE,
+                              name + " " + "Destination Begin Address Active Register");
+    all_zero &= check_compare(obj.DST_ADDR_ACTIVE, expected.DST_ADDR_ACTIVE,
+                              name + " " + "Destination Address Active Register");
 
     return all_zero;
 }
@@ -5379,7 +5831,8 @@ bool check_compare(const PRIORITYSTAT_BITS &obj, const PRIORITYSTAT_BITS &expect
 
     all_zero &= check_compare(obj.ACTIVESTS, expected.ACTIVESTS, name + " " + "2:0 Active Channel Status Bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.ACTIVESTS_SHADOW, expected.ACTIVESTS_SHADOW, name + " " + "6:4 Active Channel Status Shadow Bits");
+    all_zero &= check_compare(obj.ACTIVESTS_SHADOW, expected.ACTIVESTS_SHADOW,
+                              name + " " + "6:4 Active Channel Status Shadow Bits");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:7 Reserved");
 
     return all_zero;
@@ -5425,7 +5878,8 @@ bool check_compare(const ECCTL1_BITS &obj, const ECCTL1_BITS &expected, const st
     all_zero &= check_compare(obj.CTRRST3, expected.CTRRST3, name + " " + "5 Counter Reset on Capture Event 3");
     all_zero &= check_compare(obj.CAP4POL, expected.CAP4POL, name + " " + "6 Capture Event 4 Polarity select");
     all_zero &= check_compare(obj.CTRRST4, expected.CTRRST4, name + " " + "7 Counter Reset on Capture Event 4");
-    all_zero &= check_compare(obj.CAPLDEN, expected.CAPLDEN, name + " " + "8 Enable Loading CAP1-4 regs on a Cap Event");
+    all_zero &= check_compare(obj.CAPLDEN, expected.CAPLDEN,
+                              name + " " + "8 Enable Loading CAP1-4 regs on a Cap Event");
     all_zero &= check_compare(obj.PRESCALE, expected.PRESCALE, name + " " + "13:9 Event Filter prescale select");
     all_zero &= check_compare(obj.FREE_SOFT, expected.FREE_SOFT, name + " " + "15:14 Emulation mode");
 
@@ -5445,7 +5899,8 @@ bool check_compare(const ECCTL2_BITS &obj, const ECCTL2_BITS &expected, const st
     bool all_zero = true;
 
     all_zero &= check_compare(obj.CONT_ONESHT, expected.CONT_ONESHT, name + " " + "0 Continuous or one-shot");
-    all_zero &= check_compare(obj.STOP_WRAP, expected.STOP_WRAP, name + " " + "2:1 Stop value for one-shot, Wrap for continuous");
+    all_zero &= check_compare(obj.STOP_WRAP, expected.STOP_WRAP,
+                              name + " " + "2:1 Stop value for one-shot, Wrap for continuous");
     all_zero &= check_compare(obj.REARM, expected.REARM, name + " " + "3 One-shot re-arm");
     all_zero &= check_compare(obj.TSCTRSTOP, expected.TSCTRSTOP, name + " " + "4 TSCNT counter stop");
     all_zero &= check_compare(obj.SYNCI_EN, expected.SYNCI_EN, name + " " + "5 Counter sync-in select");
@@ -5611,7 +6066,8 @@ bool check_compare(const RCSR_REG &obj, const RCSR_REG &expected, const std::str
 bool check_compare(const ASYNC_WCCR_BITS &obj, const ASYNC_WCCR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MAX_EXT_WAIT, expected.MAX_EXT_WAIT, name + " " + "7:0 Maximum Extended Wait cycles.");
+    all_zero &= check_compare(obj.MAX_EXT_WAIT, expected.MAX_EXT_WAIT,
+                              name + " " + "7:0 Maximum Extended Wait cycles.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "17:16 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "19:18 Reserved");
@@ -5642,7 +6098,8 @@ bool check_compare(const SDRAM_CR_BITS &obj, const SDRAM_CR_BITS &expected, cons
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.IBANK, expected.IBANK, name + " " + "6:4 Internal Bank setup of SDRAM devices.");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.BIT_11_9_LOCK, expected.BIT_11_9_LOCK, name + " " + "8 Bits 11 to 9 are writable only if this bit is set.");
+    all_zero &= check_compare(obj.BIT_11_9_LOCK, expected.BIT_11_9_LOCK,
+                              name + " " + "8 Bits 11 to 9 are writable only if this bit is set.");
     all_zero &= check_compare(obj.CL, expected.CL, name + " " + "11:9 CAS Latency.");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "12 Reserved");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "13 Reserved");
@@ -5772,7 +6229,8 @@ bool check_compare(const SDRAM_TR_BITS &obj, const SDRAM_TR_BITS &expected, cons
     bool all_zero = true;
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3:0 Reserved");
-    all_zero &= check_compare(obj.T_RRD, expected.T_RRD, name + " " + "6:4 Activate to Activate timing for different bank.");
+    all_zero &= check_compare(obj.T_RRD, expected.T_RRD,
+                              name + " " + "6:4 Activate to Activate timing for different bank.");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.T_RC, expected.T_RC, name + " " + "11:8 Activate to Activate timing .");
     all_zero &= check_compare(obj.T_RAS, expected.T_RAS, name + " " + "15:12 Activate to Precharge timing.");
@@ -5781,7 +6239,8 @@ bool check_compare(const SDRAM_TR_BITS &obj, const SDRAM_TR_BITS &expected, cons
     all_zero &= check_compare(obj.T_RCD, expected.T_RCD, name + " " + "22:20 Activate to Read/Write timing.");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "23 Reserved");
     all_zero &= check_compare(obj.T_RP, expected.T_RP, name + " " + "26:24 Precharge to Activate/Refresh timing.");
-    all_zero &= check_compare(obj.T_RFC, expected.T_RFC, name + " " + "31:27 Refresh/Load Mode to Refresh/Activate timing");
+    all_zero &= check_compare(obj.T_RFC, expected.T_RFC,
+                              name + " " + "31:27 Refresh/Load Mode to Refresh/Activate timing");
 
     return all_zero;
 }
@@ -5905,14 +6364,19 @@ bool check_compare(const EMIF_REGS &obj, const EMIF_REGS &expected, const std::s
     all_zero &= check_compare(obj.ASYNC_WCCR, expected.ASYNC_WCCR, name + " " + "Async Wait Cycle Config Register");
     all_zero &= check_compare(obj.SDRAM_CR, expected.SDRAM_CR, name + " " + "SDRAM (EMxCS0n) Config Register");
     all_zero &= check_compare(obj.SDRAM_RCR, expected.SDRAM_RCR, name + " " + "SDRAM Refresh Control Register");
-    all_zero &= check_compare(obj.ASYNC_CS2_CR, expected.ASYNC_CS2_CR, name + " " + "Async 1 (EMxCS2n) Config Register");
-    all_zero &= check_compare(obj.ASYNC_CS3_CR, expected.ASYNC_CS3_CR, name + " " + "Async 2 (EMxCS3n) Config Register");
-    all_zero &= check_compare(obj.ASYNC_CS4_CR, expected.ASYNC_CS4_CR, name + " " + "Async 3 (EMxCS4n) Config Register");
+    all_zero &= check_compare(obj.ASYNC_CS2_CR, expected.ASYNC_CS2_CR,
+                              name + " " + "Async 1 (EMxCS2n) Config Register");
+    all_zero &= check_compare(obj.ASYNC_CS3_CR, expected.ASYNC_CS3_CR,
+                              name + " " + "Async 2 (EMxCS3n) Config Register");
+    all_zero &= check_compare(obj.ASYNC_CS4_CR, expected.ASYNC_CS4_CR,
+                              name + " " + "Async 3 (EMxCS4n) Config Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.SDRAM_TR, expected.SDRAM_TR, name + " " + "SDRAM Timing Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
-    all_zero &= check_compare(obj.TOTAL_SDRAM_AR, expected.TOTAL_SDRAM_AR, name + " " + "Total SDRAM Accesses Register");
-    all_zero &= check_compare(obj.TOTAL_SDRAM_ACTR, expected.TOTAL_SDRAM_ACTR, name + " " + "Total SDRAM Activate Register");
+    all_zero &= check_compare(obj.TOTAL_SDRAM_AR, expected.TOTAL_SDRAM_AR,
+                              name + " " + "Total SDRAM Accesses Register");
+    all_zero &= check_compare(obj.TOTAL_SDRAM_ACTR, expected.TOTAL_SDRAM_ACTR,
+                              name + " " + "Total SDRAM Activate Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
     all_zero &= check_compare(obj.SDR_EXT_TMNG, expected.SDR_EXT_TMNG, name + " " + "SDRAM SR/PD Exit Timing Register");
     all_zero &= check_compare(obj.INT_RAW, expected.INT_RAW, name + " " + "Interrupt Raw Register");
@@ -5957,7 +6421,8 @@ bool check_compare(const TBCTL2_BITS &obj, const TBCTL2_BITS &expected, const st
     all_zero &= check_compare(obj.OSHTSYNC, expected.OSHTSYNC, name + " " + "7 One shot sync");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11:8 Reserved");
     all_zero &= check_compare(obj.SYNCOSELX, expected.SYNCOSELX, name + " " + "13:12 Syncout selection");
-    all_zero &= check_compare(obj.PRDLDSYNC, expected.PRDLDSYNC, name + " " + "15:14 PRD Shadow to Active Load on SYNC Event");
+    all_zero &= check_compare(obj.PRDLDSYNC, expected.PRDLDSYNC,
+                              name + " " + "15:14 PRD Shadow to Active Load on SYNC Event");
 
     return all_zero;
 }
@@ -5996,12 +6461,16 @@ bool check_compare(const CMPCTL_BITS &obj, const CMPCTL_BITS &expected, const st
 
     all_zero &= check_compare(obj.LOADAMODE, expected.LOADAMODE, name + " " + "1:0 Active Compare A Load");
     all_zero &= check_compare(obj.LOADBMODE, expected.LOADBMODE, name + " " + "3:2 Active Compare B Load");
-    all_zero &= check_compare(obj.SHDWAMODE, expected.SHDWAMODE, name + " " + "4 Compare A Register Block Operating Mode");
+    all_zero &= check_compare(obj.SHDWAMODE, expected.SHDWAMODE,
+                              name + " " + "4 Compare A Register Block Operating Mode");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "5 Reserved");
-    all_zero &= check_compare(obj.SHDWBMODE, expected.SHDWBMODE, name + " " + "6 Compare B Register Block Operating Mode");
+    all_zero &= check_compare(obj.SHDWBMODE, expected.SHDWBMODE,
+                              name + " " + "6 Compare B Register Block Operating Mode");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
-    all_zero &= check_compare(obj.SHDWAFULL, expected.SHDWAFULL, name + " " + "8 Compare A Shadow Register Full Status");
-    all_zero &= check_compare(obj.SHDWBFULL, expected.SHDWBFULL, name + " " + "9 Compare B Shadow Register Full Status");
+    all_zero &= check_compare(obj.SHDWAFULL, expected.SHDWAFULL,
+                              name + " " + "8 Compare A Shadow Register Full Status");
+    all_zero &= check_compare(obj.SHDWBFULL, expected.SHDWBFULL,
+                              name + " " + "9 Compare B Shadow Register Full Status");
     all_zero &= check_compare(obj.LOADASYNC, expected.LOADASYNC, name + " " + "11:10 Active Compare A Load on SYNC");
     all_zero &= check_compare(obj.LOADBSYNC, expected.LOADBSYNC, name + " " + "13:12 Active Compare B Load on SYNC");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:14 Reserved");
@@ -6072,7 +6541,8 @@ bool check_compare(const DBCTL_REG &obj, const DBCTL_REG &expected, const std::s
 bool check_compare(const DBCTL2_BITS &obj, const DBCTL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LOADDBCTLMODE, expected.LOADDBCTLMODE, name + " " + "1:0 DBCTL Load from Shadow Mode Select");
+    all_zero &= check_compare(obj.LOADDBCTLMODE, expected.LOADDBCTLMODE,
+                              name + " " + "1:0 DBCTL Load from Shadow Mode Select");
     all_zero &= check_compare(obj.SHDWDBCTLMODE, expected.SHDWDBCTLMODE, name + " " + "2 DBCTL Load mode Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
 
@@ -6095,7 +6565,8 @@ bool check_compare(const AQCTL_BITS &obj, const AQCTL_BITS &expected, const std:
     all_zero &= check_compare(obj.LDAQBMODE, expected.LDAQBMODE, name + " " + "3:2 Action Qualifier B Load Select");
     all_zero &= check_compare(obj.SHDWAQAMODE, expected.SHDWAQAMODE, name + " " + "4 Action Qualifer A Operating Mode");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "5 Reserved");
-    all_zero &= check_compare(obj.SHDWAQBMODE, expected.SHDWAQBMODE, name + " " + "6 Action Qualifier B Operating Mode");
+    all_zero &= check_compare(obj.SHDWAQBMODE, expected.SHDWAQBMODE,
+                              name + " " + "6 Action Qualifier B Operating Mode");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.LDAQASYNC, expected.LDAQASYNC, name + " " + "9:8 AQCTLA Register Load on SYNC");
     all_zero &= check_compare(obj.LDAQBSYNC, expected.LDAQBSYNC, name + " " + "11:10 AQCTLB Register Load on SYNC");
@@ -6161,7 +6632,8 @@ bool check_compare(const VCAPCTL_BITS &obj, const VCAPCTL_BITS &expected, const 
     all_zero &= check_compare(obj.TRIGSEL, expected.TRIGSEL, name + " " + "4:2 Capture Trigger Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "6:5 Reserved");
     all_zero &= check_compare(obj.VDELAYDIV, expected.VDELAYDIV, name + " " + "9:7 Valley Delay Mode Divide Enable");
-    all_zero &= check_compare(obj.EDGEFILTDLYSEL, expected.EDGEFILTDLYSEL, name + " " + "10 Valley Switching Mode Delay Select");
+    all_zero &= check_compare(obj.EDGEFILTDLYSEL, expected.EDGEFILTDLYSEL,
+                              name + " " + "10 Valley Switching Mode Delay Select");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:11 Reserved");
 
     return all_zero;
@@ -6271,8 +6743,10 @@ bool check_compare(const HRCNFG2_BITS &obj, const HRCNFG2_BITS &expected, const 
     bool all_zero = true;
 
     all_zero &= check_compare(obj.EDGMODEDB, expected.EDGMODEDB, name + " " + "1:0 Dead-Band Edge-Mode Select Bits");
-    all_zero &= check_compare(obj.CTLMODEDBRED, expected.CTLMODEDBRED, name + " " + "3:2 DBRED Control Mode Select Bits");
-    all_zero &= check_compare(obj.CTLMODEDBFED, expected.CTLMODEDBFED, name + " " + "5:4 DBFED Control Mode Select Bits");
+    all_zero &= check_compare(obj.CTLMODEDBRED, expected.CTLMODEDBRED,
+                              name + " " + "3:2 DBRED Control Mode Select Bits");
+    all_zero &= check_compare(obj.CTLMODEDBFED, expected.CTLMODEDBFED,
+                              name + " " + "5:4 DBFED Control Mode Select Bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "13:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "14 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15 Reserved");
@@ -6296,7 +6770,8 @@ bool check_compare(const HRPCTL_BITS &obj, const HRPCTL_BITS &expected, const st
     all_zero &= check_compare(obj.PWMSYNCSEL, expected.PWMSYNCSEL, name + " " + "1 EPWMSYNCPER Source Select");
     all_zero &= check_compare(obj.TBPHSHRLOADE, expected.TBPHSHRLOADE, name + " " + "2 TBPHSHR Load Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
-    all_zero &= check_compare(obj.PWMSYNCSELX, expected.PWMSYNCSELX, name + " " + "6:4 EPWMSYNCPER Extended Source Select Bit:");
+    all_zero &= check_compare(obj.PWMSYNCSELX, expected.PWMSYNCSELX,
+                              name + " " + "6:4 EPWMSYNCPER Extended Source Select Bit:");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:7 Reserved");
 
     return all_zero;
@@ -6333,10 +6808,12 @@ bool check_compare(const GLDCTL_BITS &obj, const GLDCTL_BITS &expected, const st
     bool all_zero = true;
 
     all_zero &= check_compare(obj.GLD, expected.GLD, name + " " + "0 Global Shadow to Active load event control");
-    all_zero &= check_compare(obj.GLDMODE, expected.GLDMODE, name + " " + "4:1 Shadow to Active Global Load Pulse Selection");
+    all_zero &= check_compare(obj.GLDMODE, expected.GLDMODE,
+                              name + " " + "4:1 Shadow to Active Global Load Pulse Selection");
     all_zero &= check_compare(obj.OSHTMODE, expected.OSHTMODE, name + " " + "5 One Shot Load mode control bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "6 Reserved");
-    all_zero &= check_compare(obj.GLDPRD, expected.GLDPRD, name + " " + "9:7 Global Load Strobe Period Select Register");
+    all_zero &= check_compare(obj.GLDPRD, expected.GLDPRD,
+                              name + " " + "9:7 Global Load Strobe Period Select Register");
     all_zero &= check_compare(obj.GLDCNT, expected.GLDCNT, name + " " + "12:10 Global Load Strobe Counter Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:13 Reserved");
 
@@ -6355,17 +6832,25 @@ bool check_compare(const GLDCTL_REG &obj, const GLDCTL_REG &expected, const std:
 bool check_compare(const GLDCFG_BITS &obj, const GLDCFG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TBPRD_TBPRDHR, expected.TBPRD_TBPRDHR, name + " " + "0 Global load event configuration for TBPRD:TBPRDHR");
-    all_zero &= check_compare(obj.CMPA_CMPAHR, expected.CMPA_CMPAHR, name + " " + "1 Global load event configuration for CMPA:CMPAHR");
-    all_zero &= check_compare(obj.CMPB_CMPBHR, expected.CMPB_CMPBHR, name + " " + "2 Global load event configuration for CMPB:CMPBHR");
+    all_zero &= check_compare(obj.TBPRD_TBPRDHR, expected.TBPRD_TBPRDHR,
+                              name + " " + "0 Global load event configuration for TBPRD:TBPRDHR");
+    all_zero &= check_compare(obj.CMPA_CMPAHR, expected.CMPA_CMPAHR,
+                              name + " " + "1 Global load event configuration for CMPA:CMPAHR");
+    all_zero &= check_compare(obj.CMPB_CMPBHR, expected.CMPB_CMPBHR,
+                              name + " " + "2 Global load event configuration for CMPB:CMPBHR");
     all_zero &= check_compare(obj.CMPC, expected.CMPC, name + " " + "3 Global load event configuration for CMPC");
     all_zero &= check_compare(obj.CMPD, expected.CMPD, name + " " + "4 Global load event configuration for CMPD");
-    all_zero &= check_compare(obj.DBRED_DBREDHR, expected.DBRED_DBREDHR, name + " " + "5 Global load event configuration for DBRED:DBREDHR");
-    all_zero &= check_compare(obj.DBFED_DBFEDHR, expected.DBFED_DBFEDHR, name + " " + "6 Global load event configuration for DBFED:DBFEDHR");
+    all_zero &= check_compare(obj.DBRED_DBREDHR, expected.DBRED_DBREDHR,
+                              name + " " + "5 Global load event configuration for DBRED:DBREDHR");
+    all_zero &= check_compare(obj.DBFED_DBFEDHR, expected.DBFED_DBFEDHR,
+                              name + " " + "6 Global load event configuration for DBFED:DBFEDHR");
     all_zero &= check_compare(obj.DBCTL, expected.DBCTL, name + " " + "7 Global load event configuration for DBCTL");
-    all_zero &= check_compare(obj.AQCTLA_AQCTLA2, expected.AQCTLA_AQCTLA2, name + " " + "8 Global load event configuration for AQCTLA/A2");
-    all_zero &= check_compare(obj.AQCTLB_AQCTLB2, expected.AQCTLB_AQCTLB2, name + " " + "9 Global load event configuration for AQCTLB/B2");
-    all_zero &= check_compare(obj.AQCSFRC, expected.AQCSFRC, name + " " + "10 Global load event configuration for AQCSFRC");
+    all_zero &= check_compare(obj.AQCTLA_AQCTLA2, expected.AQCTLA_AQCTLA2,
+                              name + " " + "8 Global load event configuration for AQCTLA/A2");
+    all_zero &= check_compare(obj.AQCTLB_AQCTLB2, expected.AQCTLB_AQCTLB2,
+                              name + " " + "9 Global load event configuration for AQCTLB/B2");
+    all_zero &= check_compare(obj.AQCSFRC, expected.AQCSFRC,
+                              name + " " + "10 Global load event configuration for AQCSFRC");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:11 Reserved");
 
     return all_zero;
@@ -6611,7 +7096,8 @@ bool check_compare(const DBFED_REG &obj, const DBFED_REG &expected, const std::s
 bool check_compare(const TBPHS_BITS &obj, const TBPHS_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TBPHSHR, expected.TBPHSHR, name + " " + "15:0 Extension Register for HRPWM Phase (8-bits)");
+    all_zero &= check_compare(obj.TBPHSHR, expected.TBPHSHR,
+                              name + " " + "15:0 Extension Register for HRPWM Phase (8-bits)");
     all_zero &= check_compare(obj.TBPHS, expected.TBPHS, name + " " + "31:16 Phase Offset Register");
 
     return all_zero;
@@ -6760,10 +7246,14 @@ bool check_compare(const TZCTL_REG &obj, const TZCTL_REG &expected, const std::s
 bool check_compare(const TZCTL2_BITS &obj, const TZCTL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TZAU, expected.TZAU, name + " " + "2:0 Trip Action On EPWMxA while Count direction is UP");
-    all_zero &= check_compare(obj.TZAD, expected.TZAD, name + " " + "5:3 Trip Action On EPWMxA while Count direction is DOWN");
-    all_zero &= check_compare(obj.TZBU, expected.TZBU, name + " " + "8:6 Trip Action On EPWMxB while Count direction is UP");
-    all_zero &= check_compare(obj.TZBD, expected.TZBD, name + " " + "11:9 Trip Action On EPWMxB while Count direction is DOWN");
+    all_zero &= check_compare(obj.TZAU, expected.TZAU,
+                              name + " " + "2:0 Trip Action On EPWMxA while Count direction is UP");
+    all_zero &= check_compare(obj.TZAD, expected.TZAD,
+                              name + " " + "5:3 Trip Action On EPWMxA while Count direction is DOWN");
+    all_zero &= check_compare(obj.TZBU, expected.TZBU,
+                              name + " " + "8:6 Trip Action On EPWMxB while Count direction is UP");
+    all_zero &= check_compare(obj.TZBD, expected.TZBD,
+                              name + " " + "11:9 Trip Action On EPWMxB while Count direction is DOWN");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "14:12 Reserved");
     all_zero &= check_compare(obj.ETZE, expected.ETZE, name + " " + "15 TZCTL2 Enable");
 
@@ -6782,10 +7272,14 @@ bool check_compare(const TZCTL2_REG &obj, const TZCTL2_REG &expected, const std:
 bool check_compare(const TZCTLDCA_BITS &obj, const TZCTLDCA_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DCAEVT1U, expected.DCAEVT1U, name + " " + "2:0 DCAEVT1 Action On EPWMxA while Count direction is UP");
-    all_zero &= check_compare(obj.DCAEVT1D, expected.DCAEVT1D, name + " " + "5:3 DCAEVT1 Action On EPWMxA while Count direction is DOWN");
-    all_zero &= check_compare(obj.DCAEVT2U, expected.DCAEVT2U, name + " " + "8:6 DCAEVT2 Action On EPWMxA while Count direction is UP");
-    all_zero &= check_compare(obj.DCAEVT2D, expected.DCAEVT2D, name + " " + "11:9 DCAEVT2 Action On EPWMxA while Count direction is DOWN");
+    all_zero &= check_compare(obj.DCAEVT1U, expected.DCAEVT1U,
+                              name + " " + "2:0 DCAEVT1 Action On EPWMxA while Count direction is UP");
+    all_zero &= check_compare(obj.DCAEVT1D, expected.DCAEVT1D,
+                              name + " " + "5:3 DCAEVT1 Action On EPWMxA while Count direction is DOWN");
+    all_zero &= check_compare(obj.DCAEVT2U, expected.DCAEVT2U,
+                              name + " " + "8:6 DCAEVT2 Action On EPWMxA while Count direction is UP");
+    all_zero &= check_compare(obj.DCAEVT2D, expected.DCAEVT2D,
+                              name + " " + "11:9 DCAEVT2 Action On EPWMxA while Count direction is DOWN");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -6803,10 +7297,14 @@ bool check_compare(const TZCTLDCA_REG &obj, const TZCTLDCA_REG &expected, const 
 bool check_compare(const TZCTLDCB_BITS &obj, const TZCTLDCB_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DCBEVT1U, expected.DCBEVT1U, name + " " + "2:0 DCBEVT1 Action On EPWMxA while Count direction is UP");
-    all_zero &= check_compare(obj.DCBEVT1D, expected.DCBEVT1D, name + " " + "5:3 DCBEVT1 Action On EPWMxA while Count direction is DOWN");
-    all_zero &= check_compare(obj.DCBEVT2U, expected.DCBEVT2U, name + " " + "8:6 DCBEVT2 Action On EPWMxA while Count direction is UP");
-    all_zero &= check_compare(obj.DCBEVT2D, expected.DCBEVT2D, name + " " + "11:9 DCBEVT2 Action On EPWMxA while Count direction is DOWN");
+    all_zero &= check_compare(obj.DCBEVT1U, expected.DCBEVT1U,
+                              name + " " + "2:0 DCBEVT1 Action On EPWMxA while Count direction is UP");
+    all_zero &= check_compare(obj.DCBEVT1D, expected.DCBEVT1D,
+                              name + " " + "5:3 DCBEVT1 Action On EPWMxA while Count direction is DOWN");
+    all_zero &= check_compare(obj.DCBEVT2U, expected.DCBEVT2U,
+                              name + " " + "8:6 DCBEVT2 Action On EPWMxA while Count direction is UP");
+    all_zero &= check_compare(obj.DCBEVT2D, expected.DCBEVT2D,
+                              name + " " + "11:9 DCBEVT2 Action On EPWMxA while Count direction is DOWN");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -6878,8 +7376,10 @@ bool check_compare(const TZCBCFLG_BITS &obj, const TZCBCFLG_BITS &expected, cons
     all_zero &= check_compare(obj.CBC4, expected.CBC4, name + " " + "3 Latched Status Flag for CBC4 Trip Latch");
     all_zero &= check_compare(obj.CBC5, expected.CBC5, name + " " + "4 Latched Status Flag for CBC5 Trip Latch");
     all_zero &= check_compare(obj.CBC6, expected.CBC6, name + " " + "5 Latched Status Flag for CBC6 Trip Latch");
-    all_zero &= check_compare(obj.DCAEVT2, expected.DCAEVT2, name + " " + "6 Latched Status Flag for Digital Compare Output A Event 2");
-    all_zero &= check_compare(obj.DCBEVT2, expected.DCBEVT2, name + " " + "7 Latched Status Flag for Digital Compare Output B Event 2");
+    all_zero &= check_compare(obj.DCAEVT2, expected.DCAEVT2,
+                              name + " " + "6 Latched Status Flag for Digital Compare Output A Event 2");
+    all_zero &= check_compare(obj.DCBEVT2, expected.DCBEVT2,
+                              name + " " + "7 Latched Status Flag for Digital Compare Output B Event 2");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
 
     return all_zero;
@@ -6903,8 +7403,10 @@ bool check_compare(const TZOSTFLG_BITS &obj, const TZOSTFLG_BITS &expected, cons
     all_zero &= check_compare(obj.OST4, expected.OST4, name + " " + "3 Latched Status Flag for OST4 Trip Latch");
     all_zero &= check_compare(obj.OST5, expected.OST5, name + " " + "4 Latched Status Flag for OST5 Trip Latch");
     all_zero &= check_compare(obj.OST6, expected.OST6, name + " " + "5 Latched Status Flag for OST6 Trip Latch");
-    all_zero &= check_compare(obj.DCAEVT1, expected.DCAEVT1, name + " " + "6 Latched Status Flag for Digital Compare Output A Event 1");
-    all_zero &= check_compare(obj.DCBEVT1, expected.DCBEVT1, name + " " + "7 Latched Status Flag for Digital Compare Output B Event 1");
+    all_zero &= check_compare(obj.DCAEVT1, expected.DCAEVT1,
+                              name + " " + "6 Latched Status Flag for Digital Compare Output A Event 1");
+    all_zero &= check_compare(obj.DCBEVT1, expected.DCBEVT1,
+                              name + " " + "7 Latched Status Flag for Digital Compare Output B Event 1");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
 
     return all_zero;
@@ -6947,12 +7449,18 @@ bool check_compare(const TZCLR_REG &obj, const TZCLR_REG &expected, const std::s
 bool check_compare(const TZCBCCLR_BITS &obj, const TZCBCCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CBC1, expected.CBC1, name + " " + "0 Clear Flag for Cycle-By-Cycle (CBC1) Trip Latch");
-    all_zero &= check_compare(obj.CBC2, expected.CBC2, name + " " + "1 Clear Flag for Cycle-By-Cycle (CBC2) Trip Latch");
-    all_zero &= check_compare(obj.CBC3, expected.CBC3, name + " " + "2 Clear Flag for Cycle-By-Cycle (CBC3) Trip Latch");
-    all_zero &= check_compare(obj.CBC4, expected.CBC4, name + " " + "3 Clear Flag for Cycle-By-Cycle (CBC4) Trip Latch");
-    all_zero &= check_compare(obj.CBC5, expected.CBC5, name + " " + "4 Clear Flag for Cycle-By-Cycle (CBC5) Trip Latch");
-    all_zero &= check_compare(obj.CBC6, expected.CBC6, name + " " + "5 Clear Flag for Cycle-By-Cycle (CBC6) Trip Latch");
+    all_zero &= check_compare(obj.CBC1, expected.CBC1,
+                              name + " " + "0 Clear Flag for Cycle-By-Cycle (CBC1) Trip Latch");
+    all_zero &= check_compare(obj.CBC2, expected.CBC2,
+                              name + " " + "1 Clear Flag for Cycle-By-Cycle (CBC2) Trip Latch");
+    all_zero &= check_compare(obj.CBC3, expected.CBC3,
+                              name + " " + "2 Clear Flag for Cycle-By-Cycle (CBC3) Trip Latch");
+    all_zero &= check_compare(obj.CBC4, expected.CBC4,
+                              name + " " + "3 Clear Flag for Cycle-By-Cycle (CBC4) Trip Latch");
+    all_zero &= check_compare(obj.CBC5, expected.CBC5,
+                              name + " " + "4 Clear Flag for Cycle-By-Cycle (CBC5) Trip Latch");
+    all_zero &= check_compare(obj.CBC6, expected.CBC6,
+                              name + " " + "5 Clear Flag for Cycle-By-Cycle (CBC6) Trip Latch");
     all_zero &= check_compare(obj.DCAEVT2, expected.DCAEVT2, name + " " + "6 Clear Flag forDCAEVT2 selected for CBC");
     all_zero &= check_compare(obj.DCBEVT2, expected.DCBEVT2, name + " " + "7 Clear Flag for DCBEVT2 selected for CBC");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:8 Reserved");
@@ -7175,12 +7683,18 @@ bool check_compare(const ETCNTINITCTL_BITS &obj, const ETCNTINITCTL_BITS &expect
     bool all_zero = true;
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "9:0 Reserved");
-    all_zero &= check_compare(obj.INTINITFRC, expected.INTINITFRC, name + " " + "10 EPWMxINT Counter Initialization Force");
-    all_zero &= check_compare(obj.SOCAINITFRC, expected.SOCAINITFRC, name + " " + "11 EPWMxSOCA Counter Initialization Force");
-    all_zero &= check_compare(obj.SOCBINITFRC, expected.SOCBINITFRC, name + " " + "12 EPWMxSOCB Counter Initialization Force");
-    all_zero &= check_compare(obj.INTINITEN, expected.INTINITEN, name + " " + "13 EPWMxINT Counter Initialization Enable");
-    all_zero &= check_compare(obj.SOCAINITEN, expected.SOCAINITEN, name + " " + "14 EPWMxSOCA Counter Initialization Enable");
-    all_zero &= check_compare(obj.SOCBINITEN, expected.SOCBINITEN, name + " " + "15 EPWMxSOCB Counter Initialization Enable");
+    all_zero &= check_compare(obj.INTINITFRC, expected.INTINITFRC,
+                              name + " " + "10 EPWMxINT Counter Initialization Force");
+    all_zero &= check_compare(obj.SOCAINITFRC, expected.SOCAINITFRC,
+                              name + " " + "11 EPWMxSOCA Counter Initialization Force");
+    all_zero &= check_compare(obj.SOCBINITFRC, expected.SOCBINITFRC,
+                              name + " " + "12 EPWMxSOCB Counter Initialization Force");
+    all_zero &= check_compare(obj.INTINITEN, expected.INTINITEN,
+                              name + " " + "13 EPWMxINT Counter Initialization Enable");
+    all_zero &= check_compare(obj.SOCAINITEN, expected.SOCAINITEN,
+                              name + " " + "14 EPWMxSOCA Counter Initialization Enable");
+    all_zero &= check_compare(obj.SOCBINITEN, expected.SOCBINITEN,
+                              name + " " + "15 EPWMxSOCB Counter Initialization Enable");
 
     return all_zero;
 }
@@ -7198,8 +7712,10 @@ bool check_compare(const ETCNTINIT_BITS &obj, const ETCNTINIT_BITS &expected, co
     bool all_zero = true;
 
     all_zero &= check_compare(obj.INTINIT, expected.INTINIT, name + " " + "3:0 EPWMxINT Counter Initialization Bits");
-    all_zero &= check_compare(obj.SOCAINIT, expected.SOCAINIT, name + " " + "7:4 EPWMxSOCA Counter Initialization Bits");
-    all_zero &= check_compare(obj.SOCBINIT, expected.SOCBINIT, name + " " + "11:8 EPWMxSOCB Counter Initialization Bits");
+    all_zero &= check_compare(obj.SOCAINIT, expected.SOCAINIT,
+                              name + " " + "7:4 EPWMxSOCA Counter Initialization Bits");
+    all_zero &= check_compare(obj.SOCBINIT, expected.SOCBINIT,
+                              name + " " + "11:8 EPWMxSOCB Counter Initialization Bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -7217,10 +7733,14 @@ bool check_compare(const ETCNTINIT_REG &obj, const ETCNTINIT_REG &expected, cons
 bool check_compare(const DCTRIPSEL_BITS &obj, const DCTRIPSEL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DCAHCOMPSEL, expected.DCAHCOMPSEL, name + " " + "3:0 Digital Compare A High COMP Input Select");
-    all_zero &= check_compare(obj.DCALCOMPSEL, expected.DCALCOMPSEL, name + " " + "7:4 Digital Compare A Low COMP Input Select");
-    all_zero &= check_compare(obj.DCBHCOMPSEL, expected.DCBHCOMPSEL, name + " " + "11:8 Digital Compare B High COMP Input Select");
-    all_zero &= check_compare(obj.DCBLCOMPSEL, expected.DCBLCOMPSEL, name + " " + "15:12 Digital Compare B Low COMP Input Select");
+    all_zero &= check_compare(obj.DCAHCOMPSEL, expected.DCAHCOMPSEL,
+                              name + " " + "3:0 Digital Compare A High COMP Input Select");
+    all_zero &= check_compare(obj.DCALCOMPSEL, expected.DCALCOMPSEL,
+                              name + " " + "7:4 Digital Compare A Low COMP Input Select");
+    all_zero &= check_compare(obj.DCBHCOMPSEL, expected.DCBHCOMPSEL,
+                              name + " " + "11:8 Digital Compare B High COMP Input Select");
+    all_zero &= check_compare(obj.DCBLCOMPSEL, expected.DCBLCOMPSEL,
+                              name + " " + "15:12 Digital Compare B Low COMP Input Select");
 
     return all_zero;
 }
@@ -7288,7 +7808,8 @@ bool check_compare(const DCFCTL_BITS &obj, const DCFCTL_BITS &expected, const st
     all_zero &= check_compare(obj.SRCSEL, expected.SRCSEL, name + " " + "1:0 Filter Block Signal Source Select");
     all_zero &= check_compare(obj.BLANKE, expected.BLANKE, name + " " + "2 Blanking Enable/Disable");
     all_zero &= check_compare(obj.BLANKINV, expected.BLANKINV, name + " " + "3 Blanking Window Inversion");
-    all_zero &= check_compare(obj.PULSESEL, expected.PULSESEL, name + " " + "5:4 Pulse Select for Blanking & Capture Alignment");
+    all_zero &= check_compare(obj.PULSESEL, expected.PULSESEL,
+                              name + " " + "5:4 Pulse Select for Blanking & Capture Alignment");
     all_zero &= check_compare(obj.EDGEFILTSEL, expected.EDGEFILTSEL, name + " " + "6 Edge Filter Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.EDGEMODE, expected.EDGEMODE, name + " " + "9:8 Edge Mode");
@@ -7342,11 +7863,15 @@ bool check_compare(const DCAHTRIPSEL_BITS &obj, const DCAHTRIPSEL_BITS &expected
     all_zero &= check_compare(obj.TRIPINPUT8, expected.TRIPINPUT8, name + " " + "7 Trip Input 8 Select to DCAH Mux");
     all_zero &= check_compare(obj.TRIPINPUT9, expected.TRIPINPUT9, name + " " + "8 Trip Input 9 Select to DCAH Mux");
     all_zero &= check_compare(obj.TRIPINPUT10, expected.TRIPINPUT10, name + " " + "9 Trip Input 10 Select to DCAH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11, name + " " + "10 Trip Input 11 Select to DCAH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12, name + " " + "11 Trip Input 12 Select to DCAH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11,
+                              name + " " + "10 Trip Input 11 Select to DCAH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12,
+                              name + " " + "11 Trip Input 12 Select to DCAH Mux");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "12 Reserved");
-    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14, name + " " + "13 Trip Input 14 Select to DCAH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15, name + " " + "14 Trip Input 15 Select to DCAH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14,
+                              name + " " + "13 Trip Input 14 Select to DCAH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15,
+                              name + " " + "14 Trip Input 15 Select to DCAH Mux");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15 Reserved");
 
     return all_zero;
@@ -7374,11 +7899,15 @@ bool check_compare(const DCALTRIPSEL_BITS &obj, const DCALTRIPSEL_BITS &expected
     all_zero &= check_compare(obj.TRIPINPUT8, expected.TRIPINPUT8, name + " " + "7 Trip Input 8 Select to DCAL Mux");
     all_zero &= check_compare(obj.TRIPINPUT9, expected.TRIPINPUT9, name + " " + "8 Trip Input 9 Select to DCAL Mux");
     all_zero &= check_compare(obj.TRIPINPUT10, expected.TRIPINPUT10, name + " " + "9 Trip Input 10 Select to DCAL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11, name + " " + "10 Trip Input 11 Select to DCAL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12, name + " " + "11 Trip Input 12 Select to DCAL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11,
+                              name + " " + "10 Trip Input 11 Select to DCAL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12,
+                              name + " " + "11 Trip Input 12 Select to DCAL Mux");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "12 Reserved");
-    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14, name + " " + "13 Trip Input 14 Select to DCAL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15, name + " " + "14 Trip Input 15 Select to DCAL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14,
+                              name + " " + "13 Trip Input 14 Select to DCAL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15,
+                              name + " " + "14 Trip Input 15 Select to DCAL Mux");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15 Reserved");
 
     return all_zero;
@@ -7406,11 +7935,15 @@ bool check_compare(const DCBHTRIPSEL_BITS &obj, const DCBHTRIPSEL_BITS &expected
     all_zero &= check_compare(obj.TRIPINPUT8, expected.TRIPINPUT8, name + " " + "7 Trip Input 8 Select to DCBH Mux");
     all_zero &= check_compare(obj.TRIPINPUT9, expected.TRIPINPUT9, name + " " + "8 Trip Input 9 Select to DCBH Mux");
     all_zero &= check_compare(obj.TRIPINPUT10, expected.TRIPINPUT10, name + " " + "9 Trip Input 10 Select to DCBH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11, name + " " + "10 Trip Input 11 Select to DCBH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12, name + " " + "11 Trip Input 12 Select to DCBH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11,
+                              name + " " + "10 Trip Input 11 Select to DCBH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12,
+                              name + " " + "11 Trip Input 12 Select to DCBH Mux");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "12 Reserved");
-    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14, name + " " + "13 Trip Input 14 Select to DCBH Mux");
-    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15, name + " " + "14 Trip Input 15 Select to DCBH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14,
+                              name + " " + "13 Trip Input 14 Select to DCBH Mux");
+    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15,
+                              name + " " + "14 Trip Input 15 Select to DCBH Mux");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15 Reserved");
 
     return all_zero;
@@ -7438,11 +7971,15 @@ bool check_compare(const DCBLTRIPSEL_BITS &obj, const DCBLTRIPSEL_BITS &expected
     all_zero &= check_compare(obj.TRIPINPUT8, expected.TRIPINPUT8, name + " " + "7 Trip Input 8 Select to DCBL Mux");
     all_zero &= check_compare(obj.TRIPINPUT9, expected.TRIPINPUT9, name + " " + "8 Trip Input 9 Select to DCBL Mux");
     all_zero &= check_compare(obj.TRIPINPUT10, expected.TRIPINPUT10, name + " " + "9 Trip Input 10 Select to DCBL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11, name + " " + "10 Trip Input 11 Select to DCBL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12, name + " " + "11 Trip Input 12 Select to DCBL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT11, expected.TRIPINPUT11,
+                              name + " " + "10 Trip Input 11 Select to DCBL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT12, expected.TRIPINPUT12,
+                              name + " " + "11 Trip Input 12 Select to DCBL Mux");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "12 Reserved");
-    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14, name + " " + "13 Trip Input 14 Select to DCBL Mux");
-    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15, name + " " + "14 Trip Input 15 Select to DCBL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT14, expected.TRIPINPUT14,
+                              name + " " + "13 Trip Input 14 Select to DCBL Mux");
+    all_zero &= check_compare(obj.TRIPINPUT15, expected.TRIPINPUT15,
+                              name + " " + "14 Trip Input 15 Select to DCBL Mux");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15 Reserved");
 
     return all_zero;
@@ -7473,7 +8010,8 @@ bool check_compare(const EPWM_REGS &obj, const EPWM_REGS &expected, const std::s
     all_zero &= check_compare(obj.DBCTL2, expected.DBCTL2, name + " " + "Dead-Band Generator Control Register 2");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
     all_zero &= check_compare(obj.AQCTL, expected.AQCTL, name + " " + "Action Qualifier Control Register");
-    all_zero &= check_compare(obj.AQTSRCSEL, expected.AQTSRCSEL, name + " " + "Action Qualifier Trigger Event Source Select Register");
+    all_zero &= check_compare(obj.AQTSRCSEL, expected.AQTSRCSEL,
+                              name + " " + "Action Qualifier Trigger Event Source Select Register");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
     all_zero &= check_compare(obj.PCCTL, expected.PCCTL, name + " " + "PWM Chopper Control Register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
@@ -7494,19 +8032,28 @@ bool check_compare(const EPWM_REGS &obj, const EPWM_REGS &expected, const std::s
     all_zero &= check_compare(obj.rsvd11, expected.rsvd11, name + " " + "Reserved");
     all_zero &= check_compare(obj.EPWMXLINK, expected.EPWMXLINK, name + " " + "EPWMx Link Register");
     all_zero &= check_compare(obj.rsvd12, expected.rsvd12, name + " " + "Reserved");
-    all_zero &= check_compare(obj.AQCTLA, expected.AQCTLA, name + " " + "Action Qualifier Control Register For Output A");
-    all_zero &= check_compare(obj.AQCTLA2, expected.AQCTLA2, name + " " + "Additional Action Qualifier Control Register For Output A");
-    all_zero &= check_compare(obj.AQCTLB, expected.AQCTLB, name + " " + "Action Qualifier Control Register For Output B");
-    all_zero &= check_compare(obj.AQCTLB2, expected.AQCTLB2, name + " " + "Additional Action Qualifier Control Register For Output B");
+    all_zero &= check_compare(obj.AQCTLA, expected.AQCTLA,
+                              name + " " + "Action Qualifier Control Register For Output A");
+    all_zero &= check_compare(obj.AQCTLA2, expected.AQCTLA2,
+                              name + " " + "Additional Action Qualifier Control Register For Output A");
+    all_zero &= check_compare(obj.AQCTLB, expected.AQCTLB,
+                              name + " " + "Action Qualifier Control Register For Output B");
+    all_zero &= check_compare(obj.AQCTLB2, expected.AQCTLB2,
+                              name + " " + "Additional Action Qualifier Control Register For Output B");
     all_zero &= check_compare(obj.rsvd13, expected.rsvd13, name + " " + "Reserved");
     all_zero &= check_compare(obj.AQSFRC, expected.AQSFRC, name + " " + "Action Qualifier Software Force Register");
     all_zero &= check_compare(obj.rsvd14, expected.rsvd14, name + " " + "Reserved");
-    all_zero &= check_compare(obj.AQCSFRC, expected.AQCSFRC, name + " " + "Action Qualifier Continuous S/W Force Register");
+    all_zero &= check_compare(obj.AQCSFRC, expected.AQCSFRC,
+                              name + " " + "Action Qualifier Continuous S/W Force Register");
     all_zero &= check_compare(obj.rsvd15, expected.rsvd15, name + " " + "Reserved");
-    all_zero &= check_compare(obj.DBREDHR, expected.DBREDHR, name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
-    all_zero &= check_compare(obj.DBRED, expected.DBRED, name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
-    all_zero &= check_compare(obj.DBFEDHR, expected.DBFEDHR, name + " " + "Dead-Band Generator Falling Edge Delay High Resolution Register");
-    all_zero &= check_compare(obj.DBFED, expected.DBFED, name + " " + "Dead-Band Generator Falling Edge Delay Count Register");
+    all_zero &= check_compare(obj.DBREDHR, expected.DBREDHR,
+                              name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
+    all_zero &= check_compare(obj.DBRED, expected.DBRED,
+                              name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
+    all_zero &= check_compare(obj.DBFEDHR, expected.DBFEDHR,
+                              name + " " + "Dead-Band Generator Falling Edge Delay High Resolution Register");
+    all_zero &= check_compare(obj.DBFED, expected.DBFED,
+                              name + " " + "Dead-Band Generator Falling Edge Delay Count Register");
     all_zero &= check_compare(obj.rsvd16, expected.rsvd16, name + " " + "Reserved");
     all_zero &= check_compare(obj.TBPHS, expected.TBPHS, name + " " + "Time Base Phase High");
     all_zero &= check_compare(obj.TBPRDHR, expected.TBPRDHR, name + " " + "Time Base Period High Resolution Register");
@@ -7525,12 +8072,15 @@ bool check_compare(const EPWM_REGS &obj, const EPWM_REGS &expected, const std::s
     all_zero &= check_compare(obj.rsvd22, expected.rsvd22, name + " " + "Reserved");
     all_zero &= check_compare(obj.TZSEL, expected.TZSEL, name + " " + "Trip Zone Select Register");
     all_zero &= check_compare(obj.rsvd23, expected.rsvd23, name + " " + "Reserved");
-    all_zero &= check_compare(obj.TZDCSEL, expected.TZDCSEL, name + " " + "Trip Zone Digital Comparator Select Register");
+    all_zero &= check_compare(obj.TZDCSEL, expected.TZDCSEL,
+                              name + " " + "Trip Zone Digital Comparator Select Register");
     all_zero &= check_compare(obj.rsvd24, expected.rsvd24, name + " " + "Reserved");
     all_zero &= check_compare(obj.TZCTL, expected.TZCTL, name + " " + "Trip Zone Control Register");
     all_zero &= check_compare(obj.TZCTL2, expected.TZCTL2, name + " " + "Additional Trip Zone Control Register");
-    all_zero &= check_compare(obj.TZCTLDCA, expected.TZCTLDCA, name + " " + "Trip Zone Control Register Digital Compare A");
-    all_zero &= check_compare(obj.TZCTLDCB, expected.TZCTLDCB, name + " " + "Trip Zone Control Register Digital Compare B");
+    all_zero &= check_compare(obj.TZCTLDCA, expected.TZCTLDCA,
+                              name + " " + "Trip Zone Control Register Digital Compare A");
+    all_zero &= check_compare(obj.TZCTLDCB, expected.TZCTLDCB,
+                              name + " " + "Trip Zone Control Register Digital Compare B");
     all_zero &= check_compare(obj.rsvd25, expected.rsvd25, name + " " + "Reserved");
     all_zero &= check_compare(obj.TZEINT, expected.TZEINT, name + " " + "Trip Zone Enable Interrupt Register");
     all_zero &= check_compare(obj.rsvd26, expected.rsvd26, name + " " + "Reserved");
@@ -7558,9 +8108,11 @@ bool check_compare(const EPWM_REGS &obj, const EPWM_REGS &expected, const std::s
     all_zero &= check_compare(obj.rsvd35, expected.rsvd35, name + " " + "Reserved");
     all_zero &= check_compare(obj.ETSOCPS, expected.ETSOCPS, name + " " + "Event-Trigger SOC Pre-Scale Register");
     all_zero &= check_compare(obj.rsvd36, expected.rsvd36, name + " " + "Reserved");
-    all_zero &= check_compare(obj.ETCNTINITCTL, expected.ETCNTINITCTL, name + " " + "Event-Trigger Counter Initialization Control Register");
+    all_zero &= check_compare(obj.ETCNTINITCTL, expected.ETCNTINITCTL,
+                              name + " " + "Event-Trigger Counter Initialization Control Register");
     all_zero &= check_compare(obj.rsvd37, expected.rsvd37, name + " " + "Reserved");
-    all_zero &= check_compare(obj.ETCNTINIT, expected.ETCNTINIT, name + " " + "Event-Trigger Counter Initialization Register");
+    all_zero &= check_compare(obj.ETCNTINIT, expected.ETCNTINIT,
+                              name + " " + "Event-Trigger Counter Initialization Register");
     all_zero &= check_compare(obj.rsvd38, expected.rsvd38, name + " " + "Reserved");
     all_zero &= check_compare(obj.DCTRIPSEL, expected.DCTRIPSEL, name + " " + "Digital Compare Trip Select Register");
     all_zero &= check_compare(obj.rsvd39, expected.rsvd39, name + " " + "Reserved");
@@ -7570,9 +8122,11 @@ bool check_compare(const EPWM_REGS &obj, const EPWM_REGS &expected, const std::s
     all_zero &= check_compare(obj.DCFCTL, expected.DCFCTL, name + " " + "Digital Compare Filter Control Register");
     all_zero &= check_compare(obj.DCCAPCTL, expected.DCCAPCTL, name + " " + "Digital Compare Capture Control Register");
     all_zero &= check_compare(obj.DCFOFFSET, expected.DCFOFFSET, name + " " + "Digital Compare Filter Offset Register");
-    all_zero &= check_compare(obj.DCFOFFSETCNT, expected.DCFOFFSETCNT, name + " " + "Digital Compare Filter Offset Counter Register");
+    all_zero &= check_compare(obj.DCFOFFSETCNT, expected.DCFOFFSETCNT,
+                              name + " " + "Digital Compare Filter Offset Counter Register");
     all_zero &= check_compare(obj.DCFWINDOW, expected.DCFWINDOW, name + " " + "Digital Compare Filter Window Register");
-    all_zero &= check_compare(obj.DCFWINDOWCNT, expected.DCFWINDOWCNT, name + " " + "Digital Compare Filter Window Counter Register");
+    all_zero &= check_compare(obj.DCFWINDOWCNT, expected.DCFWINDOWCNT,
+                              name + " " + "Digital Compare Filter Window Counter Register");
     all_zero &= check_compare(obj.rsvd41, expected.rsvd41, name + " " + "Reserved");
     all_zero &= check_compare(obj.DCCAP, expected.DCCAP, name + " " + "Digital Compare Counter Capture Register");
     all_zero &= check_compare(obj.rsvd42, expected.rsvd42, name + " " + "Reserved");
@@ -7600,12 +8154,18 @@ bool check_compare(const TRIP4MUX0TO15CFG_BITS &obj, const TRIP4MUX0TO15CFG_BITS
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP4 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP4 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP4 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7627,17 +8187,28 @@ bool check_compare(const TRIP4MUX16TO31CFG_BITS &obj, const TRIP4MUX16TO31CFG_BI
     all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP4 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP4 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP4 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP4 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP4 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7664,12 +8235,18 @@ bool check_compare(const TRIP5MUX0TO15CFG_BITS &obj, const TRIP5MUX0TO15CFG_BITS
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP5 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP5 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP5 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7691,17 +8268,28 @@ bool check_compare(const TRIP5MUX16TO31CFG_BITS &obj, const TRIP5MUX16TO31CFG_BI
     all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP5 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP5 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP5 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP5 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP5 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7728,12 +8316,18 @@ bool check_compare(const TRIP7MUX0TO15CFG_BITS &obj, const TRIP7MUX0TO15CFG_BITS
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP7 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP7 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP7 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7755,17 +8349,28 @@ bool check_compare(const TRIP7MUX16TO31CFG_BITS &obj, const TRIP7MUX16TO31CFG_BI
     all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP7 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP7 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP7 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP7 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP7 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7792,12 +8397,18 @@ bool check_compare(const TRIP8MUX0TO15CFG_BITS &obj, const TRIP8MUX0TO15CFG_BITS
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP8 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP8 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP8 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7819,17 +8430,28 @@ bool check_compare(const TRIP8MUX16TO31CFG_BITS &obj, const TRIP8MUX16TO31CFG_BI
     all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP8 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP8 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP8 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP8 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP8 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7856,12 +8478,18 @@ bool check_compare(const TRIP9MUX0TO15CFG_BITS &obj, const TRIP9MUX0TO15CFG_BITS
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP9 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP9 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP9 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7883,17 +8511,28 @@ bool check_compare(const TRIP9MUX16TO31CFG_BITS &obj, const TRIP9MUX16TO31CFG_BI
     all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP9 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP9 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP9 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP9 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP9 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7920,12 +8559,18 @@ bool check_compare(const TRIP10MUX0TO15CFG_BITS &obj, const TRIP10MUX0TO15CFG_BI
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP10 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP10 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP10 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7939,25 +8584,42 @@ bool check_compare(const TRIP10MUX0TO15CFG_REG &obj, const TRIP10MUX0TO15CFG_REG
     return all_zero;
 }
 
-bool check_compare(const TRIP10MUX16TO31CFG_BITS &obj, const TRIP10MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const TRIP10MUX16TO31CFG_BITS &obj, const TRIP10MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 Mux16 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 Mux17 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP10 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 Mux16 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 Mux17 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 Mux18 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 Mux19 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 Mux20 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP10 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP10 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -7984,12 +8646,18 @@ bool check_compare(const TRIP11MUX0TO15CFG_BITS &obj, const TRIP11MUX0TO15CFG_BI
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP11 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP11 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP11 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -8003,25 +8671,42 @@ bool check_compare(const TRIP11MUX0TO15CFG_REG &obj, const TRIP11MUX0TO15CFG_REG
     return all_zero;
 }
 
-bool check_compare(const TRIP11MUX16TO31CFG_BITS &obj, const TRIP11MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const TRIP11MUX16TO31CFG_BITS &obj, const TRIP11MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 Mux16 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 Mux17 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP11 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 Mux16 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 Mux17 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 Mux18 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 Mux19 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 Mux20 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP11 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP11 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -8048,12 +8733,18 @@ bool check_compare(const TRIP12MUX0TO15CFG_BITS &obj, const TRIP12MUX0TO15CFG_BI
     all_zero &= check_compare(obj.MUX7, expected.MUX7, name + " " + "15:14 Mux7 Configuration for TRIP12 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX8, expected.MUX8, name + " " + "17:16 Mux8 Configuration for TRIP12 of EPWM-XBAR");
     all_zero &= check_compare(obj.MUX9, expected.MUX9, name + " " + "19:18 Mux9 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX10, expected.MUX10, name + " " + "21:20 Mux10 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX11, expected.MUX11, name + " " + "23:22 Mux11 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX12, expected.MUX12, name + " " + "25:24 Mux12 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX13, expected.MUX13, name + " " + "27:26 Mux13 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX14, expected.MUX14, name + " " + "29:28 Mux14 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX15, expected.MUX15, name + " " + "31:30 Mux15 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX10, expected.MUX10,
+                              name + " " + "21:20 Mux10 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX11, expected.MUX11,
+                              name + " " + "23:22 Mux11 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX12, expected.MUX12,
+                              name + " " + "25:24 Mux12 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX13, expected.MUX13,
+                              name + " " + "27:26 Mux13 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX14, expected.MUX14,
+                              name + " " + "29:28 Mux14 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX15, expected.MUX15,
+                              name + " " + "31:30 Mux15 Configuration for TRIP12 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -8067,25 +8758,42 @@ bool check_compare(const TRIP12MUX0TO15CFG_REG &obj, const TRIP12MUX0TO15CFG_REG
     return all_zero;
 }
 
-bool check_compare(const TRIP12MUX16TO31CFG_BITS &obj, const TRIP12MUX16TO31CFG_BITS &expected, const std::string &name) {
+bool check_compare(const TRIP12MUX16TO31CFG_BITS &obj, const TRIP12MUX16TO31CFG_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MUX16, expected.MUX16, name + " " + "1:0 Mux16 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX17, expected.MUX17, name + " " + "3:2 Mux17 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX18, expected.MUX18, name + " " + "5:4 Mux18 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX19, expected.MUX19, name + " " + "7:6 Mux19 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX20, expected.MUX20, name + " " + "9:8 Mux20 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX21, expected.MUX21, name + " " + "11:10 Mux21 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX22, expected.MUX22, name + " " + "13:12 Mux22 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX23, expected.MUX23, name + " " + "15:14 Mux23 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX24, expected.MUX24, name + " " + "17:16 Mux24 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX25, expected.MUX25, name + " " + "19:18 Mux25 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX26, expected.MUX26, name + " " + "21:20 Mux26 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX27, expected.MUX27, name + " " + "23:22 Mux27 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX28, expected.MUX28, name + " " + "25:24 Mux28 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX29, expected.MUX29, name + " " + "27:26 Mux29 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX30, expected.MUX30, name + " " + "29:28 Mux30 Configuration for TRIP12 of EPWM-XBAR");
-    all_zero &= check_compare(obj.MUX31, expected.MUX31, name + " " + "31:30 Mux31 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX16, expected.MUX16,
+                              name + " " + "1:0 Mux16 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX17, expected.MUX17,
+                              name + " " + "3:2 Mux17 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX18, expected.MUX18,
+                              name + " " + "5:4 Mux18 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX19, expected.MUX19,
+                              name + " " + "7:6 Mux19 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX20, expected.MUX20,
+                              name + " " + "9:8 Mux20 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX21, expected.MUX21,
+                              name + " " + "11:10 Mux21 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX22, expected.MUX22,
+                              name + " " + "13:12 Mux22 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX23, expected.MUX23,
+                              name + " " + "15:14 Mux23 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX24, expected.MUX24,
+                              name + " " + "17:16 Mux24 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX25, expected.MUX25,
+                              name + " " + "19:18 Mux25 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX26, expected.MUX26,
+                              name + " " + "21:20 Mux26 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX27, expected.MUX27,
+                              name + " " + "23:22 Mux27 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX28, expected.MUX28,
+                              name + " " + "25:24 Mux28 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX29, expected.MUX29,
+                              name + " " + "27:26 Mux29 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX30, expected.MUX30,
+                              name + " " + "29:28 Mux30 Configuration for TRIP12 of EPWM-XBAR");
+    all_zero &= check_compare(obj.MUX31, expected.MUX31,
+                              name + " " + "31:30 Mux31 Configuration for TRIP12 of EPWM-XBAR");
 
     return all_zero;
 }
@@ -8531,30 +9239,54 @@ bool check_compare(const TRIPLOCK_REG &obj, const TRIPLOCK_REG &expected, const 
 bool check_compare(const EPWM_XBAR_REGS &obj, const EPWM_XBAR_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TRIP4MUX0TO15CFG, expected.TRIP4MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP4");
-    all_zero &= check_compare(obj.TRIP4MUX16TO31CFG, expected.TRIP4MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP4");
-    all_zero &= check_compare(obj.TRIP5MUX0TO15CFG, expected.TRIP5MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP5");
-    all_zero &= check_compare(obj.TRIP5MUX16TO31CFG, expected.TRIP5MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP5");
-    all_zero &= check_compare(obj.TRIP7MUX0TO15CFG, expected.TRIP7MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP7");
-    all_zero &= check_compare(obj.TRIP7MUX16TO31CFG, expected.TRIP7MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP7");
-    all_zero &= check_compare(obj.TRIP8MUX0TO15CFG, expected.TRIP8MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP8");
-    all_zero &= check_compare(obj.TRIP8MUX16TO31CFG, expected.TRIP8MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP8");
-    all_zero &= check_compare(obj.TRIP9MUX0TO15CFG, expected.TRIP9MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP9");
-    all_zero &= check_compare(obj.TRIP9MUX16TO31CFG, expected.TRIP9MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP9");
-    all_zero &= check_compare(obj.TRIP10MUX0TO15CFG, expected.TRIP10MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP10");
-    all_zero &= check_compare(obj.TRIP10MUX16TO31CFG, expected.TRIP10MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP10");
-    all_zero &= check_compare(obj.TRIP11MUX0TO15CFG, expected.TRIP11MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP11");
-    all_zero &= check_compare(obj.TRIP11MUX16TO31CFG, expected.TRIP11MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP11");
-    all_zero &= check_compare(obj.TRIP12MUX0TO15CFG, expected.TRIP12MUX0TO15CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP12");
-    all_zero &= check_compare(obj.TRIP12MUX16TO31CFG, expected.TRIP12MUX16TO31CFG, name + " " + "ePWM XBAR Mux Configuration for TRIP12");
-    all_zero &= check_compare(obj.TRIP4MUXENABLE, expected.TRIP4MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP4");
-    all_zero &= check_compare(obj.TRIP5MUXENABLE, expected.TRIP5MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP5");
-    all_zero &= check_compare(obj.TRIP7MUXENABLE, expected.TRIP7MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP7");
-    all_zero &= check_compare(obj.TRIP8MUXENABLE, expected.TRIP8MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP8");
-    all_zero &= check_compare(obj.TRIP9MUXENABLE, expected.TRIP9MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP9");
-    all_zero &= check_compare(obj.TRIP10MUXENABLE, expected.TRIP10MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP10");
-    all_zero &= check_compare(obj.TRIP11MUXENABLE, expected.TRIP11MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP11");
-    all_zero &= check_compare(obj.TRIP12MUXENABLE, expected.TRIP12MUXENABLE, name + " " + "ePWM XBAR Mux Enable for TRIP12");
+    all_zero &= check_compare(obj.TRIP4MUX0TO15CFG, expected.TRIP4MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP4");
+    all_zero &= check_compare(obj.TRIP4MUX16TO31CFG, expected.TRIP4MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP4");
+    all_zero &= check_compare(obj.TRIP5MUX0TO15CFG, expected.TRIP5MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP5");
+    all_zero &= check_compare(obj.TRIP5MUX16TO31CFG, expected.TRIP5MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP5");
+    all_zero &= check_compare(obj.TRIP7MUX0TO15CFG, expected.TRIP7MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP7");
+    all_zero &= check_compare(obj.TRIP7MUX16TO31CFG, expected.TRIP7MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP7");
+    all_zero &= check_compare(obj.TRIP8MUX0TO15CFG, expected.TRIP8MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP8");
+    all_zero &= check_compare(obj.TRIP8MUX16TO31CFG, expected.TRIP8MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP8");
+    all_zero &= check_compare(obj.TRIP9MUX0TO15CFG, expected.TRIP9MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP9");
+    all_zero &= check_compare(obj.TRIP9MUX16TO31CFG, expected.TRIP9MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP9");
+    all_zero &= check_compare(obj.TRIP10MUX0TO15CFG, expected.TRIP10MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP10");
+    all_zero &= check_compare(obj.TRIP10MUX16TO31CFG, expected.TRIP10MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP10");
+    all_zero &= check_compare(obj.TRIP11MUX0TO15CFG, expected.TRIP11MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP11");
+    all_zero &= check_compare(obj.TRIP11MUX16TO31CFG, expected.TRIP11MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP11");
+    all_zero &= check_compare(obj.TRIP12MUX0TO15CFG, expected.TRIP12MUX0TO15CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP12");
+    all_zero &= check_compare(obj.TRIP12MUX16TO31CFG, expected.TRIP12MUX16TO31CFG,
+                              name + " " + "ePWM XBAR Mux Configuration for TRIP12");
+    all_zero &= check_compare(obj.TRIP4MUXENABLE, expected.TRIP4MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP4");
+    all_zero &= check_compare(obj.TRIP5MUXENABLE, expected.TRIP5MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP5");
+    all_zero &= check_compare(obj.TRIP7MUXENABLE, expected.TRIP7MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP7");
+    all_zero &= check_compare(obj.TRIP8MUXENABLE, expected.TRIP8MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP8");
+    all_zero &= check_compare(obj.TRIP9MUXENABLE, expected.TRIP9MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP9");
+    all_zero &= check_compare(obj.TRIP10MUXENABLE, expected.TRIP10MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP10");
+    all_zero &= check_compare(obj.TRIP11MUXENABLE, expected.TRIP11MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP11");
+    all_zero &= check_compare(obj.TRIP12MUXENABLE, expected.TRIP12MUXENABLE,
+                              name + " " + "ePWM XBAR Mux Enable for TRIP12");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.TRIPOUTINV, expected.TRIPOUTINV, name + " " + "ePWM XBAR Output Inversion Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
@@ -8995,7 +9727,8 @@ bool check_compare(const FLASH_CTRL_REGS &obj, const FLASH_CTRL_REGS &expected, 
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.FMSTAT, expected.FMSTAT, name + " " + "Flash Module Status Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
-    all_zero &= check_compare(obj.FRD_INTF_CTRL, expected.FRD_INTF_CTRL, name + " " + "Flash Read Interface Control Register");
+    all_zero &= check_compare(obj.FRD_INTF_CTRL, expected.FRD_INTF_CTRL,
+                              name + " " + "Flash Read Interface Control Register");
 
     return all_zero;
 }
@@ -9022,13 +9755,19 @@ bool check_compare(const ECC_ENABLE_REG &obj, const ECC_ENABLE_REG &expected, co
 bool check_compare(const ERR_STATUS_BITS &obj, const ERR_STATUS_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.FAIL_0_L, expected.FAIL_0_L, name + " " + "0 Lower 64bits Single Bit Error Corrected Value 0");
-    all_zero &= check_compare(obj.FAIL_1_L, expected.FAIL_1_L, name + " " + "1 Lower 64bits Single Bit Error Corrected Value 1");
-    all_zero &= check_compare(obj.UNC_ERR_L, expected.UNC_ERR_L, name + " " + "2 Lower 64 bits Uncorrectable error occurred");
+    all_zero &= check_compare(obj.FAIL_0_L, expected.FAIL_0_L,
+                              name + " " + "0 Lower 64bits Single Bit Error Corrected Value 0");
+    all_zero &= check_compare(obj.FAIL_1_L, expected.FAIL_1_L,
+                              name + " " + "1 Lower 64bits Single Bit Error Corrected Value 1");
+    all_zero &= check_compare(obj.UNC_ERR_L, expected.UNC_ERR_L,
+                              name + " " + "2 Lower 64 bits Uncorrectable error occurred");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
-    all_zero &= check_compare(obj.FAIL_0_H, expected.FAIL_0_H, name + " " + "16 Upper 64bits Single Bit Error Corrected Value 0");
-    all_zero &= check_compare(obj.FAIL_1_H, expected.FAIL_1_H, name + " " + "17 Upper 64bits Single Bit Error Corrected Value 1");
-    all_zero &= check_compare(obj.UNC_ERR_H, expected.UNC_ERR_H, name + " " + "18 Upper 64 bits Uncorrectable error occurred");
+    all_zero &= check_compare(obj.FAIL_0_H, expected.FAIL_0_H,
+                              name + " " + "16 Upper 64bits Single Bit Error Corrected Value 0");
+    all_zero &= check_compare(obj.FAIL_1_H, expected.FAIL_1_H,
+                              name + " " + "17 Upper 64bits Single Bit Error Corrected Value 1");
+    all_zero &= check_compare(obj.UNC_ERR_H, expected.UNC_ERR_H,
+                              name + " " + "18 Upper 64 bits Uncorrectable error occurred");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:19 Reserved");
 
     return all_zero;
@@ -9046,11 +9785,13 @@ bool check_compare(const ERR_STATUS_REG &obj, const ERR_STATUS_REG &expected, co
 bool check_compare(const ERR_POS_BITS &obj, const ERR_POS_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.ERR_POS_L, expected.ERR_POS_L, name + " " + "5:0 Bit Position of Single bit Error in lower 64 bits");
+    all_zero &= check_compare(obj.ERR_POS_L, expected.ERR_POS_L,
+                              name + " " + "5:0 Bit Position of Single bit Error in lower 64 bits");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:6 Reserved");
     all_zero &= check_compare(obj.ERR_TYPE_L, expected.ERR_TYPE_L, name + " " + "8 Error Type in lower 64 bits");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:9 Reserved");
-    all_zero &= check_compare(obj.ERR_POS_H, expected.ERR_POS_H, name + " " + "21:16 Bit Position of Single bit Error in upper 64 bits");
+    all_zero &= check_compare(obj.ERR_POS_H, expected.ERR_POS_H,
+                              name + " " + "21:16 Bit Position of Single bit Error in upper 64 bits");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:22 Reserved");
     all_zero &= check_compare(obj.ERR_TYPE_H, expected.ERR_TYPE_H, name + " " + "24 Error Type in upper 64 bits");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:25 Reserved");
@@ -9070,13 +9811,19 @@ bool check_compare(const ERR_POS_REG &obj, const ERR_POS_REG &expected, const st
 bool check_compare(const ERR_STATUS_CLR_BITS &obj, const ERR_STATUS_CLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.FAIL_0_L_CLR, expected.FAIL_0_L_CLR, name + " " + "0 Lower 64bits Single Bit Error Corrected Value 0 Clear");
-    all_zero &= check_compare(obj.FAIL_1_L_CLR, expected.FAIL_1_L_CLR, name + " " + "1 Lower 64bits Single Bit Error Corrected Value 1 Clear");
-    all_zero &= check_compare(obj.UNC_ERR_L_CLR, expected.UNC_ERR_L_CLR, name + " " + "2 Lower 64 bits Uncorrectable error occurred Clear");
+    all_zero &= check_compare(obj.FAIL_0_L_CLR, expected.FAIL_0_L_CLR,
+                              name + " " + "0 Lower 64bits Single Bit Error Corrected Value 0 Clear");
+    all_zero &= check_compare(obj.FAIL_1_L_CLR, expected.FAIL_1_L_CLR,
+                              name + " " + "1 Lower 64bits Single Bit Error Corrected Value 1 Clear");
+    all_zero &= check_compare(obj.UNC_ERR_L_CLR, expected.UNC_ERR_L_CLR,
+                              name + " " + "2 Lower 64 bits Uncorrectable error occurred Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
-    all_zero &= check_compare(obj.FAIL_0_H_CLR, expected.FAIL_0_H_CLR, name + " " + "16 Upper 64bits Single Bit Error Corrected Value 0 Clear");
-    all_zero &= check_compare(obj.FAIL_1_H_CLR, expected.FAIL_1_H_CLR, name + " " + "17 Upper 64bits Single Bit Error Corrected Value 1 Clear");
-    all_zero &= check_compare(obj.UNC_ERR_H_CLR, expected.UNC_ERR_H_CLR, name + " " + "18 Upper 64 bits Uncorrectable error occurred Clear");
+    all_zero &= check_compare(obj.FAIL_0_H_CLR, expected.FAIL_0_H_CLR,
+                              name + " " + "16 Upper 64bits Single Bit Error Corrected Value 0 Clear");
+    all_zero &= check_compare(obj.FAIL_1_H_CLR, expected.FAIL_1_H_CLR,
+                              name + " " + "17 Upper 64bits Single Bit Error Corrected Value 1 Clear");
+    all_zero &= check_compare(obj.UNC_ERR_H_CLR, expected.UNC_ERR_H_CLR,
+                              name + " " + "18 Upper 64 bits Uncorrectable error occurred Clear");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:19 Reserved");
 
     return all_zero;
@@ -9130,8 +9877,10 @@ bool check_compare(const ERR_THRESHOLD_REG &obj, const ERR_THRESHOLD_REG &expect
 bool check_compare(const ERR_INTFLG_BITS &obj, const ERR_INTFLG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.SINGLE_ERR_INTFLG, expected.SINGLE_ERR_INTFLG, name + " " + "0 Single Error Interrupt Flag");
-    all_zero &= check_compare(obj.UNC_ERR_INTFLG, expected.UNC_ERR_INTFLG, name + " " + "1 Uncorrectable Interrupt Flag");
+    all_zero &= check_compare(obj.SINGLE_ERR_INTFLG, expected.SINGLE_ERR_INTFLG,
+                              name + " " + "0 Single Error Interrupt Flag");
+    all_zero &= check_compare(obj.UNC_ERR_INTFLG, expected.UNC_ERR_INTFLG,
+                              name + " " + "1 Uncorrectable Interrupt Flag");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -9150,8 +9899,10 @@ bool check_compare(const ERR_INTFLG_REG &obj, const ERR_INTFLG_REG &expected, co
 bool check_compare(const ERR_INTCLR_BITS &obj, const ERR_INTCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.SINGLE_ERR_INTCLR, expected.SINGLE_ERR_INTCLR, name + " " + "0 Single Error Interrupt Flag Clear");
-    all_zero &= check_compare(obj.UNC_ERR_INTCLR, expected.UNC_ERR_INTCLR, name + " " + "1 Uncorrectable Interrupt Flag Clear");
+    all_zero &= check_compare(obj.SINGLE_ERR_INTCLR, expected.SINGLE_ERR_INTCLR,
+                              name + " " + "0 Single Error Interrupt Flag Clear");
+    all_zero &= check_compare(obj.UNC_ERR_INTCLR, expected.UNC_ERR_INTCLR,
+                              name + " " + "1 Uncorrectable Interrupt Flag Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -9233,7 +9984,8 @@ bool check_compare(const FECC_STATUS_BITS &obj, const FECC_STATUS_BITS &expected
     all_zero &= check_compare(obj.SINGLE_ERR, expected.SINGLE_ERR, name + " " + "0 Test Result is Single Bit Error");
     all_zero &= check_compare(obj.UNC_ERR, expected.UNC_ERR, name + " " + "1 Test Result is Uncorrectable Error");
     all_zero &= check_compare(obj.DATA_ERR_POS, expected.DATA_ERR_POS, name + " " + "7:2 Holds Bit Position of Error");
-    all_zero &= check_compare(obj.ERR_TYPE, expected.ERR_TYPE, name + " " + "8 Holds Bit Position of 8 Check Bits of Error");
+    all_zero &= check_compare(obj.ERR_TYPE, expected.ERR_TYPE,
+                              name + " " + "8 Holds Bit Position of 8 Check Bits of Error");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:9 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -9253,10 +10005,14 @@ bool check_compare(const FLASH_ECC_REGS &obj, const FLASH_ECC_REGS &expected, co
     bool all_zero = true;
 
     all_zero &= check_compare(obj.ECC_ENABLE, expected.ECC_ENABLE, name + " " + "ECC Enable");
-    all_zero &= check_compare(obj.SINGLE_ERR_ADDR_LOW, expected.SINGLE_ERR_ADDR_LOW, name + " " + "Single Error Address Low");
-    all_zero &= check_compare(obj.SINGLE_ERR_ADDR_HIGH, expected.SINGLE_ERR_ADDR_HIGH, name + " " + "Single Error Address High");
-    all_zero &= check_compare(obj.UNC_ERR_ADDR_LOW, expected.UNC_ERR_ADDR_LOW, name + " " + "Uncorrectable Error Address Low");
-    all_zero &= check_compare(obj.UNC_ERR_ADDR_HIGH, expected.UNC_ERR_ADDR_HIGH, name + " " + "Uncorrectable Error Address High");
+    all_zero &= check_compare(obj.SINGLE_ERR_ADDR_LOW, expected.SINGLE_ERR_ADDR_LOW,
+                              name + " " + "Single Error Address Low");
+    all_zero &= check_compare(obj.SINGLE_ERR_ADDR_HIGH, expected.SINGLE_ERR_ADDR_HIGH,
+                              name + " " + "Single Error Address High");
+    all_zero &= check_compare(obj.UNC_ERR_ADDR_LOW, expected.UNC_ERR_ADDR_LOW,
+                              name + " " + "Uncorrectable Error Address Low");
+    all_zero &= check_compare(obj.UNC_ERR_ADDR_HIGH, expected.UNC_ERR_ADDR_HIGH,
+                              name + " " + "Uncorrectable Error Address High");
     all_zero &= check_compare(obj.ERR_STATUS, expected.ERR_STATUS, name + " " + "Error Status");
     all_zero &= check_compare(obj.ERR_POS, expected.ERR_POS, name + " " + "Error Position");
     all_zero &= check_compare(obj.ERR_STATUS_CLR, expected.ERR_STATUS_CLR, name + " " + "Error Status Clear");
@@ -9279,7 +10035,8 @@ bool check_compare(const FLASH_ECC_REGS &obj, const FLASH_ECC_REGS &expected, co
 bool check_compare(const PUMPREQUEST_BITS &obj, const PUMPREQUEST_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PUMP_OWNERSHIP, expected.PUMP_OWNERSHIP, name + " " + "1:0 Flash Pump Request Semaphore between CPU1 and CPU2");
+    all_zero &= check_compare(obj.PUMP_OWNERSHIP, expected.PUMP_OWNERSHIP,
+                              name + " " + "1:0 Flash Pump Request Semaphore between CPU1 and CPU2");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.KEY, expected.KEY, name + " " + "31:16 Key Qualifier for writes to this register");
 
@@ -9295,10 +10052,12 @@ bool check_compare(const PUMPREQUEST_REG &obj, const PUMPREQUEST_REG &expected, 
     return all_zero;
 }
 
-bool check_compare(const FLASH_PUMP_SEMAPHORE_REGS &obj, const FLASH_PUMP_SEMAPHORE_REGS &expected, const std::string &name) {
+bool check_compare(const FLASH_PUMP_SEMAPHORE_REGS &obj, const FLASH_PUMP_SEMAPHORE_REGS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PUMPREQUEST, expected.PUMPREQUEST, name + " " + "Flash programming semaphore PUMP request register");
+    all_zero &= check_compare(obj.PUMPREQUEST, expected.PUMPREQUEST,
+                              name + " " + "Flash programming semaphore PUMP request register");
 
     return all_zero;
 }
@@ -9306,10 +10065,14 @@ bool check_compare(const FLASH_PUMP_SEMAPHORE_REGS &obj, const FLASH_PUMP_SEMAPH
 bool check_compare(const GPACTRL_BITS &obj, const GPACTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO0 to GPIO7");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO8 to GPIO15");
-    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2, name + " " + "23:16 Qualification sampling period for GPIO16 to GPIO23");
-    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3, name + " " + "31:24 Qualification sampling period for GPIO24 to GPIO31");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO0 to GPIO7");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO8 to GPIO15");
+    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2,
+                              name + " " + "23:16 Qualification sampling period for GPIO16 to GPIO23");
+    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3,
+                              name + " " + "31:24 Qualification sampling period for GPIO24 to GPIO31");
 
     return all_zero;
 }
@@ -9331,17 +10094,28 @@ bool check_compare(const GPAQSEL1_BITS &obj, const GPAQSEL1_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO2, expected.GPIO2, name + " " + "5:4 Select input qualification type for GPIO2");
     all_zero &= check_compare(obj.GPIO3, expected.GPIO3, name + " " + "7:6 Select input qualification type for GPIO3");
     all_zero &= check_compare(obj.GPIO4, expected.GPIO4, name + " " + "9:8 Select input qualification type for GPIO4");
-    all_zero &= check_compare(obj.GPIO5, expected.GPIO5, name + " " + "11:10 Select input qualification type for GPIO5");
-    all_zero &= check_compare(obj.GPIO6, expected.GPIO6, name + " " + "13:12 Select input qualification type for GPIO6");
-    all_zero &= check_compare(obj.GPIO7, expected.GPIO7, name + " " + "15:14 Select input qualification type for GPIO7");
-    all_zero &= check_compare(obj.GPIO8, expected.GPIO8, name + " " + "17:16 Select input qualification type for GPIO8");
-    all_zero &= check_compare(obj.GPIO9, expected.GPIO9, name + " " + "19:18 Select input qualification type for GPIO9");
-    all_zero &= check_compare(obj.GPIO10, expected.GPIO10, name + " " + "21:20 Select input qualification type for GPIO10");
-    all_zero &= check_compare(obj.GPIO11, expected.GPIO11, name + " " + "23:22 Select input qualification type for GPIO11");
-    all_zero &= check_compare(obj.GPIO12, expected.GPIO12, name + " " + "25:24 Select input qualification type for GPIO12");
-    all_zero &= check_compare(obj.GPIO13, expected.GPIO13, name + " " + "27:26 Select input qualification type for GPIO13");
-    all_zero &= check_compare(obj.GPIO14, expected.GPIO14, name + " " + "29:28 Select input qualification type for GPIO14");
-    all_zero &= check_compare(obj.GPIO15, expected.GPIO15, name + " " + "31:30 Select input qualification type for GPIO15");
+    all_zero &= check_compare(obj.GPIO5, expected.GPIO5,
+                              name + " " + "11:10 Select input qualification type for GPIO5");
+    all_zero &= check_compare(obj.GPIO6, expected.GPIO6,
+                              name + " " + "13:12 Select input qualification type for GPIO6");
+    all_zero &= check_compare(obj.GPIO7, expected.GPIO7,
+                              name + " " + "15:14 Select input qualification type for GPIO7");
+    all_zero &= check_compare(obj.GPIO8, expected.GPIO8,
+                              name + " " + "17:16 Select input qualification type for GPIO8");
+    all_zero &= check_compare(obj.GPIO9, expected.GPIO9,
+                              name + " " + "19:18 Select input qualification type for GPIO9");
+    all_zero &= check_compare(obj.GPIO10, expected.GPIO10,
+                              name + " " + "21:20 Select input qualification type for GPIO10");
+    all_zero &= check_compare(obj.GPIO11, expected.GPIO11,
+                              name + " " + "23:22 Select input qualification type for GPIO11");
+    all_zero &= check_compare(obj.GPIO12, expected.GPIO12,
+                              name + " " + "25:24 Select input qualification type for GPIO12");
+    all_zero &= check_compare(obj.GPIO13, expected.GPIO13,
+                              name + " " + "27:26 Select input qualification type for GPIO13");
+    all_zero &= check_compare(obj.GPIO14, expected.GPIO14,
+                              name + " " + "29:28 Select input qualification type for GPIO14");
+    all_zero &= check_compare(obj.GPIO15, expected.GPIO15,
+                              name + " " + "31:30 Select input qualification type for GPIO15");
 
     return all_zero;
 }
@@ -9358,22 +10132,38 @@ bool check_compare(const GPAQSEL1_REG &obj, const GPAQSEL1_REG &expected, const 
 bool check_compare(const GPAQSEL2_BITS &obj, const GPAQSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO16, expected.GPIO16, name + " " + "1:0 Select input qualification type for GPIO16");
-    all_zero &= check_compare(obj.GPIO17, expected.GPIO17, name + " " + "3:2 Select input qualification type for GPIO17");
-    all_zero &= check_compare(obj.GPIO18, expected.GPIO18, name + " " + "5:4 Select input qualification type for GPIO18");
-    all_zero &= check_compare(obj.GPIO19, expected.GPIO19, name + " " + "7:6 Select input qualification type for GPIO19");
-    all_zero &= check_compare(obj.GPIO20, expected.GPIO20, name + " " + "9:8 Select input qualification type for GPIO20");
-    all_zero &= check_compare(obj.GPIO21, expected.GPIO21, name + " " + "11:10 Select input qualification type for GPIO21");
-    all_zero &= check_compare(obj.GPIO22, expected.GPIO22, name + " " + "13:12 Select input qualification type for GPIO22");
-    all_zero &= check_compare(obj.GPIO23, expected.GPIO23, name + " " + "15:14 Select input qualification type for GPIO23");
-    all_zero &= check_compare(obj.GPIO24, expected.GPIO24, name + " " + "17:16 Select input qualification type for GPIO24");
-    all_zero &= check_compare(obj.GPIO25, expected.GPIO25, name + " " + "19:18 Select input qualification type for GPIO25");
-    all_zero &= check_compare(obj.GPIO26, expected.GPIO26, name + " " + "21:20 Select input qualification type for GPIO26");
-    all_zero &= check_compare(obj.GPIO27, expected.GPIO27, name + " " + "23:22 Select input qualification type for GPIO27");
-    all_zero &= check_compare(obj.GPIO28, expected.GPIO28, name + " " + "25:24 Select input qualification type for GPIO28");
-    all_zero &= check_compare(obj.GPIO29, expected.GPIO29, name + " " + "27:26 Select input qualification type for GPIO29");
-    all_zero &= check_compare(obj.GPIO30, expected.GPIO30, name + " " + "29:28 Select input qualification type for GPIO30");
-    all_zero &= check_compare(obj.GPIO31, expected.GPIO31, name + " " + "31:30 Select input qualification type for GPIO31");
+    all_zero &= check_compare(obj.GPIO16, expected.GPIO16,
+                              name + " " + "1:0 Select input qualification type for GPIO16");
+    all_zero &= check_compare(obj.GPIO17, expected.GPIO17,
+                              name + " " + "3:2 Select input qualification type for GPIO17");
+    all_zero &= check_compare(obj.GPIO18, expected.GPIO18,
+                              name + " " + "5:4 Select input qualification type for GPIO18");
+    all_zero &= check_compare(obj.GPIO19, expected.GPIO19,
+                              name + " " + "7:6 Select input qualification type for GPIO19");
+    all_zero &= check_compare(obj.GPIO20, expected.GPIO20,
+                              name + " " + "9:8 Select input qualification type for GPIO20");
+    all_zero &= check_compare(obj.GPIO21, expected.GPIO21,
+                              name + " " + "11:10 Select input qualification type for GPIO21");
+    all_zero &= check_compare(obj.GPIO22, expected.GPIO22,
+                              name + " " + "13:12 Select input qualification type for GPIO22");
+    all_zero &= check_compare(obj.GPIO23, expected.GPIO23,
+                              name + " " + "15:14 Select input qualification type for GPIO23");
+    all_zero &= check_compare(obj.GPIO24, expected.GPIO24,
+                              name + " " + "17:16 Select input qualification type for GPIO24");
+    all_zero &= check_compare(obj.GPIO25, expected.GPIO25,
+                              name + " " + "19:18 Select input qualification type for GPIO25");
+    all_zero &= check_compare(obj.GPIO26, expected.GPIO26,
+                              name + " " + "21:20 Select input qualification type for GPIO26");
+    all_zero &= check_compare(obj.GPIO27, expected.GPIO27,
+                              name + " " + "23:22 Select input qualification type for GPIO27");
+    all_zero &= check_compare(obj.GPIO28, expected.GPIO28,
+                              name + " " + "25:24 Select input qualification type for GPIO28");
+    all_zero &= check_compare(obj.GPIO29, expected.GPIO29,
+                              name + " " + "27:26 Select input qualification type for GPIO29");
+    all_zero &= check_compare(obj.GPIO30, expected.GPIO30,
+                              name + " " + "29:28 Select input qualification type for GPIO30");
+    all_zero &= check_compare(obj.GPIO31, expected.GPIO31,
+                              name + " " + "31:30 Select input qualification type for GPIO31");
 
     return all_zero;
 }
@@ -9400,12 +10190,18 @@ bool check_compare(const GPAMUX1_BITS &obj, const GPAMUX1_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO7, expected.GPIO7, name + " " + "15:14 Defines pin-muxing selection for GPIO7");
     all_zero &= check_compare(obj.GPIO8, expected.GPIO8, name + " " + "17:16 Defines pin-muxing selection for GPIO8");
     all_zero &= check_compare(obj.GPIO9, expected.GPIO9, name + " " + "19:18 Defines pin-muxing selection for GPIO9");
-    all_zero &= check_compare(obj.GPIO10, expected.GPIO10, name + " " + "21:20 Defines pin-muxing selection for GPIO10");
-    all_zero &= check_compare(obj.GPIO11, expected.GPIO11, name + " " + "23:22 Defines pin-muxing selection for GPIO11");
-    all_zero &= check_compare(obj.GPIO12, expected.GPIO12, name + " " + "25:24 Defines pin-muxing selection for GPIO12");
-    all_zero &= check_compare(obj.GPIO13, expected.GPIO13, name + " " + "27:26 Defines pin-muxing selection for GPIO13");
-    all_zero &= check_compare(obj.GPIO14, expected.GPIO14, name + " " + "29:28 Defines pin-muxing selection for GPIO14");
-    all_zero &= check_compare(obj.GPIO15, expected.GPIO15, name + " " + "31:30 Defines pin-muxing selection for GPIO15");
+    all_zero &= check_compare(obj.GPIO10, expected.GPIO10,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO10");
+    all_zero &= check_compare(obj.GPIO11, expected.GPIO11,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO11");
+    all_zero &= check_compare(obj.GPIO12, expected.GPIO12,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO12");
+    all_zero &= check_compare(obj.GPIO13, expected.GPIO13,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO13");
+    all_zero &= check_compare(obj.GPIO14, expected.GPIO14,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO14");
+    all_zero &= check_compare(obj.GPIO15, expected.GPIO15,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO15");
 
     return all_zero;
 }
@@ -9427,17 +10223,28 @@ bool check_compare(const GPAMUX2_BITS &obj, const GPAMUX2_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO18, expected.GPIO18, name + " " + "5:4 Defines pin-muxing selection for GPIO18");
     all_zero &= check_compare(obj.GPIO19, expected.GPIO19, name + " " + "7:6 Defines pin-muxing selection for GPIO19");
     all_zero &= check_compare(obj.GPIO20, expected.GPIO20, name + " " + "9:8 Defines pin-muxing selection for GPIO20");
-    all_zero &= check_compare(obj.GPIO21, expected.GPIO21, name + " " + "11:10 Defines pin-muxing selection for GPIO21");
-    all_zero &= check_compare(obj.GPIO22, expected.GPIO22, name + " " + "13:12 Defines pin-muxing selection for GPIO22");
-    all_zero &= check_compare(obj.GPIO23, expected.GPIO23, name + " " + "15:14 Defines pin-muxing selection for GPIO23");
-    all_zero &= check_compare(obj.GPIO24, expected.GPIO24, name + " " + "17:16 Defines pin-muxing selection for GPIO24");
-    all_zero &= check_compare(obj.GPIO25, expected.GPIO25, name + " " + "19:18 Defines pin-muxing selection for GPIO25");
-    all_zero &= check_compare(obj.GPIO26, expected.GPIO26, name + " " + "21:20 Defines pin-muxing selection for GPIO26");
-    all_zero &= check_compare(obj.GPIO27, expected.GPIO27, name + " " + "23:22 Defines pin-muxing selection for GPIO27");
-    all_zero &= check_compare(obj.GPIO28, expected.GPIO28, name + " " + "25:24 Defines pin-muxing selection for GPIO28");
-    all_zero &= check_compare(obj.GPIO29, expected.GPIO29, name + " " + "27:26 Defines pin-muxing selection for GPIO29");
-    all_zero &= check_compare(obj.GPIO30, expected.GPIO30, name + " " + "29:28 Defines pin-muxing selection for GPIO30");
-    all_zero &= check_compare(obj.GPIO31, expected.GPIO31, name + " " + "31:30 Defines pin-muxing selection for GPIO31");
+    all_zero &= check_compare(obj.GPIO21, expected.GPIO21,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO21");
+    all_zero &= check_compare(obj.GPIO22, expected.GPIO22,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO22");
+    all_zero &= check_compare(obj.GPIO23, expected.GPIO23,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO23");
+    all_zero &= check_compare(obj.GPIO24, expected.GPIO24,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO24");
+    all_zero &= check_compare(obj.GPIO25, expected.GPIO25,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO25");
+    all_zero &= check_compare(obj.GPIO26, expected.GPIO26,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO26");
+    all_zero &= check_compare(obj.GPIO27, expected.GPIO27,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO27");
+    all_zero &= check_compare(obj.GPIO28, expected.GPIO28,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO28");
+    all_zero &= check_compare(obj.GPIO29, expected.GPIO29,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO29");
+    all_zero &= check_compare(obj.GPIO30, expected.GPIO30,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO30");
+    all_zero &= check_compare(obj.GPIO31, expected.GPIO31,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO31");
 
     return all_zero;
 }
@@ -9464,28 +10271,50 @@ bool check_compare(const GPADIR_BITS &obj, const GPADIR_BITS &expected, const st
     all_zero &= check_compare(obj.GPIO7, expected.GPIO7, name + " " + "7 Defines direction for this pin in GPIO mode");
     all_zero &= check_compare(obj.GPIO8, expected.GPIO8, name + " " + "8 Defines direction for this pin in GPIO mode");
     all_zero &= check_compare(obj.GPIO9, expected.GPIO9, name + " " + "9 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO10, expected.GPIO10, name + " " + "10 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO11, expected.GPIO11, name + " " + "11 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO12, expected.GPIO12, name + " " + "12 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO13, expected.GPIO13, name + " " + "13 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO14, expected.GPIO14, name + " " + "14 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO15, expected.GPIO15, name + " " + "15 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO16, expected.GPIO16, name + " " + "16 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO17, expected.GPIO17, name + " " + "17 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO18, expected.GPIO18, name + " " + "18 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO19, expected.GPIO19, name + " " + "19 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO20, expected.GPIO20, name + " " + "20 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO21, expected.GPIO21, name + " " + "21 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO22, expected.GPIO22, name + " " + "22 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO23, expected.GPIO23, name + " " + "23 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO24, expected.GPIO24, name + " " + "24 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO25, expected.GPIO25, name + " " + "25 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO26, expected.GPIO26, name + " " + "26 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO27, expected.GPIO27, name + " " + "27 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO28, expected.GPIO28, name + " " + "28 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO29, expected.GPIO29, name + " " + "29 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO30, expected.GPIO30, name + " " + "30 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO31, expected.GPIO31, name + " " + "31 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO10, expected.GPIO10,
+                              name + " " + "10 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO11, expected.GPIO11,
+                              name + " " + "11 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO12, expected.GPIO12,
+                              name + " " + "12 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO13, expected.GPIO13,
+                              name + " " + "13 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO14, expected.GPIO14,
+                              name + " " + "14 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO15, expected.GPIO15,
+                              name + " " + "15 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO16, expected.GPIO16,
+                              name + " " + "16 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO17, expected.GPIO17,
+                              name + " " + "17 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO18, expected.GPIO18,
+                              name + " " + "18 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO19, expected.GPIO19,
+                              name + " " + "19 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO20, expected.GPIO20,
+                              name + " " + "20 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO21, expected.GPIO21,
+                              name + " " + "21 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO22, expected.GPIO22,
+                              name + " " + "22 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO23, expected.GPIO23,
+                              name + " " + "23 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO24, expected.GPIO24,
+                              name + " " + "24 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO25, expected.GPIO25,
+                              name + " " + "25 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO26, expected.GPIO26,
+                              name + " " + "26 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO27, expected.GPIO27,
+                              name + " " + "27 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO28, expected.GPIO28,
+                              name + " " + "28 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO29, expected.GPIO29,
+                              name + " " + "29 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO30, expected.GPIO30,
+                              name + " " + "30 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO31, expected.GPIO31,
+                              name + " " + "31 Defines direction for this pin in GPIO mode");
 
     return all_zero;
 }
@@ -9656,12 +10485,18 @@ bool check_compare(const GPAGMUX1_BITS &obj, const GPAGMUX1_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO7, expected.GPIO7, name + " " + "15:14 Defines pin-muxing selection for GPIO7");
     all_zero &= check_compare(obj.GPIO8, expected.GPIO8, name + " " + "17:16 Defines pin-muxing selection for GPIO8");
     all_zero &= check_compare(obj.GPIO9, expected.GPIO9, name + " " + "19:18 Defines pin-muxing selection for GPIO9");
-    all_zero &= check_compare(obj.GPIO10, expected.GPIO10, name + " " + "21:20 Defines pin-muxing selection for GPIO10");
-    all_zero &= check_compare(obj.GPIO11, expected.GPIO11, name + " " + "23:22 Defines pin-muxing selection for GPIO11");
-    all_zero &= check_compare(obj.GPIO12, expected.GPIO12, name + " " + "25:24 Defines pin-muxing selection for GPIO12");
-    all_zero &= check_compare(obj.GPIO13, expected.GPIO13, name + " " + "27:26 Defines pin-muxing selection for GPIO13");
-    all_zero &= check_compare(obj.GPIO14, expected.GPIO14, name + " " + "29:28 Defines pin-muxing selection for GPIO14");
-    all_zero &= check_compare(obj.GPIO15, expected.GPIO15, name + " " + "31:30 Defines pin-muxing selection for GPIO15");
+    all_zero &= check_compare(obj.GPIO10, expected.GPIO10,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO10");
+    all_zero &= check_compare(obj.GPIO11, expected.GPIO11,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO11");
+    all_zero &= check_compare(obj.GPIO12, expected.GPIO12,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO12");
+    all_zero &= check_compare(obj.GPIO13, expected.GPIO13,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO13");
+    all_zero &= check_compare(obj.GPIO14, expected.GPIO14,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO14");
+    all_zero &= check_compare(obj.GPIO15, expected.GPIO15,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO15");
 
     return all_zero;
 }
@@ -9683,17 +10518,28 @@ bool check_compare(const GPAGMUX2_BITS &obj, const GPAGMUX2_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO18, expected.GPIO18, name + " " + "5:4 Defines pin-muxing selection for GPIO18");
     all_zero &= check_compare(obj.GPIO19, expected.GPIO19, name + " " + "7:6 Defines pin-muxing selection for GPIO19");
     all_zero &= check_compare(obj.GPIO20, expected.GPIO20, name + " " + "9:8 Defines pin-muxing selection for GPIO20");
-    all_zero &= check_compare(obj.GPIO21, expected.GPIO21, name + " " + "11:10 Defines pin-muxing selection for GPIO21");
-    all_zero &= check_compare(obj.GPIO22, expected.GPIO22, name + " " + "13:12 Defines pin-muxing selection for GPIO22");
-    all_zero &= check_compare(obj.GPIO23, expected.GPIO23, name + " " + "15:14 Defines pin-muxing selection for GPIO23");
-    all_zero &= check_compare(obj.GPIO24, expected.GPIO24, name + " " + "17:16 Defines pin-muxing selection for GPIO24");
-    all_zero &= check_compare(obj.GPIO25, expected.GPIO25, name + " " + "19:18 Defines pin-muxing selection for GPIO25");
-    all_zero &= check_compare(obj.GPIO26, expected.GPIO26, name + " " + "21:20 Defines pin-muxing selection for GPIO26");
-    all_zero &= check_compare(obj.GPIO27, expected.GPIO27, name + " " + "23:22 Defines pin-muxing selection for GPIO27");
-    all_zero &= check_compare(obj.GPIO28, expected.GPIO28, name + " " + "25:24 Defines pin-muxing selection for GPIO28");
-    all_zero &= check_compare(obj.GPIO29, expected.GPIO29, name + " " + "27:26 Defines pin-muxing selection for GPIO29");
-    all_zero &= check_compare(obj.GPIO30, expected.GPIO30, name + " " + "29:28 Defines pin-muxing selection for GPIO30");
-    all_zero &= check_compare(obj.GPIO31, expected.GPIO31, name + " " + "31:30 Defines pin-muxing selection for GPIO31");
+    all_zero &= check_compare(obj.GPIO21, expected.GPIO21,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO21");
+    all_zero &= check_compare(obj.GPIO22, expected.GPIO22,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO22");
+    all_zero &= check_compare(obj.GPIO23, expected.GPIO23,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO23");
+    all_zero &= check_compare(obj.GPIO24, expected.GPIO24,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO24");
+    all_zero &= check_compare(obj.GPIO25, expected.GPIO25,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO25");
+    all_zero &= check_compare(obj.GPIO26, expected.GPIO26,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO26");
+    all_zero &= check_compare(obj.GPIO27, expected.GPIO27,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO27");
+    all_zero &= check_compare(obj.GPIO28, expected.GPIO28,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO28");
+    all_zero &= check_compare(obj.GPIO29, expected.GPIO29,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO29");
+    all_zero &= check_compare(obj.GPIO30, expected.GPIO30,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO30");
+    all_zero &= check_compare(obj.GPIO31, expected.GPIO31,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO31");
 
     return all_zero;
 }
@@ -9864,28 +10710,50 @@ bool check_compare(const GPACR_BITS &obj, const GPACR_BITS &expected, const std:
     all_zero &= check_compare(obj.GPIO7, expected.GPIO7, name + " " + "7 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO8, expected.GPIO8, name + " " + "8 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO9, expected.GPIO9, name + " " + "9 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO10, expected.GPIO10, name + " " + "10 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO11, expected.GPIO11, name + " " + "11 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO12, expected.GPIO12, name + " " + "12 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO13, expected.GPIO13, name + " " + "13 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO14, expected.GPIO14, name + " " + "14 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO15, expected.GPIO15, name + " " + "15 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO16, expected.GPIO16, name + " " + "16 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO17, expected.GPIO17, name + " " + "17 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO18, expected.GPIO18, name + " " + "18 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO19, expected.GPIO19, name + " " + "19 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO20, expected.GPIO20, name + " " + "20 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO21, expected.GPIO21, name + " " + "21 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO22, expected.GPIO22, name + " " + "22 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO23, expected.GPIO23, name + " " + "23 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO24, expected.GPIO24, name + " " + "24 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO25, expected.GPIO25, name + " " + "25 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO26, expected.GPIO26, name + " " + "26 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO27, expected.GPIO27, name + " " + "27 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO28, expected.GPIO28, name + " " + "28 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO29, expected.GPIO29, name + " " + "29 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO30, expected.GPIO30, name + " " + "30 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO31, expected.GPIO31, name + " " + "31 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO10, expected.GPIO10,
+                              name + " " + "10 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO11, expected.GPIO11,
+                              name + " " + "11 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO12, expected.GPIO12,
+                              name + " " + "12 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO13, expected.GPIO13,
+                              name + " " + "13 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO14, expected.GPIO14,
+                              name + " " + "14 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO15, expected.GPIO15,
+                              name + " " + "15 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO16, expected.GPIO16,
+                              name + " " + "16 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO17, expected.GPIO17,
+                              name + " " + "17 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO18, expected.GPIO18,
+                              name + " " + "18 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO19, expected.GPIO19,
+                              name + " " + "19 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO20, expected.GPIO20,
+                              name + " " + "20 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO21, expected.GPIO21,
+                              name + " " + "21 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO22, expected.GPIO22,
+                              name + " " + "22 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO23, expected.GPIO23,
+                              name + " " + "23 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO24, expected.GPIO24,
+                              name + " " + "24 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO25, expected.GPIO25,
+                              name + " " + "25 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO26, expected.GPIO26,
+                              name + " " + "26 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO27, expected.GPIO27,
+                              name + " " + "27 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO28, expected.GPIO28,
+                              name + " " + "28 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO29, expected.GPIO29,
+                              name + " " + "29 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO30, expected.GPIO30,
+                              name + " " + "30 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO31, expected.GPIO31,
+                              name + " " + "31 Configuration lock commit bit for this pin");
 
     return all_zero;
 }
@@ -9902,10 +10770,14 @@ bool check_compare(const GPACR_REG &obj, const GPACR_REG &expected, const std::s
 bool check_compare(const GPBCTRL_BITS &obj, const GPBCTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO32 to GPIO39");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO40 to GPIO47");
-    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2, name + " " + "23:16 Qualification sampling period for GPIO48 to GPIO55");
-    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3, name + " " + "31:24 Qualification sampling period for GPIO56 to GPIO63");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO32 to GPIO39");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO40 to GPIO47");
+    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2,
+                              name + " " + "23:16 Qualification sampling period for GPIO48 to GPIO55");
+    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3,
+                              name + " " + "31:24 Qualification sampling period for GPIO56 to GPIO63");
 
     return all_zero;
 }
@@ -9922,22 +10794,38 @@ bool check_compare(const GPBCTRL_REG &obj, const GPBCTRL_REG &expected, const st
 bool check_compare(const GPBQSEL1_BITS &obj, const GPBQSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO32, expected.GPIO32, name + " " + "1:0 Select input qualification type for GPIO32");
-    all_zero &= check_compare(obj.GPIO33, expected.GPIO33, name + " " + "3:2 Select input qualification type for GPIO33");
-    all_zero &= check_compare(obj.GPIO34, expected.GPIO34, name + " " + "5:4 Select input qualification type for GPIO34");
-    all_zero &= check_compare(obj.GPIO35, expected.GPIO35, name + " " + "7:6 Select input qualification type for GPIO35");
-    all_zero &= check_compare(obj.GPIO36, expected.GPIO36, name + " " + "9:8 Select input qualification type for GPIO36");
-    all_zero &= check_compare(obj.GPIO37, expected.GPIO37, name + " " + "11:10 Select input qualification type for GPIO37");
-    all_zero &= check_compare(obj.GPIO38, expected.GPIO38, name + " " + "13:12 Select input qualification type for GPIO38");
-    all_zero &= check_compare(obj.GPIO39, expected.GPIO39, name + " " + "15:14 Select input qualification type for GPIO39");
-    all_zero &= check_compare(obj.GPIO40, expected.GPIO40, name + " " + "17:16 Select input qualification type for GPIO40");
-    all_zero &= check_compare(obj.GPIO41, expected.GPIO41, name + " " + "19:18 Select input qualification type for GPIO41");
-    all_zero &= check_compare(obj.GPIO42, expected.GPIO42, name + " " + "21:20 Select input qualification type for GPIO42");
-    all_zero &= check_compare(obj.GPIO43, expected.GPIO43, name + " " + "23:22 Select input qualification type for GPIO43");
-    all_zero &= check_compare(obj.GPIO44, expected.GPIO44, name + " " + "25:24 Select input qualification type for GPIO44");
-    all_zero &= check_compare(obj.GPIO45, expected.GPIO45, name + " " + "27:26 Select input qualification type for GPIO45");
-    all_zero &= check_compare(obj.GPIO46, expected.GPIO46, name + " " + "29:28 Select input qualification type for GPIO46");
-    all_zero &= check_compare(obj.GPIO47, expected.GPIO47, name + " " + "31:30 Select input qualification type for GPIO47");
+    all_zero &= check_compare(obj.GPIO32, expected.GPIO32,
+                              name + " " + "1:0 Select input qualification type for GPIO32");
+    all_zero &= check_compare(obj.GPIO33, expected.GPIO33,
+                              name + " " + "3:2 Select input qualification type for GPIO33");
+    all_zero &= check_compare(obj.GPIO34, expected.GPIO34,
+                              name + " " + "5:4 Select input qualification type for GPIO34");
+    all_zero &= check_compare(obj.GPIO35, expected.GPIO35,
+                              name + " " + "7:6 Select input qualification type for GPIO35");
+    all_zero &= check_compare(obj.GPIO36, expected.GPIO36,
+                              name + " " + "9:8 Select input qualification type for GPIO36");
+    all_zero &= check_compare(obj.GPIO37, expected.GPIO37,
+                              name + " " + "11:10 Select input qualification type for GPIO37");
+    all_zero &= check_compare(obj.GPIO38, expected.GPIO38,
+                              name + " " + "13:12 Select input qualification type for GPIO38");
+    all_zero &= check_compare(obj.GPIO39, expected.GPIO39,
+                              name + " " + "15:14 Select input qualification type for GPIO39");
+    all_zero &= check_compare(obj.GPIO40, expected.GPIO40,
+                              name + " " + "17:16 Select input qualification type for GPIO40");
+    all_zero &= check_compare(obj.GPIO41, expected.GPIO41,
+                              name + " " + "19:18 Select input qualification type for GPIO41");
+    all_zero &= check_compare(obj.GPIO42, expected.GPIO42,
+                              name + " " + "21:20 Select input qualification type for GPIO42");
+    all_zero &= check_compare(obj.GPIO43, expected.GPIO43,
+                              name + " " + "23:22 Select input qualification type for GPIO43");
+    all_zero &= check_compare(obj.GPIO44, expected.GPIO44,
+                              name + " " + "25:24 Select input qualification type for GPIO44");
+    all_zero &= check_compare(obj.GPIO45, expected.GPIO45,
+                              name + " " + "27:26 Select input qualification type for GPIO45");
+    all_zero &= check_compare(obj.GPIO46, expected.GPIO46,
+                              name + " " + "29:28 Select input qualification type for GPIO46");
+    all_zero &= check_compare(obj.GPIO47, expected.GPIO47,
+                              name + " " + "31:30 Select input qualification type for GPIO47");
 
     return all_zero;
 }
@@ -9954,22 +10842,38 @@ bool check_compare(const GPBQSEL1_REG &obj, const GPBQSEL1_REG &expected, const 
 bool check_compare(const GPBQSEL2_BITS &obj, const GPBQSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO48, expected.GPIO48, name + " " + "1:0 Select input qualification type for GPIO48");
-    all_zero &= check_compare(obj.GPIO49, expected.GPIO49, name + " " + "3:2 Select input qualification type for GPIO49");
-    all_zero &= check_compare(obj.GPIO50, expected.GPIO50, name + " " + "5:4 Select input qualification type for GPIO50");
-    all_zero &= check_compare(obj.GPIO51, expected.GPIO51, name + " " + "7:6 Select input qualification type for GPIO51");
-    all_zero &= check_compare(obj.GPIO52, expected.GPIO52, name + " " + "9:8 Select input qualification type for GPIO52");
-    all_zero &= check_compare(obj.GPIO53, expected.GPIO53, name + " " + "11:10 Select input qualification type for GPIO53");
-    all_zero &= check_compare(obj.GPIO54, expected.GPIO54, name + " " + "13:12 Select input qualification type for GPIO54");
-    all_zero &= check_compare(obj.GPIO55, expected.GPIO55, name + " " + "15:14 Select input qualification type for GPIO55");
-    all_zero &= check_compare(obj.GPIO56, expected.GPIO56, name + " " + "17:16 Select input qualification type for GPIO56");
-    all_zero &= check_compare(obj.GPIO57, expected.GPIO57, name + " " + "19:18 Select input qualification type for GPIO57");
-    all_zero &= check_compare(obj.GPIO58, expected.GPIO58, name + " " + "21:20 Select input qualification type for GPIO58");
-    all_zero &= check_compare(obj.GPIO59, expected.GPIO59, name + " " + "23:22 Select input qualification type for GPIO59");
-    all_zero &= check_compare(obj.GPIO60, expected.GPIO60, name + " " + "25:24 Select input qualification type for GPIO60");
-    all_zero &= check_compare(obj.GPIO61, expected.GPIO61, name + " " + "27:26 Select input qualification type for GPIO61");
-    all_zero &= check_compare(obj.GPIO62, expected.GPIO62, name + " " + "29:28 Select input qualification type for GPIO62");
-    all_zero &= check_compare(obj.GPIO63, expected.GPIO63, name + " " + "31:30 Select input qualification type for GPIO63");
+    all_zero &= check_compare(obj.GPIO48, expected.GPIO48,
+                              name + " " + "1:0 Select input qualification type for GPIO48");
+    all_zero &= check_compare(obj.GPIO49, expected.GPIO49,
+                              name + " " + "3:2 Select input qualification type for GPIO49");
+    all_zero &= check_compare(obj.GPIO50, expected.GPIO50,
+                              name + " " + "5:4 Select input qualification type for GPIO50");
+    all_zero &= check_compare(obj.GPIO51, expected.GPIO51,
+                              name + " " + "7:6 Select input qualification type for GPIO51");
+    all_zero &= check_compare(obj.GPIO52, expected.GPIO52,
+                              name + " " + "9:8 Select input qualification type for GPIO52");
+    all_zero &= check_compare(obj.GPIO53, expected.GPIO53,
+                              name + " " + "11:10 Select input qualification type for GPIO53");
+    all_zero &= check_compare(obj.GPIO54, expected.GPIO54,
+                              name + " " + "13:12 Select input qualification type for GPIO54");
+    all_zero &= check_compare(obj.GPIO55, expected.GPIO55,
+                              name + " " + "15:14 Select input qualification type for GPIO55");
+    all_zero &= check_compare(obj.GPIO56, expected.GPIO56,
+                              name + " " + "17:16 Select input qualification type for GPIO56");
+    all_zero &= check_compare(obj.GPIO57, expected.GPIO57,
+                              name + " " + "19:18 Select input qualification type for GPIO57");
+    all_zero &= check_compare(obj.GPIO58, expected.GPIO58,
+                              name + " " + "21:20 Select input qualification type for GPIO58");
+    all_zero &= check_compare(obj.GPIO59, expected.GPIO59,
+                              name + " " + "23:22 Select input qualification type for GPIO59");
+    all_zero &= check_compare(obj.GPIO60, expected.GPIO60,
+                              name + " " + "25:24 Select input qualification type for GPIO60");
+    all_zero &= check_compare(obj.GPIO61, expected.GPIO61,
+                              name + " " + "27:26 Select input qualification type for GPIO61");
+    all_zero &= check_compare(obj.GPIO62, expected.GPIO62,
+                              name + " " + "29:28 Select input qualification type for GPIO62");
+    all_zero &= check_compare(obj.GPIO63, expected.GPIO63,
+                              name + " " + "31:30 Select input qualification type for GPIO63");
 
     return all_zero;
 }
@@ -9991,17 +10895,28 @@ bool check_compare(const GPBMUX1_BITS &obj, const GPBMUX1_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO34, expected.GPIO34, name + " " + "5:4 Defines pin-muxing selection for GPIO34");
     all_zero &= check_compare(obj.GPIO35, expected.GPIO35, name + " " + "7:6 Defines pin-muxing selection for GPIO35");
     all_zero &= check_compare(obj.GPIO36, expected.GPIO36, name + " " + "9:8 Defines pin-muxing selection for GPIO36");
-    all_zero &= check_compare(obj.GPIO37, expected.GPIO37, name + " " + "11:10 Defines pin-muxing selection for GPIO37");
-    all_zero &= check_compare(obj.GPIO38, expected.GPIO38, name + " " + "13:12 Defines pin-muxing selection for GPIO38");
-    all_zero &= check_compare(obj.GPIO39, expected.GPIO39, name + " " + "15:14 Defines pin-muxing selection for GPIO39");
-    all_zero &= check_compare(obj.GPIO40, expected.GPIO40, name + " " + "17:16 Defines pin-muxing selection for GPIO40");
-    all_zero &= check_compare(obj.GPIO41, expected.GPIO41, name + " " + "19:18 Defines pin-muxing selection for GPIO41");
-    all_zero &= check_compare(obj.GPIO42, expected.GPIO42, name + " " + "21:20 Defines pin-muxing selection for GPIO42");
-    all_zero &= check_compare(obj.GPIO43, expected.GPIO43, name + " " + "23:22 Defines pin-muxing selection for GPIO43");
-    all_zero &= check_compare(obj.GPIO44, expected.GPIO44, name + " " + "25:24 Defines pin-muxing selection for GPIO44");
-    all_zero &= check_compare(obj.GPIO45, expected.GPIO45, name + " " + "27:26 Defines pin-muxing selection for GPIO45");
-    all_zero &= check_compare(obj.GPIO46, expected.GPIO46, name + " " + "29:28 Defines pin-muxing selection for GPIO46");
-    all_zero &= check_compare(obj.GPIO47, expected.GPIO47, name + " " + "31:30 Defines pin-muxing selection for GPIO47");
+    all_zero &= check_compare(obj.GPIO37, expected.GPIO37,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO37");
+    all_zero &= check_compare(obj.GPIO38, expected.GPIO38,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO38");
+    all_zero &= check_compare(obj.GPIO39, expected.GPIO39,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO39");
+    all_zero &= check_compare(obj.GPIO40, expected.GPIO40,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO40");
+    all_zero &= check_compare(obj.GPIO41, expected.GPIO41,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO41");
+    all_zero &= check_compare(obj.GPIO42, expected.GPIO42,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO42");
+    all_zero &= check_compare(obj.GPIO43, expected.GPIO43,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO43");
+    all_zero &= check_compare(obj.GPIO44, expected.GPIO44,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO44");
+    all_zero &= check_compare(obj.GPIO45, expected.GPIO45,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO45");
+    all_zero &= check_compare(obj.GPIO46, expected.GPIO46,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO46");
+    all_zero &= check_compare(obj.GPIO47, expected.GPIO47,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO47");
 
     return all_zero;
 }
@@ -10023,17 +10938,28 @@ bool check_compare(const GPBMUX2_BITS &obj, const GPBMUX2_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO50, expected.GPIO50, name + " " + "5:4 Defines pin-muxing selection for GPIO50");
     all_zero &= check_compare(obj.GPIO51, expected.GPIO51, name + " " + "7:6 Defines pin-muxing selection for GPIO51");
     all_zero &= check_compare(obj.GPIO52, expected.GPIO52, name + " " + "9:8 Defines pin-muxing selection for GPIO52");
-    all_zero &= check_compare(obj.GPIO53, expected.GPIO53, name + " " + "11:10 Defines pin-muxing selection for GPIO53");
-    all_zero &= check_compare(obj.GPIO54, expected.GPIO54, name + " " + "13:12 Defines pin-muxing selection for GPIO54");
-    all_zero &= check_compare(obj.GPIO55, expected.GPIO55, name + " " + "15:14 Defines pin-muxing selection for GPIO55");
-    all_zero &= check_compare(obj.GPIO56, expected.GPIO56, name + " " + "17:16 Defines pin-muxing selection for GPIO56");
-    all_zero &= check_compare(obj.GPIO57, expected.GPIO57, name + " " + "19:18 Defines pin-muxing selection for GPIO57");
-    all_zero &= check_compare(obj.GPIO58, expected.GPIO58, name + " " + "21:20 Defines pin-muxing selection for GPIO58");
-    all_zero &= check_compare(obj.GPIO59, expected.GPIO59, name + " " + "23:22 Defines pin-muxing selection for GPIO59");
-    all_zero &= check_compare(obj.GPIO60, expected.GPIO60, name + " " + "25:24 Defines pin-muxing selection for GPIO60");
-    all_zero &= check_compare(obj.GPIO61, expected.GPIO61, name + " " + "27:26 Defines pin-muxing selection for GPIO61");
-    all_zero &= check_compare(obj.GPIO62, expected.GPIO62, name + " " + "29:28 Defines pin-muxing selection for GPIO62");
-    all_zero &= check_compare(obj.GPIO63, expected.GPIO63, name + " " + "31:30 Defines pin-muxing selection for GPIO63");
+    all_zero &= check_compare(obj.GPIO53, expected.GPIO53,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO53");
+    all_zero &= check_compare(obj.GPIO54, expected.GPIO54,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO54");
+    all_zero &= check_compare(obj.GPIO55, expected.GPIO55,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO55");
+    all_zero &= check_compare(obj.GPIO56, expected.GPIO56,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO56");
+    all_zero &= check_compare(obj.GPIO57, expected.GPIO57,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO57");
+    all_zero &= check_compare(obj.GPIO58, expected.GPIO58,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO58");
+    all_zero &= check_compare(obj.GPIO59, expected.GPIO59,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO59");
+    all_zero &= check_compare(obj.GPIO60, expected.GPIO60,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO60");
+    all_zero &= check_compare(obj.GPIO61, expected.GPIO61,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO61");
+    all_zero &= check_compare(obj.GPIO62, expected.GPIO62,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO62");
+    all_zero &= check_compare(obj.GPIO63, expected.GPIO63,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO63");
 
     return all_zero;
 }
@@ -10050,38 +10976,70 @@ bool check_compare(const GPBMUX2_REG &obj, const GPBMUX2_REG &expected, const st
 bool check_compare(const GPBDIR_BITS &obj, const GPBDIR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO32, expected.GPIO32, name + " " + "0 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO33, expected.GPIO33, name + " " + "1 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO34, expected.GPIO34, name + " " + "2 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO35, expected.GPIO35, name + " " + "3 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO36, expected.GPIO36, name + " " + "4 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO37, expected.GPIO37, name + " " + "5 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO38, expected.GPIO38, name + " " + "6 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO39, expected.GPIO39, name + " " + "7 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO40, expected.GPIO40, name + " " + "8 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO41, expected.GPIO41, name + " " + "9 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO42, expected.GPIO42, name + " " + "10 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO43, expected.GPIO43, name + " " + "11 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO44, expected.GPIO44, name + " " + "12 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO45, expected.GPIO45, name + " " + "13 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO46, expected.GPIO46, name + " " + "14 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO47, expected.GPIO47, name + " " + "15 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO48, expected.GPIO48, name + " " + "16 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO49, expected.GPIO49, name + " " + "17 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO50, expected.GPIO50, name + " " + "18 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO51, expected.GPIO51, name + " " + "19 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO52, expected.GPIO52, name + " " + "20 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO53, expected.GPIO53, name + " " + "21 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO54, expected.GPIO54, name + " " + "22 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO55, expected.GPIO55, name + " " + "23 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO56, expected.GPIO56, name + " " + "24 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO57, expected.GPIO57, name + " " + "25 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO58, expected.GPIO58, name + " " + "26 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO59, expected.GPIO59, name + " " + "27 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO60, expected.GPIO60, name + " " + "28 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO61, expected.GPIO61, name + " " + "29 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO62, expected.GPIO62, name + " " + "30 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO63, expected.GPIO63, name + " " + "31 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO32, expected.GPIO32,
+                              name + " " + "0 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO33, expected.GPIO33,
+                              name + " " + "1 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO34, expected.GPIO34,
+                              name + " " + "2 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO35, expected.GPIO35,
+                              name + " " + "3 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO36, expected.GPIO36,
+                              name + " " + "4 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO37, expected.GPIO37,
+                              name + " " + "5 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO38, expected.GPIO38,
+                              name + " " + "6 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO39, expected.GPIO39,
+                              name + " " + "7 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO40, expected.GPIO40,
+                              name + " " + "8 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO41, expected.GPIO41,
+                              name + " " + "9 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO42, expected.GPIO42,
+                              name + " " + "10 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO43, expected.GPIO43,
+                              name + " " + "11 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO44, expected.GPIO44,
+                              name + " " + "12 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO45, expected.GPIO45,
+                              name + " " + "13 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO46, expected.GPIO46,
+                              name + " " + "14 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO47, expected.GPIO47,
+                              name + " " + "15 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO48, expected.GPIO48,
+                              name + " " + "16 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO49, expected.GPIO49,
+                              name + " " + "17 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO50, expected.GPIO50,
+                              name + " " + "18 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO51, expected.GPIO51,
+                              name + " " + "19 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO52, expected.GPIO52,
+                              name + " " + "20 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO53, expected.GPIO53,
+                              name + " " + "21 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO54, expected.GPIO54,
+                              name + " " + "22 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO55, expected.GPIO55,
+                              name + " " + "23 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO56, expected.GPIO56,
+                              name + " " + "24 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO57, expected.GPIO57,
+                              name + " " + "25 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO58, expected.GPIO58,
+                              name + " " + "26 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO59, expected.GPIO59,
+                              name + " " + "27 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO60, expected.GPIO60,
+                              name + " " + "28 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO61, expected.GPIO61,
+                              name + " " + "29 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO62, expected.GPIO62,
+                              name + " " + "30 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO63, expected.GPIO63,
+                              name + " " + "31 Defines direction for this pin in GPIO mode");
 
     return all_zero;
 }
@@ -10295,17 +11253,28 @@ bool check_compare(const GPBGMUX1_BITS &obj, const GPBGMUX1_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO34, expected.GPIO34, name + " " + "5:4 Defines pin-muxing selection for GPIO34");
     all_zero &= check_compare(obj.GPIO35, expected.GPIO35, name + " " + "7:6 Defines pin-muxing selection for GPIO35");
     all_zero &= check_compare(obj.GPIO36, expected.GPIO36, name + " " + "9:8 Defines pin-muxing selection for GPIO36");
-    all_zero &= check_compare(obj.GPIO37, expected.GPIO37, name + " " + "11:10 Defines pin-muxing selection for GPIO37");
-    all_zero &= check_compare(obj.GPIO38, expected.GPIO38, name + " " + "13:12 Defines pin-muxing selection for GPIO38");
-    all_zero &= check_compare(obj.GPIO39, expected.GPIO39, name + " " + "15:14 Defines pin-muxing selection for GPIO39");
-    all_zero &= check_compare(obj.GPIO40, expected.GPIO40, name + " " + "17:16 Defines pin-muxing selection for GPIO40");
-    all_zero &= check_compare(obj.GPIO41, expected.GPIO41, name + " " + "19:18 Defines pin-muxing selection for GPIO41");
-    all_zero &= check_compare(obj.GPIO42, expected.GPIO42, name + " " + "21:20 Defines pin-muxing selection for GPIO42");
-    all_zero &= check_compare(obj.GPIO43, expected.GPIO43, name + " " + "23:22 Defines pin-muxing selection for GPIO43");
-    all_zero &= check_compare(obj.GPIO44, expected.GPIO44, name + " " + "25:24 Defines pin-muxing selection for GPIO44");
-    all_zero &= check_compare(obj.GPIO45, expected.GPIO45, name + " " + "27:26 Defines pin-muxing selection for GPIO45");
-    all_zero &= check_compare(obj.GPIO46, expected.GPIO46, name + " " + "29:28 Defines pin-muxing selection for GPIO46");
-    all_zero &= check_compare(obj.GPIO47, expected.GPIO47, name + " " + "31:30 Defines pin-muxing selection for GPIO47");
+    all_zero &= check_compare(obj.GPIO37, expected.GPIO37,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO37");
+    all_zero &= check_compare(obj.GPIO38, expected.GPIO38,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO38");
+    all_zero &= check_compare(obj.GPIO39, expected.GPIO39,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO39");
+    all_zero &= check_compare(obj.GPIO40, expected.GPIO40,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO40");
+    all_zero &= check_compare(obj.GPIO41, expected.GPIO41,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO41");
+    all_zero &= check_compare(obj.GPIO42, expected.GPIO42,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO42");
+    all_zero &= check_compare(obj.GPIO43, expected.GPIO43,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO43");
+    all_zero &= check_compare(obj.GPIO44, expected.GPIO44,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO44");
+    all_zero &= check_compare(obj.GPIO45, expected.GPIO45,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO45");
+    all_zero &= check_compare(obj.GPIO46, expected.GPIO46,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO46");
+    all_zero &= check_compare(obj.GPIO47, expected.GPIO47,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO47");
 
     return all_zero;
 }
@@ -10327,17 +11296,28 @@ bool check_compare(const GPBGMUX2_BITS &obj, const GPBGMUX2_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO50, expected.GPIO50, name + " " + "5:4 Defines pin-muxing selection for GPIO50");
     all_zero &= check_compare(obj.GPIO51, expected.GPIO51, name + " " + "7:6 Defines pin-muxing selection for GPIO51");
     all_zero &= check_compare(obj.GPIO52, expected.GPIO52, name + " " + "9:8 Defines pin-muxing selection for GPIO52");
-    all_zero &= check_compare(obj.GPIO53, expected.GPIO53, name + " " + "11:10 Defines pin-muxing selection for GPIO53");
-    all_zero &= check_compare(obj.GPIO54, expected.GPIO54, name + " " + "13:12 Defines pin-muxing selection for GPIO54");
-    all_zero &= check_compare(obj.GPIO55, expected.GPIO55, name + " " + "15:14 Defines pin-muxing selection for GPIO55");
-    all_zero &= check_compare(obj.GPIO56, expected.GPIO56, name + " " + "17:16 Defines pin-muxing selection for GPIO56");
-    all_zero &= check_compare(obj.GPIO57, expected.GPIO57, name + " " + "19:18 Defines pin-muxing selection for GPIO57");
-    all_zero &= check_compare(obj.GPIO58, expected.GPIO58, name + " " + "21:20 Defines pin-muxing selection for GPIO58");
-    all_zero &= check_compare(obj.GPIO59, expected.GPIO59, name + " " + "23:22 Defines pin-muxing selection for GPIO59");
-    all_zero &= check_compare(obj.GPIO60, expected.GPIO60, name + " " + "25:24 Defines pin-muxing selection for GPIO60");
-    all_zero &= check_compare(obj.GPIO61, expected.GPIO61, name + " " + "27:26 Defines pin-muxing selection for GPIO61");
-    all_zero &= check_compare(obj.GPIO62, expected.GPIO62, name + " " + "29:28 Defines pin-muxing selection for GPIO62");
-    all_zero &= check_compare(obj.GPIO63, expected.GPIO63, name + " " + "31:30 Defines pin-muxing selection for GPIO63");
+    all_zero &= check_compare(obj.GPIO53, expected.GPIO53,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO53");
+    all_zero &= check_compare(obj.GPIO54, expected.GPIO54,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO54");
+    all_zero &= check_compare(obj.GPIO55, expected.GPIO55,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO55");
+    all_zero &= check_compare(obj.GPIO56, expected.GPIO56,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO56");
+    all_zero &= check_compare(obj.GPIO57, expected.GPIO57,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO57");
+    all_zero &= check_compare(obj.GPIO58, expected.GPIO58,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO58");
+    all_zero &= check_compare(obj.GPIO59, expected.GPIO59,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO59");
+    all_zero &= check_compare(obj.GPIO60, expected.GPIO60,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO60");
+    all_zero &= check_compare(obj.GPIO61, expected.GPIO61,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO61");
+    all_zero &= check_compare(obj.GPIO62, expected.GPIO62,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO62");
+    all_zero &= check_compare(obj.GPIO63, expected.GPIO63,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO63");
 
     return all_zero;
 }
@@ -10508,28 +11488,50 @@ bool check_compare(const GPBCR_BITS &obj, const GPBCR_BITS &expected, const std:
     all_zero &= check_compare(obj.GPIO39, expected.GPIO39, name + " " + "7 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO40, expected.GPIO40, name + " " + "8 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO41, expected.GPIO41, name + " " + "9 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO42, expected.GPIO42, name + " " + "10 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO43, expected.GPIO43, name + " " + "11 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO44, expected.GPIO44, name + " " + "12 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO45, expected.GPIO45, name + " " + "13 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO46, expected.GPIO46, name + " " + "14 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO47, expected.GPIO47, name + " " + "15 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO48, expected.GPIO48, name + " " + "16 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO49, expected.GPIO49, name + " " + "17 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO50, expected.GPIO50, name + " " + "18 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO51, expected.GPIO51, name + " " + "19 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO52, expected.GPIO52, name + " " + "20 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO53, expected.GPIO53, name + " " + "21 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO54, expected.GPIO54, name + " " + "22 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO55, expected.GPIO55, name + " " + "23 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO56, expected.GPIO56, name + " " + "24 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO57, expected.GPIO57, name + " " + "25 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO58, expected.GPIO58, name + " " + "26 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO59, expected.GPIO59, name + " " + "27 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO60, expected.GPIO60, name + " " + "28 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO61, expected.GPIO61, name + " " + "29 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO62, expected.GPIO62, name + " " + "30 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO63, expected.GPIO63, name + " " + "31 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO42, expected.GPIO42,
+                              name + " " + "10 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO43, expected.GPIO43,
+                              name + " " + "11 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO44, expected.GPIO44,
+                              name + " " + "12 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO45, expected.GPIO45,
+                              name + " " + "13 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO46, expected.GPIO46,
+                              name + " " + "14 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO47, expected.GPIO47,
+                              name + " " + "15 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO48, expected.GPIO48,
+                              name + " " + "16 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO49, expected.GPIO49,
+                              name + " " + "17 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO50, expected.GPIO50,
+                              name + " " + "18 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO51, expected.GPIO51,
+                              name + " " + "19 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO52, expected.GPIO52,
+                              name + " " + "20 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO53, expected.GPIO53,
+                              name + " " + "21 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO54, expected.GPIO54,
+                              name + " " + "22 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO55, expected.GPIO55,
+                              name + " " + "23 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO56, expected.GPIO56,
+                              name + " " + "24 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO57, expected.GPIO57,
+                              name + " " + "25 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO58, expected.GPIO58,
+                              name + " " + "26 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO59, expected.GPIO59,
+                              name + " " + "27 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO60, expected.GPIO60,
+                              name + " " + "28 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO61, expected.GPIO61,
+                              name + " " + "29 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO62, expected.GPIO62,
+                              name + " " + "30 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO63, expected.GPIO63,
+                              name + " " + "31 Configuration lock commit bit for this pin");
 
     return all_zero;
 }
@@ -10546,10 +11548,14 @@ bool check_compare(const GPBCR_REG &obj, const GPBCR_REG &expected, const std::s
 bool check_compare(const GPCCTRL_BITS &obj, const GPCCTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO64 to GPIO71");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO72 to GPIO79");
-    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2, name + " " + "23:16 Qualification sampling period for GPIO80 to GPIO87");
-    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3, name + " " + "31:24 Qualification sampling period for GPIO88 to GPIO95");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO64 to GPIO71");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO72 to GPIO79");
+    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2,
+                              name + " " + "23:16 Qualification sampling period for GPIO80 to GPIO87");
+    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3,
+                              name + " " + "31:24 Qualification sampling period for GPIO88 to GPIO95");
 
     return all_zero;
 }
@@ -10566,22 +11572,38 @@ bool check_compare(const GPCCTRL_REG &obj, const GPCCTRL_REG &expected, const st
 bool check_compare(const GPCQSEL1_BITS &obj, const GPCQSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO64, expected.GPIO64, name + " " + "1:0 Select input qualification type for GPIO64");
-    all_zero &= check_compare(obj.GPIO65, expected.GPIO65, name + " " + "3:2 Select input qualification type for GPIO65");
-    all_zero &= check_compare(obj.GPIO66, expected.GPIO66, name + " " + "5:4 Select input qualification type for GPIO66");
-    all_zero &= check_compare(obj.GPIO67, expected.GPIO67, name + " " + "7:6 Select input qualification type for GPIO67");
-    all_zero &= check_compare(obj.GPIO68, expected.GPIO68, name + " " + "9:8 Select input qualification type for GPIO68");
-    all_zero &= check_compare(obj.GPIO69, expected.GPIO69, name + " " + "11:10 Select input qualification type for GPIO69");
-    all_zero &= check_compare(obj.GPIO70, expected.GPIO70, name + " " + "13:12 Select input qualification type for GPIO70");
-    all_zero &= check_compare(obj.GPIO71, expected.GPIO71, name + " " + "15:14 Select input qualification type for GPIO71");
-    all_zero &= check_compare(obj.GPIO72, expected.GPIO72, name + " " + "17:16 Select input qualification type for GPIO72");
-    all_zero &= check_compare(obj.GPIO73, expected.GPIO73, name + " " + "19:18 Select input qualification type for GPIO73");
-    all_zero &= check_compare(obj.GPIO74, expected.GPIO74, name + " " + "21:20 Select input qualification type for GPIO74");
-    all_zero &= check_compare(obj.GPIO75, expected.GPIO75, name + " " + "23:22 Select input qualification type for GPIO75");
-    all_zero &= check_compare(obj.GPIO76, expected.GPIO76, name + " " + "25:24 Select input qualification type for GPIO76");
-    all_zero &= check_compare(obj.GPIO77, expected.GPIO77, name + " " + "27:26 Select input qualification type for GPIO77");
-    all_zero &= check_compare(obj.GPIO78, expected.GPIO78, name + " " + "29:28 Select input qualification type for GPIO78");
-    all_zero &= check_compare(obj.GPIO79, expected.GPIO79, name + " " + "31:30 Select input qualification type for GPIO79");
+    all_zero &= check_compare(obj.GPIO64, expected.GPIO64,
+                              name + " " + "1:0 Select input qualification type for GPIO64");
+    all_zero &= check_compare(obj.GPIO65, expected.GPIO65,
+                              name + " " + "3:2 Select input qualification type for GPIO65");
+    all_zero &= check_compare(obj.GPIO66, expected.GPIO66,
+                              name + " " + "5:4 Select input qualification type for GPIO66");
+    all_zero &= check_compare(obj.GPIO67, expected.GPIO67,
+                              name + " " + "7:6 Select input qualification type for GPIO67");
+    all_zero &= check_compare(obj.GPIO68, expected.GPIO68,
+                              name + " " + "9:8 Select input qualification type for GPIO68");
+    all_zero &= check_compare(obj.GPIO69, expected.GPIO69,
+                              name + " " + "11:10 Select input qualification type for GPIO69");
+    all_zero &= check_compare(obj.GPIO70, expected.GPIO70,
+                              name + " " + "13:12 Select input qualification type for GPIO70");
+    all_zero &= check_compare(obj.GPIO71, expected.GPIO71,
+                              name + " " + "15:14 Select input qualification type for GPIO71");
+    all_zero &= check_compare(obj.GPIO72, expected.GPIO72,
+                              name + " " + "17:16 Select input qualification type for GPIO72");
+    all_zero &= check_compare(obj.GPIO73, expected.GPIO73,
+                              name + " " + "19:18 Select input qualification type for GPIO73");
+    all_zero &= check_compare(obj.GPIO74, expected.GPIO74,
+                              name + " " + "21:20 Select input qualification type for GPIO74");
+    all_zero &= check_compare(obj.GPIO75, expected.GPIO75,
+                              name + " " + "23:22 Select input qualification type for GPIO75");
+    all_zero &= check_compare(obj.GPIO76, expected.GPIO76,
+                              name + " " + "25:24 Select input qualification type for GPIO76");
+    all_zero &= check_compare(obj.GPIO77, expected.GPIO77,
+                              name + " " + "27:26 Select input qualification type for GPIO77");
+    all_zero &= check_compare(obj.GPIO78, expected.GPIO78,
+                              name + " " + "29:28 Select input qualification type for GPIO78");
+    all_zero &= check_compare(obj.GPIO79, expected.GPIO79,
+                              name + " " + "31:30 Select input qualification type for GPIO79");
 
     return all_zero;
 }
@@ -10598,22 +11620,38 @@ bool check_compare(const GPCQSEL1_REG &obj, const GPCQSEL1_REG &expected, const 
 bool check_compare(const GPCQSEL2_BITS &obj, const GPCQSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO80, expected.GPIO80, name + " " + "1:0 Select input qualification type for GPIO80");
-    all_zero &= check_compare(obj.GPIO81, expected.GPIO81, name + " " + "3:2 Select input qualification type for GPIO81");
-    all_zero &= check_compare(obj.GPIO82, expected.GPIO82, name + " " + "5:4 Select input qualification type for GPIO82");
-    all_zero &= check_compare(obj.GPIO83, expected.GPIO83, name + " " + "7:6 Select input qualification type for GPIO83");
-    all_zero &= check_compare(obj.GPIO84, expected.GPIO84, name + " " + "9:8 Select input qualification type for GPIO84");
-    all_zero &= check_compare(obj.GPIO85, expected.GPIO85, name + " " + "11:10 Select input qualification type for GPIO85");
-    all_zero &= check_compare(obj.GPIO86, expected.GPIO86, name + " " + "13:12 Select input qualification type for GPIO86");
-    all_zero &= check_compare(obj.GPIO87, expected.GPIO87, name + " " + "15:14 Select input qualification type for GPIO87");
-    all_zero &= check_compare(obj.GPIO88, expected.GPIO88, name + " " + "17:16 Select input qualification type for GPIO88");
-    all_zero &= check_compare(obj.GPIO89, expected.GPIO89, name + " " + "19:18 Select input qualification type for GPIO89");
-    all_zero &= check_compare(obj.GPIO90, expected.GPIO90, name + " " + "21:20 Select input qualification type for GPIO90");
-    all_zero &= check_compare(obj.GPIO91, expected.GPIO91, name + " " + "23:22 Select input qualification type for GPIO91");
-    all_zero &= check_compare(obj.GPIO92, expected.GPIO92, name + " " + "25:24 Select input qualification type for GPIO92");
-    all_zero &= check_compare(obj.GPIO93, expected.GPIO93, name + " " + "27:26 Select input qualification type for GPIO93");
-    all_zero &= check_compare(obj.GPIO94, expected.GPIO94, name + " " + "29:28 Select input qualification type for GPIO94");
-    all_zero &= check_compare(obj.GPIO95, expected.GPIO95, name + " " + "31:30 Select input qualification type for GPIO95");
+    all_zero &= check_compare(obj.GPIO80, expected.GPIO80,
+                              name + " " + "1:0 Select input qualification type for GPIO80");
+    all_zero &= check_compare(obj.GPIO81, expected.GPIO81,
+                              name + " " + "3:2 Select input qualification type for GPIO81");
+    all_zero &= check_compare(obj.GPIO82, expected.GPIO82,
+                              name + " " + "5:4 Select input qualification type for GPIO82");
+    all_zero &= check_compare(obj.GPIO83, expected.GPIO83,
+                              name + " " + "7:6 Select input qualification type for GPIO83");
+    all_zero &= check_compare(obj.GPIO84, expected.GPIO84,
+                              name + " " + "9:8 Select input qualification type for GPIO84");
+    all_zero &= check_compare(obj.GPIO85, expected.GPIO85,
+                              name + " " + "11:10 Select input qualification type for GPIO85");
+    all_zero &= check_compare(obj.GPIO86, expected.GPIO86,
+                              name + " " + "13:12 Select input qualification type for GPIO86");
+    all_zero &= check_compare(obj.GPIO87, expected.GPIO87,
+                              name + " " + "15:14 Select input qualification type for GPIO87");
+    all_zero &= check_compare(obj.GPIO88, expected.GPIO88,
+                              name + " " + "17:16 Select input qualification type for GPIO88");
+    all_zero &= check_compare(obj.GPIO89, expected.GPIO89,
+                              name + " " + "19:18 Select input qualification type for GPIO89");
+    all_zero &= check_compare(obj.GPIO90, expected.GPIO90,
+                              name + " " + "21:20 Select input qualification type for GPIO90");
+    all_zero &= check_compare(obj.GPIO91, expected.GPIO91,
+                              name + " " + "23:22 Select input qualification type for GPIO91");
+    all_zero &= check_compare(obj.GPIO92, expected.GPIO92,
+                              name + " " + "25:24 Select input qualification type for GPIO92");
+    all_zero &= check_compare(obj.GPIO93, expected.GPIO93,
+                              name + " " + "27:26 Select input qualification type for GPIO93");
+    all_zero &= check_compare(obj.GPIO94, expected.GPIO94,
+                              name + " " + "29:28 Select input qualification type for GPIO94");
+    all_zero &= check_compare(obj.GPIO95, expected.GPIO95,
+                              name + " " + "31:30 Select input qualification type for GPIO95");
 
     return all_zero;
 }
@@ -10635,17 +11673,28 @@ bool check_compare(const GPCMUX1_BITS &obj, const GPCMUX1_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO66, expected.GPIO66, name + " " + "5:4 Defines pin-muxing selection for GPIO66");
     all_zero &= check_compare(obj.GPIO67, expected.GPIO67, name + " " + "7:6 Defines pin-muxing selection for GPIO67");
     all_zero &= check_compare(obj.GPIO68, expected.GPIO68, name + " " + "9:8 Defines pin-muxing selection for GPIO68");
-    all_zero &= check_compare(obj.GPIO69, expected.GPIO69, name + " " + "11:10 Defines pin-muxing selection for GPIO69");
-    all_zero &= check_compare(obj.GPIO70, expected.GPIO70, name + " " + "13:12 Defines pin-muxing selection for GPIO70");
-    all_zero &= check_compare(obj.GPIO71, expected.GPIO71, name + " " + "15:14 Defines pin-muxing selection for GPIO71");
-    all_zero &= check_compare(obj.GPIO72, expected.GPIO72, name + " " + "17:16 Defines pin-muxing selection for GPIO72");
-    all_zero &= check_compare(obj.GPIO73, expected.GPIO73, name + " " + "19:18 Defines pin-muxing selection for GPIO73");
-    all_zero &= check_compare(obj.GPIO74, expected.GPIO74, name + " " + "21:20 Defines pin-muxing selection for GPIO74");
-    all_zero &= check_compare(obj.GPIO75, expected.GPIO75, name + " " + "23:22 Defines pin-muxing selection for GPIO75");
-    all_zero &= check_compare(obj.GPIO76, expected.GPIO76, name + " " + "25:24 Defines pin-muxing selection for GPIO76");
-    all_zero &= check_compare(obj.GPIO77, expected.GPIO77, name + " " + "27:26 Defines pin-muxing selection for GPIO77");
-    all_zero &= check_compare(obj.GPIO78, expected.GPIO78, name + " " + "29:28 Defines pin-muxing selection for GPIO78");
-    all_zero &= check_compare(obj.GPIO79, expected.GPIO79, name + " " + "31:30 Defines pin-muxing selection for GPIO79");
+    all_zero &= check_compare(obj.GPIO69, expected.GPIO69,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO69");
+    all_zero &= check_compare(obj.GPIO70, expected.GPIO70,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO70");
+    all_zero &= check_compare(obj.GPIO71, expected.GPIO71,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO71");
+    all_zero &= check_compare(obj.GPIO72, expected.GPIO72,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO72");
+    all_zero &= check_compare(obj.GPIO73, expected.GPIO73,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO73");
+    all_zero &= check_compare(obj.GPIO74, expected.GPIO74,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO74");
+    all_zero &= check_compare(obj.GPIO75, expected.GPIO75,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO75");
+    all_zero &= check_compare(obj.GPIO76, expected.GPIO76,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO76");
+    all_zero &= check_compare(obj.GPIO77, expected.GPIO77,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO77");
+    all_zero &= check_compare(obj.GPIO78, expected.GPIO78,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO78");
+    all_zero &= check_compare(obj.GPIO79, expected.GPIO79,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO79");
 
     return all_zero;
 }
@@ -10667,17 +11716,28 @@ bool check_compare(const GPCMUX2_BITS &obj, const GPCMUX2_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO82, expected.GPIO82, name + " " + "5:4 Defines pin-muxing selection for GPIO82");
     all_zero &= check_compare(obj.GPIO83, expected.GPIO83, name + " " + "7:6 Defines pin-muxing selection for GPIO83");
     all_zero &= check_compare(obj.GPIO84, expected.GPIO84, name + " " + "9:8 Defines pin-muxing selection for GPIO84");
-    all_zero &= check_compare(obj.GPIO85, expected.GPIO85, name + " " + "11:10 Defines pin-muxing selection for GPIO85");
-    all_zero &= check_compare(obj.GPIO86, expected.GPIO86, name + " " + "13:12 Defines pin-muxing selection for GPIO86");
-    all_zero &= check_compare(obj.GPIO87, expected.GPIO87, name + " " + "15:14 Defines pin-muxing selection for GPIO87");
-    all_zero &= check_compare(obj.GPIO88, expected.GPIO88, name + " " + "17:16 Defines pin-muxing selection for GPIO88");
-    all_zero &= check_compare(obj.GPIO89, expected.GPIO89, name + " " + "19:18 Defines pin-muxing selection for GPIO89");
-    all_zero &= check_compare(obj.GPIO90, expected.GPIO90, name + " " + "21:20 Defines pin-muxing selection for GPIO90");
-    all_zero &= check_compare(obj.GPIO91, expected.GPIO91, name + " " + "23:22 Defines pin-muxing selection for GPIO91");
-    all_zero &= check_compare(obj.GPIO92, expected.GPIO92, name + " " + "25:24 Defines pin-muxing selection for GPIO92");
-    all_zero &= check_compare(obj.GPIO93, expected.GPIO93, name + " " + "27:26 Defines pin-muxing selection for GPIO93");
-    all_zero &= check_compare(obj.GPIO94, expected.GPIO94, name + " " + "29:28 Defines pin-muxing selection for GPIO94");
-    all_zero &= check_compare(obj.GPIO95, expected.GPIO95, name + " " + "31:30 Defines pin-muxing selection for GPIO95");
+    all_zero &= check_compare(obj.GPIO85, expected.GPIO85,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO85");
+    all_zero &= check_compare(obj.GPIO86, expected.GPIO86,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO86");
+    all_zero &= check_compare(obj.GPIO87, expected.GPIO87,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO87");
+    all_zero &= check_compare(obj.GPIO88, expected.GPIO88,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO88");
+    all_zero &= check_compare(obj.GPIO89, expected.GPIO89,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO89");
+    all_zero &= check_compare(obj.GPIO90, expected.GPIO90,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO90");
+    all_zero &= check_compare(obj.GPIO91, expected.GPIO91,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO91");
+    all_zero &= check_compare(obj.GPIO92, expected.GPIO92,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO92");
+    all_zero &= check_compare(obj.GPIO93, expected.GPIO93,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO93");
+    all_zero &= check_compare(obj.GPIO94, expected.GPIO94,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO94");
+    all_zero &= check_compare(obj.GPIO95, expected.GPIO95,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO95");
 
     return all_zero;
 }
@@ -10694,38 +11754,70 @@ bool check_compare(const GPCMUX2_REG &obj, const GPCMUX2_REG &expected, const st
 bool check_compare(const GPCDIR_BITS &obj, const GPCDIR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO64, expected.GPIO64, name + " " + "0 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO65, expected.GPIO65, name + " " + "1 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO66, expected.GPIO66, name + " " + "2 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO67, expected.GPIO67, name + " " + "3 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO68, expected.GPIO68, name + " " + "4 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO69, expected.GPIO69, name + " " + "5 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO70, expected.GPIO70, name + " " + "6 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO71, expected.GPIO71, name + " " + "7 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO72, expected.GPIO72, name + " " + "8 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO73, expected.GPIO73, name + " " + "9 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO74, expected.GPIO74, name + " " + "10 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO75, expected.GPIO75, name + " " + "11 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO76, expected.GPIO76, name + " " + "12 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO77, expected.GPIO77, name + " " + "13 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO78, expected.GPIO78, name + " " + "14 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO79, expected.GPIO79, name + " " + "15 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO80, expected.GPIO80, name + " " + "16 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO81, expected.GPIO81, name + " " + "17 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO82, expected.GPIO82, name + " " + "18 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO83, expected.GPIO83, name + " " + "19 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO84, expected.GPIO84, name + " " + "20 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO85, expected.GPIO85, name + " " + "21 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO86, expected.GPIO86, name + " " + "22 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO87, expected.GPIO87, name + " " + "23 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO88, expected.GPIO88, name + " " + "24 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO89, expected.GPIO89, name + " " + "25 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO90, expected.GPIO90, name + " " + "26 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO91, expected.GPIO91, name + " " + "27 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO92, expected.GPIO92, name + " " + "28 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO93, expected.GPIO93, name + " " + "29 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO94, expected.GPIO94, name + " " + "30 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO95, expected.GPIO95, name + " " + "31 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO64, expected.GPIO64,
+                              name + " " + "0 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO65, expected.GPIO65,
+                              name + " " + "1 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO66, expected.GPIO66,
+                              name + " " + "2 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO67, expected.GPIO67,
+                              name + " " + "3 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO68, expected.GPIO68,
+                              name + " " + "4 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO69, expected.GPIO69,
+                              name + " " + "5 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO70, expected.GPIO70,
+                              name + " " + "6 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO71, expected.GPIO71,
+                              name + " " + "7 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO72, expected.GPIO72,
+                              name + " " + "8 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO73, expected.GPIO73,
+                              name + " " + "9 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO74, expected.GPIO74,
+                              name + " " + "10 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO75, expected.GPIO75,
+                              name + " " + "11 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO76, expected.GPIO76,
+                              name + " " + "12 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO77, expected.GPIO77,
+                              name + " " + "13 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO78, expected.GPIO78,
+                              name + " " + "14 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO79, expected.GPIO79,
+                              name + " " + "15 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO80, expected.GPIO80,
+                              name + " " + "16 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO81, expected.GPIO81,
+                              name + " " + "17 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO82, expected.GPIO82,
+                              name + " " + "18 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO83, expected.GPIO83,
+                              name + " " + "19 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO84, expected.GPIO84,
+                              name + " " + "20 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO85, expected.GPIO85,
+                              name + " " + "21 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO86, expected.GPIO86,
+                              name + " " + "22 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO87, expected.GPIO87,
+                              name + " " + "23 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO88, expected.GPIO88,
+                              name + " " + "24 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO89, expected.GPIO89,
+                              name + " " + "25 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO90, expected.GPIO90,
+                              name + " " + "26 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO91, expected.GPIO91,
+                              name + " " + "27 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO92, expected.GPIO92,
+                              name + " " + "28 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO93, expected.GPIO93,
+                              name + " " + "29 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO94, expected.GPIO94,
+                              name + " " + "30 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO95, expected.GPIO95,
+                              name + " " + "31 Defines direction for this pin in GPIO mode");
 
     return all_zero;
 }
@@ -10891,17 +11983,28 @@ bool check_compare(const GPCGMUX1_BITS &obj, const GPCGMUX1_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO66, expected.GPIO66, name + " " + "5:4 Defines pin-muxing selection for GPIO66");
     all_zero &= check_compare(obj.GPIO67, expected.GPIO67, name + " " + "7:6 Defines pin-muxing selection for GPIO67");
     all_zero &= check_compare(obj.GPIO68, expected.GPIO68, name + " " + "9:8 Defines pin-muxing selection for GPIO68");
-    all_zero &= check_compare(obj.GPIO69, expected.GPIO69, name + " " + "11:10 Defines pin-muxing selection for GPIO69");
-    all_zero &= check_compare(obj.GPIO70, expected.GPIO70, name + " " + "13:12 Defines pin-muxing selection for GPIO70");
-    all_zero &= check_compare(obj.GPIO71, expected.GPIO71, name + " " + "15:14 Defines pin-muxing selection for GPIO71");
-    all_zero &= check_compare(obj.GPIO72, expected.GPIO72, name + " " + "17:16 Defines pin-muxing selection for GPIO72");
-    all_zero &= check_compare(obj.GPIO73, expected.GPIO73, name + " " + "19:18 Defines pin-muxing selection for GPIO73");
-    all_zero &= check_compare(obj.GPIO74, expected.GPIO74, name + " " + "21:20 Defines pin-muxing selection for GPIO74");
-    all_zero &= check_compare(obj.GPIO75, expected.GPIO75, name + " " + "23:22 Defines pin-muxing selection for GPIO75");
-    all_zero &= check_compare(obj.GPIO76, expected.GPIO76, name + " " + "25:24 Defines pin-muxing selection for GPIO76");
-    all_zero &= check_compare(obj.GPIO77, expected.GPIO77, name + " " + "27:26 Defines pin-muxing selection for GPIO77");
-    all_zero &= check_compare(obj.GPIO78, expected.GPIO78, name + " " + "29:28 Defines pin-muxing selection for GPIO78");
-    all_zero &= check_compare(obj.GPIO79, expected.GPIO79, name + " " + "31:30 Defines pin-muxing selection for GPIO79");
+    all_zero &= check_compare(obj.GPIO69, expected.GPIO69,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO69");
+    all_zero &= check_compare(obj.GPIO70, expected.GPIO70,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO70");
+    all_zero &= check_compare(obj.GPIO71, expected.GPIO71,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO71");
+    all_zero &= check_compare(obj.GPIO72, expected.GPIO72,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO72");
+    all_zero &= check_compare(obj.GPIO73, expected.GPIO73,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO73");
+    all_zero &= check_compare(obj.GPIO74, expected.GPIO74,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO74");
+    all_zero &= check_compare(obj.GPIO75, expected.GPIO75,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO75");
+    all_zero &= check_compare(obj.GPIO76, expected.GPIO76,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO76");
+    all_zero &= check_compare(obj.GPIO77, expected.GPIO77,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO77");
+    all_zero &= check_compare(obj.GPIO78, expected.GPIO78,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO78");
+    all_zero &= check_compare(obj.GPIO79, expected.GPIO79,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO79");
 
     return all_zero;
 }
@@ -10923,17 +12026,28 @@ bool check_compare(const GPCGMUX2_BITS &obj, const GPCGMUX2_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO82, expected.GPIO82, name + " " + "5:4 Defines pin-muxing selection for GPIO82");
     all_zero &= check_compare(obj.GPIO83, expected.GPIO83, name + " " + "7:6 Defines pin-muxing selection for GPIO83");
     all_zero &= check_compare(obj.GPIO84, expected.GPIO84, name + " " + "9:8 Defines pin-muxing selection for GPIO84");
-    all_zero &= check_compare(obj.GPIO85, expected.GPIO85, name + " " + "11:10 Defines pin-muxing selection for GPIO85");
-    all_zero &= check_compare(obj.GPIO86, expected.GPIO86, name + " " + "13:12 Defines pin-muxing selection for GPIO86");
-    all_zero &= check_compare(obj.GPIO87, expected.GPIO87, name + " " + "15:14 Defines pin-muxing selection for GPIO87");
-    all_zero &= check_compare(obj.GPIO88, expected.GPIO88, name + " " + "17:16 Defines pin-muxing selection for GPIO88");
-    all_zero &= check_compare(obj.GPIO89, expected.GPIO89, name + " " + "19:18 Defines pin-muxing selection for GPIO89");
-    all_zero &= check_compare(obj.GPIO90, expected.GPIO90, name + " " + "21:20 Defines pin-muxing selection for GPIO90");
-    all_zero &= check_compare(obj.GPIO91, expected.GPIO91, name + " " + "23:22 Defines pin-muxing selection for GPIO91");
-    all_zero &= check_compare(obj.GPIO92, expected.GPIO92, name + " " + "25:24 Defines pin-muxing selection for GPIO92");
-    all_zero &= check_compare(obj.GPIO93, expected.GPIO93, name + " " + "27:26 Defines pin-muxing selection for GPIO93");
-    all_zero &= check_compare(obj.GPIO94, expected.GPIO94, name + " " + "29:28 Defines pin-muxing selection for GPIO94");
-    all_zero &= check_compare(obj.GPIO95, expected.GPIO95, name + " " + "31:30 Defines pin-muxing selection for GPIO95");
+    all_zero &= check_compare(obj.GPIO85, expected.GPIO85,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO85");
+    all_zero &= check_compare(obj.GPIO86, expected.GPIO86,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO86");
+    all_zero &= check_compare(obj.GPIO87, expected.GPIO87,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO87");
+    all_zero &= check_compare(obj.GPIO88, expected.GPIO88,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO88");
+    all_zero &= check_compare(obj.GPIO89, expected.GPIO89,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO89");
+    all_zero &= check_compare(obj.GPIO90, expected.GPIO90,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO90");
+    all_zero &= check_compare(obj.GPIO91, expected.GPIO91,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO91");
+    all_zero &= check_compare(obj.GPIO92, expected.GPIO92,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO92");
+    all_zero &= check_compare(obj.GPIO93, expected.GPIO93,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO93");
+    all_zero &= check_compare(obj.GPIO94, expected.GPIO94,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO94");
+    all_zero &= check_compare(obj.GPIO95, expected.GPIO95,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO95");
 
     return all_zero;
 }
@@ -11104,28 +12218,50 @@ bool check_compare(const GPCCR_BITS &obj, const GPCCR_BITS &expected, const std:
     all_zero &= check_compare(obj.GPIO71, expected.GPIO71, name + " " + "7 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO72, expected.GPIO72, name + " " + "8 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO73, expected.GPIO73, name + " " + "9 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO74, expected.GPIO74, name + " " + "10 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO75, expected.GPIO75, name + " " + "11 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO76, expected.GPIO76, name + " " + "12 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO77, expected.GPIO77, name + " " + "13 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO78, expected.GPIO78, name + " " + "14 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO79, expected.GPIO79, name + " " + "15 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO80, expected.GPIO80, name + " " + "16 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO81, expected.GPIO81, name + " " + "17 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO82, expected.GPIO82, name + " " + "18 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO83, expected.GPIO83, name + " " + "19 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO84, expected.GPIO84, name + " " + "20 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO85, expected.GPIO85, name + " " + "21 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO86, expected.GPIO86, name + " " + "22 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO87, expected.GPIO87, name + " " + "23 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO88, expected.GPIO88, name + " " + "24 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO89, expected.GPIO89, name + " " + "25 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO90, expected.GPIO90, name + " " + "26 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO91, expected.GPIO91, name + " " + "27 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO92, expected.GPIO92, name + " " + "28 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO93, expected.GPIO93, name + " " + "29 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO94, expected.GPIO94, name + " " + "30 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO95, expected.GPIO95, name + " " + "31 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO74, expected.GPIO74,
+                              name + " " + "10 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO75, expected.GPIO75,
+                              name + " " + "11 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO76, expected.GPIO76,
+                              name + " " + "12 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO77, expected.GPIO77,
+                              name + " " + "13 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO78, expected.GPIO78,
+                              name + " " + "14 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO79, expected.GPIO79,
+                              name + " " + "15 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO80, expected.GPIO80,
+                              name + " " + "16 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO81, expected.GPIO81,
+                              name + " " + "17 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO82, expected.GPIO82,
+                              name + " " + "18 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO83, expected.GPIO83,
+                              name + " " + "19 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO84, expected.GPIO84,
+                              name + " " + "20 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO85, expected.GPIO85,
+                              name + " " + "21 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO86, expected.GPIO86,
+                              name + " " + "22 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO87, expected.GPIO87,
+                              name + " " + "23 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO88, expected.GPIO88,
+                              name + " " + "24 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO89, expected.GPIO89,
+                              name + " " + "25 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO90, expected.GPIO90,
+                              name + " " + "26 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO91, expected.GPIO91,
+                              name + " " + "27 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO92, expected.GPIO92,
+                              name + " " + "28 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO93, expected.GPIO93,
+                              name + " " + "29 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO94, expected.GPIO94,
+                              name + " " + "30 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO95, expected.GPIO95,
+                              name + " " + "31 Configuration lock commit bit for this pin");
 
     return all_zero;
 }
@@ -11142,10 +12278,14 @@ bool check_compare(const GPCCR_REG &obj, const GPCCR_REG &expected, const std::s
 bool check_compare(const GPDCTRL_BITS &obj, const GPDCTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO96 to GPIO103");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO104 to GPIO111");
-    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2, name + " " + "23:16 Qualification sampling period for GPIO112 to GPIO119");
-    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3, name + " " + "31:24 Qualification sampling period for GPIO120 to GPIO127");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO96 to GPIO103");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO104 to GPIO111");
+    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2,
+                              name + " " + "23:16 Qualification sampling period for GPIO112 to GPIO119");
+    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3,
+                              name + " " + "31:24 Qualification sampling period for GPIO120 to GPIO127");
 
     return all_zero;
 }
@@ -11162,22 +12302,38 @@ bool check_compare(const GPDCTRL_REG &obj, const GPDCTRL_REG &expected, const st
 bool check_compare(const GPDQSEL1_BITS &obj, const GPDQSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO96, expected.GPIO96, name + " " + "1:0 Select input qualification type for GPIO96");
-    all_zero &= check_compare(obj.GPIO97, expected.GPIO97, name + " " + "3:2 Select input qualification type for GPIO97");
-    all_zero &= check_compare(obj.GPIO98, expected.GPIO98, name + " " + "5:4 Select input qualification type for GPIO98");
-    all_zero &= check_compare(obj.GPIO99, expected.GPIO99, name + " " + "7:6 Select input qualification type for GPIO99");
-    all_zero &= check_compare(obj.GPIO100, expected.GPIO100, name + " " + "9:8 Select input qualification type for GPIO100");
-    all_zero &= check_compare(obj.GPIO101, expected.GPIO101, name + " " + "11:10 Select input qualification type for GPIO101");
-    all_zero &= check_compare(obj.GPIO102, expected.GPIO102, name + " " + "13:12 Select input qualification type for GPIO102");
-    all_zero &= check_compare(obj.GPIO103, expected.GPIO103, name + " " + "15:14 Select input qualification type for GPIO103");
-    all_zero &= check_compare(obj.GPIO104, expected.GPIO104, name + " " + "17:16 Select input qualification type for GPIO104");
-    all_zero &= check_compare(obj.GPIO105, expected.GPIO105, name + " " + "19:18 Select input qualification type for GPIO105");
-    all_zero &= check_compare(obj.GPIO106, expected.GPIO106, name + " " + "21:20 Select input qualification type for GPIO106");
-    all_zero &= check_compare(obj.GPIO107, expected.GPIO107, name + " " + "23:22 Select input qualification type for GPIO107");
-    all_zero &= check_compare(obj.GPIO108, expected.GPIO108, name + " " + "25:24 Select input qualification type for GPIO108");
-    all_zero &= check_compare(obj.GPIO109, expected.GPIO109, name + " " + "27:26 Select input qualification type for GPIO109");
-    all_zero &= check_compare(obj.GPIO110, expected.GPIO110, name + " " + "29:28 Select input qualification type for GPIO110");
-    all_zero &= check_compare(obj.GPIO111, expected.GPIO111, name + " " + "31:30 Select input qualification type for GPIO111");
+    all_zero &= check_compare(obj.GPIO96, expected.GPIO96,
+                              name + " " + "1:0 Select input qualification type for GPIO96");
+    all_zero &= check_compare(obj.GPIO97, expected.GPIO97,
+                              name + " " + "3:2 Select input qualification type for GPIO97");
+    all_zero &= check_compare(obj.GPIO98, expected.GPIO98,
+                              name + " " + "5:4 Select input qualification type for GPIO98");
+    all_zero &= check_compare(obj.GPIO99, expected.GPIO99,
+                              name + " " + "7:6 Select input qualification type for GPIO99");
+    all_zero &= check_compare(obj.GPIO100, expected.GPIO100,
+                              name + " " + "9:8 Select input qualification type for GPIO100");
+    all_zero &= check_compare(obj.GPIO101, expected.GPIO101,
+                              name + " " + "11:10 Select input qualification type for GPIO101");
+    all_zero &= check_compare(obj.GPIO102, expected.GPIO102,
+                              name + " " + "13:12 Select input qualification type for GPIO102");
+    all_zero &= check_compare(obj.GPIO103, expected.GPIO103,
+                              name + " " + "15:14 Select input qualification type for GPIO103");
+    all_zero &= check_compare(obj.GPIO104, expected.GPIO104,
+                              name + " " + "17:16 Select input qualification type for GPIO104");
+    all_zero &= check_compare(obj.GPIO105, expected.GPIO105,
+                              name + " " + "19:18 Select input qualification type for GPIO105");
+    all_zero &= check_compare(obj.GPIO106, expected.GPIO106,
+                              name + " " + "21:20 Select input qualification type for GPIO106");
+    all_zero &= check_compare(obj.GPIO107, expected.GPIO107,
+                              name + " " + "23:22 Select input qualification type for GPIO107");
+    all_zero &= check_compare(obj.GPIO108, expected.GPIO108,
+                              name + " " + "25:24 Select input qualification type for GPIO108");
+    all_zero &= check_compare(obj.GPIO109, expected.GPIO109,
+                              name + " " + "27:26 Select input qualification type for GPIO109");
+    all_zero &= check_compare(obj.GPIO110, expected.GPIO110,
+                              name + " " + "29:28 Select input qualification type for GPIO110");
+    all_zero &= check_compare(obj.GPIO111, expected.GPIO111,
+                              name + " " + "31:30 Select input qualification type for GPIO111");
 
     return all_zero;
 }
@@ -11194,22 +12350,38 @@ bool check_compare(const GPDQSEL1_REG &obj, const GPDQSEL1_REG &expected, const 
 bool check_compare(const GPDQSEL2_BITS &obj, const GPDQSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO112, expected.GPIO112, name + " " + "1:0 Select input qualification type for GPIO112");
-    all_zero &= check_compare(obj.GPIO113, expected.GPIO113, name + " " + "3:2 Select input qualification type for GPIO113");
-    all_zero &= check_compare(obj.GPIO114, expected.GPIO114, name + " " + "5:4 Select input qualification type for GPIO114");
-    all_zero &= check_compare(obj.GPIO115, expected.GPIO115, name + " " + "7:6 Select input qualification type for GPIO115");
-    all_zero &= check_compare(obj.GPIO116, expected.GPIO116, name + " " + "9:8 Select input qualification type for GPIO116");
-    all_zero &= check_compare(obj.GPIO117, expected.GPIO117, name + " " + "11:10 Select input qualification type for GPIO117");
-    all_zero &= check_compare(obj.GPIO118, expected.GPIO118, name + " " + "13:12 Select input qualification type for GPIO118");
-    all_zero &= check_compare(obj.GPIO119, expected.GPIO119, name + " " + "15:14 Select input qualification type for GPIO119");
-    all_zero &= check_compare(obj.GPIO120, expected.GPIO120, name + " " + "17:16 Select input qualification type for GPIO120");
-    all_zero &= check_compare(obj.GPIO121, expected.GPIO121, name + " " + "19:18 Select input qualification type for GPIO121");
-    all_zero &= check_compare(obj.GPIO122, expected.GPIO122, name + " " + "21:20 Select input qualification type for GPIO122");
-    all_zero &= check_compare(obj.GPIO123, expected.GPIO123, name + " " + "23:22 Select input qualification type for GPIO123");
-    all_zero &= check_compare(obj.GPIO124, expected.GPIO124, name + " " + "25:24 Select input qualification type for GPIO124");
-    all_zero &= check_compare(obj.GPIO125, expected.GPIO125, name + " " + "27:26 Select input qualification type for GPIO125");
-    all_zero &= check_compare(obj.GPIO126, expected.GPIO126, name + " " + "29:28 Select input qualification type for GPIO126");
-    all_zero &= check_compare(obj.GPIO127, expected.GPIO127, name + " " + "31:30 Select input qualification type for GPIO127");
+    all_zero &= check_compare(obj.GPIO112, expected.GPIO112,
+                              name + " " + "1:0 Select input qualification type for GPIO112");
+    all_zero &= check_compare(obj.GPIO113, expected.GPIO113,
+                              name + " " + "3:2 Select input qualification type for GPIO113");
+    all_zero &= check_compare(obj.GPIO114, expected.GPIO114,
+                              name + " " + "5:4 Select input qualification type for GPIO114");
+    all_zero &= check_compare(obj.GPIO115, expected.GPIO115,
+                              name + " " + "7:6 Select input qualification type for GPIO115");
+    all_zero &= check_compare(obj.GPIO116, expected.GPIO116,
+                              name + " " + "9:8 Select input qualification type for GPIO116");
+    all_zero &= check_compare(obj.GPIO117, expected.GPIO117,
+                              name + " " + "11:10 Select input qualification type for GPIO117");
+    all_zero &= check_compare(obj.GPIO118, expected.GPIO118,
+                              name + " " + "13:12 Select input qualification type for GPIO118");
+    all_zero &= check_compare(obj.GPIO119, expected.GPIO119,
+                              name + " " + "15:14 Select input qualification type for GPIO119");
+    all_zero &= check_compare(obj.GPIO120, expected.GPIO120,
+                              name + " " + "17:16 Select input qualification type for GPIO120");
+    all_zero &= check_compare(obj.GPIO121, expected.GPIO121,
+                              name + " " + "19:18 Select input qualification type for GPIO121");
+    all_zero &= check_compare(obj.GPIO122, expected.GPIO122,
+                              name + " " + "21:20 Select input qualification type for GPIO122");
+    all_zero &= check_compare(obj.GPIO123, expected.GPIO123,
+                              name + " " + "23:22 Select input qualification type for GPIO123");
+    all_zero &= check_compare(obj.GPIO124, expected.GPIO124,
+                              name + " " + "25:24 Select input qualification type for GPIO124");
+    all_zero &= check_compare(obj.GPIO125, expected.GPIO125,
+                              name + " " + "27:26 Select input qualification type for GPIO125");
+    all_zero &= check_compare(obj.GPIO126, expected.GPIO126,
+                              name + " " + "29:28 Select input qualification type for GPIO126");
+    all_zero &= check_compare(obj.GPIO127, expected.GPIO127,
+                              name + " " + "31:30 Select input qualification type for GPIO127");
 
     return all_zero;
 }
@@ -11230,18 +12402,30 @@ bool check_compare(const GPDMUX1_BITS &obj, const GPDMUX1_BITS &expected, const 
     all_zero &= check_compare(obj.GPIO97, expected.GPIO97, name + " " + "3:2 Defines pin-muxing selection for GPIO97");
     all_zero &= check_compare(obj.GPIO98, expected.GPIO98, name + " " + "5:4 Defines pin-muxing selection for GPIO98");
     all_zero &= check_compare(obj.GPIO99, expected.GPIO99, name + " " + "7:6 Defines pin-muxing selection for GPIO99");
-    all_zero &= check_compare(obj.GPIO100, expected.GPIO100, name + " " + "9:8 Defines pin-muxing selection for GPIO100");
-    all_zero &= check_compare(obj.GPIO101, expected.GPIO101, name + " " + "11:10 Defines pin-muxing selection for GPIO101");
-    all_zero &= check_compare(obj.GPIO102, expected.GPIO102, name + " " + "13:12 Defines pin-muxing selection for GPIO102");
-    all_zero &= check_compare(obj.GPIO103, expected.GPIO103, name + " " + "15:14 Defines pin-muxing selection for GPIO103");
-    all_zero &= check_compare(obj.GPIO104, expected.GPIO104, name + " " + "17:16 Defines pin-muxing selection for GPIO104");
-    all_zero &= check_compare(obj.GPIO105, expected.GPIO105, name + " " + "19:18 Defines pin-muxing selection for GPIO105");
-    all_zero &= check_compare(obj.GPIO106, expected.GPIO106, name + " " + "21:20 Defines pin-muxing selection for GPIO106");
-    all_zero &= check_compare(obj.GPIO107, expected.GPIO107, name + " " + "23:22 Defines pin-muxing selection for GPIO107");
-    all_zero &= check_compare(obj.GPIO108, expected.GPIO108, name + " " + "25:24 Defines pin-muxing selection for GPIO108");
-    all_zero &= check_compare(obj.GPIO109, expected.GPIO109, name + " " + "27:26 Defines pin-muxing selection for GPIO109");
-    all_zero &= check_compare(obj.GPIO110, expected.GPIO110, name + " " + "29:28 Defines pin-muxing selection for GPIO110");
-    all_zero &= check_compare(obj.GPIO111, expected.GPIO111, name + " " + "31:30 Defines pin-muxing selection for GPIO111");
+    all_zero &= check_compare(obj.GPIO100, expected.GPIO100,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO100");
+    all_zero &= check_compare(obj.GPIO101, expected.GPIO101,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO101");
+    all_zero &= check_compare(obj.GPIO102, expected.GPIO102,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO102");
+    all_zero &= check_compare(obj.GPIO103, expected.GPIO103,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO103");
+    all_zero &= check_compare(obj.GPIO104, expected.GPIO104,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO104");
+    all_zero &= check_compare(obj.GPIO105, expected.GPIO105,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO105");
+    all_zero &= check_compare(obj.GPIO106, expected.GPIO106,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO106");
+    all_zero &= check_compare(obj.GPIO107, expected.GPIO107,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO107");
+    all_zero &= check_compare(obj.GPIO108, expected.GPIO108,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO108");
+    all_zero &= check_compare(obj.GPIO109, expected.GPIO109,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO109");
+    all_zero &= check_compare(obj.GPIO110, expected.GPIO110,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO110");
+    all_zero &= check_compare(obj.GPIO111, expected.GPIO111,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO111");
 
     return all_zero;
 }
@@ -11258,22 +12442,38 @@ bool check_compare(const GPDMUX1_REG &obj, const GPDMUX1_REG &expected, const st
 bool check_compare(const GPDMUX2_BITS &obj, const GPDMUX2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO112, expected.GPIO112, name + " " + "1:0 Defines pin-muxing selection for GPIO112");
-    all_zero &= check_compare(obj.GPIO113, expected.GPIO113, name + " " + "3:2 Defines pin-muxing selection for GPIO113");
-    all_zero &= check_compare(obj.GPIO114, expected.GPIO114, name + " " + "5:4 Defines pin-muxing selection for GPIO114");
-    all_zero &= check_compare(obj.GPIO115, expected.GPIO115, name + " " + "7:6 Defines pin-muxing selection for GPIO115");
-    all_zero &= check_compare(obj.GPIO116, expected.GPIO116, name + " " + "9:8 Defines pin-muxing selection for GPIO116");
-    all_zero &= check_compare(obj.GPIO117, expected.GPIO117, name + " " + "11:10 Defines pin-muxing selection for GPIO117");
-    all_zero &= check_compare(obj.GPIO118, expected.GPIO118, name + " " + "13:12 Defines pin-muxing selection for GPIO118");
-    all_zero &= check_compare(obj.GPIO119, expected.GPIO119, name + " " + "15:14 Defines pin-muxing selection for GPIO119");
-    all_zero &= check_compare(obj.GPIO120, expected.GPIO120, name + " " + "17:16 Defines pin-muxing selection for GPIO120");
-    all_zero &= check_compare(obj.GPIO121, expected.GPIO121, name + " " + "19:18 Defines pin-muxing selection for GPIO121");
-    all_zero &= check_compare(obj.GPIO122, expected.GPIO122, name + " " + "21:20 Defines pin-muxing selection for GPIO122");
-    all_zero &= check_compare(obj.GPIO123, expected.GPIO123, name + " " + "23:22 Defines pin-muxing selection for GPIO123");
-    all_zero &= check_compare(obj.GPIO124, expected.GPIO124, name + " " + "25:24 Defines pin-muxing selection for GPIO124");
-    all_zero &= check_compare(obj.GPIO125, expected.GPIO125, name + " " + "27:26 Defines pin-muxing selection for GPIO125");
-    all_zero &= check_compare(obj.GPIO126, expected.GPIO126, name + " " + "29:28 Defines pin-muxing selection for GPIO126");
-    all_zero &= check_compare(obj.GPIO127, expected.GPIO127, name + " " + "31:30 Defines pin-muxing selection for GPIO127");
+    all_zero &= check_compare(obj.GPIO112, expected.GPIO112,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO112");
+    all_zero &= check_compare(obj.GPIO113, expected.GPIO113,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO113");
+    all_zero &= check_compare(obj.GPIO114, expected.GPIO114,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO114");
+    all_zero &= check_compare(obj.GPIO115, expected.GPIO115,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO115");
+    all_zero &= check_compare(obj.GPIO116, expected.GPIO116,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO116");
+    all_zero &= check_compare(obj.GPIO117, expected.GPIO117,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO117");
+    all_zero &= check_compare(obj.GPIO118, expected.GPIO118,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO118");
+    all_zero &= check_compare(obj.GPIO119, expected.GPIO119,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO119");
+    all_zero &= check_compare(obj.GPIO120, expected.GPIO120,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO120");
+    all_zero &= check_compare(obj.GPIO121, expected.GPIO121,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO121");
+    all_zero &= check_compare(obj.GPIO122, expected.GPIO122,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO122");
+    all_zero &= check_compare(obj.GPIO123, expected.GPIO123,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO123");
+    all_zero &= check_compare(obj.GPIO124, expected.GPIO124,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO124");
+    all_zero &= check_compare(obj.GPIO125, expected.GPIO125,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO125");
+    all_zero &= check_compare(obj.GPIO126, expected.GPIO126,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO126");
+    all_zero &= check_compare(obj.GPIO127, expected.GPIO127,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO127");
 
     return all_zero;
 }
@@ -11290,38 +12490,70 @@ bool check_compare(const GPDMUX2_REG &obj, const GPDMUX2_REG &expected, const st
 bool check_compare(const GPDDIR_BITS &obj, const GPDDIR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO96, expected.GPIO96, name + " " + "0 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO97, expected.GPIO97, name + " " + "1 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO98, expected.GPIO98, name + " " + "2 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO99, expected.GPIO99, name + " " + "3 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO100, expected.GPIO100, name + " " + "4 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO101, expected.GPIO101, name + " " + "5 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO102, expected.GPIO102, name + " " + "6 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO103, expected.GPIO103, name + " " + "7 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO104, expected.GPIO104, name + " " + "8 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO105, expected.GPIO105, name + " " + "9 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO106, expected.GPIO106, name + " " + "10 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO107, expected.GPIO107, name + " " + "11 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO108, expected.GPIO108, name + " " + "12 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO109, expected.GPIO109, name + " " + "13 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO110, expected.GPIO110, name + " " + "14 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO111, expected.GPIO111, name + " " + "15 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO112, expected.GPIO112, name + " " + "16 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO113, expected.GPIO113, name + " " + "17 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO114, expected.GPIO114, name + " " + "18 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO115, expected.GPIO115, name + " " + "19 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO116, expected.GPIO116, name + " " + "20 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO117, expected.GPIO117, name + " " + "21 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO118, expected.GPIO118, name + " " + "22 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO119, expected.GPIO119, name + " " + "23 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO120, expected.GPIO120, name + " " + "24 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO121, expected.GPIO121, name + " " + "25 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO122, expected.GPIO122, name + " " + "26 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO123, expected.GPIO123, name + " " + "27 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO124, expected.GPIO124, name + " " + "28 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO125, expected.GPIO125, name + " " + "29 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO126, expected.GPIO126, name + " " + "30 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO127, expected.GPIO127, name + " " + "31 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO96, expected.GPIO96,
+                              name + " " + "0 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO97, expected.GPIO97,
+                              name + " " + "1 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO98, expected.GPIO98,
+                              name + " " + "2 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO99, expected.GPIO99,
+                              name + " " + "3 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO100, expected.GPIO100,
+                              name + " " + "4 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO101, expected.GPIO101,
+                              name + " " + "5 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO102, expected.GPIO102,
+                              name + " " + "6 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO103, expected.GPIO103,
+                              name + " " + "7 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO104, expected.GPIO104,
+                              name + " " + "8 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO105, expected.GPIO105,
+                              name + " " + "9 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO106, expected.GPIO106,
+                              name + " " + "10 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO107, expected.GPIO107,
+                              name + " " + "11 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO108, expected.GPIO108,
+                              name + " " + "12 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO109, expected.GPIO109,
+                              name + " " + "13 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO110, expected.GPIO110,
+                              name + " " + "14 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO111, expected.GPIO111,
+                              name + " " + "15 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO112, expected.GPIO112,
+                              name + " " + "16 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO113, expected.GPIO113,
+                              name + " " + "17 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO114, expected.GPIO114,
+                              name + " " + "18 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO115, expected.GPIO115,
+                              name + " " + "19 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO116, expected.GPIO116,
+                              name + " " + "20 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO117, expected.GPIO117,
+                              name + " " + "21 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO118, expected.GPIO118,
+                              name + " " + "22 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO119, expected.GPIO119,
+                              name + " " + "23 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO120, expected.GPIO120,
+                              name + " " + "24 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO121, expected.GPIO121,
+                              name + " " + "25 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO122, expected.GPIO122,
+                              name + " " + "26 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO123, expected.GPIO123,
+                              name + " " + "27 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO124, expected.GPIO124,
+                              name + " " + "28 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO125, expected.GPIO125,
+                              name + " " + "29 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO126, expected.GPIO126,
+                              name + " " + "30 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO127, expected.GPIO127,
+                              name + " " + "31 Defines direction for this pin in GPIO mode");
 
     return all_zero;
 }
@@ -11486,18 +12718,30 @@ bool check_compare(const GPDGMUX1_BITS &obj, const GPDGMUX1_BITS &expected, cons
     all_zero &= check_compare(obj.GPIO97, expected.GPIO97, name + " " + "3:2 Defines pin-muxing selection for GPIO97");
     all_zero &= check_compare(obj.GPIO98, expected.GPIO98, name + " " + "5:4 Defines pin-muxing selection for GPIO98");
     all_zero &= check_compare(obj.GPIO99, expected.GPIO99, name + " " + "7:6 Defines pin-muxing selection for GPIO99");
-    all_zero &= check_compare(obj.GPIO100, expected.GPIO100, name + " " + "9:8 Defines pin-muxing selection for GPIO100");
-    all_zero &= check_compare(obj.GPIO101, expected.GPIO101, name + " " + "11:10 Defines pin-muxing selection for GPIO101");
-    all_zero &= check_compare(obj.GPIO102, expected.GPIO102, name + " " + "13:12 Defines pin-muxing selection for GPIO102");
-    all_zero &= check_compare(obj.GPIO103, expected.GPIO103, name + " " + "15:14 Defines pin-muxing selection for GPIO103");
-    all_zero &= check_compare(obj.GPIO104, expected.GPIO104, name + " " + "17:16 Defines pin-muxing selection for GPIO104");
-    all_zero &= check_compare(obj.GPIO105, expected.GPIO105, name + " " + "19:18 Defines pin-muxing selection for GPIO105");
-    all_zero &= check_compare(obj.GPIO106, expected.GPIO106, name + " " + "21:20 Defines pin-muxing selection for GPIO106");
-    all_zero &= check_compare(obj.GPIO107, expected.GPIO107, name + " " + "23:22 Defines pin-muxing selection for GPIO107");
-    all_zero &= check_compare(obj.GPIO108, expected.GPIO108, name + " " + "25:24 Defines pin-muxing selection for GPIO108");
-    all_zero &= check_compare(obj.GPIO109, expected.GPIO109, name + " " + "27:26 Defines pin-muxing selection for GPIO109");
-    all_zero &= check_compare(obj.GPIO110, expected.GPIO110, name + " " + "29:28 Defines pin-muxing selection for GPIO110");
-    all_zero &= check_compare(obj.GPIO111, expected.GPIO111, name + " " + "31:30 Defines pin-muxing selection for GPIO111");
+    all_zero &= check_compare(obj.GPIO100, expected.GPIO100,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO100");
+    all_zero &= check_compare(obj.GPIO101, expected.GPIO101,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO101");
+    all_zero &= check_compare(obj.GPIO102, expected.GPIO102,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO102");
+    all_zero &= check_compare(obj.GPIO103, expected.GPIO103,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO103");
+    all_zero &= check_compare(obj.GPIO104, expected.GPIO104,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO104");
+    all_zero &= check_compare(obj.GPIO105, expected.GPIO105,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO105");
+    all_zero &= check_compare(obj.GPIO106, expected.GPIO106,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO106");
+    all_zero &= check_compare(obj.GPIO107, expected.GPIO107,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO107");
+    all_zero &= check_compare(obj.GPIO108, expected.GPIO108,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO108");
+    all_zero &= check_compare(obj.GPIO109, expected.GPIO109,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO109");
+    all_zero &= check_compare(obj.GPIO110, expected.GPIO110,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO110");
+    all_zero &= check_compare(obj.GPIO111, expected.GPIO111,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO111");
 
     return all_zero;
 }
@@ -11514,22 +12758,38 @@ bool check_compare(const GPDGMUX1_REG &obj, const GPDGMUX1_REG &expected, const 
 bool check_compare(const GPDGMUX2_BITS &obj, const GPDGMUX2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO112, expected.GPIO112, name + " " + "1:0 Defines pin-muxing selection for GPIO112");
-    all_zero &= check_compare(obj.GPIO113, expected.GPIO113, name + " " + "3:2 Defines pin-muxing selection for GPIO113");
-    all_zero &= check_compare(obj.GPIO114, expected.GPIO114, name + " " + "5:4 Defines pin-muxing selection for GPIO114");
-    all_zero &= check_compare(obj.GPIO115, expected.GPIO115, name + " " + "7:6 Defines pin-muxing selection for GPIO115");
-    all_zero &= check_compare(obj.GPIO116, expected.GPIO116, name + " " + "9:8 Defines pin-muxing selection for GPIO116");
-    all_zero &= check_compare(obj.GPIO117, expected.GPIO117, name + " " + "11:10 Defines pin-muxing selection for GPIO117");
-    all_zero &= check_compare(obj.GPIO118, expected.GPIO118, name + " " + "13:12 Defines pin-muxing selection for GPIO118");
-    all_zero &= check_compare(obj.GPIO119, expected.GPIO119, name + " " + "15:14 Defines pin-muxing selection for GPIO119");
-    all_zero &= check_compare(obj.GPIO120, expected.GPIO120, name + " " + "17:16 Defines pin-muxing selection for GPIO120");
-    all_zero &= check_compare(obj.GPIO121, expected.GPIO121, name + " " + "19:18 Defines pin-muxing selection for GPIO121");
-    all_zero &= check_compare(obj.GPIO122, expected.GPIO122, name + " " + "21:20 Defines pin-muxing selection for GPIO122");
-    all_zero &= check_compare(obj.GPIO123, expected.GPIO123, name + " " + "23:22 Defines pin-muxing selection for GPIO123");
-    all_zero &= check_compare(obj.GPIO124, expected.GPIO124, name + " " + "25:24 Defines pin-muxing selection for GPIO124");
-    all_zero &= check_compare(obj.GPIO125, expected.GPIO125, name + " " + "27:26 Defines pin-muxing selection for GPIO125");
-    all_zero &= check_compare(obj.GPIO126, expected.GPIO126, name + " " + "29:28 Defines pin-muxing selection for GPIO126");
-    all_zero &= check_compare(obj.GPIO127, expected.GPIO127, name + " " + "31:30 Defines pin-muxing selection for GPIO127");
+    all_zero &= check_compare(obj.GPIO112, expected.GPIO112,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO112");
+    all_zero &= check_compare(obj.GPIO113, expected.GPIO113,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO113");
+    all_zero &= check_compare(obj.GPIO114, expected.GPIO114,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO114");
+    all_zero &= check_compare(obj.GPIO115, expected.GPIO115,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO115");
+    all_zero &= check_compare(obj.GPIO116, expected.GPIO116,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO116");
+    all_zero &= check_compare(obj.GPIO117, expected.GPIO117,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO117");
+    all_zero &= check_compare(obj.GPIO118, expected.GPIO118,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO118");
+    all_zero &= check_compare(obj.GPIO119, expected.GPIO119,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO119");
+    all_zero &= check_compare(obj.GPIO120, expected.GPIO120,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO120");
+    all_zero &= check_compare(obj.GPIO121, expected.GPIO121,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO121");
+    all_zero &= check_compare(obj.GPIO122, expected.GPIO122,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO122");
+    all_zero &= check_compare(obj.GPIO123, expected.GPIO123,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO123");
+    all_zero &= check_compare(obj.GPIO124, expected.GPIO124,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO124");
+    all_zero &= check_compare(obj.GPIO125, expected.GPIO125,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO125");
+    all_zero &= check_compare(obj.GPIO126, expected.GPIO126,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO126");
+    all_zero &= check_compare(obj.GPIO127, expected.GPIO127,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO127");
 
     return all_zero;
 }
@@ -11694,34 +12954,62 @@ bool check_compare(const GPDCR_BITS &obj, const GPDCR_BITS &expected, const std:
     all_zero &= check_compare(obj.GPIO97, expected.GPIO97, name + " " + "1 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO98, expected.GPIO98, name + " " + "2 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.GPIO99, expected.GPIO99, name + " " + "3 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO100, expected.GPIO100, name + " " + "4 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO101, expected.GPIO101, name + " " + "5 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO102, expected.GPIO102, name + " " + "6 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO103, expected.GPIO103, name + " " + "7 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO104, expected.GPIO104, name + " " + "8 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO105, expected.GPIO105, name + " " + "9 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO106, expected.GPIO106, name + " " + "10 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO107, expected.GPIO107, name + " " + "11 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO108, expected.GPIO108, name + " " + "12 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO109, expected.GPIO109, name + " " + "13 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO110, expected.GPIO110, name + " " + "14 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO111, expected.GPIO111, name + " " + "15 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO112, expected.GPIO112, name + " " + "16 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO113, expected.GPIO113, name + " " + "17 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO114, expected.GPIO114, name + " " + "18 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO115, expected.GPIO115, name + " " + "19 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO116, expected.GPIO116, name + " " + "20 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO117, expected.GPIO117, name + " " + "21 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO118, expected.GPIO118, name + " " + "22 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO119, expected.GPIO119, name + " " + "23 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO120, expected.GPIO120, name + " " + "24 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO121, expected.GPIO121, name + " " + "25 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO122, expected.GPIO122, name + " " + "26 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO123, expected.GPIO123, name + " " + "27 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO124, expected.GPIO124, name + " " + "28 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO125, expected.GPIO125, name + " " + "29 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO126, expected.GPIO126, name + " " + "30 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO127, expected.GPIO127, name + " " + "31 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO100, expected.GPIO100,
+                              name + " " + "4 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO101, expected.GPIO101,
+                              name + " " + "5 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO102, expected.GPIO102,
+                              name + " " + "6 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO103, expected.GPIO103,
+                              name + " " + "7 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO104, expected.GPIO104,
+                              name + " " + "8 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO105, expected.GPIO105,
+                              name + " " + "9 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO106, expected.GPIO106,
+                              name + " " + "10 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO107, expected.GPIO107,
+                              name + " " + "11 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO108, expected.GPIO108,
+                              name + " " + "12 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO109, expected.GPIO109,
+                              name + " " + "13 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO110, expected.GPIO110,
+                              name + " " + "14 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO111, expected.GPIO111,
+                              name + " " + "15 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO112, expected.GPIO112,
+                              name + " " + "16 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO113, expected.GPIO113,
+                              name + " " + "17 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO114, expected.GPIO114,
+                              name + " " + "18 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO115, expected.GPIO115,
+                              name + " " + "19 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO116, expected.GPIO116,
+                              name + " " + "20 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO117, expected.GPIO117,
+                              name + " " + "21 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO118, expected.GPIO118,
+                              name + " " + "22 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO119, expected.GPIO119,
+                              name + " " + "23 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO120, expected.GPIO120,
+                              name + " " + "24 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO121, expected.GPIO121,
+                              name + " " + "25 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO122, expected.GPIO122,
+                              name + " " + "26 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO123, expected.GPIO123,
+                              name + " " + "27 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO124, expected.GPIO124,
+                              name + " " + "28 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO125, expected.GPIO125,
+                              name + " " + "29 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO126, expected.GPIO126,
+                              name + " " + "30 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO127, expected.GPIO127,
+                              name + " " + "31 Configuration lock commit bit for this pin");
 
     return all_zero;
 }
@@ -11738,10 +13026,14 @@ bool check_compare(const GPDCR_REG &obj, const GPDCR_REG &expected, const std::s
 bool check_compare(const GPECTRL_BITS &obj, const GPECTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO128 to GPIO135");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO136 to GPIO143");
-    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2, name + " " + "23:16 Qualification sampling period for GPIO144 to GPIO151");
-    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3, name + " " + "31:24 Qualification sampling period for GPIO152 to GPIO159");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO128 to GPIO135");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO136 to GPIO143");
+    all_zero &= check_compare(obj.QUALPRD2, expected.QUALPRD2,
+                              name + " " + "23:16 Qualification sampling period for GPIO144 to GPIO151");
+    all_zero &= check_compare(obj.QUALPRD3, expected.QUALPRD3,
+                              name + " " + "31:24 Qualification sampling period for GPIO152 to GPIO159");
 
     return all_zero;
 }
@@ -11758,22 +13050,38 @@ bool check_compare(const GPECTRL_REG &obj, const GPECTRL_REG &expected, const st
 bool check_compare(const GPEQSEL1_BITS &obj, const GPEQSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO128, expected.GPIO128, name + " " + "1:0 Select input qualification type for GPIO128");
-    all_zero &= check_compare(obj.GPIO129, expected.GPIO129, name + " " + "3:2 Select input qualification type for GPIO129");
-    all_zero &= check_compare(obj.GPIO130, expected.GPIO130, name + " " + "5:4 Select input qualification type for GPIO130");
-    all_zero &= check_compare(obj.GPIO131, expected.GPIO131, name + " " + "7:6 Select input qualification type for GPIO131");
-    all_zero &= check_compare(obj.GPIO132, expected.GPIO132, name + " " + "9:8 Select input qualification type for GPIO132");
-    all_zero &= check_compare(obj.GPIO133, expected.GPIO133, name + " " + "11:10 Select input qualification type for GPIO133");
-    all_zero &= check_compare(obj.GPIO134, expected.GPIO134, name + " " + "13:12 Select input qualification type for GPIO134");
-    all_zero &= check_compare(obj.GPIO135, expected.GPIO135, name + " " + "15:14 Select input qualification type for GPIO135");
-    all_zero &= check_compare(obj.GPIO136, expected.GPIO136, name + " " + "17:16 Select input qualification type for GPIO136");
-    all_zero &= check_compare(obj.GPIO137, expected.GPIO137, name + " " + "19:18 Select input qualification type for GPIO137");
-    all_zero &= check_compare(obj.GPIO138, expected.GPIO138, name + " " + "21:20 Select input qualification type for GPIO138");
-    all_zero &= check_compare(obj.GPIO139, expected.GPIO139, name + " " + "23:22 Select input qualification type for GPIO139");
-    all_zero &= check_compare(obj.GPIO140, expected.GPIO140, name + " " + "25:24 Select input qualification type for GPIO140");
-    all_zero &= check_compare(obj.GPIO141, expected.GPIO141, name + " " + "27:26 Select input qualification type for GPIO141");
-    all_zero &= check_compare(obj.GPIO142, expected.GPIO142, name + " " + "29:28 Select input qualification type for GPIO142");
-    all_zero &= check_compare(obj.GPIO143, expected.GPIO143, name + " " + "31:30 Select input qualification type for GPIO143");
+    all_zero &= check_compare(obj.GPIO128, expected.GPIO128,
+                              name + " " + "1:0 Select input qualification type for GPIO128");
+    all_zero &= check_compare(obj.GPIO129, expected.GPIO129,
+                              name + " " + "3:2 Select input qualification type for GPIO129");
+    all_zero &= check_compare(obj.GPIO130, expected.GPIO130,
+                              name + " " + "5:4 Select input qualification type for GPIO130");
+    all_zero &= check_compare(obj.GPIO131, expected.GPIO131,
+                              name + " " + "7:6 Select input qualification type for GPIO131");
+    all_zero &= check_compare(obj.GPIO132, expected.GPIO132,
+                              name + " " + "9:8 Select input qualification type for GPIO132");
+    all_zero &= check_compare(obj.GPIO133, expected.GPIO133,
+                              name + " " + "11:10 Select input qualification type for GPIO133");
+    all_zero &= check_compare(obj.GPIO134, expected.GPIO134,
+                              name + " " + "13:12 Select input qualification type for GPIO134");
+    all_zero &= check_compare(obj.GPIO135, expected.GPIO135,
+                              name + " " + "15:14 Select input qualification type for GPIO135");
+    all_zero &= check_compare(obj.GPIO136, expected.GPIO136,
+                              name + " " + "17:16 Select input qualification type for GPIO136");
+    all_zero &= check_compare(obj.GPIO137, expected.GPIO137,
+                              name + " " + "19:18 Select input qualification type for GPIO137");
+    all_zero &= check_compare(obj.GPIO138, expected.GPIO138,
+                              name + " " + "21:20 Select input qualification type for GPIO138");
+    all_zero &= check_compare(obj.GPIO139, expected.GPIO139,
+                              name + " " + "23:22 Select input qualification type for GPIO139");
+    all_zero &= check_compare(obj.GPIO140, expected.GPIO140,
+                              name + " " + "25:24 Select input qualification type for GPIO140");
+    all_zero &= check_compare(obj.GPIO141, expected.GPIO141,
+                              name + " " + "27:26 Select input qualification type for GPIO141");
+    all_zero &= check_compare(obj.GPIO142, expected.GPIO142,
+                              name + " " + "29:28 Select input qualification type for GPIO142");
+    all_zero &= check_compare(obj.GPIO143, expected.GPIO143,
+                              name + " " + "31:30 Select input qualification type for GPIO143");
 
     return all_zero;
 }
@@ -11790,22 +13098,38 @@ bool check_compare(const GPEQSEL1_REG &obj, const GPEQSEL1_REG &expected, const 
 bool check_compare(const GPEQSEL2_BITS &obj, const GPEQSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO144, expected.GPIO144, name + " " + "1:0 Select input qualification type for GPIO144");
-    all_zero &= check_compare(obj.GPIO145, expected.GPIO145, name + " " + "3:2 Select input qualification type for GPIO145");
-    all_zero &= check_compare(obj.GPIO146, expected.GPIO146, name + " " + "5:4 Select input qualification type for GPIO146");
-    all_zero &= check_compare(obj.GPIO147, expected.GPIO147, name + " " + "7:6 Select input qualification type for GPIO147");
-    all_zero &= check_compare(obj.GPIO148, expected.GPIO148, name + " " + "9:8 Select input qualification type for GPIO148");
-    all_zero &= check_compare(obj.GPIO149, expected.GPIO149, name + " " + "11:10 Select input qualification type for GPIO149");
-    all_zero &= check_compare(obj.GPIO150, expected.GPIO150, name + " " + "13:12 Select input qualification type for GPIO150");
-    all_zero &= check_compare(obj.GPIO151, expected.GPIO151, name + " " + "15:14 Select input qualification type for GPIO151");
-    all_zero &= check_compare(obj.GPIO152, expected.GPIO152, name + " " + "17:16 Select input qualification type for GPIO152");
-    all_zero &= check_compare(obj.GPIO153, expected.GPIO153, name + " " + "19:18 Select input qualification type for GPIO153");
-    all_zero &= check_compare(obj.GPIO154, expected.GPIO154, name + " " + "21:20 Select input qualification type for GPIO154");
-    all_zero &= check_compare(obj.GPIO155, expected.GPIO155, name + " " + "23:22 Select input qualification type for GPIO155");
-    all_zero &= check_compare(obj.GPIO156, expected.GPIO156, name + " " + "25:24 Select input qualification type for GPIO156");
-    all_zero &= check_compare(obj.GPIO157, expected.GPIO157, name + " " + "27:26 Select input qualification type for GPIO157");
-    all_zero &= check_compare(obj.GPIO158, expected.GPIO158, name + " " + "29:28 Select input qualification type for GPIO158");
-    all_zero &= check_compare(obj.GPIO159, expected.GPIO159, name + " " + "31:30 Select input qualification type for GPIO159");
+    all_zero &= check_compare(obj.GPIO144, expected.GPIO144,
+                              name + " " + "1:0 Select input qualification type for GPIO144");
+    all_zero &= check_compare(obj.GPIO145, expected.GPIO145,
+                              name + " " + "3:2 Select input qualification type for GPIO145");
+    all_zero &= check_compare(obj.GPIO146, expected.GPIO146,
+                              name + " " + "5:4 Select input qualification type for GPIO146");
+    all_zero &= check_compare(obj.GPIO147, expected.GPIO147,
+                              name + " " + "7:6 Select input qualification type for GPIO147");
+    all_zero &= check_compare(obj.GPIO148, expected.GPIO148,
+                              name + " " + "9:8 Select input qualification type for GPIO148");
+    all_zero &= check_compare(obj.GPIO149, expected.GPIO149,
+                              name + " " + "11:10 Select input qualification type for GPIO149");
+    all_zero &= check_compare(obj.GPIO150, expected.GPIO150,
+                              name + " " + "13:12 Select input qualification type for GPIO150");
+    all_zero &= check_compare(obj.GPIO151, expected.GPIO151,
+                              name + " " + "15:14 Select input qualification type for GPIO151");
+    all_zero &= check_compare(obj.GPIO152, expected.GPIO152,
+                              name + " " + "17:16 Select input qualification type for GPIO152");
+    all_zero &= check_compare(obj.GPIO153, expected.GPIO153,
+                              name + " " + "19:18 Select input qualification type for GPIO153");
+    all_zero &= check_compare(obj.GPIO154, expected.GPIO154,
+                              name + " " + "21:20 Select input qualification type for GPIO154");
+    all_zero &= check_compare(obj.GPIO155, expected.GPIO155,
+                              name + " " + "23:22 Select input qualification type for GPIO155");
+    all_zero &= check_compare(obj.GPIO156, expected.GPIO156,
+                              name + " " + "25:24 Select input qualification type for GPIO156");
+    all_zero &= check_compare(obj.GPIO157, expected.GPIO157,
+                              name + " " + "27:26 Select input qualification type for GPIO157");
+    all_zero &= check_compare(obj.GPIO158, expected.GPIO158,
+                              name + " " + "29:28 Select input qualification type for GPIO158");
+    all_zero &= check_compare(obj.GPIO159, expected.GPIO159,
+                              name + " " + "31:30 Select input qualification type for GPIO159");
 
     return all_zero;
 }
@@ -11822,22 +13146,38 @@ bool check_compare(const GPEQSEL2_REG &obj, const GPEQSEL2_REG &expected, const 
 bool check_compare(const GPEMUX1_BITS &obj, const GPEMUX1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO128, expected.GPIO128, name + " " + "1:0 Defines pin-muxing selection for GPIO128");
-    all_zero &= check_compare(obj.GPIO129, expected.GPIO129, name + " " + "3:2 Defines pin-muxing selection for GPIO129");
-    all_zero &= check_compare(obj.GPIO130, expected.GPIO130, name + " " + "5:4 Defines pin-muxing selection for GPIO130");
-    all_zero &= check_compare(obj.GPIO131, expected.GPIO131, name + " " + "7:6 Defines pin-muxing selection for GPIO131");
-    all_zero &= check_compare(obj.GPIO132, expected.GPIO132, name + " " + "9:8 Defines pin-muxing selection for GPIO132");
-    all_zero &= check_compare(obj.GPIO133, expected.GPIO133, name + " " + "11:10 Defines pin-muxing selection for GPIO133");
-    all_zero &= check_compare(obj.GPIO134, expected.GPIO134, name + " " + "13:12 Defines pin-muxing selection for GPIO134");
-    all_zero &= check_compare(obj.GPIO135, expected.GPIO135, name + " " + "15:14 Defines pin-muxing selection for GPIO135");
-    all_zero &= check_compare(obj.GPIO136, expected.GPIO136, name + " " + "17:16 Defines pin-muxing selection for GPIO136");
-    all_zero &= check_compare(obj.GPIO137, expected.GPIO137, name + " " + "19:18 Defines pin-muxing selection for GPIO137");
-    all_zero &= check_compare(obj.GPIO138, expected.GPIO138, name + " " + "21:20 Defines pin-muxing selection for GPIO138");
-    all_zero &= check_compare(obj.GPIO139, expected.GPIO139, name + " " + "23:22 Defines pin-muxing selection for GPIO139");
-    all_zero &= check_compare(obj.GPIO140, expected.GPIO140, name + " " + "25:24 Defines pin-muxing selection for GPIO140");
-    all_zero &= check_compare(obj.GPIO141, expected.GPIO141, name + " " + "27:26 Defines pin-muxing selection for GPIO141");
-    all_zero &= check_compare(obj.GPIO142, expected.GPIO142, name + " " + "29:28 Defines pin-muxing selection for GPIO142");
-    all_zero &= check_compare(obj.GPIO143, expected.GPIO143, name + " " + "31:30 Defines pin-muxing selection for GPIO143");
+    all_zero &= check_compare(obj.GPIO128, expected.GPIO128,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO128");
+    all_zero &= check_compare(obj.GPIO129, expected.GPIO129,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO129");
+    all_zero &= check_compare(obj.GPIO130, expected.GPIO130,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO130");
+    all_zero &= check_compare(obj.GPIO131, expected.GPIO131,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO131");
+    all_zero &= check_compare(obj.GPIO132, expected.GPIO132,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO132");
+    all_zero &= check_compare(obj.GPIO133, expected.GPIO133,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO133");
+    all_zero &= check_compare(obj.GPIO134, expected.GPIO134,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO134");
+    all_zero &= check_compare(obj.GPIO135, expected.GPIO135,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO135");
+    all_zero &= check_compare(obj.GPIO136, expected.GPIO136,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO136");
+    all_zero &= check_compare(obj.GPIO137, expected.GPIO137,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO137");
+    all_zero &= check_compare(obj.GPIO138, expected.GPIO138,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO138");
+    all_zero &= check_compare(obj.GPIO139, expected.GPIO139,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO139");
+    all_zero &= check_compare(obj.GPIO140, expected.GPIO140,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO140");
+    all_zero &= check_compare(obj.GPIO141, expected.GPIO141,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO141");
+    all_zero &= check_compare(obj.GPIO142, expected.GPIO142,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO142");
+    all_zero &= check_compare(obj.GPIO143, expected.GPIO143,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO143");
 
     return all_zero;
 }
@@ -11854,22 +13194,38 @@ bool check_compare(const GPEMUX1_REG &obj, const GPEMUX1_REG &expected, const st
 bool check_compare(const GPEMUX2_BITS &obj, const GPEMUX2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO144, expected.GPIO144, name + " " + "1:0 Defines pin-muxing selection for GPIO144");
-    all_zero &= check_compare(obj.GPIO145, expected.GPIO145, name + " " + "3:2 Defines pin-muxing selection for GPIO145");
-    all_zero &= check_compare(obj.GPIO146, expected.GPIO146, name + " " + "5:4 Defines pin-muxing selection for GPIO146");
-    all_zero &= check_compare(obj.GPIO147, expected.GPIO147, name + " " + "7:6 Defines pin-muxing selection for GPIO147");
-    all_zero &= check_compare(obj.GPIO148, expected.GPIO148, name + " " + "9:8 Defines pin-muxing selection for GPIO148");
-    all_zero &= check_compare(obj.GPIO149, expected.GPIO149, name + " " + "11:10 Defines pin-muxing selection for GPIO149");
-    all_zero &= check_compare(obj.GPIO150, expected.GPIO150, name + " " + "13:12 Defines pin-muxing selection for GPIO150");
-    all_zero &= check_compare(obj.GPIO151, expected.GPIO151, name + " " + "15:14 Defines pin-muxing selection for GPIO151");
-    all_zero &= check_compare(obj.GPIO152, expected.GPIO152, name + " " + "17:16 Defines pin-muxing selection for GPIO152");
-    all_zero &= check_compare(obj.GPIO153, expected.GPIO153, name + " " + "19:18 Defines pin-muxing selection for GPIO153");
-    all_zero &= check_compare(obj.GPIO154, expected.GPIO154, name + " " + "21:20 Defines pin-muxing selection for GPIO154");
-    all_zero &= check_compare(obj.GPIO155, expected.GPIO155, name + " " + "23:22 Defines pin-muxing selection for GPIO155");
-    all_zero &= check_compare(obj.GPIO156, expected.GPIO156, name + " " + "25:24 Defines pin-muxing selection for GPIO156");
-    all_zero &= check_compare(obj.GPIO157, expected.GPIO157, name + " " + "27:26 Defines pin-muxing selection for GPIO157");
-    all_zero &= check_compare(obj.GPIO158, expected.GPIO158, name + " " + "29:28 Defines pin-muxing selection for GPIO158");
-    all_zero &= check_compare(obj.GPIO159, expected.GPIO159, name + " " + "31:30 Defines pin-muxing selection for GPIO159");
+    all_zero &= check_compare(obj.GPIO144, expected.GPIO144,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO144");
+    all_zero &= check_compare(obj.GPIO145, expected.GPIO145,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO145");
+    all_zero &= check_compare(obj.GPIO146, expected.GPIO146,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO146");
+    all_zero &= check_compare(obj.GPIO147, expected.GPIO147,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO147");
+    all_zero &= check_compare(obj.GPIO148, expected.GPIO148,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO148");
+    all_zero &= check_compare(obj.GPIO149, expected.GPIO149,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO149");
+    all_zero &= check_compare(obj.GPIO150, expected.GPIO150,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO150");
+    all_zero &= check_compare(obj.GPIO151, expected.GPIO151,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO151");
+    all_zero &= check_compare(obj.GPIO152, expected.GPIO152,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO152");
+    all_zero &= check_compare(obj.GPIO153, expected.GPIO153,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO153");
+    all_zero &= check_compare(obj.GPIO154, expected.GPIO154,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO154");
+    all_zero &= check_compare(obj.GPIO155, expected.GPIO155,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO155");
+    all_zero &= check_compare(obj.GPIO156, expected.GPIO156,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO156");
+    all_zero &= check_compare(obj.GPIO157, expected.GPIO157,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO157");
+    all_zero &= check_compare(obj.GPIO158, expected.GPIO158,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO158");
+    all_zero &= check_compare(obj.GPIO159, expected.GPIO159,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO159");
 
     return all_zero;
 }
@@ -11886,38 +13242,70 @@ bool check_compare(const GPEMUX2_REG &obj, const GPEMUX2_REG &expected, const st
 bool check_compare(const GPEDIR_BITS &obj, const GPEDIR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO128, expected.GPIO128, name + " " + "0 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO129, expected.GPIO129, name + " " + "1 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO130, expected.GPIO130, name + " " + "2 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO131, expected.GPIO131, name + " " + "3 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO132, expected.GPIO132, name + " " + "4 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO133, expected.GPIO133, name + " " + "5 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO134, expected.GPIO134, name + " " + "6 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO135, expected.GPIO135, name + " " + "7 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO136, expected.GPIO136, name + " " + "8 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO137, expected.GPIO137, name + " " + "9 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO138, expected.GPIO138, name + " " + "10 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO139, expected.GPIO139, name + " " + "11 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO140, expected.GPIO140, name + " " + "12 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO141, expected.GPIO141, name + " " + "13 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO142, expected.GPIO142, name + " " + "14 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO143, expected.GPIO143, name + " " + "15 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO144, expected.GPIO144, name + " " + "16 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO145, expected.GPIO145, name + " " + "17 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO146, expected.GPIO146, name + " " + "18 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO147, expected.GPIO147, name + " " + "19 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO148, expected.GPIO148, name + " " + "20 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO149, expected.GPIO149, name + " " + "21 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO150, expected.GPIO150, name + " " + "22 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO151, expected.GPIO151, name + " " + "23 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO152, expected.GPIO152, name + " " + "24 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO153, expected.GPIO153, name + " " + "25 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO154, expected.GPIO154, name + " " + "26 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO155, expected.GPIO155, name + " " + "27 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO156, expected.GPIO156, name + " " + "28 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO157, expected.GPIO157, name + " " + "29 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO158, expected.GPIO158, name + " " + "30 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO159, expected.GPIO159, name + " " + "31 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO128, expected.GPIO128,
+                              name + " " + "0 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO129, expected.GPIO129,
+                              name + " " + "1 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO130, expected.GPIO130,
+                              name + " " + "2 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO131, expected.GPIO131,
+                              name + " " + "3 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO132, expected.GPIO132,
+                              name + " " + "4 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO133, expected.GPIO133,
+                              name + " " + "5 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO134, expected.GPIO134,
+                              name + " " + "6 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO135, expected.GPIO135,
+                              name + " " + "7 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO136, expected.GPIO136,
+                              name + " " + "8 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO137, expected.GPIO137,
+                              name + " " + "9 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO138, expected.GPIO138,
+                              name + " " + "10 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO139, expected.GPIO139,
+                              name + " " + "11 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO140, expected.GPIO140,
+                              name + " " + "12 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO141, expected.GPIO141,
+                              name + " " + "13 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO142, expected.GPIO142,
+                              name + " " + "14 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO143, expected.GPIO143,
+                              name + " " + "15 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO144, expected.GPIO144,
+                              name + " " + "16 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO145, expected.GPIO145,
+                              name + " " + "17 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO146, expected.GPIO146,
+                              name + " " + "18 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO147, expected.GPIO147,
+                              name + " " + "19 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO148, expected.GPIO148,
+                              name + " " + "20 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO149, expected.GPIO149,
+                              name + " " + "21 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO150, expected.GPIO150,
+                              name + " " + "22 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO151, expected.GPIO151,
+                              name + " " + "23 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO152, expected.GPIO152,
+                              name + " " + "24 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO153, expected.GPIO153,
+                              name + " " + "25 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO154, expected.GPIO154,
+                              name + " " + "26 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO155, expected.GPIO155,
+                              name + " " + "27 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO156, expected.GPIO156,
+                              name + " " + "28 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO157, expected.GPIO157,
+                              name + " " + "29 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO158, expected.GPIO158,
+                              name + " " + "30 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO159, expected.GPIO159,
+                              name + " " + "31 Defines direction for this pin in GPIO mode");
 
     return all_zero;
 }
@@ -12078,22 +13466,38 @@ bool check_compare(const GPEODR_REG &obj, const GPEODR_REG &expected, const std:
 bool check_compare(const GPEGMUX1_BITS &obj, const GPEGMUX1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO128, expected.GPIO128, name + " " + "1:0 Defines pin-muxing selection for GPIO128");
-    all_zero &= check_compare(obj.GPIO129, expected.GPIO129, name + " " + "3:2 Defines pin-muxing selection for GPIO129");
-    all_zero &= check_compare(obj.GPIO130, expected.GPIO130, name + " " + "5:4 Defines pin-muxing selection for GPIO130");
-    all_zero &= check_compare(obj.GPIO131, expected.GPIO131, name + " " + "7:6 Defines pin-muxing selection for GPIO131");
-    all_zero &= check_compare(obj.GPIO132, expected.GPIO132, name + " " + "9:8 Defines pin-muxing selection for GPIO132");
-    all_zero &= check_compare(obj.GPIO133, expected.GPIO133, name + " " + "11:10 Defines pin-muxing selection for GPIO133");
-    all_zero &= check_compare(obj.GPIO134, expected.GPIO134, name + " " + "13:12 Defines pin-muxing selection for GPIO134");
-    all_zero &= check_compare(obj.GPIO135, expected.GPIO135, name + " " + "15:14 Defines pin-muxing selection for GPIO135");
-    all_zero &= check_compare(obj.GPIO136, expected.GPIO136, name + " " + "17:16 Defines pin-muxing selection for GPIO136");
-    all_zero &= check_compare(obj.GPIO137, expected.GPIO137, name + " " + "19:18 Defines pin-muxing selection for GPIO137");
-    all_zero &= check_compare(obj.GPIO138, expected.GPIO138, name + " " + "21:20 Defines pin-muxing selection for GPIO138");
-    all_zero &= check_compare(obj.GPIO139, expected.GPIO139, name + " " + "23:22 Defines pin-muxing selection for GPIO139");
-    all_zero &= check_compare(obj.GPIO140, expected.GPIO140, name + " " + "25:24 Defines pin-muxing selection for GPIO140");
-    all_zero &= check_compare(obj.GPIO141, expected.GPIO141, name + " " + "27:26 Defines pin-muxing selection for GPIO141");
-    all_zero &= check_compare(obj.GPIO142, expected.GPIO142, name + " " + "29:28 Defines pin-muxing selection for GPIO142");
-    all_zero &= check_compare(obj.GPIO143, expected.GPIO143, name + " " + "31:30 Defines pin-muxing selection for GPIO143");
+    all_zero &= check_compare(obj.GPIO128, expected.GPIO128,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO128");
+    all_zero &= check_compare(obj.GPIO129, expected.GPIO129,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO129");
+    all_zero &= check_compare(obj.GPIO130, expected.GPIO130,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO130");
+    all_zero &= check_compare(obj.GPIO131, expected.GPIO131,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO131");
+    all_zero &= check_compare(obj.GPIO132, expected.GPIO132,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO132");
+    all_zero &= check_compare(obj.GPIO133, expected.GPIO133,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO133");
+    all_zero &= check_compare(obj.GPIO134, expected.GPIO134,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO134");
+    all_zero &= check_compare(obj.GPIO135, expected.GPIO135,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO135");
+    all_zero &= check_compare(obj.GPIO136, expected.GPIO136,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO136");
+    all_zero &= check_compare(obj.GPIO137, expected.GPIO137,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO137");
+    all_zero &= check_compare(obj.GPIO138, expected.GPIO138,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO138");
+    all_zero &= check_compare(obj.GPIO139, expected.GPIO139,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO139");
+    all_zero &= check_compare(obj.GPIO140, expected.GPIO140,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO140");
+    all_zero &= check_compare(obj.GPIO141, expected.GPIO141,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO141");
+    all_zero &= check_compare(obj.GPIO142, expected.GPIO142,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO142");
+    all_zero &= check_compare(obj.GPIO143, expected.GPIO143,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO143");
 
     return all_zero;
 }
@@ -12110,22 +13514,38 @@ bool check_compare(const GPEGMUX1_REG &obj, const GPEGMUX1_REG &expected, const 
 bool check_compare(const GPEGMUX2_BITS &obj, const GPEGMUX2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO144, expected.GPIO144, name + " " + "1:0 Defines pin-muxing selection for GPIO144");
-    all_zero &= check_compare(obj.GPIO145, expected.GPIO145, name + " " + "3:2 Defines pin-muxing selection for GPIO145");
-    all_zero &= check_compare(obj.GPIO146, expected.GPIO146, name + " " + "5:4 Defines pin-muxing selection for GPIO146");
-    all_zero &= check_compare(obj.GPIO147, expected.GPIO147, name + " " + "7:6 Defines pin-muxing selection for GPIO147");
-    all_zero &= check_compare(obj.GPIO148, expected.GPIO148, name + " " + "9:8 Defines pin-muxing selection for GPIO148");
-    all_zero &= check_compare(obj.GPIO149, expected.GPIO149, name + " " + "11:10 Defines pin-muxing selection for GPIO149");
-    all_zero &= check_compare(obj.GPIO150, expected.GPIO150, name + " " + "13:12 Defines pin-muxing selection for GPIO150");
-    all_zero &= check_compare(obj.GPIO151, expected.GPIO151, name + " " + "15:14 Defines pin-muxing selection for GPIO151");
-    all_zero &= check_compare(obj.GPIO152, expected.GPIO152, name + " " + "17:16 Defines pin-muxing selection for GPIO152");
-    all_zero &= check_compare(obj.GPIO153, expected.GPIO153, name + " " + "19:18 Defines pin-muxing selection for GPIO153");
-    all_zero &= check_compare(obj.GPIO154, expected.GPIO154, name + " " + "21:20 Defines pin-muxing selection for GPIO154");
-    all_zero &= check_compare(obj.GPIO155, expected.GPIO155, name + " " + "23:22 Defines pin-muxing selection for GPIO155");
-    all_zero &= check_compare(obj.GPIO156, expected.GPIO156, name + " " + "25:24 Defines pin-muxing selection for GPIO156");
-    all_zero &= check_compare(obj.GPIO157, expected.GPIO157, name + " " + "27:26 Defines pin-muxing selection for GPIO157");
-    all_zero &= check_compare(obj.GPIO158, expected.GPIO158, name + " " + "29:28 Defines pin-muxing selection for GPIO158");
-    all_zero &= check_compare(obj.GPIO159, expected.GPIO159, name + " " + "31:30 Defines pin-muxing selection for GPIO159");
+    all_zero &= check_compare(obj.GPIO144, expected.GPIO144,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO144");
+    all_zero &= check_compare(obj.GPIO145, expected.GPIO145,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO145");
+    all_zero &= check_compare(obj.GPIO146, expected.GPIO146,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO146");
+    all_zero &= check_compare(obj.GPIO147, expected.GPIO147,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO147");
+    all_zero &= check_compare(obj.GPIO148, expected.GPIO148,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO148");
+    all_zero &= check_compare(obj.GPIO149, expected.GPIO149,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO149");
+    all_zero &= check_compare(obj.GPIO150, expected.GPIO150,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO150");
+    all_zero &= check_compare(obj.GPIO151, expected.GPIO151,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO151");
+    all_zero &= check_compare(obj.GPIO152, expected.GPIO152,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO152");
+    all_zero &= check_compare(obj.GPIO153, expected.GPIO153,
+                              name + " " + "19:18 Defines pin-muxing selection for GPIO153");
+    all_zero &= check_compare(obj.GPIO154, expected.GPIO154,
+                              name + " " + "21:20 Defines pin-muxing selection for GPIO154");
+    all_zero &= check_compare(obj.GPIO155, expected.GPIO155,
+                              name + " " + "23:22 Defines pin-muxing selection for GPIO155");
+    all_zero &= check_compare(obj.GPIO156, expected.GPIO156,
+                              name + " " + "25:24 Defines pin-muxing selection for GPIO156");
+    all_zero &= check_compare(obj.GPIO157, expected.GPIO157,
+                              name + " " + "27:26 Defines pin-muxing selection for GPIO157");
+    all_zero &= check_compare(obj.GPIO158, expected.GPIO158,
+                              name + " " + "29:28 Defines pin-muxing selection for GPIO158");
+    all_zero &= check_compare(obj.GPIO159, expected.GPIO159,
+                              name + " " + "31:30 Defines pin-muxing selection for GPIO159");
 
     return all_zero;
 }
@@ -12286,38 +13706,70 @@ bool check_compare(const GPELOCK_REG &obj, const GPELOCK_REG &expected, const st
 bool check_compare(const GPECR_BITS &obj, const GPECR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO128, expected.GPIO128, name + " " + "0 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO129, expected.GPIO129, name + " " + "1 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO130, expected.GPIO130, name + " " + "2 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO131, expected.GPIO131, name + " " + "3 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO132, expected.GPIO132, name + " " + "4 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO133, expected.GPIO133, name + " " + "5 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO134, expected.GPIO134, name + " " + "6 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO135, expected.GPIO135, name + " " + "7 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO136, expected.GPIO136, name + " " + "8 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO137, expected.GPIO137, name + " " + "9 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO138, expected.GPIO138, name + " " + "10 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO139, expected.GPIO139, name + " " + "11 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO140, expected.GPIO140, name + " " + "12 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO141, expected.GPIO141, name + " " + "13 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO142, expected.GPIO142, name + " " + "14 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO143, expected.GPIO143, name + " " + "15 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO144, expected.GPIO144, name + " " + "16 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO145, expected.GPIO145, name + " " + "17 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO146, expected.GPIO146, name + " " + "18 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO147, expected.GPIO147, name + " " + "19 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO148, expected.GPIO148, name + " " + "20 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO149, expected.GPIO149, name + " " + "21 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO150, expected.GPIO150, name + " " + "22 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO151, expected.GPIO151, name + " " + "23 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO152, expected.GPIO152, name + " " + "24 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO153, expected.GPIO153, name + " " + "25 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO154, expected.GPIO154, name + " " + "26 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO155, expected.GPIO155, name + " " + "27 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO156, expected.GPIO156, name + " " + "28 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO157, expected.GPIO157, name + " " + "29 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO158, expected.GPIO158, name + " " + "30 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO159, expected.GPIO159, name + " " + "31 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO128, expected.GPIO128,
+                              name + " " + "0 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO129, expected.GPIO129,
+                              name + " " + "1 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO130, expected.GPIO130,
+                              name + " " + "2 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO131, expected.GPIO131,
+                              name + " " + "3 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO132, expected.GPIO132,
+                              name + " " + "4 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO133, expected.GPIO133,
+                              name + " " + "5 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO134, expected.GPIO134,
+                              name + " " + "6 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO135, expected.GPIO135,
+                              name + " " + "7 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO136, expected.GPIO136,
+                              name + " " + "8 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO137, expected.GPIO137,
+                              name + " " + "9 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO138, expected.GPIO138,
+                              name + " " + "10 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO139, expected.GPIO139,
+                              name + " " + "11 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO140, expected.GPIO140,
+                              name + " " + "12 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO141, expected.GPIO141,
+                              name + " " + "13 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO142, expected.GPIO142,
+                              name + " " + "14 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO143, expected.GPIO143,
+                              name + " " + "15 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO144, expected.GPIO144,
+                              name + " " + "16 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO145, expected.GPIO145,
+                              name + " " + "17 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO146, expected.GPIO146,
+                              name + " " + "18 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO147, expected.GPIO147,
+                              name + " " + "19 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO148, expected.GPIO148,
+                              name + " " + "20 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO149, expected.GPIO149,
+                              name + " " + "21 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO150, expected.GPIO150,
+                              name + " " + "22 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO151, expected.GPIO151,
+                              name + " " + "23 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO152, expected.GPIO152,
+                              name + " " + "24 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO153, expected.GPIO153,
+                              name + " " + "25 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO154, expected.GPIO154,
+                              name + " " + "26 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO155, expected.GPIO155,
+                              name + " " + "27 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO156, expected.GPIO156,
+                              name + " " + "28 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO157, expected.GPIO157,
+                              name + " " + "29 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO158, expected.GPIO158,
+                              name + " " + "30 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO159, expected.GPIO159,
+                              name + " " + "31 Configuration lock commit bit for this pin");
 
     return all_zero;
 }
@@ -12334,8 +13786,10 @@ bool check_compare(const GPECR_REG &obj, const GPECR_REG &expected, const std::s
 bool check_compare(const GPFCTRL_BITS &obj, const GPFCTRL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0, name + " " + "7:0 Qualification sampling period for GPIO160 to GPIO167");
-    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1, name + " " + "15:8 Qualification sampling period for GPIO168");
+    all_zero &= check_compare(obj.QUALPRD0, expected.QUALPRD0,
+                              name + " " + "7:0 Qualification sampling period for GPIO160 to GPIO167");
+    all_zero &= check_compare(obj.QUALPRD1, expected.QUALPRD1,
+                              name + " " + "15:8 Qualification sampling period for GPIO168");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "23:16 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:24 Reserved");
 
@@ -12354,15 +13808,24 @@ bool check_compare(const GPFCTRL_REG &obj, const GPFCTRL_REG &expected, const st
 bool check_compare(const GPFQSEL1_BITS &obj, const GPFQSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO160, expected.GPIO160, name + " " + "1:0 Select input qualification type for GPIO160");
-    all_zero &= check_compare(obj.GPIO161, expected.GPIO161, name + " " + "3:2 Select input qualification type for GPIO161");
-    all_zero &= check_compare(obj.GPIO162, expected.GPIO162, name + " " + "5:4 Select input qualification type for GPIO162");
-    all_zero &= check_compare(obj.GPIO163, expected.GPIO163, name + " " + "7:6 Select input qualification type for GPIO163");
-    all_zero &= check_compare(obj.GPIO164, expected.GPIO164, name + " " + "9:8 Select input qualification type for GPIO164");
-    all_zero &= check_compare(obj.GPIO165, expected.GPIO165, name + " " + "11:10 Select input qualification type for GPIO165");
-    all_zero &= check_compare(obj.GPIO166, expected.GPIO166, name + " " + "13:12 Select input qualification type for GPIO166");
-    all_zero &= check_compare(obj.GPIO167, expected.GPIO167, name + " " + "15:14 Select input qualification type for GPIO167");
-    all_zero &= check_compare(obj.GPIO168, expected.GPIO168, name + " " + "17:16 Select input qualification type for GPIO168");
+    all_zero &= check_compare(obj.GPIO160, expected.GPIO160,
+                              name + " " + "1:0 Select input qualification type for GPIO160");
+    all_zero &= check_compare(obj.GPIO161, expected.GPIO161,
+                              name + " " + "3:2 Select input qualification type for GPIO161");
+    all_zero &= check_compare(obj.GPIO162, expected.GPIO162,
+                              name + " " + "5:4 Select input qualification type for GPIO162");
+    all_zero &= check_compare(obj.GPIO163, expected.GPIO163,
+                              name + " " + "7:6 Select input qualification type for GPIO163");
+    all_zero &= check_compare(obj.GPIO164, expected.GPIO164,
+                              name + " " + "9:8 Select input qualification type for GPIO164");
+    all_zero &= check_compare(obj.GPIO165, expected.GPIO165,
+                              name + " " + "11:10 Select input qualification type for GPIO165");
+    all_zero &= check_compare(obj.GPIO166, expected.GPIO166,
+                              name + " " + "13:12 Select input qualification type for GPIO166");
+    all_zero &= check_compare(obj.GPIO167, expected.GPIO167,
+                              name + " " + "15:14 Select input qualification type for GPIO167");
+    all_zero &= check_compare(obj.GPIO168, expected.GPIO168,
+                              name + " " + "17:16 Select input qualification type for GPIO168");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:18 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "21:20 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:22 Reserved");
@@ -12386,15 +13849,24 @@ bool check_compare(const GPFQSEL1_REG &obj, const GPFQSEL1_REG &expected, const 
 bool check_compare(const GPFMUX1_BITS &obj, const GPFMUX1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO160, expected.GPIO160, name + " " + "1:0 Defines pin-muxing selection for GPIO160");
-    all_zero &= check_compare(obj.GPIO161, expected.GPIO161, name + " " + "3:2 Defines pin-muxing selection for GPIO161");
-    all_zero &= check_compare(obj.GPIO162, expected.GPIO162, name + " " + "5:4 Defines pin-muxing selection for GPIO162");
-    all_zero &= check_compare(obj.GPIO163, expected.GPIO163, name + " " + "7:6 Defines pin-muxing selection for GPIO163");
-    all_zero &= check_compare(obj.GPIO164, expected.GPIO164, name + " " + "9:8 Defines pin-muxing selection for GPIO164");
-    all_zero &= check_compare(obj.GPIO165, expected.GPIO165, name + " " + "11:10 Defines pin-muxing selection for GPIO165");
-    all_zero &= check_compare(obj.GPIO166, expected.GPIO166, name + " " + "13:12 Defines pin-muxing selection for GPIO166");
-    all_zero &= check_compare(obj.GPIO167, expected.GPIO167, name + " " + "15:14 Defines pin-muxing selection for GPIO167");
-    all_zero &= check_compare(obj.GPIO168, expected.GPIO168, name + " " + "17:16 Defines pin-muxing selection for GPIO168");
+    all_zero &= check_compare(obj.GPIO160, expected.GPIO160,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO160");
+    all_zero &= check_compare(obj.GPIO161, expected.GPIO161,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO161");
+    all_zero &= check_compare(obj.GPIO162, expected.GPIO162,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO162");
+    all_zero &= check_compare(obj.GPIO163, expected.GPIO163,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO163");
+    all_zero &= check_compare(obj.GPIO164, expected.GPIO164,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO164");
+    all_zero &= check_compare(obj.GPIO165, expected.GPIO165,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO165");
+    all_zero &= check_compare(obj.GPIO166, expected.GPIO166,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO166");
+    all_zero &= check_compare(obj.GPIO167, expected.GPIO167,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO167");
+    all_zero &= check_compare(obj.GPIO168, expected.GPIO168,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO168");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:18 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "21:20 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:22 Reserved");
@@ -12418,15 +13890,24 @@ bool check_compare(const GPFMUX1_REG &obj, const GPFMUX1_REG &expected, const st
 bool check_compare(const GPFDIR_BITS &obj, const GPFDIR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO160, expected.GPIO160, name + " " + "0 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO161, expected.GPIO161, name + " " + "1 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO162, expected.GPIO162, name + " " + "2 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO163, expected.GPIO163, name + " " + "3 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO164, expected.GPIO164, name + " " + "4 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO165, expected.GPIO165, name + " " + "5 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO166, expected.GPIO166, name + " " + "6 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO167, expected.GPIO167, name + " " + "7 Defines direction for this pin in GPIO mode");
-    all_zero &= check_compare(obj.GPIO168, expected.GPIO168, name + " " + "8 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO160, expected.GPIO160,
+                              name + " " + "0 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO161, expected.GPIO161,
+                              name + " " + "1 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO162, expected.GPIO162,
+                              name + " " + "2 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO163, expected.GPIO163,
+                              name + " " + "3 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO164, expected.GPIO164,
+                              name + " " + "4 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO165, expected.GPIO165,
+                              name + " " + "5 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO166, expected.GPIO166,
+                              name + " " + "6 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO167, expected.GPIO167,
+                              name + " " + "7 Defines direction for this pin in GPIO mode");
+    all_zero &= check_compare(obj.GPIO168, expected.GPIO168,
+                              name + " " + "8 Defines direction for this pin in GPIO mode");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "9 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "10 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
@@ -12610,15 +14091,24 @@ bool check_compare(const GPFODR_REG &obj, const GPFODR_REG &expected, const std:
 bool check_compare(const GPFGMUX1_BITS &obj, const GPFGMUX1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO160, expected.GPIO160, name + " " + "1:0 Defines pin-muxing selection for GPIO160");
-    all_zero &= check_compare(obj.GPIO161, expected.GPIO161, name + " " + "3:2 Defines pin-muxing selection for GPIO161");
-    all_zero &= check_compare(obj.GPIO162, expected.GPIO162, name + " " + "5:4 Defines pin-muxing selection for GPIO162");
-    all_zero &= check_compare(obj.GPIO163, expected.GPIO163, name + " " + "7:6 Defines pin-muxing selection for GPIO163");
-    all_zero &= check_compare(obj.GPIO164, expected.GPIO164, name + " " + "9:8 Defines pin-muxing selection for GPIO164");
-    all_zero &= check_compare(obj.GPIO165, expected.GPIO165, name + " " + "11:10 Defines pin-muxing selection for GPIO165");
-    all_zero &= check_compare(obj.GPIO166, expected.GPIO166, name + " " + "13:12 Defines pin-muxing selection for GPIO166");
-    all_zero &= check_compare(obj.GPIO167, expected.GPIO167, name + " " + "15:14 Defines pin-muxing selection for GPIO167");
-    all_zero &= check_compare(obj.GPIO168, expected.GPIO168, name + " " + "17:16 Defines pin-muxing selection for GPIO168");
+    all_zero &= check_compare(obj.GPIO160, expected.GPIO160,
+                              name + " " + "1:0 Defines pin-muxing selection for GPIO160");
+    all_zero &= check_compare(obj.GPIO161, expected.GPIO161,
+                              name + " " + "3:2 Defines pin-muxing selection for GPIO161");
+    all_zero &= check_compare(obj.GPIO162, expected.GPIO162,
+                              name + " " + "5:4 Defines pin-muxing selection for GPIO162");
+    all_zero &= check_compare(obj.GPIO163, expected.GPIO163,
+                              name + " " + "7:6 Defines pin-muxing selection for GPIO163");
+    all_zero &= check_compare(obj.GPIO164, expected.GPIO164,
+                              name + " " + "9:8 Defines pin-muxing selection for GPIO164");
+    all_zero &= check_compare(obj.GPIO165, expected.GPIO165,
+                              name + " " + "11:10 Defines pin-muxing selection for GPIO165");
+    all_zero &= check_compare(obj.GPIO166, expected.GPIO166,
+                              name + " " + "13:12 Defines pin-muxing selection for GPIO166");
+    all_zero &= check_compare(obj.GPIO167, expected.GPIO167,
+                              name + " " + "15:14 Defines pin-muxing selection for GPIO167");
+    all_zero &= check_compare(obj.GPIO168, expected.GPIO168,
+                              name + " " + "17:16 Defines pin-muxing selection for GPIO168");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "19:18 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "21:20 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:22 Reserved");
@@ -12738,15 +14228,24 @@ bool check_compare(const GPFLOCK_REG &obj, const GPFLOCK_REG &expected, const st
 bool check_compare(const GPFCR_BITS &obj, const GPFCR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPIO160, expected.GPIO160, name + " " + "0 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO161, expected.GPIO161, name + " " + "1 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO162, expected.GPIO162, name + " " + "2 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO163, expected.GPIO163, name + " " + "3 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO164, expected.GPIO164, name + " " + "4 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO165, expected.GPIO165, name + " " + "5 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO166, expected.GPIO166, name + " " + "6 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO167, expected.GPIO167, name + " " + "7 Configuration lock commit bit for this pin");
-    all_zero &= check_compare(obj.GPIO168, expected.GPIO168, name + " " + "8 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO160, expected.GPIO160,
+                              name + " " + "0 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO161, expected.GPIO161,
+                              name + " " + "1 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO162, expected.GPIO162,
+                              name + " " + "2 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO163, expected.GPIO163,
+                              name + " " + "3 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO164, expected.GPIO164,
+                              name + " " + "4 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO165, expected.GPIO165,
+                              name + " " + "5 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO166, expected.GPIO166,
+                              name + " " + "6 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO167, expected.GPIO167,
+                              name + " " + "7 Configuration lock commit bit for this pin");
+    all_zero &= check_compare(obj.GPIO168, expected.GPIO168,
+                              name + " " + "8 Configuration lock commit bit for this pin");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "9 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "10 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "11 Reserved");
@@ -12786,129 +14285,202 @@ bool check_compare(const GPFCR_REG &obj, const GPFCR_REG &expected, const std::s
 bool check_compare(const GPIO_CTRL_REGS &obj, const GPIO_CTRL_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.GPACTRL, expected.GPACTRL, name + " " + "GPIO A Qualification Sampling Period Control (GPIO0 to 31)");
-    all_zero &= check_compare(obj.GPAQSEL1, expected.GPAQSEL1, name + " " + "GPIO A Qualifier Select 1 Register (GPIO0 to 15)");
-    all_zero &= check_compare(obj.GPAQSEL2, expected.GPAQSEL2, name + " " + "GPIO A Qualifier Select 2 Register (GPIO16 to 31)");
+    all_zero &= check_compare(obj.GPACTRL, expected.GPACTRL,
+                              name + " " + "GPIO A Qualification Sampling Period Control (GPIO0 to 31)");
+    all_zero &= check_compare(obj.GPAQSEL1, expected.GPAQSEL1,
+                              name + " " + "GPIO A Qualifier Select 1 Register (GPIO0 to 15)");
+    all_zero &= check_compare(obj.GPAQSEL2, expected.GPAQSEL2,
+                              name + " " + "GPIO A Qualifier Select 2 Register (GPIO16 to 31)");
     all_zero &= check_compare(obj.GPAMUX1, expected.GPAMUX1, name + " " + "GPIO A Mux 1 Register (GPIO0 to 15)");
     all_zero &= check_compare(obj.GPAMUX2, expected.GPAMUX2, name + " " + "GPIO A Mux 2 Register (GPIO16 to 31)");
     all_zero &= check_compare(obj.GPADIR, expected.GPADIR, name + " " + "GPIO A Direction Register (GPIO0 to 31)");
-    all_zero &= check_compare(obj.GPAPUD, expected.GPAPUD, name + " " + "GPIO A Pull Up Disable Register (GPIO0 to 31)");
+    all_zero &= check_compare(obj.GPAPUD, expected.GPAPUD,
+                              name + " " + "GPIO A Pull Up Disable Register (GPIO0 to 31)");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPAINV, expected.GPAINV, name + " " + "GPIO A Input Polarity Invert Registers (GPIO0 to 31)");
-    all_zero &= check_compare(obj.GPAODR, expected.GPAODR, name + " " + "GPIO A Open Drain Output Register (GPIO0 to GPIO31)");
+    all_zero &= check_compare(obj.GPAINV, expected.GPAINV,
+                              name + " " + "GPIO A Input Polarity Invert Registers (GPIO0 to 31)");
+    all_zero &= check_compare(obj.GPAODR, expected.GPAODR,
+                              name + " " + "GPIO A Open Drain Output Register (GPIO0 to GPIO31)");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPAGMUX1, expected.GPAGMUX1, name + " " + "GPIO A Peripheral Group Mux (GPIO0 to 15)");
-    all_zero &= check_compare(obj.GPAGMUX2, expected.GPAGMUX2, name + " " + "GPIO A Peripheral Group Mux (GPIO16 to 31)");
+    all_zero &= check_compare(obj.GPAGMUX1, expected.GPAGMUX1,
+                              name + " " + "GPIO A Peripheral Group Mux (GPIO0 to 15)");
+    all_zero &= check_compare(obj.GPAGMUX2, expected.GPAGMUX2,
+                              name + " " + "GPIO A Peripheral Group Mux (GPIO16 to 31)");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
     all_zero &= check_compare(obj.GPACSEL1, expected.GPACSEL1, name + " " + "GPIO A Core Select Register (GPIO0 to 7)");
-    all_zero &= check_compare(obj.GPACSEL2, expected.GPACSEL2, name + " " + "GPIO A Core Select Register (GPIO8 to 15)");
-    all_zero &= check_compare(obj.GPACSEL3, expected.GPACSEL3, name + " " + "GPIO A Core Select Register (GPIO16 to 23)");
-    all_zero &= check_compare(obj.GPACSEL4, expected.GPACSEL4, name + " " + "GPIO A Core Select Register (GPIO24 to 31)");
+    all_zero &= check_compare(obj.GPACSEL2, expected.GPACSEL2,
+                              name + " " + "GPIO A Core Select Register (GPIO8 to 15)");
+    all_zero &= check_compare(obj.GPACSEL3, expected.GPACSEL3,
+                              name + " " + "GPIO A Core Select Register (GPIO16 to 23)");
+    all_zero &= check_compare(obj.GPACSEL4, expected.GPACSEL4,
+                              name + " " + "GPIO A Core Select Register (GPIO24 to 31)");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPALOCK, expected.GPALOCK, name + " " + "GPIO A Lock Configuration Register (GPIO0 to 31)");
+    all_zero &= check_compare(obj.GPALOCK, expected.GPALOCK,
+                              name + " " + "GPIO A Lock Configuration Register (GPIO0 to 31)");
     all_zero &= check_compare(obj.GPACR, expected.GPACR, name + " " + "GPIO A Lock Commit Register (GPIO0 to 31)");
-    all_zero &= check_compare(obj.GPBCTRL, expected.GPBCTRL, name + " " + "GPIO B Qualification Sampling Period Control (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPBQSEL1, expected.GPBQSEL1, name + " " + "GPIO B Qualifier Select 1 Register (GPIO32 to 47)");
-    all_zero &= check_compare(obj.GPBQSEL2, expected.GPBQSEL2, name + " " + "GPIO B Qualifier Select 2 Register (GPIO48 to 63)");
+    all_zero &= check_compare(obj.GPBCTRL, expected.GPBCTRL,
+                              name + " " + "GPIO B Qualification Sampling Period Control (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBQSEL1, expected.GPBQSEL1,
+                              name + " " + "GPIO B Qualifier Select 1 Register (GPIO32 to 47)");
+    all_zero &= check_compare(obj.GPBQSEL2, expected.GPBQSEL2,
+                              name + " " + "GPIO B Qualifier Select 2 Register (GPIO48 to 63)");
     all_zero &= check_compare(obj.GPBMUX1, expected.GPBMUX1, name + " " + "GPIO B Mux 1 Register (GPIO32 to 47)");
     all_zero &= check_compare(obj.GPBMUX2, expected.GPBMUX2, name + " " + "GPIO B Mux 2 Register (GPIO48 to 63)");
     all_zero &= check_compare(obj.GPBDIR, expected.GPBDIR, name + " " + "GPIO B Direction Register (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPBPUD, expected.GPBPUD, name + " " + "GPIO B Pull Up Disable Register (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBPUD, expected.GPBPUD,
+                              name + " " + "GPIO B Pull Up Disable Register (GPIO32 to 63)");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPBINV, expected.GPBINV, name + " " + "GPIO B Input Polarity Invert Registers (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPBODR, expected.GPBODR, name + " " + "GPIO B Open Drain Output Register (GPIO32 to GPIO63)");
-    all_zero &= check_compare(obj.GPBAMSEL, expected.GPBAMSEL, name + " " + "GPIO B Analog Mode Select register (GPIO32 to GPIO63)");
+    all_zero &= check_compare(obj.GPBINV, expected.GPBINV,
+                              name + " " + "GPIO B Input Polarity Invert Registers (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBODR, expected.GPBODR,
+                              name + " " + "GPIO B Open Drain Output Register (GPIO32 to GPIO63)");
+    all_zero &= check_compare(obj.GPBAMSEL, expected.GPBAMSEL,
+                              name + " " + "GPIO B Analog Mode Select register (GPIO32 to GPIO63)");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPBGMUX1, expected.GPBGMUX1, name + " " + "GPIO B Peripheral Group Mux (GPIO32 to 47)");
-    all_zero &= check_compare(obj.GPBGMUX2, expected.GPBGMUX2, name + " " + "GPIO B Peripheral Group Mux (GPIO48 to 63)");
+    all_zero &= check_compare(obj.GPBGMUX1, expected.GPBGMUX1,
+                              name + " " + "GPIO B Peripheral Group Mux (GPIO32 to 47)");
+    all_zero &= check_compare(obj.GPBGMUX2, expected.GPBGMUX2,
+                              name + " " + "GPIO B Peripheral Group Mux (GPIO48 to 63)");
     all_zero &= check_compare(obj.rsvd7, expected.rsvd7, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPBCSEL1, expected.GPBCSEL1, name + " " + "GPIO B Core Select Register (GPIO32 to 39)");
-    all_zero &= check_compare(obj.GPBCSEL2, expected.GPBCSEL2, name + " " + "GPIO B Core Select Register (GPIO40 to 47)");
-    all_zero &= check_compare(obj.GPBCSEL3, expected.GPBCSEL3, name + " " + "GPIO B Core Select Register (GPIO48 to 55)");
-    all_zero &= check_compare(obj.GPBCSEL4, expected.GPBCSEL4, name + " " + "GPIO B Core Select Register (GPIO56 to 63)");
+    all_zero &= check_compare(obj.GPBCSEL1, expected.GPBCSEL1,
+                              name + " " + "GPIO B Core Select Register (GPIO32 to 39)");
+    all_zero &= check_compare(obj.GPBCSEL2, expected.GPBCSEL2,
+                              name + " " + "GPIO B Core Select Register (GPIO40 to 47)");
+    all_zero &= check_compare(obj.GPBCSEL3, expected.GPBCSEL3,
+                              name + " " + "GPIO B Core Select Register (GPIO48 to 55)");
+    all_zero &= check_compare(obj.GPBCSEL4, expected.GPBCSEL4,
+                              name + " " + "GPIO B Core Select Register (GPIO56 to 63)");
     all_zero &= check_compare(obj.rsvd8, expected.rsvd8, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPBLOCK, expected.GPBLOCK, name + " " + "GPIO B Lock Configuration Register (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBLOCK, expected.GPBLOCK,
+                              name + " " + "GPIO B Lock Configuration Register (GPIO32 to 63)");
     all_zero &= check_compare(obj.GPBCR, expected.GPBCR, name + " " + "GPIO B Lock Commit Register (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPCCTRL, expected.GPCCTRL, name + " " + "GPIO C Qualification Sampling Period Control (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPCQSEL1, expected.GPCQSEL1, name + " " + "GPIO C Qualifier Select 1 Register (GPIO64 to 79)");
-    all_zero &= check_compare(obj.GPCQSEL2, expected.GPCQSEL2, name + " " + "GPIO C Qualifier Select 2 Register (GPIO80  to 95)");
+    all_zero &= check_compare(obj.GPCCTRL, expected.GPCCTRL,
+                              name + " " + "GPIO C Qualification Sampling Period Control (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCQSEL1, expected.GPCQSEL1,
+                              name + " " + "GPIO C Qualifier Select 1 Register (GPIO64 to 79)");
+    all_zero &= check_compare(obj.GPCQSEL2, expected.GPCQSEL2,
+                              name + " " + "GPIO C Qualifier Select 2 Register (GPIO80  to 95)");
     all_zero &= check_compare(obj.GPCMUX1, expected.GPCMUX1, name + " " + "GPIO C Mux 1 Register (GPIO64 to 79)");
     all_zero &= check_compare(obj.GPCMUX2, expected.GPCMUX2, name + " " + "GPIO C Mux 2 Register (GPIO80  to 95)");
     all_zero &= check_compare(obj.GPCDIR, expected.GPCDIR, name + " " + "GPIO C Direction Register (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPCPUD, expected.GPCPUD, name + " " + "GPIO C Pull Up Disable Register (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCPUD, expected.GPCPUD,
+                              name + " " + "GPIO C Pull Up Disable Register (GPIO64 to 95)");
     all_zero &= check_compare(obj.rsvd9, expected.rsvd9, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPCINV, expected.GPCINV, name + " " + "GPIO C Input Polarity Invert Registers (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPCODR, expected.GPCODR, name + " " + "GPIO C Open Drain Output Register (GPIO64 to GPIO95)");
+    all_zero &= check_compare(obj.GPCINV, expected.GPCINV,
+                              name + " " + "GPIO C Input Polarity Invert Registers (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCODR, expected.GPCODR,
+                              name + " " + "GPIO C Open Drain Output Register (GPIO64 to GPIO95)");
     all_zero &= check_compare(obj.rsvd10, expected.rsvd10, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPCGMUX1, expected.GPCGMUX1, name + " " + "GPIO C Peripheral Group Mux (GPIO64 to 79)");
-    all_zero &= check_compare(obj.GPCGMUX2, expected.GPCGMUX2, name + " " + "GPIO C Peripheral Group Mux (GPIO80  to 95)");
+    all_zero &= check_compare(obj.GPCGMUX1, expected.GPCGMUX1,
+                              name + " " + "GPIO C Peripheral Group Mux (GPIO64 to 79)");
+    all_zero &= check_compare(obj.GPCGMUX2, expected.GPCGMUX2,
+                              name + " " + "GPIO C Peripheral Group Mux (GPIO80  to 95)");
     all_zero &= check_compare(obj.rsvd11, expected.rsvd11, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPCCSEL1, expected.GPCCSEL1, name + " " + "GPIO C Core Select Register (GPIO64 to 71)");
-    all_zero &= check_compare(obj.GPCCSEL2, expected.GPCCSEL2, name + " " + "GPIO C Core Select Register (GPIO72 to 79)");
-    all_zero &= check_compare(obj.GPCCSEL3, expected.GPCCSEL3, name + " " + "GPIO C Core Select Register (GPIO80  to 87)");
-    all_zero &= check_compare(obj.GPCCSEL4, expected.GPCCSEL4, name + " " + "GPIO C Core Select Register (GPIO88 to 95)");
+    all_zero &= check_compare(obj.GPCCSEL1, expected.GPCCSEL1,
+                              name + " " + "GPIO C Core Select Register (GPIO64 to 71)");
+    all_zero &= check_compare(obj.GPCCSEL2, expected.GPCCSEL2,
+                              name + " " + "GPIO C Core Select Register (GPIO72 to 79)");
+    all_zero &= check_compare(obj.GPCCSEL3, expected.GPCCSEL3,
+                              name + " " + "GPIO C Core Select Register (GPIO80  to 87)");
+    all_zero &= check_compare(obj.GPCCSEL4, expected.GPCCSEL4,
+                              name + " " + "GPIO C Core Select Register (GPIO88 to 95)");
     all_zero &= check_compare(obj.rsvd12, expected.rsvd12, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPCLOCK, expected.GPCLOCK, name + " " + "GPIO C Lock Configuration Register (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCLOCK, expected.GPCLOCK,
+                              name + " " + "GPIO C Lock Configuration Register (GPIO64 to 95)");
     all_zero &= check_compare(obj.GPCCR, expected.GPCCR, name + " " + "GPIO C Lock Commit Register (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPDCTRL, expected.GPDCTRL, name + " " + "GPIO D Qualification Sampling Period Control (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPDQSEL1, expected.GPDQSEL1, name + " " + "GPIO D Qualifier Select 1 Register (GPIO96 to 111)");
-    all_zero &= check_compare(obj.GPDQSEL2, expected.GPDQSEL2, name + " " + "GPIO D Qualifier Select 2 Register (GPIO112 to 127)");
+    all_zero &= check_compare(obj.GPDCTRL, expected.GPDCTRL,
+                              name + " " + "GPIO D Qualification Sampling Period Control (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDQSEL1, expected.GPDQSEL1,
+                              name + " " + "GPIO D Qualifier Select 1 Register (GPIO96 to 111)");
+    all_zero &= check_compare(obj.GPDQSEL2, expected.GPDQSEL2,
+                              name + " " + "GPIO D Qualifier Select 2 Register (GPIO112 to 127)");
     all_zero &= check_compare(obj.GPDMUX1, expected.GPDMUX1, name + " " + "GPIO D Mux 1 Register (GPIO96 to 111)");
     all_zero &= check_compare(obj.GPDMUX2, expected.GPDMUX2, name + " " + "GPIO D Mux 2 Register (GPIO112 to 127)");
     all_zero &= check_compare(obj.GPDDIR, expected.GPDDIR, name + " " + "GPIO D Direction Register (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPDPUD, expected.GPDPUD, name + " " + "GPIO D Pull Up Disable Register (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDPUD, expected.GPDPUD,
+                              name + " " + "GPIO D Pull Up Disable Register (GPIO96 to 127)");
     all_zero &= check_compare(obj.rsvd13, expected.rsvd13, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPDINV, expected.GPDINV, name + " " + "GPIO D Input Polarity Invert Registers (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPDODR, expected.GPDODR, name + " " + "GPIO D Open Drain Output Register (GPIO96 to GPIO127)");
+    all_zero &= check_compare(obj.GPDINV, expected.GPDINV,
+                              name + " " + "GPIO D Input Polarity Invert Registers (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDODR, expected.GPDODR,
+                              name + " " + "GPIO D Open Drain Output Register (GPIO96 to GPIO127)");
     all_zero &= check_compare(obj.rsvd14, expected.rsvd14, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPDGMUX1, expected.GPDGMUX1, name + " " + "GPIO D Peripheral Group Mux (GPIO96 to 111)");
-    all_zero &= check_compare(obj.GPDGMUX2, expected.GPDGMUX2, name + " " + "GPIO D Peripheral Group Mux (GPIO112 to 127)");
+    all_zero &= check_compare(obj.GPDGMUX1, expected.GPDGMUX1,
+                              name + " " + "GPIO D Peripheral Group Mux (GPIO96 to 111)");
+    all_zero &= check_compare(obj.GPDGMUX2, expected.GPDGMUX2,
+                              name + " " + "GPIO D Peripheral Group Mux (GPIO112 to 127)");
     all_zero &= check_compare(obj.rsvd15, expected.rsvd15, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPDCSEL1, expected.GPDCSEL1, name + " " + "GPIO D Core Select Register (GPIO96 to 103)");
-    all_zero &= check_compare(obj.GPDCSEL2, expected.GPDCSEL2, name + " " + "GPIO D Core Select Register (GPIO104 to 111)");
-    all_zero &= check_compare(obj.GPDCSEL3, expected.GPDCSEL3, name + " " + "GPIO D Core Select Register (GPIO112 to 119)");
-    all_zero &= check_compare(obj.GPDCSEL4, expected.GPDCSEL4, name + " " + "GPIO D Core Select Register (GPIO120 to 127)");
+    all_zero &= check_compare(obj.GPDCSEL1, expected.GPDCSEL1,
+                              name + " " + "GPIO D Core Select Register (GPIO96 to 103)");
+    all_zero &= check_compare(obj.GPDCSEL2, expected.GPDCSEL2,
+                              name + " " + "GPIO D Core Select Register (GPIO104 to 111)");
+    all_zero &= check_compare(obj.GPDCSEL3, expected.GPDCSEL3,
+                              name + " " + "GPIO D Core Select Register (GPIO112 to 119)");
+    all_zero &= check_compare(obj.GPDCSEL4, expected.GPDCSEL4,
+                              name + " " + "GPIO D Core Select Register (GPIO120 to 127)");
     all_zero &= check_compare(obj.rsvd16, expected.rsvd16, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPDLOCK, expected.GPDLOCK, name + " " + "GPIO D Lock Configuration Register (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDLOCK, expected.GPDLOCK,
+                              name + " " + "GPIO D Lock Configuration Register (GPIO96 to 127)");
     all_zero &= check_compare(obj.GPDCR, expected.GPDCR, name + " " + "GPIO D Lock Commit Register (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPECTRL, expected.GPECTRL, name + " " + "GPIO E Qualification Sampling Period Control (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPEQSEL1, expected.GPEQSEL1, name + " " + "GPIO E Qualifier Select 1 Register (GPIO128 to 143)");
-    all_zero &= check_compare(obj.GPEQSEL2, expected.GPEQSEL2, name + " " + "GPIO E Qualifier Select 2 Register (GPIO144  to 159)");
+    all_zero &= check_compare(obj.GPECTRL, expected.GPECTRL,
+                              name + " " + "GPIO E Qualification Sampling Period Control (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPEQSEL1, expected.GPEQSEL1,
+                              name + " " + "GPIO E Qualifier Select 1 Register (GPIO128 to 143)");
+    all_zero &= check_compare(obj.GPEQSEL2, expected.GPEQSEL2,
+                              name + " " + "GPIO E Qualifier Select 2 Register (GPIO144  to 159)");
     all_zero &= check_compare(obj.GPEMUX1, expected.GPEMUX1, name + " " + "GPIO E Mux 1 Register (GPIO128 to 143)");
     all_zero &= check_compare(obj.GPEMUX2, expected.GPEMUX2, name + " " + "GPIO E Mux 2 Register (GPIO144  to 159)");
     all_zero &= check_compare(obj.GPEDIR, expected.GPEDIR, name + " " + "GPIO E Direction Register (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPEPUD, expected.GPEPUD, name + " " + "GPIO E Pull Up Disable Register (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPEPUD, expected.GPEPUD,
+                              name + " " + "GPIO E Pull Up Disable Register (GPIO128 to 159)");
     all_zero &= check_compare(obj.rsvd17, expected.rsvd17, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPEINV, expected.GPEINV, name + " " + "GPIO E Input Polarity Invert Registers (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPEODR, expected.GPEODR, name + " " + "GPIO E Open Drain Output Register (GPIO128 to GPIO159)");
+    all_zero &= check_compare(obj.GPEINV, expected.GPEINV,
+                              name + " " + "GPIO E Input Polarity Invert Registers (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPEODR, expected.GPEODR,
+                              name + " " + "GPIO E Open Drain Output Register (GPIO128 to GPIO159)");
     all_zero &= check_compare(obj.rsvd18, expected.rsvd18, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPEGMUX1, expected.GPEGMUX1, name + " " + "GPIO E Peripheral Group Mux (GPIO128 to 143)");
-    all_zero &= check_compare(obj.GPEGMUX2, expected.GPEGMUX2, name + " " + "GPIO E Peripheral Group Mux (GPIO144  to 159)");
+    all_zero &= check_compare(obj.GPEGMUX1, expected.GPEGMUX1,
+                              name + " " + "GPIO E Peripheral Group Mux (GPIO128 to 143)");
+    all_zero &= check_compare(obj.GPEGMUX2, expected.GPEGMUX2,
+                              name + " " + "GPIO E Peripheral Group Mux (GPIO144  to 159)");
     all_zero &= check_compare(obj.rsvd19, expected.rsvd19, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPECSEL1, expected.GPECSEL1, name + " " + "GPIO E Core Select Register (GPIO128 to 135)");
-    all_zero &= check_compare(obj.GPECSEL2, expected.GPECSEL2, name + " " + "GPIO E Core Select Register (GPIO136 to 143)");
-    all_zero &= check_compare(obj.GPECSEL3, expected.GPECSEL3, name + " " + "GPIO E Core Select Register (GPIO144  to 151)");
-    all_zero &= check_compare(obj.GPECSEL4, expected.GPECSEL4, name + " " + "GPIO E Core Select Register (GPIO152 to 159)");
+    all_zero &= check_compare(obj.GPECSEL1, expected.GPECSEL1,
+                              name + " " + "GPIO E Core Select Register (GPIO128 to 135)");
+    all_zero &= check_compare(obj.GPECSEL2, expected.GPECSEL2,
+                              name + " " + "GPIO E Core Select Register (GPIO136 to 143)");
+    all_zero &= check_compare(obj.GPECSEL3, expected.GPECSEL3,
+                              name + " " + "GPIO E Core Select Register (GPIO144  to 151)");
+    all_zero &= check_compare(obj.GPECSEL4, expected.GPECSEL4,
+                              name + " " + "GPIO E Core Select Register (GPIO152 to 159)");
     all_zero &= check_compare(obj.rsvd20, expected.rsvd20, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPELOCK, expected.GPELOCK, name + " " + "GPIO E Lock Configuration Register (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPELOCK, expected.GPELOCK,
+                              name + " " + "GPIO E Lock Configuration Register (GPIO128 to 159)");
     all_zero &= check_compare(obj.GPECR, expected.GPECR, name + " " + "GPIO E Lock Commit Register (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPFCTRL, expected.GPFCTRL, name + " " + "GPIO F Qualification Sampling Period Control (GPIO160 to 168)");
-    all_zero &= check_compare(obj.GPFQSEL1, expected.GPFQSEL1, name + " " + "GPIO F Qualifier Select 1 Register (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFCTRL, expected.GPFCTRL,
+                              name + " " + "GPIO F Qualification Sampling Period Control (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFQSEL1, expected.GPFQSEL1,
+                              name + " " + "GPIO F Qualifier Select 1 Register (GPIO160 to 168)");
     all_zero &= check_compare(obj.rsvd21, expected.rsvd21, name + " " + "Reserved");
     all_zero &= check_compare(obj.GPFMUX1, expected.GPFMUX1, name + " " + "GPIO F Mux 1 Register (GPIO160 to 168)");
     all_zero &= check_compare(obj.rsvd22, expected.rsvd22, name + " " + "Reserved");
     all_zero &= check_compare(obj.GPFDIR, expected.GPFDIR, name + " " + "GPIO F Direction Register (GPIO160 to 168)");
-    all_zero &= check_compare(obj.GPFPUD, expected.GPFPUD, name + " " + "GPIO F Pull Up Disable Register (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFPUD, expected.GPFPUD,
+                              name + " " + "GPIO F Pull Up Disable Register (GPIO160 to 168)");
     all_zero &= check_compare(obj.rsvd23, expected.rsvd23, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPFINV, expected.GPFINV, name + " " + "GPIO F Input Polarity Invert Registers (GPIO160 to 168)");
-    all_zero &= check_compare(obj.GPFODR, expected.GPFODR, name + " " + "GPIO F Open Drain Output Register (GPIO160 to GPIO168)");
+    all_zero &= check_compare(obj.GPFINV, expected.GPFINV,
+                              name + " " + "GPIO F Input Polarity Invert Registers (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFODR, expected.GPFODR,
+                              name + " " + "GPIO F Open Drain Output Register (GPIO160 to GPIO168)");
     all_zero &= check_compare(obj.rsvd24, expected.rsvd24, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPFGMUX1, expected.GPFGMUX1, name + " " + "GPIO F Peripheral Group Mux (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFGMUX1, expected.GPFGMUX1,
+                              name + " " + "GPIO F Peripheral Group Mux (GPIO160 to 168)");
     all_zero &= check_compare(obj.rsvd25, expected.rsvd25, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPFCSEL1, expected.GPFCSEL1, name + " " + "GPIO F Core Select Register (GPIO160 to 167)");
+    all_zero &= check_compare(obj.GPFCSEL1, expected.GPFCSEL1,
+                              name + " " + "GPIO F Core Select Register (GPIO160 to 167)");
     all_zero &= check_compare(obj.GPFCSEL2, expected.GPFCSEL2, name + " " + "GPIO F Core Select Register (GPIO168)");
     all_zero &= check_compare(obj.rsvd26, expected.rsvd26, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GPFLOCK, expected.GPFLOCK, name + " " + "GPIO F Lock Configuration Register (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFLOCK, expected.GPFLOCK,
+                              name + " " + "GPIO F Lock Configuration Register (GPIO160 to 168)");
     all_zero &= check_compare(obj.GPFCR, expected.GPFCR, name + " " + "GPIO F Lock Commit Register (GPIO160 to 168)");
 
     return all_zero;
@@ -14072,27 +15644,38 @@ bool check_compare(const GPIO_DATA_REGS &obj, const GPIO_DATA_REGS &expected, co
     all_zero &= check_compare(obj.GPADAT, expected.GPADAT, name + " " + "GPIO A Data Register (GPIO0 to 31)");
     all_zero &= check_compare(obj.GPASET, expected.GPASET, name + " " + "GPIO A Data Set Register (GPIO0 to 31)");
     all_zero &= check_compare(obj.GPACLEAR, expected.GPACLEAR, name + " " + "GPIO A Data Clear Register (GPIO0 to 31)");
-    all_zero &= check_compare(obj.GPATOGGLE, expected.GPATOGGLE, name + " " + "GPIO A Data Toggle Register (GPIO0 to 31)");
+    all_zero &= check_compare(obj.GPATOGGLE, expected.GPATOGGLE,
+                              name + " " + "GPIO A Data Toggle Register (GPIO0 to 31)");
     all_zero &= check_compare(obj.GPBDAT, expected.GPBDAT, name + " " + "GPIO B Data Register (GPIO32 to 63)");
     all_zero &= check_compare(obj.GPBSET, expected.GPBSET, name + " " + "GPIO B Data Set Register (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPBCLEAR, expected.GPBCLEAR, name + " " + "GPIO B Data Clear Register (GPIO32 to 63)");
-    all_zero &= check_compare(obj.GPBTOGGLE, expected.GPBTOGGLE, name + " " + "GPIO B Data Toggle Register (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBCLEAR, expected.GPBCLEAR,
+                              name + " " + "GPIO B Data Clear Register (GPIO32 to 63)");
+    all_zero &= check_compare(obj.GPBTOGGLE, expected.GPBTOGGLE,
+                              name + " " + "GPIO B Data Toggle Register (GPIO32 to 63)");
     all_zero &= check_compare(obj.GPCDAT, expected.GPCDAT, name + " " + "GPIO C Data Register (GPIO64 to 95)");
     all_zero &= check_compare(obj.GPCSET, expected.GPCSET, name + " " + "GPIO C Data Set Register (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPCCLEAR, expected.GPCCLEAR, name + " " + "GPIO C Data Clear Register (GPIO64 to 95)");
-    all_zero &= check_compare(obj.GPCTOGGLE, expected.GPCTOGGLE, name + " " + "GPIO C Data Toggle Register (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCCLEAR, expected.GPCCLEAR,
+                              name + " " + "GPIO C Data Clear Register (GPIO64 to 95)");
+    all_zero &= check_compare(obj.GPCTOGGLE, expected.GPCTOGGLE,
+                              name + " " + "GPIO C Data Toggle Register (GPIO64 to 95)");
     all_zero &= check_compare(obj.GPDDAT, expected.GPDDAT, name + " " + "GPIO D Data Register (GPIO96 to 127)");
     all_zero &= check_compare(obj.GPDSET, expected.GPDSET, name + " " + "GPIO D Data Set Register (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPDCLEAR, expected.GPDCLEAR, name + " " + "GPIO D Data Clear Register (GPIO96 to 127)");
-    all_zero &= check_compare(obj.GPDTOGGLE, expected.GPDTOGGLE, name + " " + "GPIO D Data Toggle Register (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDCLEAR, expected.GPDCLEAR,
+                              name + " " + "GPIO D Data Clear Register (GPIO96 to 127)");
+    all_zero &= check_compare(obj.GPDTOGGLE, expected.GPDTOGGLE,
+                              name + " " + "GPIO D Data Toggle Register (GPIO96 to 127)");
     all_zero &= check_compare(obj.GPEDAT, expected.GPEDAT, name + " " + "GPIO E Data Register (GPIO128 to 159)");
     all_zero &= check_compare(obj.GPESET, expected.GPESET, name + " " + "GPIO E Data Set Register (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPECLEAR, expected.GPECLEAR, name + " " + "GPIO E Data Clear Register (GPIO128 to 159)");
-    all_zero &= check_compare(obj.GPETOGGLE, expected.GPETOGGLE, name + " " + "GPIO E Data Toggle Register (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPECLEAR, expected.GPECLEAR,
+                              name + " " + "GPIO E Data Clear Register (GPIO128 to 159)");
+    all_zero &= check_compare(obj.GPETOGGLE, expected.GPETOGGLE,
+                              name + " " + "GPIO E Data Toggle Register (GPIO128 to 159)");
     all_zero &= check_compare(obj.GPFDAT, expected.GPFDAT, name + " " + "GPIO F Data Register (GPIO160 to 168)");
     all_zero &= check_compare(obj.GPFSET, expected.GPFSET, name + " " + "GPIO F Data Set Register (GPIO160 to 168)");
-    all_zero &= check_compare(obj.GPFCLEAR, expected.GPFCLEAR, name + " " + "GPIO F Data Clear Register (GPIO160 to 168)");
-    all_zero &= check_compare(obj.GPFTOGGLE, expected.GPFTOGGLE, name + " " + "GPIO F Data Toggle Register (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFCLEAR, expected.GPFCLEAR,
+                              name + " " + "GPIO F Data Clear Register (GPIO160 to 168)");
+    all_zero &= check_compare(obj.GPFTOGGLE, expected.GPFTOGGLE,
+                              name + " " + "GPIO F Data Toggle Register (GPIO160 to 168)");
 
     return all_zero;
 }
@@ -14259,7 +15842,8 @@ bool check_compare(const I2CISRC_BITS &obj, const I2CISRC_BITS &expected, const 
 
     all_zero &= check_compare(obj.INTCODE, expected.INTCODE, name + " " + "2:0 Interrupt code bits.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:3 Reserved");
-    all_zero &= check_compare(obj.WRITE_ZEROS, expected.WRITE_ZEROS, name + " " + "11:8 Always write all 0s to this field");
+    all_zero &= check_compare(obj.WRITE_ZEROS, expected.WRITE_ZEROS,
+                              name + " " + "11:8 Always write all 0s to this field");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:12 Reserved");
 
     return all_zero;
@@ -14766,8 +16350,10 @@ bool check_compare(const DxLOCK_BITS &obj, const DxLOCK_BITS &expected, const st
     bool all_zero = true;
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "1:0 Reserved");
-    all_zero &= check_compare(obj.LOCK_D0, expected.LOCK_D0, name + " " + "2 D0 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_D1, expected.LOCK_D1, name + " " + "3 D1 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_D0, expected.LOCK_D0,
+                              name + " " + "2 D0 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_D1, expected.LOCK_D1,
+                              name + " " + "3 D1 RAM access protection and master select fields lock bit");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
 
@@ -14787,8 +16373,10 @@ bool check_compare(const DxCOMMIT_BITS &obj, const DxCOMMIT_BITS &expected, cons
     bool all_zero = true;
 
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "1:0 Reserved");
-    all_zero &= check_compare(obj.COMMIT_D0, expected.COMMIT_D0, name + " " + "2 D0 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_D1, expected.COMMIT_D1, name + " " + "3 D1 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_D0, expected.COMMIT_D0,
+                              name + " " + "2 D0 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_D1, expected.COMMIT_D1,
+                              name + " " + "3 D1 RAM access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
 
@@ -14874,10 +16462,14 @@ bool check_compare(const DxINIT_REG &obj, const DxINIT_REG &expected, const std:
 bool check_compare(const DxINITDONE_BITS &obj, const DxINITDONE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INITDONE_M0, expected.INITDONE_M0, name + " " + "0 RAM Initialization status for M0 RAM.");
-    all_zero &= check_compare(obj.INITDONE_M1, expected.INITDONE_M1, name + " " + "1 RAM Initialization status for M1 RAM.");
-    all_zero &= check_compare(obj.INITDONE_D0, expected.INITDONE_D0, name + " " + "2 RAM Initialization status for D0 RAM.");
-    all_zero &= check_compare(obj.INITDONE_D1, expected.INITDONE_D1, name + " " + "3 RAM Initialization status for D1 RAM.");
+    all_zero &= check_compare(obj.INITDONE_M0, expected.INITDONE_M0,
+                              name + " " + "0 RAM Initialization status for M0 RAM.");
+    all_zero &= check_compare(obj.INITDONE_M1, expected.INITDONE_M1,
+                              name + " " + "1 RAM Initialization status for M1 RAM.");
+    all_zero &= check_compare(obj.INITDONE_D0, expected.INITDONE_D0,
+                              name + " " + "2 RAM Initialization status for D0 RAM.");
+    all_zero &= check_compare(obj.INITDONE_D1, expected.INITDONE_D1,
+                              name + " " + "3 RAM Initialization status for D1 RAM.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -14896,12 +16488,18 @@ bool check_compare(const DxINITDONE_REG &obj, const DxINITDONE_REG &expected, co
 bool check_compare(const LSxLOCK_BITS &obj, const LSxLOCK_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LOCK_LS0, expected.LOCK_LS0, name + " " + "0 LS0 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_LS1, expected.LOCK_LS1, name + " " + "1 LS1 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_LS2, expected.LOCK_LS2, name + " " + "2 LS2 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_LS3, expected.LOCK_LS3, name + " " + "3 LS3 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_LS4, expected.LOCK_LS4, name + " " + "4 LS4 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_LS5, expected.LOCK_LS5, name + " " + "5 LS5 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS0, expected.LOCK_LS0,
+                              name + " " + "0 LS0 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS1, expected.LOCK_LS1,
+                              name + " " + "1 LS1 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS2, expected.LOCK_LS2,
+                              name + " " + "2 LS2 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS3, expected.LOCK_LS3,
+                              name + " " + "3 LS3 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS4, expected.LOCK_LS4,
+                              name + " " + "4 LS4 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_LS5, expected.LOCK_LS5,
+                              name + " " + "5 LS5 RAM access protection and master select fields lock bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -14920,12 +16518,18 @@ bool check_compare(const LSxLOCK_REG &obj, const LSxLOCK_REG &expected, const st
 bool check_compare(const LSxCOMMIT_BITS &obj, const LSxCOMMIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.COMMIT_LS0, expected.COMMIT_LS0, name + " " + "0 LS0 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_LS1, expected.COMMIT_LS1, name + " " + "1 LS1 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_LS2, expected.COMMIT_LS2, name + " " + "2 LS2 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_LS3, expected.COMMIT_LS3, name + " " + "3 LS3 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_LS4, expected.COMMIT_LS4, name + " " + "4 LS4 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_LS5, expected.COMMIT_LS5, name + " " + "5 LS5 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS0, expected.COMMIT_LS0,
+                              name + " " + "0 LS0 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS1, expected.COMMIT_LS1,
+                              name + " " + "1 LS1 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS2, expected.COMMIT_LS2,
+                              name + " " + "2 LS2 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS3, expected.COMMIT_LS3,
+                              name + " " + "3 LS3 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS4, expected.COMMIT_LS4,
+                              name + " " + "4 LS4 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_LS5, expected.COMMIT_LS5,
+                              name + " " + "5 LS5 RAM access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -14968,12 +16572,18 @@ bool check_compare(const LSxMSEL_REG &obj, const LSxMSEL_REG &expected, const st
 bool check_compare(const LSxCLAPGM_BITS &obj, const LSxCLAPGM_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CLAPGM_LS0, expected.CLAPGM_LS0, name + " " + "0 Selects LS0 RAM as program vs data memory for CLA");
-    all_zero &= check_compare(obj.CLAPGM_LS1, expected.CLAPGM_LS1, name + " " + "1 Selects LS1 RAM as program vs data memory for CLA");
-    all_zero &= check_compare(obj.CLAPGM_LS2, expected.CLAPGM_LS2, name + " " + "2 Selects LS2 RAM as program vs data memory for CLA");
-    all_zero &= check_compare(obj.CLAPGM_LS3, expected.CLAPGM_LS3, name + " " + "3 Selects LS3 RAM as program vs data memory for CLA");
-    all_zero &= check_compare(obj.CLAPGM_LS4, expected.CLAPGM_LS4, name + " " + "4 Selects LS4 RAM as program vs data memory for CLA");
-    all_zero &= check_compare(obj.CLAPGM_LS5, expected.CLAPGM_LS5, name + " " + "5 Selects LS5 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS0, expected.CLAPGM_LS0,
+                              name + " " + "0 Selects LS0 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS1, expected.CLAPGM_LS1,
+                              name + " " + "1 Selects LS1 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS2, expected.CLAPGM_LS2,
+                              name + " " + "2 Selects LS2 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS3, expected.CLAPGM_LS3,
+                              name + " " + "3 Selects LS3 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS4, expected.CLAPGM_LS4,
+                              name + " " + "4 Selects LS4 RAM as program vs data memory for CLA");
+    all_zero &= check_compare(obj.CLAPGM_LS5, expected.CLAPGM_LS5,
+                              name + " " + "5 Selects LS5 RAM as program vs data memory for CLA");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -14993,16 +16603,22 @@ bool check_compare(const LSxACCPROT0_BITS &obj, const LSxACCPROT0_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.FETCHPROT_LS0, expected.FETCHPROT_LS0, name + " " + "0 Fetch Protection For LS0 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS0, expected.CPUWRPROT_LS0, name + " " + "1 CPU WR Protection For LS0 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS0, expected.CPUWRPROT_LS0,
+                              name + " " + "1 CPU WR Protection For LS0 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:2 Reserved");
     all_zero &= check_compare(obj.FETCHPROT_LS1, expected.FETCHPROT_LS1, name + " " + "8 Fetch Protection For LS1 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS1, expected.CPUWRPROT_LS1, name + " " + "9 CPU WR Protection For LS1 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS1, expected.CPUWRPROT_LS1,
+                              name + " " + "9 CPU WR Protection For LS1 RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:10 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_LS2, expected.FETCHPROT_LS2, name + " " + "16 Fetch Protection For LS2 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS2, expected.CPUWRPROT_LS2, name + " " + "17 CPU WR Protection For LS2 RAM");
+    all_zero &= check_compare(obj.FETCHPROT_LS2, expected.FETCHPROT_LS2,
+                              name + " " + "16 Fetch Protection For LS2 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS2, expected.CPUWRPROT_LS2,
+                              name + " " + "17 CPU WR Protection For LS2 RAM");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:18 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_LS3, expected.FETCHPROT_LS3, name + " " + "24 Fetch Protection For LS3 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS3, expected.CPUWRPROT_LS3, name + " " + "25 CPU WR Protection For LS3 RAM");
+    all_zero &= check_compare(obj.FETCHPROT_LS3, expected.FETCHPROT_LS3,
+                              name + " " + "24 Fetch Protection For LS3 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS3, expected.CPUWRPROT_LS3,
+                              name + " " + "25 CPU WR Protection For LS3 RAM");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:26 Reserved");
 
     return all_zero;
@@ -15021,10 +16637,12 @@ bool check_compare(const LSxACCPROT1_BITS &obj, const LSxACCPROT1_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.FETCHPROT_LS4, expected.FETCHPROT_LS4, name + " " + "0 Fetch Protection For LS4 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS4, expected.CPUWRPROT_LS4, name + " " + "1 CPU WR Protection For LS4 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS4, expected.CPUWRPROT_LS4,
+                              name + " " + "1 CPU WR Protection For LS4 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:2 Reserved");
     all_zero &= check_compare(obj.FETCHPROT_LS5, expected.FETCHPROT_LS5, name + " " + "8 Fetch Protection For LS5 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_LS5, expected.CPUWRPROT_LS5, name + " " + "9 CPU WR Protection For LS5 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_LS5, expected.CPUWRPROT_LS5,
+                              name + " " + "9 CPU WR Protection For LS5 RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:10 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
 
@@ -15043,12 +16661,18 @@ bool check_compare(const LSxACCPROT1_REG &obj, const LSxACCPROT1_REG &expected, 
 bool check_compare(const LSxTEST_BITS &obj, const LSxTEST_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TEST_LS0, expected.TEST_LS0, name + " " + "1:0 Selects the different modes for LS0 RAM");
-    all_zero &= check_compare(obj.TEST_LS1, expected.TEST_LS1, name + " " + "3:2 Selects the different modes for LS1 RAM");
-    all_zero &= check_compare(obj.TEST_LS2, expected.TEST_LS2, name + " " + "5:4 Selects the different modes for LS2 RAM");
-    all_zero &= check_compare(obj.TEST_LS3, expected.TEST_LS3, name + " " + "7:6 Selects the different modes for LS3 RAM");
-    all_zero &= check_compare(obj.TEST_LS4, expected.TEST_LS4, name + " " + "9:8 Selects the different modes for LS4 RAM");
-    all_zero &= check_compare(obj.TEST_LS5, expected.TEST_LS5, name + " " + "11:10 Selects the different modes for LS5 RAM");
+    all_zero &= check_compare(obj.TEST_LS0, expected.TEST_LS0,
+                              name + " " + "1:0 Selects the different modes for LS0 RAM");
+    all_zero &= check_compare(obj.TEST_LS1, expected.TEST_LS1,
+                              name + " " + "3:2 Selects the different modes for LS1 RAM");
+    all_zero &= check_compare(obj.TEST_LS2, expected.TEST_LS2,
+                              name + " " + "5:4 Selects the different modes for LS2 RAM");
+    all_zero &= check_compare(obj.TEST_LS3, expected.TEST_LS3,
+                              name + " " + "7:6 Selects the different modes for LS3 RAM");
+    all_zero &= check_compare(obj.TEST_LS4, expected.TEST_LS4,
+                              name + " " + "9:8 Selects the different modes for LS4 RAM");
+    all_zero &= check_compare(obj.TEST_LS5, expected.TEST_LS5,
+                              name + " " + "11:10 Selects the different modes for LS5 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:12 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15067,12 +16691,18 @@ bool check_compare(const LSxTEST_REG &obj, const LSxTEST_REG &expected, const st
 bool check_compare(const LSxINIT_BITS &obj, const LSxINIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INIT_LS0, expected.INIT_LS0, name + " " + "0 RAM Initialization control for LS0 RAM.");
-    all_zero &= check_compare(obj.INIT_LS1, expected.INIT_LS1, name + " " + "1 RAM Initialization control for LS1 RAM.");
-    all_zero &= check_compare(obj.INIT_LS2, expected.INIT_LS2, name + " " + "2 RAM Initialization control for LS2 RAM.");
-    all_zero &= check_compare(obj.INIT_LS3, expected.INIT_LS3, name + " " + "3 RAM Initialization control for LS3 RAM.");
-    all_zero &= check_compare(obj.INIT_LS4, expected.INIT_LS4, name + " " + "4 RAM Initialization control for LS4 RAM.");
-    all_zero &= check_compare(obj.INIT_LS5, expected.INIT_LS5, name + " " + "5 RAM Initialization control for LS5 RAM.");
+    all_zero &= check_compare(obj.INIT_LS0, expected.INIT_LS0,
+                              name + " " + "0 RAM Initialization control for LS0 RAM.");
+    all_zero &= check_compare(obj.INIT_LS1, expected.INIT_LS1,
+                              name + " " + "1 RAM Initialization control for LS1 RAM.");
+    all_zero &= check_compare(obj.INIT_LS2, expected.INIT_LS2,
+                              name + " " + "2 RAM Initialization control for LS2 RAM.");
+    all_zero &= check_compare(obj.INIT_LS3, expected.INIT_LS3,
+                              name + " " + "3 RAM Initialization control for LS3 RAM.");
+    all_zero &= check_compare(obj.INIT_LS4, expected.INIT_LS4,
+                              name + " " + "4 RAM Initialization control for LS4 RAM.");
+    all_zero &= check_compare(obj.INIT_LS5, expected.INIT_LS5,
+                              name + " " + "5 RAM Initialization control for LS5 RAM.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15091,12 +16721,18 @@ bool check_compare(const LSxINIT_REG &obj, const LSxINIT_REG &expected, const st
 bool check_compare(const LSxINITDONE_BITS &obj, const LSxINITDONE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INITDONE_LS0, expected.INITDONE_LS0, name + " " + "0 RAM Initialization status for LS0 RAM.");
-    all_zero &= check_compare(obj.INITDONE_LS1, expected.INITDONE_LS1, name + " " + "1 RAM Initialization status for LS1 RAM.");
-    all_zero &= check_compare(obj.INITDONE_LS2, expected.INITDONE_LS2, name + " " + "2 RAM Initialization status for LS2 RAM.");
-    all_zero &= check_compare(obj.INITDONE_LS3, expected.INITDONE_LS3, name + " " + "3 RAM Initialization status for LS3 RAM.");
-    all_zero &= check_compare(obj.INITDONE_LS4, expected.INITDONE_LS4, name + " " + "4 RAM Initialization status for LS4 RAM.");
-    all_zero &= check_compare(obj.INITDONE_LS5, expected.INITDONE_LS5, name + " " + "5 RAM Initialization status for LS5 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS0, expected.INITDONE_LS0,
+                              name + " " + "0 RAM Initialization status for LS0 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS1, expected.INITDONE_LS1,
+                              name + " " + "1 RAM Initialization status for LS1 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS2, expected.INITDONE_LS2,
+                              name + " " + "2 RAM Initialization status for LS2 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS3, expected.INITDONE_LS3,
+                              name + " " + "3 RAM Initialization status for LS3 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS4, expected.INITDONE_LS4,
+                              name + " " + "4 RAM Initialization status for LS4 RAM.");
+    all_zero &= check_compare(obj.INITDONE_LS5, expected.INITDONE_LS5,
+                              name + " " + "5 RAM Initialization status for LS5 RAM.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15115,22 +16751,38 @@ bool check_compare(const LSxINITDONE_REG &obj, const LSxINITDONE_REG &expected, 
 bool check_compare(const GSxLOCK_BITS &obj, const GSxLOCK_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LOCK_GS0, expected.LOCK_GS0, name + " " + "0 GS0 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS1, expected.LOCK_GS1, name + " " + "1 GS1 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS2, expected.LOCK_GS2, name + " " + "2 GS2 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS3, expected.LOCK_GS3, name + " " + "3 GS3 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS4, expected.LOCK_GS4, name + " " + "4 GS4 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS5, expected.LOCK_GS5, name + " " + "5 GS5 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS6, expected.LOCK_GS6, name + " " + "6 GS6 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS7, expected.LOCK_GS7, name + " " + "7 GS7 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS8, expected.LOCK_GS8, name + " " + "8 GS8 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS9, expected.LOCK_GS9, name + " " + "9 GS9 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS10, expected.LOCK_GS10, name + " " + "10 GS10 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS11, expected.LOCK_GS11, name + " " + "11 GS11 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS12, expected.LOCK_GS12, name + " " + "12 GS12 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS13, expected.LOCK_GS13, name + " " + "13 GS13 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS14, expected.LOCK_GS14, name + " " + "14 GS14 RAM access protection and master select fields lock bit");
-    all_zero &= check_compare(obj.LOCK_GS15, expected.LOCK_GS15, name + " " + "15 GS15 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS0, expected.LOCK_GS0,
+                              name + " " + "0 GS0 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS1, expected.LOCK_GS1,
+                              name + " " + "1 GS1 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS2, expected.LOCK_GS2,
+                              name + " " + "2 GS2 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS3, expected.LOCK_GS3,
+                              name + " " + "3 GS3 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS4, expected.LOCK_GS4,
+                              name + " " + "4 GS4 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS5, expected.LOCK_GS5,
+                              name + " " + "5 GS5 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS6, expected.LOCK_GS6,
+                              name + " " + "6 GS6 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS7, expected.LOCK_GS7,
+                              name + " " + "7 GS7 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS8, expected.LOCK_GS8,
+                              name + " " + "8 GS8 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS9, expected.LOCK_GS9,
+                              name + " " + "9 GS9 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS10, expected.LOCK_GS10,
+                              name + " " + "10 GS10 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS11, expected.LOCK_GS11,
+                              name + " " + "11 GS11 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS12, expected.LOCK_GS12,
+                              name + " " + "12 GS12 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS13, expected.LOCK_GS13,
+                              name + " " + "13 GS13 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS14, expected.LOCK_GS14,
+                              name + " " + "14 GS14 RAM access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_GS15, expected.LOCK_GS15,
+                              name + " " + "15 GS15 RAM access protection and master select fields lock bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -15148,22 +16800,38 @@ bool check_compare(const GSxLOCK_REG &obj, const GSxLOCK_REG &expected, const st
 bool check_compare(const GSxCOMMIT_BITS &obj, const GSxCOMMIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.COMMIT_GS0, expected.COMMIT_GS0, name + " " + "0 GS0 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS1, expected.COMMIT_GS1, name + " " + "1 GS1 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS2, expected.COMMIT_GS2, name + " " + "2 GS2 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS3, expected.COMMIT_GS3, name + " " + "3 GS3 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS4, expected.COMMIT_GS4, name + " " + "4 GS4 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS5, expected.COMMIT_GS5, name + " " + "5 GS5 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS6, expected.COMMIT_GS6, name + " " + "6 GS6 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS7, expected.COMMIT_GS7, name + " " + "7 GS7 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS8, expected.COMMIT_GS8, name + " " + "8 GS8 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS9, expected.COMMIT_GS9, name + " " + "9 GS9 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS10, expected.COMMIT_GS10, name + " " + "10 GS10 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS11, expected.COMMIT_GS11, name + " " + "11 GS11 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS12, expected.COMMIT_GS12, name + " " + "12 GS12 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS13, expected.COMMIT_GS13, name + " " + "13 GS13 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS14, expected.COMMIT_GS14, name + " " + "14 GS14 RAM access protection and master select permanent lock");
-    all_zero &= check_compare(obj.COMMIT_GS15, expected.COMMIT_GS15, name + " " + "15 GS15 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS0, expected.COMMIT_GS0,
+                              name + " " + "0 GS0 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS1, expected.COMMIT_GS1,
+                              name + " " + "1 GS1 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS2, expected.COMMIT_GS2,
+                              name + " " + "2 GS2 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS3, expected.COMMIT_GS3,
+                              name + " " + "3 GS3 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS4, expected.COMMIT_GS4,
+                              name + " " + "4 GS4 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS5, expected.COMMIT_GS5,
+                              name + " " + "5 GS5 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS6, expected.COMMIT_GS6,
+                              name + " " + "6 GS6 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS7, expected.COMMIT_GS7,
+                              name + " " + "7 GS7 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS8, expected.COMMIT_GS8,
+                              name + " " + "8 GS8 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS9, expected.COMMIT_GS9,
+                              name + " " + "9 GS9 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS10, expected.COMMIT_GS10,
+                              name + " " + "10 GS10 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS11, expected.COMMIT_GS11,
+                              name + " " + "11 GS11 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS12, expected.COMMIT_GS12,
+                              name + " " + "12 GS12 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS13, expected.COMMIT_GS13,
+                              name + " " + "13 GS13 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS14, expected.COMMIT_GS14,
+                              name + " " + "14 GS14 RAM access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_GS15, expected.COMMIT_GS15,
+                              name + " " + "15 GS15 RAM access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -15215,20 +16883,30 @@ bool check_compare(const GSxACCPROT0_BITS &obj, const GSxACCPROT0_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.FETCHPROT_GS0, expected.FETCHPROT_GS0, name + " " + "0 Fetch Protection For GS0 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS0, expected.CPUWRPROT_GS0, name + " " + "1 CPU WR Protection For GS0 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS0, expected.DMAWRPROT_GS0, name + " " + "2 DMA WR Protection For GS0 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS0, expected.CPUWRPROT_GS0,
+                              name + " " + "1 CPU WR Protection For GS0 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS0, expected.DMAWRPROT_GS0,
+                              name + " " + "2 DMA WR Protection For GS0 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:3 Reserved");
     all_zero &= check_compare(obj.FETCHPROT_GS1, expected.FETCHPROT_GS1, name + " " + "8 Fetch Protection For GS1 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS1, expected.CPUWRPROT_GS1, name + " " + "9 CPU WR Protection For GS1 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS1, expected.DMAWRPROT_GS1, name + " " + "10 DMA WR Protection For GS1 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS1, expected.CPUWRPROT_GS1,
+                              name + " " + "9 CPU WR Protection For GS1 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS1, expected.DMAWRPROT_GS1,
+                              name + " " + "10 DMA WR Protection For GS1 RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:11 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS2, expected.FETCHPROT_GS2, name + " " + "16 Fetch Protection For GS2 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS2, expected.CPUWRPROT_GS2, name + " " + "17 CPU WR Protection For GS2 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS2, expected.DMAWRPROT_GS2, name + " " + "18 DMA WR Protection For GS2 RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS2, expected.FETCHPROT_GS2,
+                              name + " " + "16 Fetch Protection For GS2 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS2, expected.CPUWRPROT_GS2,
+                              name + " " + "17 CPU WR Protection For GS2 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS2, expected.DMAWRPROT_GS2,
+                              name + " " + "18 DMA WR Protection For GS2 RAM");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:19 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS3, expected.FETCHPROT_GS3, name + " " + "24 Fetch Protection For GS3 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS3, expected.CPUWRPROT_GS3, name + " " + "25 CPU WR Protection For GS3 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS3, expected.DMAWRPROT_GS3, name + " " + "26 DMA WR Protection For GS3 RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS3, expected.FETCHPROT_GS3,
+                              name + " " + "24 Fetch Protection For GS3 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS3, expected.CPUWRPROT_GS3,
+                              name + " " + "25 CPU WR Protection For GS3 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS3, expected.DMAWRPROT_GS3,
+                              name + " " + "26 DMA WR Protection For GS3 RAM");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:27 Reserved");
 
     return all_zero;
@@ -15247,20 +16925,30 @@ bool check_compare(const GSxACCPROT1_BITS &obj, const GSxACCPROT1_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.FETCHPROT_GS4, expected.FETCHPROT_GS4, name + " " + "0 Fetch Protection For GS4 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS4, expected.CPUWRPROT_GS4, name + " " + "1 CPU WR Protection For GS4 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS4, expected.DMAWRPROT_GS4, name + " " + "2 DMA WR Protection For GS4 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS4, expected.CPUWRPROT_GS4,
+                              name + " " + "1 CPU WR Protection For GS4 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS4, expected.DMAWRPROT_GS4,
+                              name + " " + "2 DMA WR Protection For GS4 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:3 Reserved");
     all_zero &= check_compare(obj.FETCHPROT_GS5, expected.FETCHPROT_GS5, name + " " + "8 Fetch Protection For GS5 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS5, expected.CPUWRPROT_GS5, name + " " + "9 CPU WR Protection For GS5 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS5, expected.DMAWRPROT_GS5, name + " " + "10 DMA WR Protection For GS5RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS5, expected.CPUWRPROT_GS5,
+                              name + " " + "9 CPU WR Protection For GS5 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS5, expected.DMAWRPROT_GS5,
+                              name + " " + "10 DMA WR Protection For GS5RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:11 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS6, expected.FETCHPROT_GS6, name + " " + "16 Fetch Protection For GS6 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS6, expected.CPUWRPROT_GS6, name + " " + "17 CPU WR Protection For GS6 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS6, expected.DMAWRPROT_GS6, name + " " + "18 DMA WR Protection For GS6RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS6, expected.FETCHPROT_GS6,
+                              name + " " + "16 Fetch Protection For GS6 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS6, expected.CPUWRPROT_GS6,
+                              name + " " + "17 CPU WR Protection For GS6 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS6, expected.DMAWRPROT_GS6,
+                              name + " " + "18 DMA WR Protection For GS6RAM");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:19 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS7, expected.FETCHPROT_GS7, name + " " + "24 Fetch Protection For GS7 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS7, expected.CPUWRPROT_GS7, name + " " + "25 CPU WR Protection For GS7 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS7, expected.DMAWRPROT_GS7, name + " " + "26 DMA WR Protection For GS7RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS7, expected.FETCHPROT_GS7,
+                              name + " " + "24 Fetch Protection For GS7 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS7, expected.CPUWRPROT_GS7,
+                              name + " " + "25 CPU WR Protection For GS7 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS7, expected.DMAWRPROT_GS7,
+                              name + " " + "26 DMA WR Protection For GS7RAM");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:27 Reserved");
 
     return all_zero;
@@ -15279,20 +16967,30 @@ bool check_compare(const GSxACCPROT2_BITS &obj, const GSxACCPROT2_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.FETCHPROT_GS8, expected.FETCHPROT_GS8, name + " " + "0 Fetch Protection For GS8 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS8, expected.CPUWRPROT_GS8, name + " " + "1 CPU WR Protection For GS8 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS8, expected.DMAWRPROT_GS8, name + " " + "2 DMA WR Protection For GS8 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS8, expected.CPUWRPROT_GS8,
+                              name + " " + "1 CPU WR Protection For GS8 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS8, expected.DMAWRPROT_GS8,
+                              name + " " + "2 DMA WR Protection For GS8 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:3 Reserved");
     all_zero &= check_compare(obj.FETCHPROT_GS9, expected.FETCHPROT_GS9, name + " " + "8 Fetch Protection For GS9 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS9, expected.CPUWRPROT_GS9, name + " " + "9 CPU WR Protection For GS9 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS9, expected.DMAWRPROT_GS9, name + " " + "10 DMA WR Protection For GS9RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS9, expected.CPUWRPROT_GS9,
+                              name + " " + "9 CPU WR Protection For GS9 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS9, expected.DMAWRPROT_GS9,
+                              name + " " + "10 DMA WR Protection For GS9RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:11 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS10, expected.FETCHPROT_GS10, name + " " + "16 Fetch Protection For GS10 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS10, expected.CPUWRPROT_GS10, name + " " + "17 CPU WR Protection For GS10 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS10, expected.DMAWRPROT_GS10, name + " " + "18 DMA WR Protection For GS10RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS10, expected.FETCHPROT_GS10,
+                              name + " " + "16 Fetch Protection For GS10 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS10, expected.CPUWRPROT_GS10,
+                              name + " " + "17 CPU WR Protection For GS10 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS10, expected.DMAWRPROT_GS10,
+                              name + " " + "18 DMA WR Protection For GS10RAM");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:19 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS11, expected.FETCHPROT_GS11, name + " " + "24 Fetch Protection For GS11 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS11, expected.CPUWRPROT_GS11, name + " " + "25 CPU WR Protection For GS11 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS11, expected.DMAWRPROT_GS11, name + " " + "26 DMA WR Protection For GS11RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS11, expected.FETCHPROT_GS11,
+                              name + " " + "24 Fetch Protection For GS11 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS11, expected.CPUWRPROT_GS11,
+                              name + " " + "25 CPU WR Protection For GS11 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS11, expected.DMAWRPROT_GS11,
+                              name + " " + "26 DMA WR Protection For GS11RAM");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:27 Reserved");
 
     return all_zero;
@@ -15310,21 +17008,33 @@ bool check_compare(const GSxACCPROT2_REG &obj, const GSxACCPROT2_REG &expected, 
 bool check_compare(const GSxACCPROT3_BITS &obj, const GSxACCPROT3_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.FETCHPROT_GS12, expected.FETCHPROT_GS12, name + " " + "0 Fetch Protection For GS12 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS12, expected.CPUWRPROT_GS12, name + " " + "1 CPU WR Protection For GS12 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS12, expected.DMAWRPROT_GS12, name + " " + "2 DMA WR Protection For GS12 RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS12, expected.FETCHPROT_GS12,
+                              name + " " + "0 Fetch Protection For GS12 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS12, expected.CPUWRPROT_GS12,
+                              name + " " + "1 CPU WR Protection For GS12 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS12, expected.DMAWRPROT_GS12,
+                              name + " " + "2 DMA WR Protection For GS12 RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:3 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS13, expected.FETCHPROT_GS13, name + " " + "8 Fetch Protection For GS13 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS13, expected.CPUWRPROT_GS13, name + " " + "9 CPU WR Protection For GS13 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS13, expected.DMAWRPROT_GS13, name + " " + "10 DMA WR Protection For GS13RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS13, expected.FETCHPROT_GS13,
+                              name + " " + "8 Fetch Protection For GS13 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS13, expected.CPUWRPROT_GS13,
+                              name + " " + "9 CPU WR Protection For GS13 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS13, expected.DMAWRPROT_GS13,
+                              name + " " + "10 DMA WR Protection For GS13RAM");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:11 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS14, expected.FETCHPROT_GS14, name + " " + "16 Fetch Protection For GS14 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS14, expected.CPUWRPROT_GS14, name + " " + "17 CPU WR Protection For GS14 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS14, expected.DMAWRPROT_GS14, name + " " + "18 DMA WR Protection For GS14RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS14, expected.FETCHPROT_GS14,
+                              name + " " + "16 Fetch Protection For GS14 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS14, expected.CPUWRPROT_GS14,
+                              name + " " + "17 CPU WR Protection For GS14 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS14, expected.DMAWRPROT_GS14,
+                              name + " " + "18 DMA WR Protection For GS14RAM");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "23:19 Reserved");
-    all_zero &= check_compare(obj.FETCHPROT_GS15, expected.FETCHPROT_GS15, name + " " + "24 Fetch Protection For GS15 RAM");
-    all_zero &= check_compare(obj.CPUWRPROT_GS15, expected.CPUWRPROT_GS15, name + " " + "25 CPU WR Protection For GS15 RAM");
-    all_zero &= check_compare(obj.DMAWRPROT_GS15, expected.DMAWRPROT_GS15, name + " " + "26 DMA WR Protection For GS15RAM");
+    all_zero &= check_compare(obj.FETCHPROT_GS15, expected.FETCHPROT_GS15,
+                              name + " " + "24 Fetch Protection For GS15 RAM");
+    all_zero &= check_compare(obj.CPUWRPROT_GS15, expected.CPUWRPROT_GS15,
+                              name + " " + "25 CPU WR Protection For GS15 RAM");
+    all_zero &= check_compare(obj.DMAWRPROT_GS15, expected.DMAWRPROT_GS15,
+                              name + " " + "26 DMA WR Protection For GS15RAM");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:27 Reserved");
 
     return all_zero;
@@ -15342,22 +17052,38 @@ bool check_compare(const GSxACCPROT3_REG &obj, const GSxACCPROT3_REG &expected, 
 bool check_compare(const GSxTEST_BITS &obj, const GSxTEST_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TEST_GS0, expected.TEST_GS0, name + " " + "1:0 Selects the different modes for GS0 RAM");
-    all_zero &= check_compare(obj.TEST_GS1, expected.TEST_GS1, name + " " + "3:2 Selects the different modes for GS1 RAM");
-    all_zero &= check_compare(obj.TEST_GS2, expected.TEST_GS2, name + " " + "5:4 Selects the different modes for GS2 RAM");
-    all_zero &= check_compare(obj.TEST_GS3, expected.TEST_GS3, name + " " + "7:6 Selects the different modes for GS3 RAM");
-    all_zero &= check_compare(obj.TEST_GS4, expected.TEST_GS4, name + " " + "9:8 Selects the different modes for GS4 RAM");
-    all_zero &= check_compare(obj.TEST_GS5, expected.TEST_GS5, name + " " + "11:10 Selects the different modes for GS5 RAM");
-    all_zero &= check_compare(obj.TEST_GS6, expected.TEST_GS6, name + " " + "13:12 Selects the different modes for GS6 RAM");
-    all_zero &= check_compare(obj.TEST_GS7, expected.TEST_GS7, name + " " + "15:14 Selects the different modes for GS7 RAM");
-    all_zero &= check_compare(obj.TEST_GS8, expected.TEST_GS8, name + " " + "17:16 Selects the different modes for GS8 RAM");
-    all_zero &= check_compare(obj.TEST_GS9, expected.TEST_GS9, name + " " + "19:18 Selects the different modes for GS9 RAM");
-    all_zero &= check_compare(obj.TEST_GS10, expected.TEST_GS10, name + " " + "21:20 Selects the different modes for GS10 RAM");
-    all_zero &= check_compare(obj.TEST_GS11, expected.TEST_GS11, name + " " + "23:22 Selects the different modes for GS11 RAM");
-    all_zero &= check_compare(obj.TEST_GS12, expected.TEST_GS12, name + " " + "25:24 Selects the different modes for GS12 RAM");
-    all_zero &= check_compare(obj.TEST_GS13, expected.TEST_GS13, name + " " + "27:26 Selects the different modes for GS13 RAM");
-    all_zero &= check_compare(obj.TEST_GS14, expected.TEST_GS14, name + " " + "29:28 Selects the different modes for GS14 RAM");
-    all_zero &= check_compare(obj.TEST_GS15, expected.TEST_GS15, name + " " + "31:30 Selects the different modes for GS15 RAM");
+    all_zero &= check_compare(obj.TEST_GS0, expected.TEST_GS0,
+                              name + " " + "1:0 Selects the different modes for GS0 RAM");
+    all_zero &= check_compare(obj.TEST_GS1, expected.TEST_GS1,
+                              name + " " + "3:2 Selects the different modes for GS1 RAM");
+    all_zero &= check_compare(obj.TEST_GS2, expected.TEST_GS2,
+                              name + " " + "5:4 Selects the different modes for GS2 RAM");
+    all_zero &= check_compare(obj.TEST_GS3, expected.TEST_GS3,
+                              name + " " + "7:6 Selects the different modes for GS3 RAM");
+    all_zero &= check_compare(obj.TEST_GS4, expected.TEST_GS4,
+                              name + " " + "9:8 Selects the different modes for GS4 RAM");
+    all_zero &= check_compare(obj.TEST_GS5, expected.TEST_GS5,
+                              name + " " + "11:10 Selects the different modes for GS5 RAM");
+    all_zero &= check_compare(obj.TEST_GS6, expected.TEST_GS6,
+                              name + " " + "13:12 Selects the different modes for GS6 RAM");
+    all_zero &= check_compare(obj.TEST_GS7, expected.TEST_GS7,
+                              name + " " + "15:14 Selects the different modes for GS7 RAM");
+    all_zero &= check_compare(obj.TEST_GS8, expected.TEST_GS8,
+                              name + " " + "17:16 Selects the different modes for GS8 RAM");
+    all_zero &= check_compare(obj.TEST_GS9, expected.TEST_GS9,
+                              name + " " + "19:18 Selects the different modes for GS9 RAM");
+    all_zero &= check_compare(obj.TEST_GS10, expected.TEST_GS10,
+                              name + " " + "21:20 Selects the different modes for GS10 RAM");
+    all_zero &= check_compare(obj.TEST_GS11, expected.TEST_GS11,
+                              name + " " + "23:22 Selects the different modes for GS11 RAM");
+    all_zero &= check_compare(obj.TEST_GS12, expected.TEST_GS12,
+                              name + " " + "25:24 Selects the different modes for GS12 RAM");
+    all_zero &= check_compare(obj.TEST_GS13, expected.TEST_GS13,
+                              name + " " + "27:26 Selects the different modes for GS13 RAM");
+    all_zero &= check_compare(obj.TEST_GS14, expected.TEST_GS14,
+                              name + " " + "29:28 Selects the different modes for GS14 RAM");
+    all_zero &= check_compare(obj.TEST_GS15, expected.TEST_GS15,
+                              name + " " + "31:30 Selects the different modes for GS15 RAM");
 
     return all_zero;
 }
@@ -15374,22 +17100,38 @@ bool check_compare(const GSxTEST_REG &obj, const GSxTEST_REG &expected, const st
 bool check_compare(const GSxINIT_BITS &obj, const GSxINIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INIT_GS0, expected.INIT_GS0, name + " " + "0 RAM Initialization control for GS0 RAM.");
-    all_zero &= check_compare(obj.INIT_GS1, expected.INIT_GS1, name + " " + "1 RAM Initialization control for GS1 RAM.");
-    all_zero &= check_compare(obj.INIT_GS2, expected.INIT_GS2, name + " " + "2 RAM Initialization control for GS2 RAM.");
-    all_zero &= check_compare(obj.INIT_GS3, expected.INIT_GS3, name + " " + "3 RAM Initialization control for GS3 RAM.");
-    all_zero &= check_compare(obj.INIT_GS4, expected.INIT_GS4, name + " " + "4 RAM Initialization control for GS4 RAM.");
-    all_zero &= check_compare(obj.INIT_GS5, expected.INIT_GS5, name + " " + "5 RAM Initialization control for GS5 RAM.");
-    all_zero &= check_compare(obj.INIT_GS6, expected.INIT_GS6, name + " " + "6 RAM Initialization control for GS6 RAM.");
-    all_zero &= check_compare(obj.INIT_GS7, expected.INIT_GS7, name + " " + "7 RAM Initialization control for GS7 RAM.");
-    all_zero &= check_compare(obj.INIT_GS8, expected.INIT_GS8, name + " " + "8 RAM Initialization control for GS8 RAM.");
-    all_zero &= check_compare(obj.INIT_GS9, expected.INIT_GS9, name + " " + "9 RAM Initialization control for GS9 RAM.");
-    all_zero &= check_compare(obj.INIT_GS10, expected.INIT_GS10, name + " " + "10 RAM Initialization control for GS10 RAM.");
-    all_zero &= check_compare(obj.INIT_GS11, expected.INIT_GS11, name + " " + "11 RAM Initialization control for GS11 RAM.");
-    all_zero &= check_compare(obj.INIT_GS12, expected.INIT_GS12, name + " " + "12 RAM Initialization control for GS12 RAM.");
-    all_zero &= check_compare(obj.INIT_GS13, expected.INIT_GS13, name + " " + "13 RAM Initialization control for GS13 RAM.");
-    all_zero &= check_compare(obj.INIT_GS14, expected.INIT_GS14, name + " " + "14 RAM Initialization control for GS14 RAM.");
-    all_zero &= check_compare(obj.INIT_GS15, expected.INIT_GS15, name + " " + "15 RAM Initialization control for GS15 RAM.");
+    all_zero &= check_compare(obj.INIT_GS0, expected.INIT_GS0,
+                              name + " " + "0 RAM Initialization control for GS0 RAM.");
+    all_zero &= check_compare(obj.INIT_GS1, expected.INIT_GS1,
+                              name + " " + "1 RAM Initialization control for GS1 RAM.");
+    all_zero &= check_compare(obj.INIT_GS2, expected.INIT_GS2,
+                              name + " " + "2 RAM Initialization control for GS2 RAM.");
+    all_zero &= check_compare(obj.INIT_GS3, expected.INIT_GS3,
+                              name + " " + "3 RAM Initialization control for GS3 RAM.");
+    all_zero &= check_compare(obj.INIT_GS4, expected.INIT_GS4,
+                              name + " " + "4 RAM Initialization control for GS4 RAM.");
+    all_zero &= check_compare(obj.INIT_GS5, expected.INIT_GS5,
+                              name + " " + "5 RAM Initialization control for GS5 RAM.");
+    all_zero &= check_compare(obj.INIT_GS6, expected.INIT_GS6,
+                              name + " " + "6 RAM Initialization control for GS6 RAM.");
+    all_zero &= check_compare(obj.INIT_GS7, expected.INIT_GS7,
+                              name + " " + "7 RAM Initialization control for GS7 RAM.");
+    all_zero &= check_compare(obj.INIT_GS8, expected.INIT_GS8,
+                              name + " " + "8 RAM Initialization control for GS8 RAM.");
+    all_zero &= check_compare(obj.INIT_GS9, expected.INIT_GS9,
+                              name + " " + "9 RAM Initialization control for GS9 RAM.");
+    all_zero &= check_compare(obj.INIT_GS10, expected.INIT_GS10,
+                              name + " " + "10 RAM Initialization control for GS10 RAM.");
+    all_zero &= check_compare(obj.INIT_GS11, expected.INIT_GS11,
+                              name + " " + "11 RAM Initialization control for GS11 RAM.");
+    all_zero &= check_compare(obj.INIT_GS12, expected.INIT_GS12,
+                              name + " " + "12 RAM Initialization control for GS12 RAM.");
+    all_zero &= check_compare(obj.INIT_GS13, expected.INIT_GS13,
+                              name + " " + "13 RAM Initialization control for GS13 RAM.");
+    all_zero &= check_compare(obj.INIT_GS14, expected.INIT_GS14,
+                              name + " " + "14 RAM Initialization control for GS14 RAM.");
+    all_zero &= check_compare(obj.INIT_GS15, expected.INIT_GS15,
+                              name + " " + "15 RAM Initialization control for GS15 RAM.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -15407,22 +17149,38 @@ bool check_compare(const GSxINIT_REG &obj, const GSxINIT_REG &expected, const st
 bool check_compare(const GSxINITDONE_BITS &obj, const GSxINITDONE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INITDONE_GS0, expected.INITDONE_GS0, name + " " + "0 RAM Initialization status for GS0 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS1, expected.INITDONE_GS1, name + " " + "1 RAM Initialization status for GS1 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS2, expected.INITDONE_GS2, name + " " + "2 RAM Initialization status for GS2 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS3, expected.INITDONE_GS3, name + " " + "3 RAM Initialization status for GS3 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS4, expected.INITDONE_GS4, name + " " + "4 RAM Initialization status for GS4 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS5, expected.INITDONE_GS5, name + " " + "5 RAM Initialization status for GS5 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS6, expected.INITDONE_GS6, name + " " + "6 RAM Initialization status for GS6 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS7, expected.INITDONE_GS7, name + " " + "7 RAM Initialization status for GS7 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS8, expected.INITDONE_GS8, name + " " + "8 RAM Initialization status for GS8 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS9, expected.INITDONE_GS9, name + " " + "9 RAM Initialization status for GS9 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS10, expected.INITDONE_GS10, name + " " + "10 RAM Initialization status for GS10 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS11, expected.INITDONE_GS11, name + " " + "11 RAM Initialization status for GS11 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS12, expected.INITDONE_GS12, name + " " + "12 RAM Initialization status for GS12 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS13, expected.INITDONE_GS13, name + " " + "13 RAM Initialization status for GS13 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS14, expected.INITDONE_GS14, name + " " + "14 RAM Initialization status for GS14 RAM.");
-    all_zero &= check_compare(obj.INITDONE_GS15, expected.INITDONE_GS15, name + " " + "15 RAM Initialization status for GS15 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS0, expected.INITDONE_GS0,
+                              name + " " + "0 RAM Initialization status for GS0 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS1, expected.INITDONE_GS1,
+                              name + " " + "1 RAM Initialization status for GS1 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS2, expected.INITDONE_GS2,
+                              name + " " + "2 RAM Initialization status for GS2 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS3, expected.INITDONE_GS3,
+                              name + " " + "3 RAM Initialization status for GS3 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS4, expected.INITDONE_GS4,
+                              name + " " + "4 RAM Initialization status for GS4 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS5, expected.INITDONE_GS5,
+                              name + " " + "5 RAM Initialization status for GS5 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS6, expected.INITDONE_GS6,
+                              name + " " + "6 RAM Initialization status for GS6 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS7, expected.INITDONE_GS7,
+                              name + " " + "7 RAM Initialization status for GS7 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS8, expected.INITDONE_GS8,
+                              name + " " + "8 RAM Initialization status for GS8 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS9, expected.INITDONE_GS9,
+                              name + " " + "9 RAM Initialization status for GS9 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS10, expected.INITDONE_GS10,
+                              name + " " + "10 RAM Initialization status for GS10 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS11, expected.INITDONE_GS11,
+                              name + " " + "11 RAM Initialization status for GS11 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS12, expected.INITDONE_GS12,
+                              name + " " + "12 RAM Initialization status for GS12 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS13, expected.INITDONE_GS13,
+                              name + " " + "13 RAM Initialization status for GS13 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS14, expected.INITDONE_GS14,
+                              name + " " + "14 RAM Initialization status for GS14 RAM.");
+    all_zero &= check_compare(obj.INITDONE_GS15, expected.INITDONE_GS15,
+                              name + " " + "15 RAM Initialization status for GS15 RAM.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -15441,8 +17199,10 @@ bool check_compare(const MSGxTEST_BITS &obj, const MSGxTEST_BITS &expected, cons
     bool all_zero = true;
 
     all_zero &= check_compare(obj.TEST_CPUTOCPU, expected.TEST_CPUTOCPU, name + " " + "1:0 CPU to CPU Mode Select");
-    all_zero &= check_compare(obj.TEST_CPUTOCLA1, expected.TEST_CPUTOCLA1, name + " " + "3:2 CPU to CLA1 MSG RAM Mode Select");
-    all_zero &= check_compare(obj.TEST_CLA1TOCPU, expected.TEST_CLA1TOCPU, name + " " + "5:4 CLA1 to CPU MSG RAM Mode Select");
+    all_zero &= check_compare(obj.TEST_CPUTOCLA1, expected.TEST_CPUTOCLA1,
+                              name + " " + "3:2 CPU to CLA1 MSG RAM Mode Select");
+    all_zero &= check_compare(obj.TEST_CLA1TOCPU, expected.TEST_CLA1TOCPU,
+                              name + " " + "5:4 CLA1 to CPU MSG RAM Mode Select");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "9:8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:10 Reserved");
@@ -15463,9 +17223,12 @@ bool check_compare(const MSGxTEST_REG &obj, const MSGxTEST_REG &expected, const 
 bool check_compare(const MSGxINIT_BITS &obj, const MSGxINIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INIT_CPUTOCPU, expected.INIT_CPUTOCPU, name + " " + "0 Initialization control for CPU to CPU MSG RAM");
-    all_zero &= check_compare(obj.INIT_CPUTOCLA1, expected.INIT_CPUTOCLA1, name + " " + "1 Initialization control for CPUTOCLA1 MSG RAM");
-    all_zero &= check_compare(obj.INIT_CLA1TOCPU, expected.INIT_CLA1TOCPU, name + " " + "2 Initialization control for CLA1TOCPU MSG RAM");
+    all_zero &= check_compare(obj.INIT_CPUTOCPU, expected.INIT_CPUTOCPU,
+                              name + " " + "0 Initialization control for CPU to CPU MSG RAM");
+    all_zero &= check_compare(obj.INIT_CPUTOCLA1, expected.INIT_CPUTOCLA1,
+                              name + " " + "1 Initialization control for CPUTOCLA1 MSG RAM");
+    all_zero &= check_compare(obj.INIT_CLA1TOCPU, expected.INIT_CLA1TOCPU,
+                              name + " " + "2 Initialization control for CLA1TOCPU MSG RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:5 Reserved");
@@ -15486,9 +17249,12 @@ bool check_compare(const MSGxINIT_REG &obj, const MSGxINIT_REG &expected, const 
 bool check_compare(const MSGxINITDONE_BITS &obj, const MSGxINITDONE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.INITDONE_CPUTOCPU, expected.INITDONE_CPUTOCPU, name + " " + "0 Initialization status for CPU to CPU MSG RAM");
-    all_zero &= check_compare(obj.INITDONE_CPUTOCLA1, expected.INITDONE_CPUTOCLA1, name + " " + "1 Initialization status for CPU to CLA1 MSG RAM");
-    all_zero &= check_compare(obj.INITDONE_CLA1TOCPU, expected.INITDONE_CLA1TOCPU, name + " " + "2 Initialization status for CLA1 to CPU MSG RAM");
+    all_zero &= check_compare(obj.INITDONE_CPUTOCPU, expected.INITDONE_CPUTOCPU,
+                              name + " " + "0 Initialization status for CPU to CPU MSG RAM");
+    all_zero &= check_compare(obj.INITDONE_CPUTOCLA1, expected.INITDONE_CPUTOCLA1,
+                              name + " " + "1 Initialization status for CPU to CLA1 MSG RAM");
+    all_zero &= check_compare(obj.INITDONE_CLA1TOCPU, expected.INITDONE_CLA1TOCPU,
+                              name + " " + "2 Initialization status for CLA1 to CPU MSG RAM");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:5 Reserved");
@@ -15510,40 +17276,52 @@ bool check_compare(const MEM_CFG_REGS &obj, const MEM_CFG_REGS &expected, const 
     bool all_zero = true;
 
     all_zero &= check_compare(obj.DxLOCK, expected.DxLOCK, name + " " + "Dedicated RAM Config Lock Register");
-    all_zero &= check_compare(obj.DxCOMMIT, expected.DxCOMMIT, name + " " + "Dedicated RAM Config Lock Commit Register");
+    all_zero &= check_compare(obj.DxCOMMIT, expected.DxCOMMIT,
+                              name + " " + "Dedicated RAM Config Lock Commit Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.DxACCPROT0, expected.DxACCPROT0, name + " " + "Dedicated RAM Config Register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.DxTEST, expected.DxTEST, name + " " + "Dedicated RAM TEST Register");
     all_zero &= check_compare(obj.DxINIT, expected.DxINIT, name + " " + "Dedicated RAM Init Register");
-    all_zero &= check_compare(obj.DxINITDONE, expected.DxINITDONE, name + " " + "Dedicated RAM InitDone Status Register");
+    all_zero &= check_compare(obj.DxINITDONE, expected.DxINITDONE,
+                              name + " " + "Dedicated RAM InitDone Status Register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
     all_zero &= check_compare(obj.LSxLOCK, expected.LSxLOCK, name + " " + "Local Shared RAM Config Lock Register");
-    all_zero &= check_compare(obj.LSxCOMMIT, expected.LSxCOMMIT, name + " " + "Local Shared RAM Config Lock Commit Register");
+    all_zero &= check_compare(obj.LSxCOMMIT, expected.LSxCOMMIT,
+                              name + " " + "Local Shared RAM Config Lock Commit Register");
     all_zero &= check_compare(obj.LSxMSEL, expected.LSxMSEL, name + " " + "Local Shared RAM Master Sel Register");
-    all_zero &= check_compare(obj.LSxCLAPGM, expected.LSxCLAPGM, name + " " + "Local Shared RAM Prog/Exe control Register");
+    all_zero &= check_compare(obj.LSxCLAPGM, expected.LSxCLAPGM,
+                              name + " " + "Local Shared RAM Prog/Exe control Register");
     all_zero &= check_compare(obj.LSxACCPROT0, expected.LSxACCPROT0, name + " " + "Local Shared RAM Config Register 0");
     all_zero &= check_compare(obj.LSxACCPROT1, expected.LSxACCPROT1, name + " " + "Local Shared RAM Config Register 1");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
     all_zero &= check_compare(obj.LSxTEST, expected.LSxTEST, name + " " + "Local Shared RAM TEST Register");
     all_zero &= check_compare(obj.LSxINIT, expected.LSxINIT, name + " " + "Local Shared RAM Init Register");
-    all_zero &= check_compare(obj.LSxINITDONE, expected.LSxINITDONE, name + " " + "Local Shared RAM InitDone Status Register");
+    all_zero &= check_compare(obj.LSxINITDONE, expected.LSxINITDONE,
+                              name + " " + "Local Shared RAM InitDone Status Register");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
     all_zero &= check_compare(obj.GSxLOCK, expected.GSxLOCK, name + " " + "Global Shared RAM Config Lock Register");
-    all_zero &= check_compare(obj.GSxCOMMIT, expected.GSxCOMMIT, name + " " + "Global Shared RAM Config Lock Commit Register");
+    all_zero &= check_compare(obj.GSxCOMMIT, expected.GSxCOMMIT,
+                              name + " " + "Global Shared RAM Config Lock Commit Register");
     all_zero &= check_compare(obj.GSxMSEL, expected.GSxMSEL, name + " " + "Global Shared RAM Master Sel Register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
-    all_zero &= check_compare(obj.GSxACCPROT0, expected.GSxACCPROT0, name + " " + "Global Shared RAM Config Register 0");
-    all_zero &= check_compare(obj.GSxACCPROT1, expected.GSxACCPROT1, name + " " + "Global Shared RAM Config Register 1");
-    all_zero &= check_compare(obj.GSxACCPROT2, expected.GSxACCPROT2, name + " " + "Global Shared RAM Config Register 2");
-    all_zero &= check_compare(obj.GSxACCPROT3, expected.GSxACCPROT3, name + " " + "Global Shared RAM Config Register 3");
+    all_zero &= check_compare(obj.GSxACCPROT0, expected.GSxACCPROT0,
+                              name + " " + "Global Shared RAM Config Register 0");
+    all_zero &= check_compare(obj.GSxACCPROT1, expected.GSxACCPROT1,
+                              name + " " + "Global Shared RAM Config Register 1");
+    all_zero &= check_compare(obj.GSxACCPROT2, expected.GSxACCPROT2,
+                              name + " " + "Global Shared RAM Config Register 2");
+    all_zero &= check_compare(obj.GSxACCPROT3, expected.GSxACCPROT3,
+                              name + " " + "Global Shared RAM Config Register 3");
     all_zero &= check_compare(obj.GSxTEST, expected.GSxTEST, name + " " + "Global Shared RAM TEST Register");
     all_zero &= check_compare(obj.GSxINIT, expected.GSxINIT, name + " " + "Global Shared RAM Init Register");
-    all_zero &= check_compare(obj.GSxINITDONE, expected.GSxINITDONE, name + " " + "Global Shared RAM InitDone Status Register");
+    all_zero &= check_compare(obj.GSxINITDONE, expected.GSxINITDONE,
+                              name + " " + "Global Shared RAM InitDone Status Register");
     all_zero &= check_compare(obj.rsvd7, expected.rsvd7, name + " " + "Reserved");
     all_zero &= check_compare(obj.MSGxTEST, expected.MSGxTEST, name + " " + "Message RAM TEST Register");
     all_zero &= check_compare(obj.MSGxINIT, expected.MSGxINIT, name + " " + "Message RAM Init Register");
-    all_zero &= check_compare(obj.MSGxINITDONE, expected.MSGxINITDONE, name + " " + "Message RAM InitDone Status Register");
+    all_zero &= check_compare(obj.MSGxINITDONE, expected.MSGxINITDONE,
+                              name + " " + "Message RAM InitDone Status Register");
 
     return all_zero;
 }
@@ -15551,7 +17329,8 @@ bool check_compare(const MEM_CFG_REGS &obj, const MEM_CFG_REGS &expected, const 
 bool check_compare(const EMIF1LOCK_BITS &obj, const EMIF1LOCK_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LOCK_EMIF1, expected.LOCK_EMIF1, name + " " + "0 EMIF1 access protection and master select fields lock bit");
+    all_zero &= check_compare(obj.LOCK_EMIF1, expected.LOCK_EMIF1,
+                              name + " " + "0 EMIF1 access protection and master select fields lock bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15570,7 +17349,8 @@ bool check_compare(const EMIF1LOCK_REG &obj, const EMIF1LOCK_REG &expected, cons
 bool check_compare(const EMIF1COMMIT_BITS &obj, const EMIF1COMMIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.COMMIT_EMIF1, expected.COMMIT_EMIF1, name + " " + "0 EMIF1 access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_EMIF1, expected.COMMIT_EMIF1,
+                              name + " " + "0 EMIF1 access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15608,9 +17388,12 @@ bool check_compare(const EMIF1MSEL_REG &obj, const EMIF1MSEL_REG &expected, cons
 bool check_compare(const EMIF1ACCPROT0_BITS &obj, const EMIF1ACCPROT0_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.FETCHPROT_EMIF1, expected.FETCHPROT_EMIF1, name + " " + "0 Fetch Protection For EMIF1");
-    all_zero &= check_compare(obj.CPUWRPROT_EMIF1, expected.CPUWRPROT_EMIF1, name + " " + "1 CPU WR Protection For EMIF1");
-    all_zero &= check_compare(obj.DMAWRPROT_EMIF1, expected.DMAWRPROT_EMIF1, name + " " + "2 DMA WR Protection For EMIF1");
+    all_zero &= check_compare(obj.FETCHPROT_EMIF1, expected.FETCHPROT_EMIF1,
+                              name + " " + "0 Fetch Protection For EMIF1");
+    all_zero &= check_compare(obj.CPUWRPROT_EMIF1, expected.CPUWRPROT_EMIF1,
+                              name + " " + "1 CPU WR Protection For EMIF1");
+    all_zero &= check_compare(obj.DMAWRPROT_EMIF1, expected.DMAWRPROT_EMIF1,
+                              name + " " + "2 DMA WR Protection For EMIF1");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15641,7 +17424,8 @@ bool check_compare(const EMIF1_CONFIG_REGS &obj, const EMIF1_CONFIG_REGS &expect
 bool check_compare(const EMIF2LOCK_BITS &obj, const EMIF2LOCK_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LOCK_EMIF2, expected.LOCK_EMIF2, name + " " + "0 EMIF2 access protection and master select permanent lock");
+    all_zero &= check_compare(obj.LOCK_EMIF2, expected.LOCK_EMIF2,
+                              name + " " + "0 EMIF2 access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15660,7 +17444,8 @@ bool check_compare(const EMIF2LOCK_REG &obj, const EMIF2LOCK_REG &expected, cons
 bool check_compare(const EMIF2COMMIT_BITS &obj, const EMIF2COMMIT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.COMMIT_EMIF2, expected.COMMIT_EMIF2, name + " " + "0 EMIF2 access protection and master select permanent lock");
+    all_zero &= check_compare(obj.COMMIT_EMIF2, expected.COMMIT_EMIF2,
+                              name + " " + "0 EMIF2 access protection and master select permanent lock");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15679,8 +17464,10 @@ bool check_compare(const EMIF2COMMIT_REG &obj, const EMIF2COMMIT_REG &expected, 
 bool check_compare(const EMIF2ACCPROT0_BITS &obj, const EMIF2ACCPROT0_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.FETCHPROT_EMIF2, expected.FETCHPROT_EMIF2, name + " " + "0 Fetch Protection For EMIF2");
-    all_zero &= check_compare(obj.CPUWRPROT_EMIF2, expected.CPUWRPROT_EMIF2, name + " " + "1 CPU WR Protection For EMIF2");
+    all_zero &= check_compare(obj.FETCHPROT_EMIF2, expected.FETCHPROT_EMIF2,
+                              name + " " + "0 Fetch Protection For EMIF2");
+    all_zero &= check_compare(obj.CPUWRPROT_EMIF2, expected.CPUWRPROT_EMIF2,
+                              name + " " + "1 CPU WR Protection For EMIF2");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15710,13 +17497,20 @@ bool check_compare(const EMIF2_CONFIG_REGS &obj, const EMIF2_CONFIG_REGS &expect
 bool check_compare(const NMAVFLG_BITS &obj, const NMAVFLG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD, name + " " + "0 Non Master CPU Read Access Violation Flag");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Non Master CPU Write Access Violation Flag");
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "2 Non Master CPU Fetch Access Violation Flag");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "3 Non Master DMA Write Access Violation Flag");
-    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ, name + " " + "4 Non Master CLA1 Read Access Violation Flag");
-    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE, name + " " + "5 Non Master CLA1 Write Access Violation Flag");
-    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH, name + " " + "6 Non Master CLA1 Fetch Access Violation Flag");
+    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD,
+                              name + " " + "0 Non Master CPU Read Access Violation Flag");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Non Master CPU Write Access Violation Flag");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "2 Non Master CPU Fetch Access Violation Flag");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "3 Non Master DMA Write Access Violation Flag");
+    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ,
+                              name + " " + "4 Non Master CLA1 Read Access Violation Flag");
+    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE,
+                              name + " " + "5 Non Master CLA1 Write Access Violation Flag");
+    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH,
+                              name + " " + "6 Non Master CLA1 Fetch Access Violation Flag");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "9 Reserved");
@@ -15738,13 +17532,20 @@ bool check_compare(const NMAVFLG_REG &obj, const NMAVFLG_REG &expected, const st
 bool check_compare(const NMAVSET_BITS &obj, const NMAVSET_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD, name + " " + "0 Non Master CPU Read Access Violation Flag Set");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Non Master CPU Write Access Violation Flag Set");
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "2 Non Master CPU Fetch Access Violation Flag Set");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "3 Non Master DMA Write Access Violation Flag Set");
-    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ, name + " " + "4 Non Master CLA1 Read Access Violation Flag Set");
-    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE, name + " " + "5 Non Master CLA1 Write Access Violation Flag Set");
-    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH, name + " " + "6 Non Master CLA1 Fetch Access Violation Flag Set");
+    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD,
+                              name + " " + "0 Non Master CPU Read Access Violation Flag Set");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Non Master CPU Write Access Violation Flag Set");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "2 Non Master CPU Fetch Access Violation Flag Set");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "3 Non Master DMA Write Access Violation Flag Set");
+    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ,
+                              name + " " + "4 Non Master CLA1 Read Access Violation Flag Set");
+    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE,
+                              name + " " + "5 Non Master CLA1 Write Access Violation Flag Set");
+    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH,
+                              name + " " + "6 Non Master CLA1 Fetch Access Violation Flag Set");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "9 Reserved");
@@ -15766,13 +17567,20 @@ bool check_compare(const NMAVSET_REG &obj, const NMAVSET_REG &expected, const st
 bool check_compare(const NMAVCLR_BITS &obj, const NMAVCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD, name + " " + "0 Non Master CPU Read Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Non Master CPU Write Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "2 Non Master CPU Fetch Access Violation Flag Clear");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "3 Non Master DMA Write Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ, name + " " + "4 Non Master CLA1 Read Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE, name + " " + "5 Non Master CLA1 Write Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH, name + " " + "6 Non Master CLA1 Fetch Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD,
+                              name + " " + "0 Non Master CPU Read Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Non Master CPU Write Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "2 Non Master CPU Fetch Access Violation Flag Clear");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "3 Non Master DMA Write Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ,
+                              name + " " + "4 Non Master CLA1 Read Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE,
+                              name + " " + "5 Non Master CLA1 Write Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH,
+                              name + " " + "6 Non Master CLA1 Fetch Access Violation Flag Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "9 Reserved");
@@ -15794,13 +17602,20 @@ bool check_compare(const NMAVCLR_REG &obj, const NMAVCLR_REG &expected, const st
 bool check_compare(const NMAVINTEN_BITS &obj, const NMAVINTEN_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD, name + " " + "0 Non Master CPU Read Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Non Master CPU Write Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "2 Non Master CPU Fetch Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "3 Non Master DMA Write Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ, name + " " + "4 Non Master CLA1 Read Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE, name + " " + "5 Non Master CLA1 Write Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH, name + " " + "6 Non Master CLA1 Fetch Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CPUREAD, expected.CPUREAD,
+                              name + " " + "0 Non Master CPU Read Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Non Master CPU Write Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "2 Non Master CPU Fetch Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "3 Non Master DMA Write Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CLA1READ, expected.CLA1READ,
+                              name + " " + "4 Non Master CLA1 Read Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CLA1WRITE, expected.CLA1WRITE,
+                              name + " " + "5 Non Master CLA1 Write Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CLA1FETCH, expected.CLA1FETCH,
+                              name + " " + "6 Non Master CLA1 Fetch Access Violation Interrupt Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "9 Reserved");
@@ -15843,9 +17658,12 @@ bool check_compare(const MAVFLG_REG &obj, const MAVFLG_REG &expected, const std:
 bool check_compare(const MAVSET_BITS &obj, const MAVSET_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "0 Master CPU Fetch Access Violation Flag Set");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Master CPU Write Access Violation Flag Set");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "2 Master DMA Write Access Violation Flag Set");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "0 Master CPU Fetch Access Violation Flag Set");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Master CPU Write Access Violation Flag Set");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "2 Master DMA Write Access Violation Flag Set");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15864,9 +17682,12 @@ bool check_compare(const MAVSET_REG &obj, const MAVSET_REG &expected, const std:
 bool check_compare(const MAVCLR_BITS &obj, const MAVCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "0 Master CPU Fetch Access Violation Flag Clear");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Master CPU Write Access Violation Flag Clear");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "2 Master DMA Write Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "0 Master CPU Fetch Access Violation Flag Clear");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Master CPU Write Access Violation Flag Clear");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "2 Master DMA Write Access Violation Flag Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15885,9 +17706,12 @@ bool check_compare(const MAVCLR_REG &obj, const MAVCLR_REG &expected, const std:
 bool check_compare(const MAVINTEN_BITS &obj, const MAVINTEN_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH, name + " " + "0 Master CPU Fetch Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE, name + " " + "1 Master CPU Write Access Violation Interrupt Enable");
-    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE, name + " " + "2 Master DMA Write Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CPUFETCH, expected.CPUFETCH,
+                              name + " " + "0 Master CPU Fetch Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.CPUWRITE, expected.CPUWRITE,
+                              name + " " + "1 Master CPU Write Access Violation Interrupt Enable");
+    all_zero &= check_compare(obj.DMAWRITE, expected.DMAWRITE,
+                              name + " " + "2 Master DMA Write Access Violation Interrupt Enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -15907,24 +17731,38 @@ bool check_compare(const ACCESS_PROTECTION_REGS &obj, const ACCESS_PROTECTION_RE
     bool all_zero = true;
 
     all_zero &= check_compare(obj.NMAVFLG, expected.NMAVFLG, name + " " + "Non-Master Access Violation Flag Register");
-    all_zero &= check_compare(obj.NMAVSET, expected.NMAVSET, name + " " + "Non-Master Access Violation Flag Set Register");
-    all_zero &= check_compare(obj.NMAVCLR, expected.NMAVCLR, name + " " + "Non-Master Access Violation Flag Clear Register");
-    all_zero &= check_compare(obj.NMAVINTEN, expected.NMAVINTEN, name + " " + "Non-Master Access Violation Interrupt Enable Register");
-    all_zero &= check_compare(obj.NMCPURDAVADDR, expected.NMCPURDAVADDR, name + " " + "Non-Master CPU Read Access Violation Address");
-    all_zero &= check_compare(obj.NMCPUWRAVADDR, expected.NMCPUWRAVADDR, name + " " + "Non-Master CPU Write Access Violation Address");
-    all_zero &= check_compare(obj.NMCPUFAVADDR, expected.NMCPUFAVADDR, name + " " + "Non-Master CPU Fetch Access Violation Address");
-    all_zero &= check_compare(obj.NMDMAWRAVADDR, expected.NMDMAWRAVADDR, name + " " + "Non-Master DMA Write Access Violation Address");
-    all_zero &= check_compare(obj.NMCLA1RDAVADDR, expected.NMCLA1RDAVADDR, name + " " + "Non-Master CLA1 Read Access Violation Address");
-    all_zero &= check_compare(obj.NMCLA1WRAVADDR, expected.NMCLA1WRAVADDR, name + " " + "Non-Master CLA1 Write Access Violation Address");
-    all_zero &= check_compare(obj.NMCLA1FAVADDR, expected.NMCLA1FAVADDR, name + " " + "Non-Master CLA1 Fetch Access Violation Address");
+    all_zero &= check_compare(obj.NMAVSET, expected.NMAVSET,
+                              name + " " + "Non-Master Access Violation Flag Set Register");
+    all_zero &= check_compare(obj.NMAVCLR, expected.NMAVCLR,
+                              name + " " + "Non-Master Access Violation Flag Clear Register");
+    all_zero &= check_compare(obj.NMAVINTEN, expected.NMAVINTEN,
+                              name + " " + "Non-Master Access Violation Interrupt Enable Register");
+    all_zero &= check_compare(obj.NMCPURDAVADDR, expected.NMCPURDAVADDR,
+                              name + " " + "Non-Master CPU Read Access Violation Address");
+    all_zero &= check_compare(obj.NMCPUWRAVADDR, expected.NMCPUWRAVADDR,
+                              name + " " + "Non-Master CPU Write Access Violation Address");
+    all_zero &= check_compare(obj.NMCPUFAVADDR, expected.NMCPUFAVADDR,
+                              name + " " + "Non-Master CPU Fetch Access Violation Address");
+    all_zero &= check_compare(obj.NMDMAWRAVADDR, expected.NMDMAWRAVADDR,
+                              name + " " + "Non-Master DMA Write Access Violation Address");
+    all_zero &= check_compare(obj.NMCLA1RDAVADDR, expected.NMCLA1RDAVADDR,
+                              name + " " + "Non-Master CLA1 Read Access Violation Address");
+    all_zero &= check_compare(obj.NMCLA1WRAVADDR, expected.NMCLA1WRAVADDR,
+                              name + " " + "Non-Master CLA1 Write Access Violation Address");
+    all_zero &= check_compare(obj.NMCLA1FAVADDR, expected.NMCLA1FAVADDR,
+                              name + " " + "Non-Master CLA1 Fetch Access Violation Address");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.MAVFLG, expected.MAVFLG, name + " " + "Master Access Violation Flag Register");
     all_zero &= check_compare(obj.MAVSET, expected.MAVSET, name + " " + "Master Access Violation Flag Set Register");
     all_zero &= check_compare(obj.MAVCLR, expected.MAVCLR, name + " " + "Master Access Violation Flag Clear Register");
-    all_zero &= check_compare(obj.MAVINTEN, expected.MAVINTEN, name + " " + "Master Access Violation Interrupt Enable Register");
-    all_zero &= check_compare(obj.MCPUFAVADDR, expected.MCPUFAVADDR, name + " " + "Master CPU Fetch Access Violation Address");
-    all_zero &= check_compare(obj.MCPUWRAVADDR, expected.MCPUWRAVADDR, name + " " + "Master CPU Write Access Violation Address");
-    all_zero &= check_compare(obj.MDMAWRAVADDR, expected.MDMAWRAVADDR, name + " " + "Master  DMA Write Access Violation Address");
+    all_zero &= check_compare(obj.MAVINTEN, expected.MAVINTEN,
+                              name + " " + "Master Access Violation Interrupt Enable Register");
+    all_zero &= check_compare(obj.MCPUFAVADDR, expected.MCPUFAVADDR,
+                              name + " " + "Master CPU Fetch Access Violation Address");
+    all_zero &= check_compare(obj.MCPUWRAVADDR, expected.MCPUWRAVADDR,
+                              name + " " + "Master CPU Write Access Violation Address");
+    all_zero &= check_compare(obj.MDMAWRAVADDR, expected.MDMAWRAVADDR,
+                              name + " " + "Master  DMA Write Access Violation Address");
 
     return all_zero;
 }
@@ -15956,7 +17794,8 @@ bool check_compare(const UCERRSET_BITS &obj, const UCERRSET_BITS &expected, cons
 
     all_zero &= check_compare(obj.CPURDERR, expected.CPURDERR, name + " " + "0 CPU Uncorrectable Read Error Flag Set");
     all_zero &= check_compare(obj.DMARDERR, expected.DMARDERR, name + " " + "1 DMA Uncorrectable Read Error Flag Set");
-    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR, name + " " + "2 CLA1 Uncorrectable Read Error Flag Set");
+    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR,
+                              name + " " + "2 CLA1 Uncorrectable Read Error Flag Set");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
@@ -15976,9 +17815,12 @@ bool check_compare(const UCERRSET_REG &obj, const UCERRSET_REG &expected, const 
 bool check_compare(const UCERRCLR_BITS &obj, const UCERRCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CPURDERR, expected.CPURDERR, name + " " + "0 CPU Uncorrectable Read Error Flag Clear");
-    all_zero &= check_compare(obj.DMARDERR, expected.DMARDERR, name + " " + "1 DMA Uncorrectable Read Error Flag Clear");
-    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR, name + " " + "2 CLA1 Uncorrectable Read Error Flag Clear");
+    all_zero &= check_compare(obj.CPURDERR, expected.CPURDERR,
+                              name + " " + "0 CPU Uncorrectable Read Error Flag Clear");
+    all_zero &= check_compare(obj.DMARDERR, expected.DMARDERR,
+                              name + " " + "1 DMA Uncorrectable Read Error Flag Clear");
+    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR,
+                              name + " " + "2 CLA1 Uncorrectable Read Error Flag Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
@@ -16044,7 +17886,8 @@ bool check_compare(const CERRCLR_BITS &obj, const CERRCLR_BITS &expected, const 
 
     all_zero &= check_compare(obj.CPURDERR, expected.CPURDERR, name + " " + "0 CPU Correctable Read Error Flag Clear");
     all_zero &= check_compare(obj.DMARDERR, expected.DMARDERR, name + " " + "1 DMA Correctable Read Error Flag Clear");
-    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR, name + " " + "2 CLA1 Correctable Read Error Flag Clear");
+    all_zero &= check_compare(obj.CLA1RDERR, expected.CLA1RDERR,
+                              name + " " + "2 CLA1 Correctable Read Error Flag Clear");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "3 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "15:4 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:16 Reserved");
@@ -16064,7 +17907,8 @@ bool check_compare(const CERRCLR_REG &obj, const CERRCLR_REG &expected, const st
 bool check_compare(const CEINTFLG_BITS &obj, const CEINTFLG_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CEINTFLAG, expected.CEINTFLAG, name + " " + "0 Total corrected error count exceeded threshold flag.");
+    all_zero &= check_compare(obj.CEINTFLAG, expected.CEINTFLAG,
+                              name + " " + "0 Total corrected error count exceeded threshold flag.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -16083,7 +17927,8 @@ bool check_compare(const CEINTFLG_REG &obj, const CEINTFLG_REG &expected, const 
 bool check_compare(const CEINTCLR_BITS &obj, const CEINTCLR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CEINTCLR, expected.CEINTCLR, name + " " + "0 CPU Corrected Error Threshold Exceeded Error Clear.");
+    all_zero &= check_compare(obj.CEINTCLR, expected.CEINTCLR,
+                              name + " " + "0 CPU Corrected Error Threshold Exceeded Error Clear.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -16102,7 +17947,8 @@ bool check_compare(const CEINTCLR_REG &obj, const CEINTCLR_REG &expected, const 
 bool check_compare(const CEINTSET_BITS &obj, const CEINTSET_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CEINTSET, expected.CEINTSET, name + " " + "0 Total corrected error count exceeded flag set.");
+    all_zero &= check_compare(obj.CEINTSET, expected.CEINTSET,
+                              name + " " + "0 Total corrected error count exceeded flag set.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -16121,7 +17967,8 @@ bool check_compare(const CEINTSET_REG &obj, const CEINTSET_REG &expected, const 
 bool check_compare(const CEINTEN_BITS &obj, const CEINTEN_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CEINTEN, expected.CEINTEN, name + " " + "0 CPU/DMA Correctable Error Interrupt Enable.");
+    all_zero &= check_compare(obj.CEINTEN, expected.CEINTEN,
+                              name + " " + "0 CPU/DMA Correctable Error Interrupt Enable.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -16143,9 +17990,12 @@ bool check_compare(const MEMORY_ERROR_REGS &obj, const MEMORY_ERROR_REGS &expect
     all_zero &= check_compare(obj.UCERRFLG, expected.UCERRFLG, name + " " + "Uncorrectable Error Flag Register");
     all_zero &= check_compare(obj.UCERRSET, expected.UCERRSET, name + " " + "Uncorrectable Error Flag Set Register");
     all_zero &= check_compare(obj.UCERRCLR, expected.UCERRCLR, name + " " + "Uncorrectable Error Flag Clear Register");
-    all_zero &= check_compare(obj.UCCPUREADDR, expected.UCCPUREADDR, name + " " + "Uncorrectable CPU Read Error Address");
-    all_zero &= check_compare(obj.UCDMAREADDR, expected.UCDMAREADDR, name + " " + "Uncorrectable DMA Read Error Address");
-    all_zero &= check_compare(obj.UCCLA1READDR, expected.UCCLA1READDR, name + " " + "Uncorrectable CLA1 Read Error Address");
+    all_zero &= check_compare(obj.UCCPUREADDR, expected.UCCPUREADDR,
+                              name + " " + "Uncorrectable CPU Read Error Address");
+    all_zero &= check_compare(obj.UCDMAREADDR, expected.UCDMAREADDR,
+                              name + " " + "Uncorrectable DMA Read Error Address");
+    all_zero &= check_compare(obj.UCCLA1READDR, expected.UCCLA1READDR,
+                              name + " " + "Uncorrectable CLA1 Read Error Address");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.CERRFLG, expected.CERRFLG, name + " " + "Correctable Error Flag Register");
     all_zero &= check_compare(obj.CERRSET, expected.CERRSET, name + " " + "Correctable Error Flag Set Register");
@@ -16153,11 +18003,16 @@ bool check_compare(const MEMORY_ERROR_REGS &obj, const MEMORY_ERROR_REGS &expect
     all_zero &= check_compare(obj.CCPUREADDR, expected.CCPUREADDR, name + " " + "Correctable CPU Read Error Address");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.CERRCNT, expected.CERRCNT, name + " " + "Correctable Error Count Register");
-    all_zero &= check_compare(obj.CERRTHRES, expected.CERRTHRES, name + " " + "Correctable Error Threshold Value Register");
-    all_zero &= check_compare(obj.CEINTFLG, expected.CEINTFLG, name + " " + "Correctable Error Interrupt Flag Status Register");
-    all_zero &= check_compare(obj.CEINTCLR, expected.CEINTCLR, name + " " + "Correctable Error Interrupt Flag Clear Register");
-    all_zero &= check_compare(obj.CEINTSET, expected.CEINTSET, name + " " + "Correctable Error Interrupt Flag Set Register");
-    all_zero &= check_compare(obj.CEINTEN, expected.CEINTEN, name + " " + "Correctable Error Interrupt Enable Register");
+    all_zero &= check_compare(obj.CERRTHRES, expected.CERRTHRES,
+                              name + " " + "Correctable Error Threshold Value Register");
+    all_zero &= check_compare(obj.CEINTFLG, expected.CEINTFLG,
+                              name + " " + "Correctable Error Interrupt Flag Status Register");
+    all_zero &= check_compare(obj.CEINTCLR, expected.CEINTCLR,
+                              name + " " + "Correctable Error Interrupt Flag Clear Register");
+    all_zero &= check_compare(obj.CEINTSET, expected.CEINTSET,
+                              name + " " + "Correctable Error Interrupt Flag Set Register");
+    all_zero &= check_compare(obj.CEINTEN, expected.CEINTEN,
+                              name + " " + "Correctable Error Interrupt Enable Register");
 
     return all_zero;
 }
@@ -16165,7 +18020,8 @@ bool check_compare(const MEMORY_ERROR_REGS &obj, const MEMORY_ERROR_REGS &expect
 bool check_compare(const ROMWAITSTATE_BITS &obj, const ROMWAITSTATE_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.WSDISABLE, expected.WSDISABLE, name + " " + "0 C28x ROM Wait State Enable/Disable Control");
+    all_zero &= check_compare(obj.WSDISABLE, expected.WSDISABLE,
+                              name + " " + "0 C28x ROM Wait State Enable/Disable Control");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:1 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -16184,7 +18040,8 @@ bool check_compare(const ROMWAITSTATE_REG &obj, const ROMWAITSTATE_REG &expected
 bool check_compare(const ROM_WAIT_STATE_REGS &obj, const ROM_WAIT_STATE_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.ROMWAITSTATE, expected.ROMWAITSTATE, name + " " + "ROM Wait State Configuration Register");
+    all_zero &= check_compare(obj.ROMWAITSTATE, expected.ROMWAITSTATE,
+                              name + " " + "ROM Wait State Configuration Register");
 
     return all_zero;
 }
@@ -16211,7 +18068,8 @@ bool check_compare(const ROMPREFETCH_REG &obj, const ROMPREFETCH_REG &expected, 
 bool check_compare(const ROM_PREFETCH_REGS &obj, const ROM_PREFETCH_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.ROMPREFETCH, expected.ROMPREFETCH, name + " " + "ROM Prefetch Configuration Register");
+    all_zero &= check_compare(obj.ROMPREFETCH, expected.ROMPREFETCH,
+                              name + " " + "ROM Prefetch Configuration Register");
 
     return all_zero;
 }
@@ -16247,7 +18105,8 @@ bool check_compare(const NMIFLG_BITS &obj, const NMIFLG_BITS &expected, const st
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7 Reserved");
     all_zero &= check_compare(obj.CLBNMI, expected.CLBNMI, name + " " + "8 Configurable Logic Block NMI Flag");
     all_zero &= check_compare(obj.CPU2WDRSn, expected.CPU2WDRSn, name + " " + "9 CPU2 WDRSn Reset Indication Flag");
-    all_zero &= check_compare(obj.CPU2NMIWDRSn, expected.CPU2NMIWDRSn, name + " " + "10 CPU2 NMIWDRSn Reset Indication Flag");
+    all_zero &= check_compare(obj.CPU2NMIWDRSn, expected.CPU2NMIWDRSn,
+                              name + " " + "10 CPU2 NMIWDRSn Reset Indication Flag");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "11 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:12 Reserved");
 
@@ -17292,9 +19151,11 @@ bool check_compare(const PIE_VECT_TABLE &obj, const PIE_VECT_TABLE &expected, co
     all_zero &= check_compare(obj.SPIB_RX_INT, expected.SPIB_RX_INT, name + " " + "6.3 - SPIB Receive Interrupt");
     all_zero &= check_compare(obj.SPIB_TX_INT, expected.SPIB_TX_INT, name + " " + "6.4 - SPIB Transmit Interrupt");
     all_zero &= check_compare(obj.MCBSPA_RX_INT, expected.MCBSPA_RX_INT, name + " " + "6.5 - McBSPA Receive Interrupt");
-    all_zero &= check_compare(obj.MCBSPA_TX_INT, expected.MCBSPA_TX_INT, name + " " + "6.6 - McBSPA Transmit Interrupt");
+    all_zero &= check_compare(obj.MCBSPA_TX_INT, expected.MCBSPA_TX_INT,
+                              name + " " + "6.6 - McBSPA Transmit Interrupt");
     all_zero &= check_compare(obj.MCBSPB_RX_INT, expected.MCBSPB_RX_INT, name + " " + "6.7 - McBSPB Receive Interrupt");
-    all_zero &= check_compare(obj.MCBSPB_TX_INT, expected.MCBSPB_TX_INT, name + " " + "6.8 - McBSPB Transmit Interrupt");
+    all_zero &= check_compare(obj.MCBSPB_TX_INT, expected.MCBSPB_TX_INT,
+                              name + " " + "6.8 - McBSPB Transmit Interrupt");
     all_zero &= check_compare(obj.DMA_CH1_INT, expected.DMA_CH1_INT, name + " " + "7.1 - DMA Channel 1 Interrupt");
     all_zero &= check_compare(obj.DMA_CH2_INT, expected.DMA_CH2_INT, name + " " + "7.2 - DMA Channel 2 Interrupt");
     all_zero &= check_compare(obj.DMA_CH3_INT, expected.DMA_CH3_INT, name + " " + "7.3 - DMA Channel 3 Interrupt");
@@ -17341,8 +19202,10 @@ bool check_compare(const PIE_VECT_TABLE &obj, const PIE_VECT_TABLE &expected, co
     all_zero &= check_compare(obj.PIE23_RESERVED_INT, expected.PIE23_RESERVED_INT, name + " " + "12.4 - Reserved");
     all_zero &= check_compare(obj.PIE24_RESERVED_INT, expected.PIE24_RESERVED_INT, name + " " + "12.5 - Reserved");
     all_zero &= check_compare(obj.VCU_INT, expected.VCU_INT, name + " " + "12.6 - VCU Interrupt");
-    all_zero &= check_compare(obj.FPU_OVERFLOW_INT, expected.FPU_OVERFLOW_INT, name + " " + "12.7 - FPU Overflow Interrupt");
-    all_zero &= check_compare(obj.FPU_UNDERFLOW_INT, expected.FPU_UNDERFLOW_INT, name + " " + "12.8 - FPU Underflow Interrupt");
+    all_zero &= check_compare(obj.FPU_OVERFLOW_INT, expected.FPU_OVERFLOW_INT,
+                              name + " " + "12.7 - FPU Overflow Interrupt");
+    all_zero &= check_compare(obj.FPU_UNDERFLOW_INT, expected.FPU_UNDERFLOW_INT,
+                              name + " " + "12.8 - FPU Underflow Interrupt");
     all_zero &= check_compare(obj.PIE25_RESERVED_INT, expected.PIE25_RESERVED_INT, name + " " + "1.9 - Reserved");
     all_zero &= check_compare(obj.PIE26_RESERVED_INT, expected.PIE26_RESERVED_INT, name + " " + "1.10 - Reserved");
     all_zero &= check_compare(obj.PIE27_RESERVED_INT, expected.PIE27_RESERVED_INT, name + " " + "1.11 - Reserved");
@@ -17352,9 +19215,12 @@ bool check_compare(const PIE_VECT_TABLE &obj, const PIE_VECT_TABLE &expected, co
     all_zero &= check_compare(obj.IPC2_INT, expected.IPC2_INT, name + " " + "1.15 - IPC Interrupt 2");
     all_zero &= check_compare(obj.IPC3_INT, expected.IPC3_INT, name + " " + "1.16 - IPC Interrupt 3");
     all_zero &= check_compare(obj.EPWM9_TZ_INT, expected.EPWM9_TZ_INT, name + " " + "2.9 - ePWM9 Trip Zone Interrupt");
-    all_zero &= check_compare(obj.EPWM10_TZ_INT, expected.EPWM10_TZ_INT, name + " " + "2.10 - ePWM10 Trip Zone Interrupt");
-    all_zero &= check_compare(obj.EPWM11_TZ_INT, expected.EPWM11_TZ_INT, name + " " + "2.11 - ePWM11 Trip Zone Interrupt");
-    all_zero &= check_compare(obj.EPWM12_TZ_INT, expected.EPWM12_TZ_INT, name + " " + "2.12 - ePWM12 Trip Zone Interrupt");
+    all_zero &= check_compare(obj.EPWM10_TZ_INT, expected.EPWM10_TZ_INT,
+                              name + " " + "2.10 - ePWM10 Trip Zone Interrupt");
+    all_zero &= check_compare(obj.EPWM11_TZ_INT, expected.EPWM11_TZ_INT,
+                              name + " " + "2.11 - ePWM11 Trip Zone Interrupt");
+    all_zero &= check_compare(obj.EPWM12_TZ_INT, expected.EPWM12_TZ_INT,
+                              name + " " + "2.12 - ePWM12 Trip Zone Interrupt");
     all_zero &= check_compare(obj.PIE29_RESERVED_INT, expected.PIE29_RESERVED_INT, name + " " + "2.13 - Reserved");
     all_zero &= check_compare(obj.PIE30_RESERVED_INT, expected.PIE30_RESERVED_INT, name + " " + "2.14 - Reserved");
     all_zero &= check_compare(obj.PIE31_RESERVED_INT, expected.PIE31_RESERVED_INT, name + " " + "2.15 - Reserved");
@@ -17435,13 +19301,20 @@ bool check_compare(const PIE_VECT_TABLE &obj, const PIE_VECT_TABLE &expected, co
     all_zero &= check_compare(obj.PIE87_RESERVED_INT, expected.PIE87_RESERVED_INT, name + " " + "11.15 - Reserved");
     all_zero &= check_compare(obj.PIE88_RESERVED_INT, expected.PIE88_RESERVED_INT, name + " " + "11.16 - Reserved");
     all_zero &= check_compare(obj.EMIF_ERROR_INT, expected.EMIF_ERROR_INT, name + " " + "12.9 - EMIF Error Interrupt");
-    all_zero &= check_compare(obj.RAM_CORRECTABLE_ERROR_INT, expected.RAM_CORRECTABLE_ERROR_INT, name + " " + "12.10 - RAM Correctable Error Interrupt");
-    all_zero &= check_compare(obj.FLASH_CORRECTABLE_ERROR_INT, expected.FLASH_CORRECTABLE_ERROR_INT, name + " " + "12.11 - Flash Correctable Error Interrupt");
-    all_zero &= check_compare(obj.RAM_ACCESS_VIOLATION_INT, expected.RAM_ACCESS_VIOLATION_INT, name + " " + "12.12 - RAM Access Violation Interrupt");
-    all_zero &= check_compare(obj.SYS_PLL_SLIP_INT, expected.SYS_PLL_SLIP_INT, name + " " + "12.13 - System PLL Slip Interrupt");
-    all_zero &= check_compare(obj.AUX_PLL_SLIP_INT, expected.AUX_PLL_SLIP_INT, name + " " + "12.14 - Auxiliary PLL Slip Interrupt");
-    all_zero &= check_compare(obj.CLA_OVERFLOW_INT, expected.CLA_OVERFLOW_INT, name + " " + "12.15 - CLA Overflow Interrupt");
-    all_zero &= check_compare(obj.CLA_UNDERFLOW_INT, expected.CLA_UNDERFLOW_INT, name + " " + "12.16 - CLA Underflow Interrupt");
+    all_zero &= check_compare(obj.RAM_CORRECTABLE_ERROR_INT, expected.RAM_CORRECTABLE_ERROR_INT,
+                              name + " " + "12.10 - RAM Correctable Error Interrupt");
+    all_zero &= check_compare(obj.FLASH_CORRECTABLE_ERROR_INT, expected.FLASH_CORRECTABLE_ERROR_INT,
+                              name + " " + "12.11 - Flash Correctable Error Interrupt");
+    all_zero &= check_compare(obj.RAM_ACCESS_VIOLATION_INT, expected.RAM_ACCESS_VIOLATION_INT,
+                              name + " " + "12.12 - RAM Access Violation Interrupt");
+    all_zero &= check_compare(obj.SYS_PLL_SLIP_INT, expected.SYS_PLL_SLIP_INT,
+                              name + " " + "12.13 - System PLL Slip Interrupt");
+    all_zero &= check_compare(obj.AUX_PLL_SLIP_INT, expected.AUX_PLL_SLIP_INT,
+                              name + " " + "12.14 - Auxiliary PLL Slip Interrupt");
+    all_zero &= check_compare(obj.CLA_OVERFLOW_INT, expected.CLA_OVERFLOW_INT,
+                              name + " " + "12.15 - CLA Overflow Interrupt");
+    all_zero &= check_compare(obj.CLA_UNDERFLOW_INT, expected.CLA_UNDERFLOW_INT,
+                              name + " " + "12.16 - CLA Underflow Interrupt");
 
     return all_zero;
 }
@@ -17923,7 +19796,8 @@ bool check_compare(const SDDPARM1_REG &obj, const SDDPARM1_REG &expected, const 
 bool check_compare(const SDCMPH1_BITS &obj, const SDCMPH1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.HLT, expected.HLT, name + " " + "14:0 High-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.HLT, expected.HLT,
+                              name + " " + "14:0 High-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -17941,7 +19815,8 @@ bool check_compare(const SDCMPH1_REG &obj, const SDCMPH1_REG &expected, const st
 bool check_compare(const SDCMPL1_BITS &obj, const SDCMPL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LLT, expected.LLT, name + " " + "14:0 Low-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.LLT, expected.LLT,
+                              name + " " + "14:0 Low-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -17962,7 +19837,8 @@ bool check_compare(const SDCPARM1_BITS &obj, const SDCPARM1_BITS &expected, cons
     all_zero &= check_compare(obj.COSR, expected.COSR, name + " " + "4:0 Comparator Oversample Ratio = COSR + 1");
     all_zero &= check_compare(obj.IEH, expected.IEH, name + " " + "5 High-level interrupt enable");
     all_zero &= check_compare(obj.IEL, expected.IEL, name + " " + "6 Low-level interrupt enable");
-    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0, name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
+    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0,
+                              name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
     all_zero &= check_compare(obj.MFIE, expected.MFIE, name + " " + "9 Modulator Failure Interrupt enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
@@ -17981,7 +19857,8 @@ bool check_compare(const SDCPARM1_REG &obj, const SDCPARM1_REG &expected, const 
 bool check_compare(const SDDATA1_BITS &obj, const SDDATA1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DATA16, expected.DATA16, name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
+    all_zero &= check_compare(obj.DATA16, expected.DATA16,
+                              name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
     all_zero &= check_compare(obj.DATA32HI, expected.DATA32HI, name + " " + "31:16 Hi-order 16b in 32b mode");
 
     return all_zero;
@@ -18064,7 +19941,8 @@ bool check_compare(const SDDPARM2_REG &obj, const SDDPARM2_REG &expected, const 
 bool check_compare(const SDCMPH2_BITS &obj, const SDCMPH2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.HLT, expected.HLT, name + " " + "14:0 High-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.HLT, expected.HLT,
+                              name + " " + "14:0 High-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18082,7 +19960,8 @@ bool check_compare(const SDCMPH2_REG &obj, const SDCMPH2_REG &expected, const st
 bool check_compare(const SDCMPL2_BITS &obj, const SDCMPL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LLT, expected.LLT, name + " " + "14:0 Low-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.LLT, expected.LLT,
+                              name + " " + "14:0 Low-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18103,7 +19982,8 @@ bool check_compare(const SDCPARM2_BITS &obj, const SDCPARM2_BITS &expected, cons
     all_zero &= check_compare(obj.COSR, expected.COSR, name + " " + "4:0 Comparator Oversample Ratio = COSR + 1");
     all_zero &= check_compare(obj.IEH, expected.IEH, name + " " + "5 High-level interrupt enable");
     all_zero &= check_compare(obj.IEL, expected.IEL, name + " " + "6 Low-level interrupt enable");
-    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0, name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
+    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0,
+                              name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
     all_zero &= check_compare(obj.MFIE, expected.MFIE, name + " " + "9 Modulator Failure Interrupt enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
@@ -18122,7 +20002,8 @@ bool check_compare(const SDCPARM2_REG &obj, const SDCPARM2_REG &expected, const 
 bool check_compare(const SDDATA2_BITS &obj, const SDDATA2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DATA16, expected.DATA16, name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
+    all_zero &= check_compare(obj.DATA16, expected.DATA16,
+                              name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
     all_zero &= check_compare(obj.DATA32HI, expected.DATA32HI, name + " " + "31:16 Hi-order 16b in 32b mode");
 
     return all_zero;
@@ -18205,7 +20086,8 @@ bool check_compare(const SDDPARM3_REG &obj, const SDDPARM3_REG &expected, const 
 bool check_compare(const SDCMPH3_BITS &obj, const SDCMPH3_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.HLT, expected.HLT, name + " " + "14:0 High-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.HLT, expected.HLT,
+                              name + " " + "14:0 High-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18223,7 +20105,8 @@ bool check_compare(const SDCMPH3_REG &obj, const SDCMPH3_REG &expected, const st
 bool check_compare(const SDCMPL3_BITS &obj, const SDCMPL3_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LLT, expected.LLT, name + " " + "14:0 Low-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.LLT, expected.LLT,
+                              name + " " + "14:0 Low-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18244,7 +20127,8 @@ bool check_compare(const SDCPARM3_BITS &obj, const SDCPARM3_BITS &expected, cons
     all_zero &= check_compare(obj.COSR, expected.COSR, name + " " + "4:0 Comparator Oversample Ratio = COSR + 1");
     all_zero &= check_compare(obj.IEH, expected.IEH, name + " " + "5 High-level interrupt enable");
     all_zero &= check_compare(obj.IEL, expected.IEL, name + " " + "6 Low-level interrupt enable");
-    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0, name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
+    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0,
+                              name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
     all_zero &= check_compare(obj.MFIE, expected.MFIE, name + " " + "9 Modulator Failure Interrupt enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
@@ -18263,7 +20147,8 @@ bool check_compare(const SDCPARM3_REG &obj, const SDCPARM3_REG &expected, const 
 bool check_compare(const SDDATA3_BITS &obj, const SDDATA3_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DATA16, expected.DATA16, name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
+    all_zero &= check_compare(obj.DATA16, expected.DATA16,
+                              name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
     all_zero &= check_compare(obj.DATA32HI, expected.DATA32HI, name + " " + "31:16 Hi-order 16b in 32b mode");
 
     return all_zero;
@@ -18346,7 +20231,8 @@ bool check_compare(const SDDPARM4_REG &obj, const SDDPARM4_REG &expected, const 
 bool check_compare(const SDCMPH4_BITS &obj, const SDCMPH4_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.HLT, expected.HLT, name + " " + "14:0 High-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.HLT, expected.HLT,
+                              name + " " + "14:0 High-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18364,7 +20250,8 @@ bool check_compare(const SDCMPH4_REG &obj, const SDCMPH4_REG &expected, const st
 bool check_compare(const SDCMPL4_BITS &obj, const SDCMPL4_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.LLT, expected.LLT, name + " " + "14:0 Low-level threshold for the comparator filter output.");
+    all_zero &= check_compare(obj.LLT, expected.LLT,
+                              name + " " + "14:0 Low-level threshold for the comparator filter output.");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
 
     return all_zero;
@@ -18385,7 +20272,8 @@ bool check_compare(const SDCPARM4_BITS &obj, const SDCPARM4_BITS &expected, cons
     all_zero &= check_compare(obj.COSR, expected.COSR, name + " " + "4:0 Comparator Oversample Ratio = COSR + 1");
     all_zero &= check_compare(obj.IEH, expected.IEH, name + " " + "5 High-level interrupt enable");
     all_zero &= check_compare(obj.IEL, expected.IEL, name + " " + "6 Low-level interrupt enable");
-    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0, name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
+    all_zero &= check_compare(obj.CS1_CS0, expected.CS1_CS0,
+                              name + " " + "8:7 Comparator filter structure (Sincfast/Sinc1/Sinc2/Sinc3");
     all_zero &= check_compare(obj.MFIE, expected.MFIE, name + " " + "9 Modulator Failure Interrupt enable");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:10 Reserved");
 
@@ -18404,7 +20292,8 @@ bool check_compare(const SDCPARM4_REG &obj, const SDCPARM4_REG &expected, const 
 bool check_compare(const SDDATA4_BITS &obj, const SDDATA4_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.DATA16, expected.DATA16, name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
+    all_zero &= check_compare(obj.DATA16, expected.DATA16,
+                              name + " " + "15:0 16-bit Data in 16b mode, Lo-order 16b in 32b mode");
     all_zero &= check_compare(obj.DATA32HI, expected.DATA32HI, name + " " + "31:16 Hi-order 16b in 32b mode");
 
     return all_zero;
@@ -18704,7 +20593,8 @@ bool check_compare(const PARTIDL_BITS &obj, const PARTIDL_BITS &expected, const 
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "15 Reserved");
     all_zero &= check_compare(obj.FLASH_SIZE, expected.FLASH_SIZE, name + " " + "23:16 Flash size in KB");
     all_zero &= check_compare(obj.rsvd7, expected.rsvd7, name + " " + "27:24 Reserved");
-    all_zero &= check_compare(obj.PARTID_FORMAT_REVISION, expected.PARTID_FORMAT_REVISION, name + " " + "31:28 Revision of the PARTID format");
+    all_zero &= check_compare(obj.PARTID_FORMAT_REVISION, expected.PARTID_FORMAT_REVISION,
+                              name + " " + "31:28 Revision of the PARTID format");
 
     return all_zero;
 }
@@ -19033,7 +20923,8 @@ bool check_compare(const DC12_BITS &obj, const DC12_BITS &expected, const std::s
     all_zero &= check_compare(obj.McBSP_A, expected.McBSP_A, name + " " + "0 McBSP_A");
     all_zero &= check_compare(obj.McBSP_B, expected.McBSP_B, name + " " + "1 McBSP_B");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
-    all_zero &= check_compare(obj.USB_A, expected.USB_A, name + " " + "17:16 Decides the capability of the USB_A Module");
+    all_zero &= check_compare(obj.USB_A, expected.USB_A,
+                              name + " " + "17:16 Decides the capability of the USB_A Module");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "19:18 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "31:20 Reserved");
 
@@ -19895,9 +21786,12 @@ bool check_compare(const RSTSTAT_BITS &obj, const RSTSTAT_BITS &expected, const 
     bool all_zero = true;
 
     all_zero &= check_compare(obj.CPU2RES, expected.CPU2RES, name + " " + "0 CPU2 Reset Status bit");
-    all_zero &= check_compare(obj.CPU2NMIWDRST, expected.CPU2NMIWDRST, name + " " + "1 Indicates whether a CPU2.NMIWD reset was issued to CPU2");
-    all_zero &= check_compare(obj.CPU2HWBISTRST0, expected.CPU2HWBISTRST0, name + " " + "2 Indicates whether a HWBIST reset was issued to CPU2");
-    all_zero &= check_compare(obj.CPU2HWBISTRST1, expected.CPU2HWBISTRST1, name + " " + "3 Indicates whether a HWBIST reset was issued to CPU2");
+    all_zero &= check_compare(obj.CPU2NMIWDRST, expected.CPU2NMIWDRST,
+                              name + " " + "1 Indicates whether a CPU2.NMIWD reset was issued to CPU2");
+    all_zero &= check_compare(obj.CPU2HWBISTRST0, expected.CPU2HWBISTRST0,
+                              name + " " + "2 Indicates whether a HWBIST reset was issued to CPU2");
+    all_zero &= check_compare(obj.CPU2HWBISTRST1, expected.CPU2HWBISTRST1,
+                              name + " " + "3 Indicates whether a HWBIST reset was issued to CPU2");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:4 Reserved");
 
     return all_zero;
@@ -19954,8 +21848,10 @@ bool check_compare(const DEV_CFG_REGS &obj, const DEV_CFG_REGS &expected, const 
 
     all_zero &= check_compare(obj.DEVCFGLOCK1, expected.DEVCFGLOCK1, name + " " + "Lock bit for CPUSELx registers");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.PARTIDL, expected.PARTIDL, name + " " + "Lower 32-bit of Device PART Identification Number");
-    all_zero &= check_compare(obj.PARTIDH, expected.PARTIDH, name + " " + "Upper 32-bit of Device PART Identification Number");
+    all_zero &= check_compare(obj.PARTIDL, expected.PARTIDL,
+                              name + " " + "Lower 32-bit of Device PART Identification Number");
+    all_zero &= check_compare(obj.PARTIDH, expected.PARTIDH,
+                              name + " " + "Upper 32-bit of Device PART Identification Number");
     all_zero &= check_compare(obj.REVID, expected.REVID, name + " " + "Device Revision Number");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.DC0, expected.DC0, name + " " + "Device Capability: Device Information");
@@ -19984,7 +21880,8 @@ bool check_compare(const DEV_CFG_REGS &obj, const DEV_CFG_REGS &expected, const 
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
     all_zero &= check_compare(obj.FUSEERR, expected.FUSEERR, name + " " + "e-Fuse error Status register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
-    all_zero &= check_compare(obj.SOFTPRES0, expected.SOFTPRES0, name + " " + "Processing Block Software Reset register");
+    all_zero &= check_compare(obj.SOFTPRES0, expected.SOFTPRES0,
+                              name + " " + "Processing Block Software Reset register");
     all_zero &= check_compare(obj.SOFTPRES1, expected.SOFTPRES1, name + " " + "EMIF Software Reset register");
     all_zero &= check_compare(obj.SOFTPRES2, expected.SOFTPRES2, name + " " + "Peripheral Software Reset register");
     all_zero &= check_compare(obj.SOFTPRES3, expected.SOFTPRES3, name + " " + "Peripheral Software Reset register");
@@ -20013,14 +21910,19 @@ bool check_compare(const DEV_CFG_REGS &obj, const DEV_CFG_REGS &expected, const 
     all_zero &= check_compare(obj.CPUSEL8, expected.CPUSEL8, name + " " + "CPU Select register for common peripherals");
     all_zero &= check_compare(obj.CPUSEL9, expected.CPUSEL9, name + " " + "CPU Select register for common peripherals");
     all_zero &= check_compare(obj.rsvd13, expected.rsvd13, name + " " + "Reserved");
-    all_zero &= check_compare(obj.CPUSEL11, expected.CPUSEL11, name + " " + "CPU Select register for common peripherals");
-    all_zero &= check_compare(obj.CPUSEL12, expected.CPUSEL12, name + " " + "CPU Select register for common peripherals");
+    all_zero &= check_compare(obj.CPUSEL11, expected.CPUSEL11,
+                              name + " " + "CPU Select register for common peripherals");
+    all_zero &= check_compare(obj.CPUSEL12, expected.CPUSEL12,
+                              name + " " + "CPU Select register for common peripherals");
     all_zero &= check_compare(obj.rsvd14, expected.rsvd14, name + " " + "Reserved");
-    all_zero &= check_compare(obj.CPUSEL14, expected.CPUSEL14, name + " " + "CPU Select register for common peripherals");
+    all_zero &= check_compare(obj.CPUSEL14, expected.CPUSEL14,
+                              name + " " + "CPU Select register for common peripherals");
     all_zero &= check_compare(obj.rsvd15, expected.rsvd15, name + " " + "Reserved");
     all_zero &= check_compare(obj.CPU2RESCTL, expected.CPU2RESCTL, name + " " + "CPU2 Reset Control Register");
-    all_zero &= check_compare(obj.RSTSTAT, expected.RSTSTAT, name + " " + "Reset Status register for secondary C28x CPUs");
-    all_zero &= check_compare(obj.LPMSTAT, expected.LPMSTAT, name + " " + "LPM Status Register for secondary C28x CPUs");
+    all_zero &= check_compare(obj.RSTSTAT, expected.RSTSTAT,
+                              name + " " + "Reset Status register for secondary C28x CPUs");
+    all_zero &= check_compare(obj.LPMSTAT, expected.LPMSTAT,
+                              name + " " + "LPM Status Register for secondary C28x CPUs");
     all_zero &= check_compare(obj.rsvd16, expected.rsvd16, name + " " + "Reserved");
     all_zero &= check_compare(obj.SYSDBGCTL, expected.SYSDBGCTL, name + " " + "System Debug Control register");
 
@@ -20060,9 +21962,12 @@ bool check_compare(const CLKCFGLOCK1_BITS &obj, const CLKCFGLOCK1_BITS &expected
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "8 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "9 Reserved");
     all_zero &= check_compare(obj.AUXPLLMULT, expected.AUXPLLMULT, name + " " + "10 Lock bit for AUXPLLMULT register");
-    all_zero &= check_compare(obj.SYSCLKDIVSEL, expected.SYSCLKDIVSEL, name + " " + "11 Lock bit for SYSCLKDIVSEL register");
-    all_zero &= check_compare(obj.AUXCLKDIVSEL, expected.AUXCLKDIVSEL, name + " " + "12 Lock bit for AUXCLKDIVSEL register");
-    all_zero &= check_compare(obj.PERCLKDIVSEL, expected.PERCLKDIVSEL, name + " " + "13 Lock bit for PERCLKDIVSEL register");
+    all_zero &= check_compare(obj.SYSCLKDIVSEL, expected.SYSCLKDIVSEL,
+                              name + " " + "11 Lock bit for SYSCLKDIVSEL register");
+    all_zero &= check_compare(obj.AUXCLKDIVSEL, expected.AUXCLKDIVSEL,
+                              name + " " + "12 Lock bit for AUXCLKDIVSEL register");
+    all_zero &= check_compare(obj.PERCLKDIVSEL, expected.PERCLKDIVSEL,
+                              name + " " + "13 Lock bit for PERCLKDIVSEL register");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "14 Reserved");
     all_zero &= check_compare(obj.LOSPCP, expected.LOSPCP, name + " " + "15 Lock bit for LOSPCP register");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "31:16 Reserved");
@@ -20105,9 +22010,12 @@ bool check_compare(const CLKSRCCTL1_REG &obj, const CLKSRCCTL1_REG &expected, co
 bool check_compare(const CLKSRCCTL2_BITS &obj, const CLKSRCCTL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.AUXOSCCLKSRCSEL, expected.AUXOSCCLKSRCSEL, name + " " + "1:0 AUXOSCCLK Source Select Bit");
-    all_zero &= check_compare(obj.CANABCLKSEL, expected.CANABCLKSEL, name + " " + "3:2 CANA Bit Clock Source Select Bit");
-    all_zero &= check_compare(obj.CANBBCLKSEL, expected.CANBBCLKSEL, name + " " + "5:4 CANB Bit Clock Source Select Bit");
+    all_zero &= check_compare(obj.AUXOSCCLKSRCSEL, expected.AUXOSCCLKSRCSEL,
+                              name + " " + "1:0 AUXOSCCLK Source Select Bit");
+    all_zero &= check_compare(obj.CANABCLKSEL, expected.CANABCLKSEL,
+                              name + " " + "3:2 CANA Bit Clock Source Select Bit");
+    all_zero &= check_compare(obj.CANBBCLKSEL, expected.CANBBCLKSEL,
+                              name + " " + "5:4 CANB Bit Clock Source Select Bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "7:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "9:8 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "15:10 Reserved");
@@ -20148,7 +22056,8 @@ bool check_compare(const SYSPLLCTL1_BITS &obj, const SYSPLLCTL1_BITS &expected, 
     bool all_zero = true;
 
     all_zero &= check_compare(obj.PLLEN, expected.PLLEN, name + " " + "0 SYSPLL enable/disable bit");
-    all_zero &= check_compare(obj.PLLCLKEN, expected.PLLCLKEN, name + " " + "1 SYSPLL bypassed or included in the PLLSYSCLK path");
+    all_zero &= check_compare(obj.PLLCLKEN, expected.PLLCLKEN,
+                              name + " " + "1 SYSPLL bypassed or included in the PLLSYSCLK path");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -20209,7 +22118,8 @@ bool check_compare(const AUXPLLCTL1_BITS &obj, const AUXPLLCTL1_BITS &expected, 
     bool all_zero = true;
 
     all_zero &= check_compare(obj.PLLEN, expected.PLLEN, name + " " + "0 AUXPLL enable/disable bit");
-    all_zero &= check_compare(obj.PLLCLKEN, expected.PLLCLKEN, name + " " + "1 AUXPLL bypassed or included in the AUXPLLCLK path");
+    all_zero &= check_compare(obj.PLLCLKEN, expected.PLLCLKEN,
+                              name + " " + "1 AUXPLL bypassed or included in the AUXPLLCLK path");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -20423,10 +22333,14 @@ bool check_compare(const CLK_CFG_REGS &obj, const CLK_CFG_REGS &expected, const 
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "Reserved");
     all_zero &= check_compare(obj.AUXPLLMULT, expected.AUXPLLMULT, name + " " + "AUXPLL Multiplier register");
     all_zero &= check_compare(obj.AUXPLLSTS, expected.AUXPLLSTS, name + " " + "AUXPLL Status register");
-    all_zero &= check_compare(obj.SYSCLKDIVSEL, expected.SYSCLKDIVSEL, name + " " + "System Clock Divider Select register");
-    all_zero &= check_compare(obj.AUXCLKDIVSEL, expected.AUXCLKDIVSEL, name + " " + "Auxillary Clock Divider Select register");
-    all_zero &= check_compare(obj.PERCLKDIVSEL, expected.PERCLKDIVSEL, name + " " + "Peripheral Clock Divider Selet register");
-    all_zero &= check_compare(obj.XCLKOUTDIVSEL, expected.XCLKOUTDIVSEL, name + " " + "XCLKOUT Divider Select register");
+    all_zero &= check_compare(obj.SYSCLKDIVSEL, expected.SYSCLKDIVSEL,
+                              name + " " + "System Clock Divider Select register");
+    all_zero &= check_compare(obj.AUXCLKDIVSEL, expected.AUXCLKDIVSEL,
+                              name + " " + "Auxillary Clock Divider Select register");
+    all_zero &= check_compare(obj.PERCLKDIVSEL, expected.PERCLKDIVSEL,
+                              name + " " + "Peripheral Clock Divider Selet register");
+    all_zero &= check_compare(obj.XCLKOUTDIVSEL, expected.XCLKOUTDIVSEL,
+                              name + " " + "XCLKOUT Divider Select register");
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
     all_zero &= check_compare(obj.LOSPCP, expected.LOSPCP, name + " " + "Low Speed Clock Source Prescalar");
     all_zero &= check_compare(obj.MCDCR, expected.MCDCR, name + " " + "Missing Clock Detect Control Register");
@@ -20438,9 +22352,12 @@ bool check_compare(const CLK_CFG_REGS &obj, const CLK_CFG_REGS &expected, const 
 bool check_compare(const CPUSYSLOCK1_BITS &obj, const CPUSYSLOCK1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.HIBBOOTMODE, expected.HIBBOOTMODE, name + " " + "0 Lock bit for HIBBOOTMODE register");
-    all_zero &= check_compare(obj.IORESTOREADDR, expected.IORESTOREADDR, name + " " + "1 Lock bit for IORESTOREADDR Register");
-    all_zero &= check_compare(obj.PIEVERRADDR, expected.PIEVERRADDR, name + " " + "2 Lock bit for PIEVERRADDR Register");
+    all_zero &= check_compare(obj.HIBBOOTMODE, expected.HIBBOOTMODE,
+                              name + " " + "0 Lock bit for HIBBOOTMODE register");
+    all_zero &= check_compare(obj.IORESTOREADDR, expected.IORESTOREADDR,
+                              name + " " + "1 Lock bit for IORESTOREADDR Register");
+    all_zero &= check_compare(obj.PIEVERRADDR, expected.PIEVERRADDR,
+                              name + " " + "2 Lock bit for PIEVERRADDR Register");
     all_zero &= check_compare(obj.PCLKCR0, expected.PCLKCR0, name + " " + "3 Lock bit for PCLKCR0 Register");
     all_zero &= check_compare(obj.PCLKCR1, expected.PCLKCR1, name + " " + "4 Lock bit for PCLKCR1 Register");
     all_zero &= check_compare(obj.PCLKCR2, expected.PCLKCR2, name + " " + "5 Lock bit for PCLKCR2 Register");
@@ -20460,8 +22377,10 @@ bool check_compare(const CPUSYSLOCK1_BITS &obj, const CPUSYSLOCK1_BITS &expected
     all_zero &= check_compare(obj.PCLKCR16, expected.PCLKCR16, name + " " + "19 Lock bit for PCLKCR16 Register");
     all_zero &= check_compare(obj.SECMSEL, expected.SECMSEL, name + " " + "20 Lock bit for SECMSEL Register");
     all_zero &= check_compare(obj.LPMCR, expected.LPMCR, name + " " + "21 Lock bit for LPMCR Register");
-    all_zero &= check_compare(obj.GPIOLPMSEL0, expected.GPIOLPMSEL0, name + " " + "22 Lock bit for GPIOLPMSEL0 Register");
-    all_zero &= check_compare(obj.GPIOLPMSEL1, expected.GPIOLPMSEL1, name + " " + "23 Lock bit for GPIOLPMSEL1 Register");
+    all_zero &= check_compare(obj.GPIOLPMSEL0, expected.GPIOLPMSEL0,
+                              name + " " + "22 Lock bit for GPIOLPMSEL0 Register");
+    all_zero &= check_compare(obj.GPIOLPMSEL1, expected.GPIOLPMSEL1,
+                              name + " " + "23 Lock bit for GPIOLPMSEL1 Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:24 Reserved");
 
     return all_zero;
@@ -20497,7 +22416,8 @@ bool check_compare(const IORESTOREADDR_REG &obj, const IORESTOREADDR_REG &expect
 bool check_compare(const PIEVERRADDR_BITS &obj, const PIEVERRADDR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.ADDR, expected.ADDR, name + " " + "21:0 PIE Vector Fetch Error Handler Routine Address");
+    all_zero &= check_compare(obj.ADDR, expected.ADDR,
+                              name + " " + "21:0 PIE Vector Fetch Error Handler Routine Address");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:22 Reserved");
 
     return all_zero;
@@ -20876,8 +22796,10 @@ bool check_compare(const PCLKCR16_REG &obj, const PCLKCR16_REG &expected, const 
 bool check_compare(const SECMSEL_BITS &obj, const SECMSEL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.PF1SEL, expected.PF1SEL, name + " " + "1:0 Secondary Master Select for VBUS32_1 Bridge");
-    all_zero &= check_compare(obj.PF2SEL, expected.PF2SEL, name + " " + "3:2 Secondary Master Select for VBUS32_2 Bridge");
+    all_zero &= check_compare(obj.PF1SEL, expected.PF1SEL,
+                              name + " " + "1:0 Secondary Master Select for VBUS32_1 Bridge");
+    all_zero &= check_compare(obj.PF2SEL, expected.PF2SEL,
+                              name + " " + "3:2 Secondary Master Select for VBUS32_2 Bridge");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "5:4 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "7:6 Reserved");
     all_zero &= check_compare(obj.rsvd3, expected.rsvd3, name + " " + "9:8 Reserved");
@@ -20902,10 +22824,12 @@ bool check_compare(const LPMCR_BITS &obj, const LPMCR_BITS &expected, const std:
     bool all_zero = true;
 
     all_zero &= check_compare(obj.LPM, expected.LPM, name + " " + "1:0 Low Power Mode setting");
-    all_zero &= check_compare(obj.QUALSTDBY, expected.QUALSTDBY, name + " " + "7:2 STANDBY Wakeup Pin Qualification Setting");
+    all_zero &= check_compare(obj.QUALSTDBY, expected.QUALSTDBY,
+                              name + " " + "7:2 STANDBY Wakeup Pin Qualification Setting");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "14:8 Reserved");
     all_zero &= check_compare(obj.WDINTE, expected.WDINTE, name + " " + "15 Enable for WDINT wakeup from STANDBY");
-    all_zero &= check_compare(obj.M0M1MODE, expected.M0M1MODE, name + " " + "17:16 Configuration for M0 and M1 mode during HIB");
+    all_zero &= check_compare(obj.M0M1MODE, expected.M0M1MODE,
+                              name + " " + "17:16 Configuration for M0 and M1 mode during HIB");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "30:18 Reserved");
     all_zero &= check_compare(obj.IOISODIS, expected.IOISODIS, name + " " + "31 IO Isolation Disable");
 
@@ -21020,8 +22944,10 @@ bool check_compare(const GPIOLPMSEL1_REG &obj, const GPIOLPMSEL1_REG &expected, 
 bool check_compare(const TMR2CLKCTL_BITS &obj, const TMR2CLKCTL_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TMR2CLKSRCSEL, expected.TMR2CLKSRCSEL, name + " " + "2:0 CPU Timer 2 Clock Source Select Bit");
-    all_zero &= check_compare(obj.TMR2CLKPRESCALE, expected.TMR2CLKPRESCALE, name + " " + "5:3 CPU Timer 2 Clock Pre-Scale Value");
+    all_zero &= check_compare(obj.TMR2CLKSRCSEL, expected.TMR2CLKSRCSEL,
+                              name + " " + "2:0 CPU Timer 2 Clock Source Select Bit");
+    all_zero &= check_compare(obj.TMR2CLKPRESCALE, expected.TMR2CLKPRESCALE,
+                              name + " " + "5:3 CPU Timer 2 Clock Pre-Scale Value");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:6 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -21072,8 +22998,10 @@ bool check_compare(const CPU_SYS_REGS &obj, const CPU_SYS_REGS &expected, const 
     all_zero &= check_compare(obj.CPUSYSLOCK1, expected.CPUSYSLOCK1, name + " " + "Lock bit for CPUSYS registers");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
     all_zero &= check_compare(obj.HIBBOOTMODE, expected.HIBBOOTMODE, name + " " + "HIB Boot Mode Register");
-    all_zero &= check_compare(obj.IORESTOREADDR, expected.IORESTOREADDR, name + " " + "IORestore() routine Address Register");
-    all_zero &= check_compare(obj.PIEVERRADDR, expected.PIEVERRADDR, name + " " + "PIE Vector Fetch Error Address register");
+    all_zero &= check_compare(obj.IORESTOREADDR, expected.IORESTOREADDR,
+                              name + " " + "IORestore() routine Address Register");
+    all_zero &= check_compare(obj.PIEVERRADDR, expected.PIEVERRADDR,
+                              name + " " + "PIE Vector Fetch Error Address register");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
     all_zero &= check_compare(obj.PCLKCR0, expected.PCLKCR0, name + " " + "Peripheral Clock Gating Registers");
     all_zero &= check_compare(obj.PCLKCR1, expected.PCLKCR1, name + " " + "Peripheral Clock Gating Registers");
@@ -21093,11 +23021,14 @@ bool check_compare(const CPU_SYS_REGS &obj, const CPU_SYS_REGS &expected, const 
     all_zero &= check_compare(obj.rsvd4, expected.rsvd4, name + " " + "Reserved");
     all_zero &= check_compare(obj.PCLKCR16, expected.PCLKCR16, name + " " + "Peripheral Clock Gating Registers");
     all_zero &= check_compare(obj.rsvd5, expected.rsvd5, name + " " + "Reserved");
-    all_zero &= check_compare(obj.SECMSEL, expected.SECMSEL, name + " " + "Secondary Master Select register for common peripherals: Selects between CLA & DMA");
+    all_zero &= check_compare(obj.SECMSEL, expected.SECMSEL,
+                              name + " " +
+                              "Secondary Master Select register for common peripherals: Selects between CLA & DMA");
     all_zero &= check_compare(obj.LPMCR, expected.LPMCR, name + " " + "LPM Control Register");
     all_zero &= check_compare(obj.GPIOLPMSEL0, expected.GPIOLPMSEL0, name + " " + "GPIO LPM Wakeup select registers");
     all_zero &= check_compare(obj.GPIOLPMSEL1, expected.GPIOLPMSEL1, name + " " + "GPIO LPM Wakeup select registers");
-    all_zero &= check_compare(obj.TMR2CLKCTL, expected.TMR2CLKCTL, name + " " + "Timer2 Clock Measurement functionality control register");
+    all_zero &= check_compare(obj.TMR2CLKCTL, expected.TMR2CLKCTL,
+                              name + " " + "Timer2 Clock Measurement functionality control register");
     all_zero &= check_compare(obj.rsvd6, expected.rsvd6, name + " " + "Reserved");
     all_zero &= check_compare(obj.RESC, expected.RESC, name + " " + "Reset Cause register");
 
@@ -21184,7 +23115,8 @@ bool check_compare(const WDCR_REG &obj, const WDCR_REG &expected, const std::str
 bool check_compare(const WDWCR_BITS &obj, const WDWCR_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.MIN, expected.MIN, name + " " + "7:0 WD Min Threshold setting for Windowed Watchdog functionality");
+    all_zero &= check_compare(obj.MIN, expected.MIN,
+                              name + " " + "7:0 WD Min Threshold setting for Windowed Watchdog functionality");
     all_zero &= check_compare(obj.FIRSTKEY, expected.FIRSTKEY, name + " " + "8 First Key Detect Flag");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:9 Reserved");
 
@@ -21215,11 +23147,14 @@ bool check_compare(const WD_REGS &obj, const WD_REGS &expected, const std::strin
     return all_zero;
 }
 
-bool check_compare(const CLA1TASKSRCSELLOCK_BITS &obj, const CLA1TASKSRCSELLOCK_BITS &expected, const std::string &name) {
+bool check_compare(const CLA1TASKSRCSELLOCK_BITS &obj, const CLA1TASKSRCSELLOCK_BITS &expected,
+                   const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CLA1TASKSRCSEL1, expected.CLA1TASKSRCSEL1, name + " " + "0 CLA1TASKSRCSEL1 Register Lock bit");
-    all_zero &= check_compare(obj.CLA1TASKSRCSEL2, expected.CLA1TASKSRCSEL2, name + " " + "1 CLA1TASKSRCSEL2 Register Lock bit");
+    all_zero &= check_compare(obj.CLA1TASKSRCSEL1, expected.CLA1TASKSRCSEL1,
+                              name + " " + "0 CLA1TASKSRCSEL1 Register Lock bit");
+    all_zero &= check_compare(obj.CLA1TASKSRCSEL2, expected.CLA1TASKSRCSEL2,
+                              name + " " + "1 CLA1TASKSRCSEL2 Register Lock bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -21258,10 +23193,14 @@ bool check_compare(const DMACHSRCSELLOCK_REG &obj, const DMACHSRCSELLOCK_REG &ex
 bool check_compare(const CLA1TASKSRCSEL1_BITS &obj, const CLA1TASKSRCSEL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TASK1, expected.TASK1, name + " " + "7:0 Selects the Trigger Source for TASK1 of CLA1");
-    all_zero &= check_compare(obj.TASK2, expected.TASK2, name + " " + "15:8 Selects the Trigger Source for TASK2 of CLA1");
-    all_zero &= check_compare(obj.TASK3, expected.TASK3, name + " " + "23:16 Selects the Trigger Source for TASK3 of CLA1");
-    all_zero &= check_compare(obj.TASK4, expected.TASK4, name + " " + "31:24 Selects the Trigger Source for TASK4 of CLA1");
+    all_zero &= check_compare(obj.TASK1, expected.TASK1,
+                              name + " " + "7:0 Selects the Trigger Source for TASK1 of CLA1");
+    all_zero &= check_compare(obj.TASK2, expected.TASK2,
+                              name + " " + "15:8 Selects the Trigger Source for TASK2 of CLA1");
+    all_zero &= check_compare(obj.TASK3, expected.TASK3,
+                              name + " " + "23:16 Selects the Trigger Source for TASK3 of CLA1");
+    all_zero &= check_compare(obj.TASK4, expected.TASK4,
+                              name + " " + "31:24 Selects the Trigger Source for TASK4 of CLA1");
 
     return all_zero;
 }
@@ -21278,10 +23217,14 @@ bool check_compare(const CLA1TASKSRCSEL1_REG &obj, const CLA1TASKSRCSEL1_REG &ex
 bool check_compare(const CLA1TASKSRCSEL2_BITS &obj, const CLA1TASKSRCSEL2_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.TASK5, expected.TASK5, name + " " + "7:0 Selects the Trigger Source for TASK5 of CLA1");
-    all_zero &= check_compare(obj.TASK6, expected.TASK6, name + " " + "15:8 Selects the Trigger Source for TASK6 of CLA1");
-    all_zero &= check_compare(obj.TASK7, expected.TASK7, name + " " + "23:16 Selects the Trigger Source for TASK7 of CLA1");
-    all_zero &= check_compare(obj.TASK8, expected.TASK8, name + " " + "31:24 Selects the Trigger Source for TASK8 of CLA1");
+    all_zero &= check_compare(obj.TASK5, expected.TASK5,
+                              name + " " + "7:0 Selects the Trigger Source for TASK5 of CLA1");
+    all_zero &= check_compare(obj.TASK6, expected.TASK6,
+                              name + " " + "15:8 Selects the Trigger Source for TASK6 of CLA1");
+    all_zero &= check_compare(obj.TASK7, expected.TASK7,
+                              name + " " + "23:16 Selects the Trigger Source for TASK7 of CLA1");
+    all_zero &= check_compare(obj.TASK8, expected.TASK8,
+                              name + " " + "31:24 Selects the Trigger Source for TASK8 of CLA1");
 
     return all_zero;
 }
@@ -21299,9 +23242,12 @@ bool check_compare(const DMACHSRCSEL1_BITS &obj, const DMACHSRCSEL1_BITS &expect
     bool all_zero = true;
 
     all_zero &= check_compare(obj.CH1, expected.CH1, name + " " + "7:0 Selects the Trigger and Sync Source CH1 of DMA");
-    all_zero &= check_compare(obj.CH2, expected.CH2, name + " " + "15:8 Selects the Trigger and Sync Source CH2 of DMA");
-    all_zero &= check_compare(obj.CH3, expected.CH3, name + " " + "23:16 Selects the Trigger and Sync Source CH3 of DMA");
-    all_zero &= check_compare(obj.CH4, expected.CH4, name + " " + "31:24 Selects the Trigger and Sync Source CH4 of DMA");
+    all_zero &= check_compare(obj.CH2, expected.CH2,
+                              name + " " + "15:8 Selects the Trigger and Sync Source CH2 of DMA");
+    all_zero &= check_compare(obj.CH3, expected.CH3,
+                              name + " " + "23:16 Selects the Trigger and Sync Source CH3 of DMA");
+    all_zero &= check_compare(obj.CH4, expected.CH4,
+                              name + " " + "31:24 Selects the Trigger and Sync Source CH4 of DMA");
 
     return all_zero;
 }
@@ -21319,7 +23265,8 @@ bool check_compare(const DMACHSRCSEL2_BITS &obj, const DMACHSRCSEL2_BITS &expect
     bool all_zero = true;
 
     all_zero &= check_compare(obj.CH5, expected.CH5, name + " " + "7:0 Selects the Trigger and Sync Source CH5 of DMA");
-    all_zero &= check_compare(obj.CH6, expected.CH6, name + " " + "15:8 Selects the Trigger and Sync Source CH6 of DMA");
+    all_zero &= check_compare(obj.CH6, expected.CH6,
+                              name + " " + "15:8 Selects the Trigger and Sync Source CH6 of DMA");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -21337,14 +23284,20 @@ bool check_compare(const DMACHSRCSEL2_REG &obj, const DMACHSRCSEL2_REG &expected
 bool check_compare(const DMA_CLA_SRC_SEL_REGS &obj, const DMA_CLA_SRC_SEL_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.CLA1TASKSRCSELLOCK, expected.CLA1TASKSRCSELLOCK, name + " " + "CLA1 Task Trigger Source Select Lock Register");
+    all_zero &= check_compare(obj.CLA1TASKSRCSELLOCK, expected.CLA1TASKSRCSELLOCK,
+                              name + " " + "CLA1 Task Trigger Source Select Lock Register");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "Reserved");
-    all_zero &= check_compare(obj.DMACHSRCSELLOCK, expected.DMACHSRCSELLOCK, name + " " + "DMA Channel Triger Source Select Lock Register");
-    all_zero &= check_compare(obj.CLA1TASKSRCSEL1, expected.CLA1TASKSRCSEL1, name + " " + "CLA1 Task Trigger Source Select Register-1");
-    all_zero &= check_compare(obj.CLA1TASKSRCSEL2, expected.CLA1TASKSRCSEL2, name + " " + "CLA1 Task Trigger Source Select Register-2");
+    all_zero &= check_compare(obj.DMACHSRCSELLOCK, expected.DMACHSRCSELLOCK,
+                              name + " " + "DMA Channel Triger Source Select Lock Register");
+    all_zero &= check_compare(obj.CLA1TASKSRCSEL1, expected.CLA1TASKSRCSEL1,
+                              name + " " + "CLA1 Task Trigger Source Select Register-1");
+    all_zero &= check_compare(obj.CLA1TASKSRCSEL2, expected.CLA1TASKSRCSEL2,
+                              name + " " + "CLA1 Task Trigger Source Select Register-2");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "Reserved");
-    all_zero &= check_compare(obj.DMACHSRCSEL1, expected.DMACHSRCSEL1, name + " " + "DMA Channel Trigger Source Select Register-1");
-    all_zero &= check_compare(obj.DMACHSRCSEL2, expected.DMACHSRCSEL2, name + " " + "DMA Channel Trigger Source Select Register-2");
+    all_zero &= check_compare(obj.DMACHSRCSEL1, expected.DMACHSRCSEL1,
+                              name + " " + "DMA Channel Trigger Source Select Register-1");
+    all_zero &= check_compare(obj.DMACHSRCSEL2, expected.DMACHSRCSEL2,
+                              name + " " + "DMA Channel Trigger Source Select Register-2");
 
     return all_zero;
 }
@@ -21352,11 +23305,16 @@ bool check_compare(const DMA_CLA_SRC_SEL_REGS &obj, const DMA_CLA_SRC_SEL_REGS &
 bool check_compare(const SYNCSELECT_BITS &obj, const SYNCSELECT_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.EPWM4SYNCIN, expected.EPWM4SYNCIN, name + " " + "2:0 Selects Sync Input Source for EPWM4");
-    all_zero &= check_compare(obj.EPWM7SYNCIN, expected.EPWM7SYNCIN, name + " " + "5:3 Selects Sync Input Source for EPWM7");
-    all_zero &= check_compare(obj.EPWM10SYNCIN, expected.EPWM10SYNCIN, name + " " + "8:6 Selects Sync Input Source for EPWM10");
-    all_zero &= check_compare(obj.ECAP1SYNCIN, expected.ECAP1SYNCIN, name + " " + "11:9 Selects Sync Input Source for ECAP1");
-    all_zero &= check_compare(obj.ECAP4SYNCIN, expected.ECAP4SYNCIN, name + " " + "14:12 Selects Sync Input Source for ECAP4");
+    all_zero &= check_compare(obj.EPWM4SYNCIN, expected.EPWM4SYNCIN,
+                              name + " " + "2:0 Selects Sync Input Source for EPWM4");
+    all_zero &= check_compare(obj.EPWM7SYNCIN, expected.EPWM7SYNCIN,
+                              name + " " + "5:3 Selects Sync Input Source for EPWM7");
+    all_zero &= check_compare(obj.EPWM10SYNCIN, expected.EPWM10SYNCIN,
+                              name + " " + "8:6 Selects Sync Input Source for EPWM10");
+    all_zero &= check_compare(obj.ECAP1SYNCIN, expected.ECAP1SYNCIN,
+                              name + " " + "11:9 Selects Sync Input Source for ECAP1");
+    all_zero &= check_compare(obj.ECAP4SYNCIN, expected.ECAP4SYNCIN,
+                              name + " " + "14:12 Selects Sync Input Source for ECAP4");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "26:16 Reserved");
     all_zero &= check_compare(obj.SYNCOUT, expected.SYNCOUT, name + " " + "28:27 Select Syncout Source");
@@ -21420,7 +23378,8 @@ bool check_compare(const SYNCSOCLOCK_BITS &obj, const SYNCSOCLOCK_BITS &expected
     bool all_zero = true;
 
     all_zero &= check_compare(obj.SYNCSELECT, expected.SYNCSELECT, name + " " + "0 SYNCSEL Register Lock bit");
-    all_zero &= check_compare(obj.ADCSOCOUTSELECT, expected.ADCSOCOUTSELECT, name + " " + "1 ADCSOCOUTSELECT Register Lock bit");
+    all_zero &= check_compare(obj.ADCSOCOUTSELECT, expected.ADCSOCOUTSELECT,
+                              name + " " + "1 ADCSOCOUTSELECT Register Lock bit");
     all_zero &= check_compare(obj.rsvd1, expected.rsvd1, name + " " + "15:2 Reserved");
     all_zero &= check_compare(obj.rsvd2, expected.rsvd2, name + " " + "31:16 Reserved");
 
@@ -21439,9 +23398,12 @@ bool check_compare(const SYNCSOCLOCK_REG &obj, const SYNCSOCLOCK_REG &expected, 
 bool check_compare(const SYNC_SOC_REGS &obj, const SYNC_SOC_REGS &expected, const std::string &name) {
     bool all_zero = true;
 
-    all_zero &= check_compare(obj.SYNCSELECT, expected.SYNCSELECT, name + " " + "Sync Input and Output Select Register");
-    all_zero &= check_compare(obj.ADCSOCOUTSELECT, expected.ADCSOCOUTSELECT, name + " " + "External ADC (Off Chip) SOC Select Register");
-    all_zero &= check_compare(obj.SYNCSOCLOCK, expected.SYNCSOCLOCK, name + " " + "SYNCSEL and EXTADCSOC Select Lock register");
+    all_zero &= check_compare(obj.SYNCSELECT, expected.SYNCSELECT,
+                              name + " " + "Sync Input and Output Select Register");
+    all_zero &= check_compare(obj.ADCSOCOUTSELECT, expected.ADCSOCOUTSELECT,
+                              name + " " + "External ADC (Off Chip) SOC Select Register");
+    all_zero &= check_compare(obj.SYNCSOCLOCK, expected.SYNCSOCLOCK,
+                              name + " " + "SYNCSEL and EXTADCSOC Select Lock register");
 
     return all_zero;
 }

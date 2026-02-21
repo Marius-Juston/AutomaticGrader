@@ -25,7 +25,7 @@ int check_initialization() {
     // temp_main();
 
     GpioSetup expectedGpioSetup[MAX_GPIO];
-    for (size_t i = 0; i< MAX_GPIO; ++i) {
+    for (size_t i = 0; i < MAX_GPIO; ++i) {
         expectedGpioSetup[i] = gpiosSetup[i];
     }
 
