@@ -7,7 +7,7 @@ def generate_zero_checks(header_text):
     and generates C++ templates to verify all registers are zero.
     """
     # 1. Base C++ template blocks
-    cpp_code = """#include "checks/generated.hpp
+    cpp_code = """#include "checks/generated.hpp"
 #include <iostream>
 
 template<typename T>
@@ -94,7 +94,7 @@ bool check_zero(const PINT &obj, const std::string &name);
             # Clean up the description string for the C++ printout
             desc = comment.strip() if comment else mem_name
             # Strip out bit-range prefixes often found in TI headers (e.g., "15:0 Reserved")
-            desc = re.sub(r'^[\d:\s]+\s', '', desc)
+            # desc = re.sub(r'^[\d:\s]+\s', '', desc)
             desc = desc.replace('"', '\\"')  # Escape quotes
 
             # Determine accessor method. If it's a union, target the `.all` field.
@@ -141,7 +141,7 @@ if __name__ == "__main__":
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_spi.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_xint.h",
              ]
-    files = set(files)
+    files = sorted(set(files))
 
     header_content = []
 
@@ -156,8 +156,8 @@ if __name__ == "__main__":
     # Output to standard out or write to a target file
     print(generated_cpp)
 
-    with open("generated.cpp", 'w') as f:
+    with open("src/checks/generated.cpp", 'w') as f:
         f.write(generated_cpp)
 
-    with open("generated.hpp", 'w') as f:
+    with open("include/checks/generated.hpp", 'w') as f:
         f.write(generated_hpp)
