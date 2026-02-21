@@ -5,6 +5,7 @@
 #ifndef AUTOMATICGRADER_STATE_CHECKER_H
 #define AUTOMATICGRADER_STATE_CHECKER_H
 #include <functional>
+#include <iostream>
 #include <ranges>
 #include <string>
 #include <unordered_map>
@@ -43,6 +44,10 @@ public:
 
     template<typename T>
     void register_comparison_copy(const std::string &reg_name, const T actual_reg, const T expected_state) {
+        if (tracker_.contains(reg_name)) {
+            std::cout << "Be careful as " << reg_name << " is already used as a key" << std::endl;
+        }
+
         tracker_[reg_name] = [actual_reg = std::move(actual_reg), expected_state = std::move(expected_state), reg_name
                 ]() -> bool {
                     return check_compare(actual_reg, expected_state, reg_name);
@@ -69,6 +74,11 @@ public:
     template<typename T>
     void register_custom_copy(const std::string &reg_name, const T actual_reg, const T expected_state,
                               const CheckFunc<T> &check_func = defaultComparator<T>) {
+
+        if (tracker_.contains(reg_name)) {
+            std::cout << "Be careful as " << reg_name << " is already used as a key" << std::endl;
+        }
+
         tracker_[reg_name] = [actual_reg= std::move(actual_reg), expected_state = std::move(expected_state),
                     reg_name, &check_func
                 ]() -> bool {
