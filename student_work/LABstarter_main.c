@@ -314,7 +314,7 @@ float saturate(float input, float saturation_limit){
     if(input > saturation_limit){
         return saturation_limit;
     }
-    else if (input < saturation_limit){
+    else if (input < -saturation_limit){
         return -saturation_limit;
     }
     return input;

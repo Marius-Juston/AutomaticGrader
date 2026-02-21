@@ -15,6 +15,8 @@ void cpu_timer1_isr();
 
 void cpu_timer2_isr();
 
+void SWI_isr(void);
+
 //
 // // Resolves to null if it does not exist
 float saturate(float, float) __attribute__

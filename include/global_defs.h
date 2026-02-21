@@ -42,294 +42,294 @@
 #include "F2837xD_Pie_defines.h"
 
 
-extern volatile struct ACCESS_PROTECTION_REGS AccessProtectionRegs;
+extern struct ACCESS_PROTECTION_REGS AccessProtectionRegs;
 
 
-extern volatile struct ADC_REGS AdcaRegs;
+extern struct ADC_REGS AdcaRegs;
 
 
-extern volatile struct ADC_REGS AdcbRegs;
+extern struct ADC_REGS AdcbRegs;
 
 
-extern volatile struct ADC_REGS AdccRegs;
+extern struct ADC_REGS AdccRegs;
 
 
-extern volatile struct ADC_REGS AdcdRegs;
+extern struct ADC_REGS AdcdRegs;
 
 
-extern volatile struct ADC_RESULT_REGS AdcaResultRegs;
+extern struct ADC_RESULT_REGS AdcaResultRegs;
 
 
-extern volatile struct ADC_RESULT_REGS AdcbResultRegs;
+extern struct ADC_RESULT_REGS AdcbResultRegs;
 
 
-extern volatile struct ADC_RESULT_REGS AdccResultRegs;
+extern struct ADC_RESULT_REGS AdccResultRegs;
 
 
-extern volatile struct ADC_RESULT_REGS AdcdResultRegs;
+extern struct ADC_RESULT_REGS AdcdResultRegs;
 
 
-extern volatile struct ANALOG_SUBSYS_REGS AnalogSubsysRegs;
+extern struct ANALOG_SUBSYS_REGS AnalogSubsysRegs;
 
 
-extern volatile struct CLA_REGS Cla1Regs;
+extern struct CLA_REGS Cla1Regs;
 
 
-extern volatile struct CLB_DATA_EXCHANGE_REGS Clb1DataExchRegs;
+extern struct CLB_DATA_EXCHANGE_REGS Clb1DataExchRegs;
 
 
-extern volatile struct CLB_DATA_EXCHANGE_REGS Clb2DataExchRegs;
+extern struct CLB_DATA_EXCHANGE_REGS Clb2DataExchRegs;
 
 
-extern volatile struct CLB_DATA_EXCHANGE_REGS Clb3DataExchRegs;
+extern struct CLB_DATA_EXCHANGE_REGS Clb3DataExchRegs;
 
 
-extern volatile struct CLB_DATA_EXCHANGE_REGS Clb4DataExchRegs;
+extern struct CLB_DATA_EXCHANGE_REGS Clb4DataExchRegs;
 
 
-extern volatile struct CLB_LOGIC_CONFIG_REGS Clb1LogicCfgRegs;
+extern struct CLB_LOGIC_CONFIG_REGS Clb1LogicCfgRegs;
 
 
-extern volatile struct CLB_LOGIC_CONFIG_REGS Clb2LogicCfgRegs;
+extern struct CLB_LOGIC_CONFIG_REGS Clb2LogicCfgRegs;
 
 
-extern volatile struct CLB_LOGIC_CONFIG_REGS Clb3LogicCfgRegs;
+extern struct CLB_LOGIC_CONFIG_REGS Clb3LogicCfgRegs;
 
 
-extern volatile struct CLB_LOGIC_CONFIG_REGS Clb4LogicCfgRegs;
+extern struct CLB_LOGIC_CONFIG_REGS Clb4LogicCfgRegs;
 
 
-extern volatile struct CLB_LOGIC_CONTROL_REGS Clb1LogicCtrlRegs;
+extern struct CLB_LOGIC_CONTROL_REGS Clb1LogicCtrlRegs;
 
 
-extern volatile struct CLB_LOGIC_CONTROL_REGS Clb2LogicCtrlRegs;
+extern struct CLB_LOGIC_CONTROL_REGS Clb2LogicCtrlRegs;
 
 
-extern volatile struct CLB_LOGIC_CONTROL_REGS Clb3LogicCtrlRegs;
+extern struct CLB_LOGIC_CONTROL_REGS Clb3LogicCtrlRegs;
 
 
-extern volatile struct CLB_LOGIC_CONTROL_REGS Clb4LogicCtrlRegs;
+extern struct CLB_LOGIC_CONTROL_REGS Clb4LogicCtrlRegs;
 
 
-extern volatile struct CLB_XBAR_REGS ClbXbarRegs;
+extern struct CLB_XBAR_REGS ClbXbarRegs;
 
 
-extern volatile struct CLK_CFG_REGS ClkCfgRegs;
+extern struct CLK_CFG_REGS ClkCfgRegs;
 
 
-extern volatile struct CMPSS_REGS Cmpss1Regs;
+extern struct CMPSS_REGS Cmpss1Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss2Regs;
+extern struct CMPSS_REGS Cmpss2Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss3Regs;
+extern struct CMPSS_REGS Cmpss3Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss4Regs;
+extern struct CMPSS_REGS Cmpss4Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss5Regs;
+extern struct CMPSS_REGS Cmpss5Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss6Regs;
+extern struct CMPSS_REGS Cmpss6Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss7Regs;
+extern struct CMPSS_REGS Cmpss7Regs;
 
 
-extern volatile struct CMPSS_REGS Cmpss8Regs;
+extern struct CMPSS_REGS Cmpss8Regs;
 
 
-extern volatile struct CPUTIMER_REGS CpuTimer0Regs;
+extern struct CPUTIMER_REGS CpuTimer0Regs;
 
 
-extern volatile struct CPUTIMER_REGS CpuTimer1Regs;
+extern struct CPUTIMER_REGS CpuTimer1Regs;
 
 
-extern volatile struct CPUTIMER_REGS CpuTimer2Regs;
+extern struct CPUTIMER_REGS CpuTimer2Regs;
 
 
-extern volatile struct CPU_SYS_REGS CpuSysRegs;
+extern struct CPU_SYS_REGS CpuSysRegs;
 
 
-extern volatile struct DAC_REGS DacaRegs;
+extern struct DAC_REGS DacaRegs;
 
 
-extern volatile struct DAC_REGS DacbRegs;
+extern struct DAC_REGS DacbRegs;
 
 
-extern volatile struct DAC_REGS DaccRegs;
+extern struct DAC_REGS DaccRegs;
 
 
-extern volatile struct DCSM_COMMON_REGS DcsmCommonRegs;
+extern struct DCSM_COMMON_REGS DcsmCommonRegs;
 
 
-extern volatile struct DCSM_Z1_REGS DcsmZ1Regs;
+extern struct DCSM_Z1_REGS DcsmZ1Regs;
 
 
-extern volatile struct DCSM_Z2_REGS DcsmZ2Regs;
+extern struct DCSM_Z2_REGS DcsmZ2Regs;
 
 
-extern volatile struct DEV_CFG_REGS DevCfgRegs;
+extern struct DEV_CFG_REGS DevCfgRegs;
 
 
-extern volatile struct DMA_CLA_SRC_SEL_REGS DmaClaSrcSelRegs;
+extern struct DMA_CLA_SRC_SEL_REGS DmaClaSrcSelRegs;
 
 
-extern volatile struct DMA_REGS DmaRegs;
+extern struct DMA_REGS DmaRegs;
 
 
-extern volatile struct ECAP_REGS ECap1Regs;
+extern struct ECAP_REGS ECap1Regs;
 
 
-extern volatile struct ECAP_REGS ECap2Regs;
+extern struct ECAP_REGS ECap2Regs;
 
 
-extern volatile struct ECAP_REGS ECap3Regs;
+extern struct ECAP_REGS ECap3Regs;
 
 
-extern volatile struct ECAP_REGS ECap4Regs;
+extern struct ECAP_REGS ECap4Regs;
 
 
-extern volatile struct ECAP_REGS ECap5Regs;
+extern struct ECAP_REGS ECap5Regs;
 
 
-extern volatile struct ECAP_REGS ECap6Regs;
+extern struct ECAP_REGS ECap6Regs;
 
 
-extern volatile struct EMIF1_CONFIG_REGS Emif1ConfigRegs;
+extern struct EMIF1_CONFIG_REGS Emif1ConfigRegs;
 
 
-extern volatile struct EMIF2_CONFIG_REGS Emif2ConfigRegs;
+extern struct EMIF2_CONFIG_REGS Emif2ConfigRegs;
 
 
-extern volatile struct EMIF_REGS Emif1Regs;
+extern struct EMIF_REGS Emif1Regs;
 
 
-extern volatile struct EMIF_REGS Emif2Regs;
+extern struct EMIF_REGS Emif2Regs;
 
 
-extern volatile struct EPWM_REGS EPwm1Regs;
+extern struct EPWM_REGS EPwm1Regs;
 
 
-extern volatile struct EPWM_REGS EPwm2Regs;
+extern struct EPWM_REGS EPwm2Regs;
 
 
-extern volatile struct EPWM_REGS EPwm3Regs;
+extern struct EPWM_REGS EPwm3Regs;
 
 
-extern volatile struct EPWM_REGS EPwm4Regs;
+extern struct EPWM_REGS EPwm4Regs;
 
 
-extern volatile struct EPWM_REGS EPwm5Regs;
+extern struct EPWM_REGS EPwm5Regs;
 
 
-extern volatile struct EPWM_REGS EPwm6Regs;
+extern struct EPWM_REGS EPwm6Regs;
 
 
-extern volatile struct EPWM_REGS EPwm7Regs;
+extern struct EPWM_REGS EPwm7Regs;
 
 
-extern volatile struct EPWM_REGS EPwm8Regs;
+extern struct EPWM_REGS EPwm8Regs;
 
 
-extern volatile struct EPWM_REGS EPwm9Regs;
+extern struct EPWM_REGS EPwm9Regs;
 
 
-extern volatile struct EPWM_REGS EPwm10Regs;
+extern struct EPWM_REGS EPwm10Regs;
 
 
-extern volatile struct EPWM_REGS EPwm11Regs;
+extern struct EPWM_REGS EPwm11Regs;
 
 
-extern volatile struct EPWM_REGS EPwm12Regs;
+extern struct EPWM_REGS EPwm12Regs;
 
 
-extern volatile struct EPWM_XBAR_REGS EPwmXbarRegs;
+extern struct EPWM_XBAR_REGS EPwmXbarRegs;
 
 
-extern volatile struct EQEP_REGS EQep1Regs;
+extern struct EQEP_REGS EQep1Regs;
 
 
-extern volatile struct EQEP_REGS EQep2Regs;
+extern struct EQEP_REGS EQep2Regs;
 
 
-extern volatile struct EQEP_REGS EQep3Regs;
+extern struct EQEP_REGS EQep3Regs;
 
 
-extern volatile struct FLASH_CTRL_REGS Flash0CtrlRegs;
+extern struct FLASH_CTRL_REGS Flash0CtrlRegs;
 
 
-extern volatile struct FLASH_ECC_REGS Flash0EccRegs;
+extern struct FLASH_ECC_REGS Flash0EccRegs;
 
 
-extern volatile struct FLASH_PUMP_SEMAPHORE_REGS FlashPumpSemaphoreRegs;
+extern struct FLASH_PUMP_SEMAPHORE_REGS FlashPumpSemaphoreRegs;
 
 
-extern volatile struct GPIO_CTRL_REGS GpioCtrlRegs;
+extern struct GPIO_CTRL_REGS GpioCtrlRegs;
 
 
-extern volatile struct GPIO_DATA_REGS GpioDataRegs;
+extern struct GPIO_DATA_REGS GpioDataRegs;
 
 
-extern volatile struct I2C_REGS I2caRegs;
+extern struct I2C_REGS I2caRegs;
 
 
-extern volatile struct I2C_REGS I2cbRegs;
+extern struct I2C_REGS I2cbRegs;
 
 
-extern volatile struct MEMORY_ERROR_REGS MemoryErrorRegs;
+extern struct MEMORY_ERROR_REGS MemoryErrorRegs;
 
 
-extern volatile struct MEM_CFG_REGS MemCfgRegs;
+extern struct MEM_CFG_REGS MemCfgRegs;
 
 
-extern volatile struct McBSP_REGS McbspaRegs;
+extern struct McBSP_REGS McbspaRegs;
 
-extern volatile struct McBSP_REGS McbspbRegs;
+extern struct McBSP_REGS McbspbRegs;
 
-extern volatile struct NMI_INTRUPT_REGS NmiIntruptRegs;
+extern struct NMI_INTRUPT_REGS NmiIntruptRegs;
 
 
-extern volatile struct PIE_CTRL_REGS PieCtrlRegs;
+extern struct PIE_CTRL_REGS PieCtrlRegs;
 
 
-extern volatile struct PIE_VECT_TABLE PieVectTable;
+extern struct PIE_VECT_TABLE PieVectTable;
 
 
-extern volatile struct ROM_PREFETCH_REGS RomPrefetchRegs;
+extern struct ROM_PREFETCH_REGS RomPrefetchRegs;
 
 
-extern volatile struct SCI_REGS SciaRegs;
+extern struct SCI_REGS SciaRegs;
 
 
-extern volatile struct SCI_REGS ScibRegs;
+extern struct SCI_REGS ScibRegs;
 
 
-extern volatile struct SCI_REGS ScicRegs;
+extern struct SCI_REGS ScicRegs;
 
 
-extern volatile struct SCI_REGS ScidRegs;
+extern struct SCI_REGS ScidRegs;
 
 
-extern volatile struct SDFM_REGS Sdfm1Regs;
+extern struct SDFM_REGS Sdfm1Regs;
 
 
-extern volatile struct SDFM_REGS Sdfm2Regs;
+extern struct SDFM_REGS Sdfm2Regs;
 
 
-extern volatile struct SPI_REGS SpiaRegs;
+extern struct SPI_REGS SpiaRegs;
 
 
-extern volatile struct SPI_REGS SpibRegs;
+extern struct SPI_REGS SpibRegs;
 
-extern volatile struct SPI_REGS SpicRegs;
+extern struct SPI_REGS SpicRegs;
 
 
-extern volatile struct WD_REGS WdRegs;
+extern struct WD_REGS WdRegs;
 
 
-extern volatile struct XINT_REGS XintRegs;
+extern struct XINT_REGS XintRegs;
 
 #endif //AUTOMATICGRADER_GLOBAL_DEFS_H

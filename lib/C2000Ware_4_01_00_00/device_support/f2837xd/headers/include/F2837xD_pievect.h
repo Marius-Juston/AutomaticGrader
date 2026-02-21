@@ -293,7 +293,7 @@ struct PIE_VECT_TABLE {
 // PieVect External References & Function Declarations:
 //
 
-extern volatile struct PIE_VECT_TABLE PieVectTable;
+extern struct PIE_VECT_TABLE PieVectTable;
 
 #ifdef __cplusplus
 }

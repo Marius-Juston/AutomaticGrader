@@ -9,3 +9,13 @@ Please run in Linux as the easiest option
 ```bash
 HW=1 cmake ..&& make && ./AutomaticGrader
 ```
+
+
+From
+```regexp
+GPIO_SetupPinMux\((\d+),(.+)\);\n+\s+GPIO_SetupPinOptions\(\d+,(.+)\);
+```
+To
+```regexp
+expectedGpioSetup[$1] = {$2, $3};
+```

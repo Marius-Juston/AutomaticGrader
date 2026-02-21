@@ -11,10 +11,19 @@
 
 #include "checks/compare_generated.hpp"
 
+
+using ZeroCheckFunc = std::function<bool()>;
+
+template<typename T>
+using CheckFunc = std::function<bool(const T &, const T &, const std::string &)>;
+
+const inline CheckFunc<uint16_t> defaultComparator = [
+        ](const auto &a, const auto &b, const auto &name)-> bool {
+    return check_compare(a, b, name);
+};
+
 class HardwareStateValidator {
 public:
-    using ZeroCheckFunc = std::function<bool()>;
-
     HardwareStateValidator() {
         populate_map();
     }
@@ -37,6 +46,15 @@ public:
         };
     }
 
+    template<typename T>
+    void register_custom(const std::string &reg_name, const T &actual_reg, const T &expected_state,
+                         const CheckFunc<T> &check_func=defaultComparator) {
+        tracker_[reg_name] = [&actual_reg, expected_state = std::move(expected_state), reg_name, &check_func
+                ]() -> bool {
+                    return check_func(actual_reg, expected_state, reg_name);
+                };
+    }
+
     bool validate() {
         bool all_clean = true;
         for (const auto &check_func: tracker_ | std::views::values) {
@@ -52,5 +70,6 @@ private:
 
     void populate_map();
 };
+
 
 #endif //AUTOMATICGRADER_STATE_CHECKER_H

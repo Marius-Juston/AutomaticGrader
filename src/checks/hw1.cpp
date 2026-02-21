@@ -11,7 +11,9 @@
 #include "checks/compare_generated.hpp"
 #include "checks/state_checker.h"
 #include "checks/validator.h"
+#include "checks/state_checker.h"
 
+#define LAUNCHPAD_CPU_FREQUENCY 200
 
 HardwareStateValidator validator;
 
@@ -22,24 +24,101 @@ int check_initialization() {
 
     success &= validator.validate();
 
-    // temp_main();
+    temp_main();
 
-    GpioSetup expectedGpioSetup[MAX_GPIO];
-    for (size_t i = 0; i < MAX_GPIO; ++i) {
-        expectedGpioSetup[i] = gpiosSetup[i];
+    {
+        GpioSetup expected[MAX_GPIO];
+        for (size_t i = 0; i < MAX_GPIO; ++i) {
+            expected[i] = gpiosSetup[i];
+        }
+
+        expected[31] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[31] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[34] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[22] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[94] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[95] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[97] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[111] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[130] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[131] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[25] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[26] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[27] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[60] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[61] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[157] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[158] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[159] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[160] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[0] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[1] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[19] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[29] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[32] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[9] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[66] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[125] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
+        expected[4] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
+        expected[5] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
+        expected[6] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
+        expected[7] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
+        expected[8] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
+
+        validator.register_comparison("GpioSetup", gpiosSetup, expected);
     }
 
-    expectedGpioSetup[31] = {
-        GPIO_MUX_CPU2, 1, GPIO_INPUT, GPIO_PULLUP
-    };
+    {
+        CPUTIMER_VARS expected = {};
+        ConfigCpuTimer(&expected, LAUNCHPAD_CPU_FREQUENCY, 10000);
+        validator.register_comparison("CpuTimer0", CpuTimer0, expected);
 
-    // check_compare(gpiosSetup, expectedGpioSetup, "Hello");
+        ConfigCpuTimer(&expected, LAUNCHPAD_CPU_FREQUENCY, 20000);
+        validator.register_comparison("CpuTimer1", CpuTimer1, expected);
 
-    CPUTIMER_VARS expected = {};
-    expected.CPUFreqInMHz = 1;
+        ConfigCpuTimer(&expected, LAUNCHPAD_CPU_FREQUENCY, 5000);
+        validator.register_comparison("CpuTimer2", CpuTimer2, expected);
+    }
 
-    validator.register_comparison("GpioSetup", gpiosSetup, expectedGpioSetup);
-    validator.register_comparison("CpuTimer0", CpuTimer0, expected);
+    {
+        CPUTIMER_REGS expected = {};
+        expected.TCR.all = 0x4000;
+        validator.register_comparison("CpuTimer0Regs", CpuTimer0Regs, expected);
+        validator.register_comparison("CpuTimer1Regs", CpuTimer1Regs, expected);
+        validator.register_comparison("CpuTimer2Regs", CpuTimer2Regs, expected);
+    }
+
+
+    {
+        const uint16_t expected = M_INT1 | M_INT8 | M_INT9 | M_INT12 | M_INT13 | M_INT14;
+        validator.register_custom("IER", IER, expected);
+    }
+
+    {
+        PIE_CTRL_REGS expected = {};
+        expected.PIEIER1.bit.INTx7 = 1;
+        expected.PIEIER12.bit.INTx9 = 1;
+        validator.register_comparison("PieCtrlRegs", PieCtrlRegs, expected);
+    }
+
+    {
+        PIE_VECT_TABLE expected = {};
+
+        expected.TIMER0_INT = &cpu_timer0_isr;
+        expected.TIMER1_INT = &cpu_timer1_isr;
+        expected.TIMER2_INT = &cpu_timer2_isr;
+        expected.SCIA_RX_INT = &RXAINT_recv_ready;
+        expected.SCIB_RX_INT = &RXBINT_recv_ready;
+        expected.SCIC_RX_INT = &RXCINT_recv_ready;
+        expected.SCID_RX_INT = &RXDINT_recv_ready;
+        expected.SCIA_TX_INT = &TXAINT_data_sent;
+        expected.SCIB_TX_INT = &TXBINT_data_sent;
+        expected.SCIC_TX_INT = &TXCINT_data_sent;
+        expected.SCID_TX_INT = &TXDINT_data_sent;
+        expected.EMIF_ERROR_INT = &SWI_isr;
+
+        validator.register_comparison("PieVectTable", PieVectTable, expected);
+    }
 
     success &= validator.validate();
 
