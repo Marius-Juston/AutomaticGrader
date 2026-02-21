@@ -120,6 +120,39 @@ int check_initialization() {
         validator.register_comparison("PieVectTable", PieVectTable, expected);
     }
 
+    {
+        GPIO_DATA_REGS expected = {};
+
+        expected.GPASET.bit.GPIO31 = 1;
+        expected.GPBSET.bit.GPIO34 = 1;
+        expected.GPACLEAR.bit.GPIO22 = 1;
+        expected.GPCCLEAR.bit.GPIO94 = 1;
+        expected.GPCCLEAR.bit.GPIO95 = 1;
+        expected.GPDCLEAR.bit.GPIO97 = 1;
+        expected.GPDCLEAR.bit.GPIO111 = 1;
+        expected.GPECLEAR.bit.GPIO130 = 1;
+        expected.GPECLEAR.bit.GPIO131 = 1;
+        expected.GPACLEAR.bit.GPIO25 = 1;
+        expected.GPACLEAR.bit.GPIO26 = 1;
+        expected.GPACLEAR.bit.GPIO27 = 1;
+        expected.GPBCLEAR.bit.GPIO60 = 1;
+        expected.GPBCLEAR.bit.GPIO61 = 1;
+        expected.GPECLEAR.bit.GPIO157 = 1;
+        expected.GPECLEAR.bit.GPIO158 = 1;
+        expected.GPECLEAR.bit.GPIO159 = 1;
+        expected.GPFCLEAR.bit.GPIO160 = 1;
+        expected.GPASET.bit.GPIO0 = 1;
+        expected.GPASET.bit.GPIO1 = 1;
+        expected.GPASET.bit.GPIO19 = 1;
+        expected.GPASET.bit.GPIO29 = 1;
+        expected.GPBSET.bit.GPIO32 = 1;
+        expected.GPASET.bit.GPIO9 = 1;
+        expected.GPCSET.bit.GPIO66 = 1;
+        expected.GPDSET.bit.GPIO125 = 1;
+
+        validator.register_comparison("GpioDataRegs", GpioDataRegs, expected);
+    }
+
     success &= validator.validate();
 
     return success;
