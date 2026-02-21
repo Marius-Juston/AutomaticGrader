@@ -79,9 +79,6 @@ bool check_zero(const PINT &obj, const std::string &name);
 
 bool check_zero(const AdcSetup &obj, const std::string &name);
 bool check_zero(const GpioSetup &obj, const std::string &name);
-
-bool check_zero(const AdcSetup (& obj)[MAX_ADC], const std::string &name);
-bool check_zero(const GpioSetup (& obj)[MAX_GPIO], const std::string &name);
 """
 
     # 2. Regular Expressions for struct and member parsing
@@ -149,6 +146,7 @@ if __name__ == "__main__":
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_sysctrl.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_cmpss.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_cputimer.h",
+             "lib/C2000Ware_4_01_00_00/device_support/f2837xd/common/include/F2837xD_cputimervars.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_sysctrl.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_dac.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_dcsm.h",

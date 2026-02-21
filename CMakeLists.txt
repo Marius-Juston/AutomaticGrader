@@ -31,6 +31,7 @@ add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/t
         src/checks/validator.cpp
         src/checks/stat_checker.cpp
         src/checks/generated.cpp
+        src/checks/compare_generated.cpp
         #        ${DRIVER_SOURCES}
         #        ${DEVICE_SOURCES}
 )
