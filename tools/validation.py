@@ -56,6 +56,7 @@ bool check_zero(const GpioSetup &obj, const std::string &name) {
 #include <string>
 #include <type_traits>
 #include <cstdint>
+#include <sstream>
 template<typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name);
