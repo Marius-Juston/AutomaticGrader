@@ -171,27 +171,96 @@ int check_timer1() {
 int check_timer2() {
     std::cout << "Check timer 2" << std::endl;
 
+    GPIO_DATA_REGS initialState = GpioDataRegs;
+
     uint16_t UARTPrintTemp = UARTPrint;
 
     {
         uint16_t expected = 0;
-        validator.register_custom("UARTPrint Start", UARTPrint, expected);
+        validator.register_custom_copy("UARTPrint Start", UARTPrint, expected);
     }
 
     size_t expectedTimeStep = (250000.f / CpuTimer2.PeriodInUSec);
+    size_t expectedTimeStepToggle = (100000.f / CpuTimer2.PeriodInUSec);
 
-    for (size_t i = 0; i < expectedTimeStep; ++i) {
-        cpu_timer2_isr();
-        std::cout << UARTPrint << std::endl;
+    {
+        // Make sure that the toggles are set at the proper timeings
+        validator.mark_as_used("GpioDataRegs");
+        GPIO_DATA_REGS expected = GpioDataRegs;
+        expected.GPATOGGLE.bit.GPIO31 = 1;
+
+        GPIO_DATA_REGS expectedLEDToggle = GpioDataRegs;
+        expectedLEDToggle.GPATOGGLE.bit.GPIO31 = 1;
+        expectedLEDToggle.GPATOGGLE.bit.GPIO27 = 1;
+        expectedLEDToggle.GPBTOGGLE.bit.GPIO60 = 1;
+
+        for (size_t i = 0; i < expectedTimeStep; ++i) {
+            cpu_timer2_isr();
+
+            if (i == 0) {
+                validator.register_custom_copy("Toggle set", GpioDataRegs, expected);
+            }
+
+            if (i == expectedTimeStepToggle) {
+                {
+                    validator.register_custom_copy("Toggle LED12 & 13", GpioDataRegs, expectedLEDToggle);
+                }
+            }
+        }
+    }
+
+    {
+        CPUTIMER_VARS expected = CpuTimer2;
+        expected.InterruptCount = expectedTimeStep;
+        validator.register_comparison_copy("CpuTimer2", CpuTimer2, expected);
     }
 
     {
         uint16_t expected = 1;
-        validator.register_custom("UARTPrint End", UARTPrint, expected);
+        validator.register_custom_copy("UARTPrint End", UARTPrint, expected);
     }
 
-    UARTPrint = UARTPrintTemp;
+    {
+        // Button pressing test
+        GpioDataRegs.GPADAT.bit.GPIO4 = 0;
 
+        GPIO_DATA_REGS expected = GpioDataRegs;
+        expected.GPBTOGGLE.bit.GPIO61 = 1;
+        expected.GPETOGGLE.bit.GPIO157 = 1;
+
+        for (size_t i = 0; i < 5; ++i) {
+            cpu_timer2_isr();
+
+            GpioDataRegs.GPADAT.bit.GPIO4 = 1 - GpioDataRegs.GPADAT.bit.GPIO4;
+        }
+        expected.GPADAT.bit.GPIO4 = GpioDataRegs.GPADAT.bit.GPIO4;
+
+        validator.register_custom_copy("Toggle LED12 & 13 Button", GpioDataRegs, expected);
+    }
+
+    {
+        // Button pressing test
+        GpioDataRegs.GPADAT.bit.GPIO7 = 0;
+
+        GPIO_DATA_REGS expected = GpioDataRegs;
+        expected.GPETOGGLE.bit.GPIO159 = 1;
+        expected.GPFTOGGLE.bit.GPIO160 = 1;
+
+        for (size_t i = 0; i < 5; ++i) {
+            cpu_timer2_isr();
+
+            GpioDataRegs.GPADAT.bit.GPIO7 = 1 - GpioDataRegs.GPADAT.bit.GPIO7;
+        }
+        expected.GPADAT.bit.GPIO7 = GpioDataRegs.GPADAT.bit.GPIO7;
+
+        validator.register_custom_copy("Toggle LED14 & 15 Button", GpioDataRegs, expected);
+    }
+
+
+    //TODO make the GPIO toggle for the other stuff be checked and the button presses
+
+    UARTPrint = UARTPrintTemp;
+    GpioDataRegs = initialState;
 
     return validator.validate();
 }
