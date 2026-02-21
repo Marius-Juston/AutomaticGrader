@@ -63,10 +63,10 @@ static inline void InitPieVectTable() {
 
 
 struct GpioSetup {
+    Uint16 cpu;
+    Uint16 muxPosition;
     Uint16 output;
     Uint16 flags;
-    Uint16 muxPosition;
-    Uint16 cpu;
 };
 
 struct AdcSetup {
