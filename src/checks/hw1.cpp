@@ -220,6 +220,8 @@ int check_timer2() {
         validator.register_custom_copy("UARTPrint End", UARTPrint, expected);
     }
 
+    constexpr size_t numButtonFlips = 5;
+
     {
         // Button pressing test
         GpioDataRegs.GPADAT.bit.GPIO4 = 0;
@@ -228,7 +230,7 @@ int check_timer2() {
         expected.GPBTOGGLE.bit.GPIO61 = 1;
         expected.GPETOGGLE.bit.GPIO157 = 1;
 
-        for (size_t i = 0; i < 5; ++i) {
+        for (size_t i = 0; i < numButtonFlips; ++i) {
             cpu_timer2_isr();
 
             GpioDataRegs.GPADAT.bit.GPIO4 = 1 - GpioDataRegs.GPADAT.bit.GPIO4;
@@ -246,7 +248,7 @@ int check_timer2() {
         expected.GPETOGGLE.bit.GPIO159 = 1;
         expected.GPFTOGGLE.bit.GPIO160 = 1;
 
-        for (size_t i = 0; i < 5; ++i) {
+        for (size_t i = 0; i < numButtonFlips; ++i) {
             cpu_timer2_isr();
 
             GpioDataRegs.GPADAT.bit.GPIO7 = 1 - GpioDataRegs.GPADAT.bit.GPIO7;
