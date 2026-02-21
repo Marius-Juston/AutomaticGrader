@@ -170,7 +170,30 @@ int check_timer1() {
 
 int check_timer2() {
     std::cout << "Check timer 2" << std::endl;
-    return 0;
+
+    uint16_t UARTPrintTemp = UARTPrint;
+
+    {
+        uint16_t expected = 0;
+        validator.register_custom("UARTPrint Start", UARTPrint, expected);
+    }
+
+    size_t expectedTimeStep = (250000.f / CpuTimer2.PeriodInUSec);
+
+    for (size_t i = 0; i < expectedTimeStep; ++i) {
+        cpu_timer2_isr();
+        std::cout << UARTPrint << std::endl;
+    }
+
+    {
+        uint16_t expected = 1;
+        validator.register_custom("UARTPrint End", UARTPrint, expected);
+    }
+
+    UARTPrint = UARTPrintTemp;
+
+
+    return validator.validate();
 }
 
 int check_saturate() {

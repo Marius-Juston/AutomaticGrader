@@ -34,14 +34,14 @@ public:
 
     template<typename T>
     void register_comparison(const std::string &reg_name, const T &actual_reg, const T &expected_state) {
-        tracker_[reg_name] = [&actual_reg, expected_state = std::move(expected_state), reg_name]() -> bool {
+        tracker_[reg_name] = [actual_reg = std::move(actual_reg), expected_state = std::move(expected_state), reg_name]() -> bool {
             return check_compare(actual_reg, expected_state, reg_name);
         };
     }
 
     template<typename T, std::size_t N>
     void register_comparison(const std::string &reg_name, const T (&actual_reg)[N], const T (&expected_state)[N]) {
-        tracker_[reg_name] = [&actual_reg, expected_state = std::to_array(expected_state), reg_name]() -> bool {
+        tracker_[reg_name] = [actual_reg = std::to_array(actual_reg), expected_state = std::to_array(expected_state), reg_name]() -> bool {
             return check_compare(actual_reg, expected_state, reg_name);
         };
     }
@@ -49,7 +49,7 @@ public:
     template<typename T>
     void register_custom(const std::string &reg_name, const T &actual_reg, const T &expected_state,
                          const CheckFunc<T> &check_func=defaultComparator) {
-        tracker_[reg_name] = [&actual_reg, expected_state = std::move(expected_state), reg_name, &check_func
+        tracker_[reg_name] = [actual_reg = std::move(actual_reg), expected_state = std::move(expected_state), reg_name, &check_func
                 ]() -> bool {
                     return check_func(actual_reg, expected_state, reg_name);
                 };
