@@ -29,7 +29,7 @@ int check_initialization() {
     {
         GpioSetup expected[MAX_GPIO];
         for (size_t i = 0; i < MAX_GPIO; ++i) {
-            expected[i] = gpiosSetup[i];
+            expected[i] = {};
         }
 
         expected[31] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
