@@ -4,15 +4,30 @@
 #include <string>
 #include <type_traits>
 #include <cstdint>
+#include <sstream>
+
 template<typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name);
 
 template<typename T, std::size_t N>
-bool check_zero(const T (&arr)[N], const std::string &name);
+bool check_zero(const T (&arr)[N], const std::string &name) {
+    bool all_zero = true;
+    std::stringstream ss;
+
+    for (std::size_t i = 0; i < N; ++i) {
+        ss<< name << "[" << i << "]";
+
+        all_zero &= check_zero(arr[i], ss.str());
+        ss.str(std::string());
+    }
+    return all_zero;
+}
 
 bool check_zero(const PINT &obj, const std::string &name);
 
+bool check_zero(const AdcSetup &obj, const std::string &name);
+bool check_zero(const GpioSetup &obj, const std::string &name);
 bool check_zero(const ADCCTL1_BITS &obj, const std::string &name);
 bool check_zero(const ADCCTL1_REG &obj, const std::string &name);
 bool check_zero(const ADCCTL2_BITS &obj, const std::string &name);

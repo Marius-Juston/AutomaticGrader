@@ -74,7 +74,7 @@ struct AdcSetup {
     Uint16 signalmode;
 };
 
-#define MAX_GPIO 180
+#define MAX_GPIO 160
 #define MAX_ADC 3
 
 extern struct GpioSetup gpiosSetup[MAX_GPIO];

@@ -1,24 +1,17 @@
 #include "checks/generated.hpp"
 #include <iostream>
+#include <sstream>
 
 template<typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name) {
     if (value != 0) {
-        std::cout << name << " is non-zero"<< std::endl ;
+        std::cout << name << " is non-zero" << std::endl;
         return false;
     }
     return true;
 }
 
-template<typename T, std::size_t N>
-bool check_zero(const T (&arr)[N], const std::string &name) {
-    bool all_zero = true;
-    for (std::size_t i = 0; i < N; ++i) {
-        all_zero &= check_zero(arr[i], name + "[" + std::to_string(i) + "]");
-    }
-    return all_zero;
-}
 
 bool check_zero(const PINT &obj, const std::string &name) {
     if (obj != nullptr) {
@@ -26,6 +19,26 @@ bool check_zero(const PINT &obj, const std::string &name) {
         return false;
     }
     return true;
+}
+
+bool check_zero(const AdcSetup &obj, const std::string &name) {
+    bool all_zero = true;
+
+    all_zero &= check_zero(obj.resolution, name + " " + "Resolution");
+    all_zero &= check_zero(obj.signalmode, name + " " + "Signal Mode");
+
+    return all_zero;
+}
+
+bool check_zero(const GpioSetup &obj, const std::string &name) {
+    bool all_zero = true;
+
+    all_zero &= check_zero(obj.output, name + " " + "Output type");
+    all_zero &= check_zero(obj.flags, name + " " + "Flags");
+    all_zero &= check_zero(obj.muxPosition, name + " " + "Mux Channel Selection");
+    all_zero &= check_zero(obj.cpu, name + " " + "CPU");
+
+    return all_zero;
 }
 
 bool check_zero(const ADCCTL1_BITS &obj, const std::string &name) {
@@ -3019,8 +3032,10 @@ bool check_zero(const CLB_LOGIC_CONTROL_REGS &obj, const std::string &name) {
     all_zero &= check_zero(obj.rsvd1, name + " " + "Reserved");
     all_zero &= check_zero(obj.CLB_LOAD_ADDR, name + " " + "Indirect address");
     all_zero &= check_zero(obj.CLB_LOAD_DATA, name + " " + "Data for indirect loads");
-    all_zero &= check_zero(obj.CLB_INPUT_FILTER, name + " " + "Input filter selection for both edge detection and synchronizers");
-    all_zero &= check_zero(obj.CLB_IN_MUX_SEL_0, name + " " + "Input selection to decide between Signals and GP register");
+    all_zero &= check_zero(obj.CLB_INPUT_FILTER,
+                           name + " " + "Input filter selection for both edge detection and synchronizers");
+    all_zero &= check_zero(obj.CLB_IN_MUX_SEL_0,
+                           name + " " + "Input selection to decide between Signals and GP register");
     all_zero &= check_zero(obj.CLB_LCL_MUX_SEL_1, name + " " + "Input Mux selection for local mux");
     all_zero &= check_zero(obj.CLB_LCL_MUX_SEL_2, name + " " + "Input Mux selection for local mux");
     all_zero &= check_zero(obj.CLB_BUF_PTR, name + " " + "PUSH and PULL pointers");
@@ -7490,8 +7505,10 @@ bool check_zero(const EPWM_REGS &obj, const std::string &name) {
     all_zero &= check_zero(obj.rsvd14, name + " " + "Reserved");
     all_zero &= check_zero(obj.AQCSFRC, name + " " + "Action Qualifier Continuous S/W Force Register");
     all_zero &= check_zero(obj.rsvd15, name + " " + "Reserved");
-    all_zero &= check_zero(obj.DBREDHR, name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
-    all_zero &= check_zero(obj.DBRED, name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
+    all_zero &= check_zero(obj.DBREDHR,
+                           name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
+    all_zero &= check_zero(
+        obj.DBRED, name + " " + "Dead-Band Generator Rising Edge Delay High Resolution Mirror Register");
     all_zero &= check_zero(obj.DBFEDHR, name + " " + "Dead-Band Generator Falling Edge Delay High Resolution Register");
     all_zero &= check_zero(obj.DBFED, name + " " + "Dead-Band Generator Falling Edge Delay Count Register");
     all_zero &= check_zero(obj.rsvd16, name + " " + "Reserved");
@@ -15112,12 +15129,18 @@ bool check_zero(const GSxLOCK_BITS &obj, const std::string &name) {
     all_zero &= check_zero(obj.LOCK_GS7, name + " " + "7 GS7 RAM access protection and master select fields lock bit");
     all_zero &= check_zero(obj.LOCK_GS8, name + " " + "8 GS8 RAM access protection and master select fields lock bit");
     all_zero &= check_zero(obj.LOCK_GS9, name + " " + "9 GS9 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS10, name + " " + "10 GS10 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS11, name + " " + "11 GS11 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS12, name + " " + "12 GS12 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS13, name + " " + "13 GS13 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS14, name + " " + "14 GS14 RAM access protection and master select fields lock bit");
-    all_zero &= check_zero(obj.LOCK_GS15, name + " " + "15 GS15 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS10,
+                           name + " " + "10 GS10 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS11,
+                           name + " " + "11 GS11 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS12,
+                           name + " " + "12 GS12 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS13,
+                           name + " " + "13 GS13 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS14,
+                           name + " " + "14 GS14 RAM access protection and master select fields lock bit");
+    all_zero &= check_zero(obj.LOCK_GS15,
+                           name + " " + "15 GS15 RAM access protection and master select fields lock bit");
     all_zero &= check_zero(obj.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -15145,12 +15168,18 @@ bool check_zero(const GSxCOMMIT_BITS &obj, const std::string &name) {
     all_zero &= check_zero(obj.COMMIT_GS7, name + " " + "7 GS7 RAM access protection and master select permanent lock");
     all_zero &= check_zero(obj.COMMIT_GS8, name + " " + "8 GS8 RAM access protection and master select permanent lock");
     all_zero &= check_zero(obj.COMMIT_GS9, name + " " + "9 GS9 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS10, name + " " + "10 GS10 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS11, name + " " + "11 GS11 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS12, name + " " + "12 GS12 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS13, name + " " + "13 GS13 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS14, name + " " + "14 GS14 RAM access protection and master select permanent lock");
-    all_zero &= check_zero(obj.COMMIT_GS15, name + " " + "15 GS15 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS10,
+                           name + " " + "10 GS10 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS11,
+                           name + " " + "11 GS11 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS12,
+                           name + " " + "12 GS12 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS13,
+                           name + " " + "13 GS13 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS14,
+                           name + " " + "14 GS14 RAM access protection and master select permanent lock");
+    all_zero &= check_zero(obj.COMMIT_GS15,
+                           name + " " + "15 GS15 RAM access protection and master select permanent lock");
     all_zero &= check_zero(obj.rsvd1, name + " " + "31:16 Reserved");
 
     return all_zero;
@@ -21080,7 +21109,9 @@ bool check_zero(const CPU_SYS_REGS &obj, const std::string &name) {
     all_zero &= check_zero(obj.rsvd4, name + " " + "Reserved");
     all_zero &= check_zero(obj.PCLKCR16, name + " " + "Peripheral Clock Gating Registers");
     all_zero &= check_zero(obj.rsvd5, name + " " + "Reserved");
-    all_zero &= check_zero(obj.SECMSEL, name + " " + "Secondary Master Select register for common peripherals: Selects between CLA & DMA");
+    all_zero &= check_zero(obj.SECMSEL,
+                           name + " " +
+                           "Secondary Master Select register for common peripherals: Selects between CLA & DMA");
     all_zero &= check_zero(obj.LPMCR, name + " " + "LPM Control Register");
     all_zero &= check_zero(obj.GPIOLPMSEL0, name + " " + "GPIO LPM Wakeup select registers");
     all_zero &= check_zero(obj.GPIOLPMSEL1, name + " " + "GPIO LPM Wakeup select registers");

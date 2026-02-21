@@ -398,4 +398,12 @@ void HardwareStateValidator::populate_map() {
     tracker_["XintRegs"] = [] {
         return check_zero(const_cast<const XINT_REGS &>(XintRegs), "XintRegs");
     };
+
+    tracker_["GpioSetup"] = [] {
+        return check_zero(gpiosSetup, "GpioSetup");
+    };
+
+    tracker_["AdcSetup"] = [] {
+        return check_zero(adcSetup, "AdcSetup");
+    };
 }

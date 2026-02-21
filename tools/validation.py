@@ -20,15 +20,6 @@ check_zero(const T &value, const std::string &name) {
     return true;
 }
 
-template<typename T, std::size_t N>
-bool check_zero(const T (&arr)[N], const std::string &name) {
-    bool all_zero = true;
-    for (std::size_t i = 0; i < N; ++i) {
-        all_zero &= check_zero(arr[i], name + "[" + std::to_string(i) + "]");
-    }
-    return all_zero;
-}
-
 bool check_zero(const PINT &obj, const std::string &name) {
     if (obj != nullptr) {
         std::cout << name << " is non-zero" << std::endl;
@@ -36,6 +27,27 @@ bool check_zero(const PINT &obj, const std::string &name) {
     }
     return true;
 }
+
+bool check_zero(const AdcSetup &obj, const std::string &name) {
+    bool all_zero = true;
+
+    all_zero &= check_zero(obj.resolution, name + " " + "Resolution");
+    all_zero &= check_zero(obj.signalmode, name + " " + "Signal Mode");
+
+    return all_zero;
+}
+
+bool check_zero(const GpioSetup &obj, const std::string &name) {
+    bool all_zero = true;
+
+    all_zero &= check_zero(obj.output, name + " " + "Output type");
+    all_zero &= check_zero(obj.flags, name + " " + "Flags");
+    all_zero &= check_zero(obj.muxPosition, name + " " + "Mux Channel Selection");
+    all_zero &= check_zero(obj.cpu, name + " " + "CPU");
+
+    return all_zero;
+}
+
 """
 
     header_code = """
@@ -49,9 +61,26 @@ std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name);
 
 template<typename T, std::size_t N>
-bool check_zero(const T (&arr)[N], const std::string &name);
+bool check_zero(const T (&arr)[N], const std::string &name) {
+    bool all_zero = true;
+    std::stringstream ss;
+
+    for (std::size_t i = 0; i < N; ++i) {
+        ss<< name << "[" << i << "]";
+
+        all_zero &= check_zero(arr[i], ss.str());
+        ss.str(std::string());
+    }
+    return all_zero;
+}
 
 bool check_zero(const PINT &obj, const std::string &name);
+
+bool check_zero(const AdcSetup &obj, const std::string &name);
+bool check_zero(const GpioSetup &obj, const std::string &name);
+
+bool check_zero(const AdcSetup (& obj)[MAX_ADC], const std::string &name);
+bool check_zero(const GpioSetup (& obj)[MAX_GPIO], const std::string &name);
 """
 
     # 2. Regular Expressions for struct and member parsing
