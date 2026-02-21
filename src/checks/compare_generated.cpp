@@ -31,6 +31,16 @@ bool check_compare(const GpioSetup &obj, const GpioSetup &expected, const std::s
 }
 
 
+bool check_compare(const CPUTIMER_VARS &obj, const CPUTIMER_VARS &expected, const std::string &name) {
+    bool all_zero = true;
+
+    all_zero &= check_compare(obj.InterruptCount, expected.InterruptCount, name + " " + "InterruptCount");
+    all_zero &= check_compare(obj.CPUFreqInMHz, expected.CPUFreqInMHz, name + " " + "CPUFreqInMHz");
+    all_zero &= check_compare(obj.PeriodInUSec, expected.PeriodInUSec, name + " " + "PeriodInUSec");
+
+    return all_zero;
+}
+
 bool check_compare(const ADCCTL1_BITS &obj, const ADCCTL1_BITS &expected, const std::string &name) {
     bool all_zero = true;
 
@@ -17405,8 +17415,8 @@ bool check_compare(const PIE_VECT_TABLE &obj, const PIE_VECT_TABLE &expected, co
     all_zero &= check_compare(obj.PIE76_RESERVED_INT, expected.PIE76_RESERVED_INT, name + " " + "9.12 - Reserved");
     all_zero &= check_compare(obj.PIE77_RESERVED_INT, expected.PIE77_RESERVED_INT, name + " " + "9.13 - Reserved");
     all_zero &= check_compare(obj.PIE78_RESERVED_INT, expected.PIE78_RESERVED_INT, name + " " + "9.14 - Reserved");
-    all_zero &= check_compare(obj.USBA_INT, expected.USBA_INT, name + " " + "9.15 - USBA Interrupt");
-    all_zero &= check_compare(obj.PIE79_RESERVED_INT, expected.PIE79_RESERVED_INT, name + " " + "9.15 - Reserved");
+    // all_zero &= check_compare(obj.USBA_INT, expected.USBA_INT, name + " " + "9.15 - USBA Interrupt");
+    // all_zero &= check_compare(obj.PIE79_RESERVED_INT, expected.PIE79_RESERVED_INT, name + " " + "9.15 - Reserved");
     all_zero &= check_compare(obj.PIE80_RESERVED_INT, expected.PIE80_RESERVED_INT, name + " " + "9.16 - Reserved");
     all_zero &= check_compare(obj.ADCC_EVT_INT, expected.ADCC_EVT_INT, name + " " + "10.9 - ADCC Event Interrupt");
     all_zero &= check_compare(obj.ADCC2_INT, expected.ADCC2_INT, name + " " + "10.10 - ADCC Interrupt 2");

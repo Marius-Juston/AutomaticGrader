@@ -66,13 +66,22 @@ bool check_compare(const T (&arr)[N], const T (&expected)[N], const std::string 
     return all_zero;
 }
 
-bool check_compare(const PINT &obj,const PINT &expected, const std::string &name);
+template<typename T, std::size_t N>
+bool check_compare(const T (&arr)[N], const std::array<T, N> &expected, const std::string &name) {
+    bool all_zero = true;
+    std::stringstream ss;
+
+    for (std::size_t i = 0; i < N; ++i) {
+        ss<< name << "[" << i << "]";
+
+        all_zero &= check_compare(arr[i], expected[i], ss.str());
+        ss.str(std::string());
+    }
+    return all_zero;
+}
 
 bool check_compare(const AdcSetup &obj,const AdcSetup &expected, const std::string &name);
 bool check_compare(const GpioSetup &obj,const GpioSetup &expected, const std::string &name);
-
-bool check_compare(const AdcSetup (& obj)[MAX_ADC],const AdcSetup (& expected)[MAX_ADC], const std::string &name);
-bool check_compare(const GpioSetup (& obj)[MAX_GPIO],const GpioSetup (& expected)[MAX_GPIO], const std::string &name);
 """
 
     # 2. Regular Expressions for struct and member parsing
@@ -141,6 +150,7 @@ if __name__ == "__main__":
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_sysctrl.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_cmpss.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_cputimer.h",
+             "lib/C2000Ware_4_01_00_00/device_support/f2837xd/common/include/F2837xD_cputimervars.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_sysctrl.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_dac.h",
              "lib/C2000Ware_4_01_00_00/device_support/f2837xd/headers/include/F2837xD_dcsm.h",

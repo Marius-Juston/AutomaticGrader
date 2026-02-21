@@ -8,15 +8,42 @@
 #include <ostream>
 #include <cmath>
 
+#include "checks/compare_generated.hpp"
+#include "checks/state_checker.h"
 #include "checks/validator.h"
 
+
+HardwareStateValidator validator;
 
 int check_initialization() {
     std::cout << "Check initialization" << std::endl;
 
-    std::vector<GpioSetup> values = {};
+    int success = 0;
 
-    return 0;
+    success &= validator.validate();
+
+    // temp_main();
+
+    GpioSetup expectedGpioSetup[MAX_GPIO];
+    for (size_t i = 0; i< MAX_GPIO; ++i) {
+        expectedGpioSetup[i] = gpiosSetup[i];
+    }
+
+    expectedGpioSetup[31] = {
+        GPIO_MUX_CPU2, 1, GPIO_INPUT, GPIO_PULLUP
+    };
+
+    // check_compare(gpiosSetup, expectedGpioSetup, "Hello");
+
+    CPUTIMER_VARS expected = {};
+    expected.CPUFreqInMHz = 1;
+
+    validator.register_comparison("GpioSetup", gpiosSetup, expectedGpioSetup);
+    validator.register_comparison("CpuTimer0", CpuTimer0, expected);
+
+    success &= validator.validate();
+
+    return success;
 }
 
 int check_timer0() {

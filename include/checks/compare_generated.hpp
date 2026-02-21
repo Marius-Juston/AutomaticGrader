@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <cstdint>
 #include <sstream>
+#include <array>
+
 template<typename T>
 bool check_compare(const T &value, const T &expected, const std::string &name);
 
@@ -22,14 +24,24 @@ bool check_compare(const T (&arr)[N], const T (&expected)[N], const std::string 
     return all_zero;
 }
 
-bool check_compare(const PINT &obj,const PINT &expected, const std::string &name);
+template<typename T, std::size_t N>
+bool check_compare(const T (&arr)[N], const std::array<T, N> &expected, const std::string &name) {
+    bool all_zero = true;
+    std::stringstream ss;
+
+    for (std::size_t i = 0; i < N; ++i) {
+        ss<< name << "[" << i << "]";
+
+        all_zero &= check_compare(arr[i], expected[i], ss.str());
+        ss.str(std::string());
+    }
+    return all_zero;
+}
 
 bool check_compare(const AdcSetup &obj,const AdcSetup &expected, const std::string &name);
 bool check_compare(const GpioSetup &obj,const GpioSetup &expected, const std::string &name);
 
-bool check_compare(const AdcSetup (& obj)[MAX_ADC],const AdcSetup (& expected)[MAX_ADC], const std::string &name);
-bool check_compare(const GpioSetup (& obj)[MAX_GPIO],const GpioSetup (& expected)[MAX_GPIO], const std::string &name);
-
+bool check_compare(const CPUTIMER_VARS &obj, const CPUTIMER_VARS &expected, const std::string &name);
 bool check_compare(const ADCCTL1_BITS &obj, const ADCCTL1_BITS &expected, const std::string &name);
 bool check_compare(const ADCCTL1_REG &obj, const ADCCTL1_REG &expected, const std::string &name);
 bool check_compare(const ADCCTL2_BITS &obj, const ADCCTL2_BITS &expected, const std::string &name);
