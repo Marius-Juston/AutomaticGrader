@@ -6,11 +6,27 @@
 #include <sstream>
 #include <array>
 
+#include <spdlog/spdlog.h>
+
 template<typename T>
-bool check_compare(const T &value, const T &expected, const std::string &name);
+bool check_compare(const T &value, const T &expected, const std::string &name) {
+    if (value != expected) {
+        if constexpr (std::is_pointer_v<T>) {
+            // Conditionally conditionally-supported cast to const void* for logging addresses
+            spdlog::warn("{} expected to be {} but was {}",
+                         name,
+                         reinterpret_cast<const void *>(expected),
+                         reinterpret_cast<const void *>(value));
+        } else {
+            spdlog::warn("{} expected to be {} but was {}", name, expected, value);
+        }
+        return false;
+    }
+    return true;
+}
 
 template<typename T, std::size_t N>
-bool check_compare(const T(&arr)[N], const T(&expected)[N], const std::string & name) {
+bool check_compare(const T (&arr)[N], const T (&expected)[N], const std::string &name) {
     bool all_zero = true;
     std::stringstream ss;
 
@@ -24,7 +40,7 @@ bool check_compare(const T(&arr)[N], const T(&expected)[N], const std::string & 
 }
 
 template<typename T, std::size_t N>
-bool check_compare(const std::array<T, N> & arr, const std::array<T, N> & expected, const std::string & name) {
+bool check_compare(const std::array<T, N> &arr, const std::array<T, N> &expected, const std::string &name) {
     bool all_zero = true;
     std::stringstream ss;
 

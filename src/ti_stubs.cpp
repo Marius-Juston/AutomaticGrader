@@ -8,124 +8,146 @@
 #include <cstring>
 #include <array>
 
+#include <spdlog/spdlog.h>
+
 
 serialSCIA_t SerialA;
 serialSCIB_t SerialB;
 serialSCIC_t SerialC;
 serialSCID_t SerialD;
 
+
+inline void rtrim(char *buffer, uint32_t &length) {
+    if (!buffer || length == 0) {
+        return;
+    }
+
+    while (length > 0 && std::isspace(static_cast<unsigned char>(buffer[length - 1]))) {
+        buffer[length--] = '\0'; // ordering of -- matters here
+    }
+
+    buffer[length] = '\0';
+}
+
 extern "C" {
-uint16_t init_serialSCIA(serialSCIA_t* s, Uint32 baud)
-{
+char UART_printf_bufferSCIB[BUF_SIZESCIB];
+char serial_printf_bufSCIA[BUF_SIZESCIA];
+
+
+void clearBuffers() {
+    for (char &i: serial_printf_bufSCIA) {
+        i = 0;
+    }
+    for (char &i: UART_printf_bufferSCIB) {
+        i = 0;
+    }
+}
+
+uint16_t init_serialSCIA(serialSCIA_t *s, Uint32 baud) {
+    clearBuffers();
+
     return 0; // Returning a dummy value to satisfy the non-void return type warning
 }
 
-uint16_t init_serialSCIB(serialSCIB_t* s, Uint32 baud)
-{
+uint16_t init_serialSCIB(serialSCIB_t *s, Uint32 baud) {
+    clearBuffers();
     return 0;
 }
 
-uint16_t init_serialSCIC(serialSCIC_t* s, Uint32 baud)
-{
+uint16_t init_serialSCIC(serialSCIC_t *s, Uint32 baud) {
+    clearBuffers();
     return 0;
 }
 
-uint16_t init_serialSCID(serialSCID_t* s, Uint32 baud)
-{
+uint16_t init_serialSCID(serialSCID_t *s, Uint32 baud) {
+    clearBuffers();
     return 0;
 }
 
-uint16_t serial_sendSCIC(serialSCIC_t* s, char* data, uint16_t len)
-{
+uint16_t serial_sendSCIC(serialSCIC_t *s, char *data, uint16_t len) {
+    clearBuffers();
     return 0;
 }
 
-uint16_t serial_sendSCID(serialSCID_t* s, char* data, uint16_t len)
-{
+uint16_t serial_sendSCID(serialSCID_t *s, char *data, uint16_t len) {
+    clearBuffers();
     return 0;
 }
 
-char UART_printf_bufferSCIB[BUF_SIZESCIB];
 
-void UART_printfLine(unsigned char line, char* format, ...)
-{
+void UART_printfLine(unsigned char line, char *fmt, ...) {
+    clearBuffers();
     va_list ap;
-    va_start(ap, format);
-    vsprintf(UART_printf_bufferSCIB, format, ap);
+
+    va_start(ap, fmt);
+    const uint32_t len = vsnprintf(UART_printf_bufferSCIB, BUF_SIZESCIB, fmt, ap);
     va_end(ap);
 
-    printf(UART_printf_bufferSCIB, format, ap);
+    if (len <= 0) {
+        return;
+    }
+
+    uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
+
+    rtrim(serial_printf_bufSCIA, write_len);
+
+    spdlog::info("UART: Line {:d}: {}",line ,serial_printf_bufSCIA);
 }
 
-void TXDINT_data_sent(void)
-{
+void TXDINT_data_sent(void) {
 }
 
-void TXCINT_data_sent(void)
-{
+void TXCINT_data_sent(void) {
 }
 
-void TXBINT_data_sent(void)
-{
+void TXBINT_data_sent(void) {
 }
 
-void TXAINT_data_sent(void)
-{
+void TXAINT_data_sent(void) {
 }
 
-void RXAINT_recv_ready(void)
-{
+void RXAINT_recv_ready(void) {
 }
 
-void RXBINT_recv_ready(void)
-{
+void RXBINT_recv_ready(void) {
 }
 
-void RXCINT_recv_ready(void)
-{
+void RXCINT_recv_ready(void) {
 }
 
-void RXDINT_recv_ready(void)
-{
+void RXDINT_recv_ready(void) {
 }
 
-void InitCpuTimers(void)
-{
+void InitCpuTimers(void) {
 }
 
-void ConfigCpuTimer(struct CPUTIMER_VARS* Timer, float Freq, float Period)
-{
+void ConfigCpuTimer(struct CPUTIMER_VARS *Timer, float Freq, float Period) {
     Timer->CPUFreqInMHz = Freq;
     Timer->PeriodInUSec = Period;
 
     Timer->InterruptCount = 0;
 }
 
-char serial_printf_bufSCIA[BUF_SIZESCIA];
 
-uint16_t serial_printf(serialSCIA_t* s, char* fmt, ...)
-{
+uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
+    clearBuffers();
     va_list ap;
 
     va_start(ap, fmt);
-    vsprintf(serial_printf_bufSCIA, fmt, ap);
+    const uint32_t len = vsnprintf(serial_printf_bufSCIA, BUF_SIZESCIA, fmt, ap);
     va_end(ap);
 
-    return printf(fmt, ap);
-}
-
-uint16_t step_execution(void)
-{
-    static uint32_t execution_cycles = 0;
-
-    const uint32_t MAX_CYCLES = 2;
-
-    if (++execution_cycles > MAX_CYCLES)
-    {
+    if (len <= 0) {
         return 0;
     }
 
-    return 1;
+    uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
+
+    rtrim(serial_printf_bufSCIA, write_len);
+
+    spdlog::info("serial: {}", serial_printf_bufSCIA);
+
+    return len;
 }
 }
 
@@ -430,7 +452,7 @@ struct CPUTIMER_VARS CpuTimer1;
 struct CPUTIMER_VARS CpuTimer2;
 
 
-constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioDataRegister = {
+constexpr std::array<Uint32 *, NUM_GPIO_BUCKETS> gpioDataRegister = {
     &GpioDataRegs.GPADAT.all,
     &GpioDataRegs.GPBDAT.all,
     &GpioDataRegs.GPCDAT.all,
@@ -439,7 +461,7 @@ constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioDataRegister = {
     &GpioDataRegs.GPFDAT.all,
 };
 
-constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioSetRegister = {
+constexpr std::array<Uint32 *, NUM_GPIO_BUCKETS> gpioSetRegister = {
     &GpioDataRegs.GPASET.all,
     &GpioDataRegs.GPBSET.all,
     &GpioDataRegs.GPCSET.all,
@@ -448,7 +470,7 @@ constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioSetRegister = {
     &GpioDataRegs.GPFSET.all,
 };
 
-constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioClearRegister = {
+constexpr std::array<Uint32 *, NUM_GPIO_BUCKETS> gpioClearRegister = {
     &GpioDataRegs.GPACLEAR.all,
     &GpioDataRegs.GPBCLEAR.all,
     &GpioDataRegs.GPCCLEAR.all,
@@ -457,7 +479,7 @@ constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioClearRegister = {
     &GpioDataRegs.GPFCLEAR.all,
 };
 
-constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioToggleRegister = {
+constexpr std::array<Uint32 *, NUM_GPIO_BUCKETS> gpioToggleRegister = {
     &GpioDataRegs.GPATOGGLE.all,
     &GpioDataRegs.GPATOGGLE.all,
     &GpioDataRegs.GPATOGGLE.all,
@@ -466,17 +488,14 @@ constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioToggleRegister = {
     &GpioDataRegs.GPATOGGLE.all,
 };
 
-bool updateGPIOSet()
-{
+bool updateGPIOSet() {
     bool changed = false;
 
-    for (size_t i = 0; i < gpioSetRegister.size(); ++i)
-    {
-        Uint32* gpio = gpioSetRegister[i];
+    for (size_t i = 0; i < gpioSetRegister.size(); ++i) {
+        Uint32 *gpio = gpioSetRegister[i];
 
         // A bit has been set
-        if (*gpio)
-        {
+        if (*gpio) {
             // Set the specific bits
             *gpioDataRegister[i] |= *gpio;
             changed = true;
@@ -489,17 +508,14 @@ bool updateGPIOSet()
     return changed;
 }
 
-bool updateGPIOClear()
-{
+bool updateGPIOClear() {
     bool changed = false;
 
-    for (size_t i = 0; i < gpioClearRegister.size(); ++i)
-    {
-        Uint32* gpio = gpioClearRegister[i];
+    for (size_t i = 0; i < gpioClearRegister.size(); ++i) {
+        Uint32 *gpio = gpioClearRegister[i];
 
         // A bit has been set
-        if (*gpio)
-        {
+        if (*gpio) {
             // Clear the specific bits
             *gpioDataRegister[i] &= ~(*gpio);
             changed = true;
@@ -512,17 +528,14 @@ bool updateGPIOClear()
     return changed;
 }
 
-bool updateGPIOToggle()
-{
+bool updateGPIOToggle() {
     bool changed = false;
 
-    for (size_t i = 0; i < gpioToggleRegister.size(); ++i)
-    {
-        Uint32* gpio = gpioToggleRegister[i];
+    for (size_t i = 0; i < gpioToggleRegister.size(); ++i) {
+        Uint32 *gpio = gpioToggleRegister[i];
 
         // A bit has been set
-        if (*gpio)
-        {
+        if (*gpio) {
             // Set the specific bits
             *gpioDataRegister[i] ^= *gpio;
             changed = true;
@@ -535,8 +548,7 @@ bool updateGPIOToggle()
     return changed;
 }
 
-bool updateGPIOState()
-{
+bool updateGPIOState() {
     bool changed = false;
 
     changed |= updateGPIOSet();

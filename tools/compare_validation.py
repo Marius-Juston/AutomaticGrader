@@ -8,16 +8,6 @@ def generate_zero_checks(header_text):
     """
     # 1. Base C++ template blocks
     cpp_code = """#include "checks/compare_generated.hpp"
-#include <iostream>
-
-template<typename T>
-bool check_compare(const T &value, const T &expected, const std::string &name) {
-    if (value != expected) {
-        std::cout << name << " expected to be "<< expected << " but was " << value<< std::endl ;
-        return false;
-    }
-    return true;
-}
 
 bool check_compare(const AdcSetup &obj, const AdcSetup &expected, const std::string &name) {
     bool all_zero = true;
@@ -49,11 +39,27 @@ bool check_compare(const GpioSetup &obj, const GpioSetup &expected, const std::s
 #include <cstdint>
 #include <sstream>
 
+#include <spdlog/spdlog.h>
+
 template<typename T>
-bool check_compare(const T &value, const T &expected, const std::string &name);
+bool check_compare(const T &value, const T &expected, const std::string &name) {
+    if (value != expected) {
+        if constexpr (std::is_pointer_v<T>) {
+            // Conditionally conditionally-supported cast to const void* for logging addresses
+            spdlog::warn("{} expected to be {} but was {}",
+                         name,
+                         reinterpret_cast<const void *>(expected),
+                         reinterpret_cast<const void *>(value));
+        } else {
+            spdlog::warn("{} expected to be {} but was {}", name, expected, value);
+        }
+        return false;
+    }
+    return true;
+}
 
 template<typename T, std::size_t N>
-bool check_compare(const T (&arr)[N], const T (&expected)[N], const std::string &name) {
+bool check_compare(const T (& arr)[N], const T (& expected)[N], const std::string & name) {
     bool all_zero = true;
     std::stringstream ss;
 

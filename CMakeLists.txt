@@ -20,6 +20,11 @@ endif()
 
 message(STATUS "Building for Homework: HW=${HW}")
 
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    find_package(spdlog REQUIRED)
+endif()
+
 add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/ti_stubs.cpp
         src/OptiTrack.c
         src/SE423Lib.c
@@ -35,9 +40,11 @@ add_executable(${PROJECT_NAME} src/main.cpp student_work/LABstarter_main.c src/t
         #        ${DRIVER_SOURCES}
         #        ${DEVICE_SOURCES}
 )
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE HW=${HW})
 
+target_compile_definitions(${PROJECT_NAME} PRIVATE AUTO_GRADER)
 
 #target_compile_definitions(${PROJECT_NAME} PRIVATE CPU1)
 #target_compile_definitions(${PROJECT_NAME} PRIVATE _LAUNCHXL_F28379D)

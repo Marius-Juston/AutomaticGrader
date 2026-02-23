@@ -52,7 +52,7 @@ uint16_t serial_sendSCIA(serialSCIA_t *s, char *data, Uint16 len);
 uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...);
 
 // For Text LCD
-void UART_printfLine(unsigned char line, char *format, ...);
+void UART_printfLine(unsigned char line, char *fmt, ...);
 
 // void UART_vprintfLine(unsigned char line, char *format, va_list ap);
 

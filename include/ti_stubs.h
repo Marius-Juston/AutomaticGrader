@@ -137,25 +137,21 @@ extern "C" {
 #include "F28379dSerial.h"
 #include "F2837xD_Gpio_defines.h"
 
-uint16_t step_execution(void);
 #ifdef __cplusplus
 }
 #endif
 
 #define DELAY_US(x)         ((void)0)
 
-#ifdef while
-#undef while
-#endif
-
-#define while(condition) while( (condition) && step_execution() )
-
 #define NUM_GPIO_BUCKETS 6
 #define NUM_GPIO_PER_BUCKETS 32
 
 bool updateGPIOState();
+
 bool updateGPIOSet();
+
 bool updateGPIOClear();
+
 bool updateGPIOToggle();
 
 

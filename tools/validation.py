@@ -8,13 +8,13 @@ def generate_zero_checks(header_text):
     """
     # 1. Base C++ template blocks
     cpp_code = """#include "checks/generated.hpp"
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 template<typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name) {
     if (value != 0) {
-        std::cout << name << " is non-zero"<< std::endl ;
+        spdlog::warn("{} is non-zero",  name);
         return false;
     }
     return true;
@@ -22,7 +22,7 @@ check_zero(const T &value, const std::string &name) {
 
 bool check_zero(const PINT &obj, const std::string &name) {
     if (obj != nullptr) {
-        std::cout << name << " is non-zero" << std::endl;
+        spdlog::warn("{} is non-zero",  name);
         return false;
     }
     return true;

@@ -7,6 +7,7 @@ Please run in Linux as the easiest option
 
 
 ```bash
+sudo apt install libspdlog-dev
 HW=1 cmake ..&& make && ./AutomaticGrader
 ```
 

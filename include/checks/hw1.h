@@ -21,7 +21,9 @@ extern uint16_t UARTPrint;
 
 //
 // // Resolves to null if it does not exist
-float saturate(float, float) __attribute__((weak));
+float saturate(float, float) __attribute__
+
+((weak));
 }
 
 

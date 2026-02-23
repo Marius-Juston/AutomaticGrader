@@ -3,6 +3,13 @@
 //
 #include "checks/validator.h"
 
+#include <functional>
+#include <thread>
+#include <chrono>
+#include <csignal>
+#include <iostream>
+#include <bits/sigthread.h>
+
 #if HW == 1
 #include "checks/hw1.h"
 #elif HW == 2
@@ -15,14 +22,30 @@
 #error "Invalid HW selection"
 #endif
 
-Validator::Validator(const std::vector<CheckFunction> &checkFunctions) : checkFunctions(checkFunctions) {
+
+Validator::Validator(const std::vector<CheckFunction> &checkFunctions) : checkFunctions(checkFunctions),
+                                                                         main_thread(0) {
 }
 
-int Validator::check() const {
+void *thread_runner(void *args) {
+    temp_main();
+    return nullptr;
+}
+
+void Validator::start_main_thread() {
+    pthread_create(&main_thread, nullptr, thread_runner, nullptr);
+
+    // Wait for 1 second for us to reach the main internal loop
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+    pthread_detach(main_thread);
+}
+
+int Validator::check() {
     int result = 0;
 
     for (const auto &checkFunction: checkFunctions) {
-        result = checkFunction();
+        result = checkFunction(this);
     }
 
     return result;

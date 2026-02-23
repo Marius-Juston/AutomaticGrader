@@ -1,14 +1,17 @@
-#include <iostream>
 #include "checks/validator.h"
-
+#include "spdlog/spdlog.h"
 
 int main() {
-    const Validator validator = get_validator();
+    Validator validator = get_validator();
     int result = validator.check();
 
-    std::cout << "Homework: " << HW << std::endl;
+    spdlog::info("Homework: {}",  HW );
 
-    std::cout << result << std::endl;
+    if (result != 0) {
+        spdlog::warn("Did not sucessed all checks");
+    }else {
+        spdlog::info("Succeeded all tests!", HW, result);
+    }
 
     return 0;
 }

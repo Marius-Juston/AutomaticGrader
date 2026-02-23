@@ -1,14 +1,5 @@
 #include "checks/compare_generated.hpp"
-#include <iostream>
 
-template<typename T>
-bool check_compare(const T &value, const T &expected, const std::string &name) {
-    if (value != expected) {
-        std::cout << name << " expected to be " << expected << " but was " << value << std::endl;
-        return false;
-    }
-    return true;
-}
 
 bool check_compare(const AdcSetup &obj, const AdcSetup &expected, const std::string &name) {
     bool all_zero = true;

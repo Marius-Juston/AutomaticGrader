@@ -2,40 +2,38 @@
 // Created by marius on 2/20/26.
 //
 
-#include "checks/hw1.h"
+#include "checks/hw4.h"
 
-#include <iostream>
-#include <ostream>
-#include <cmath>
+#include <spdlog/spdlog.h>
 
 #include "checks/validator.h"
 
 
-int check_initialization() {
-    std::cout << "Check initialization" << std::endl;
+int check_initialization(Validator *) {
+    spdlog::info("Check initialization");
 
     std::vector<GpioSetup> values = {};
 
     return 0;
 }
 
-int check_timer0() {
-    std::cout << "Check timer 0" << std::endl;
+int check_timer0(Validator *) {
+    spdlog::info("Check timer 0");
     return 0;
 }
 
-int check_timer1() {
-    std::cout << "Check timer 1" << std::endl;
+int check_timer1(Validator *) {
+    spdlog::info("Check timer 1");
     return 0;
 }
 
-int check_timer2() {
-    std::cout << "Check timer 2" << std::endl;
+int check_timer2(Validator *) {
+    spdlog::info("Check timer 2");
     return 0;
 }
 
-int check_saturate() {
-    std::cout << "Check saturate" << std::endl;
+int check_saturate(Validator *) {
+    spdlog::info("Check saturate");
 
     int success = 1;
 
@@ -57,18 +55,17 @@ int check_saturate() {
 
 
                 if (actual != res) {
-                    std::cerr << "Expecting saturate(" << value << "," << sat << ")=" << actual << " got " << res <<
-                            std::endl;
+                    spdlog::error("Expecting saturate({}, {}) = {} got {}", value, sat, actual, res);
 
                     if (-actual == res) {
-                        std::cerr << "Check that you have the right output sign for your funciton" << std::endl;
+                        spdlog::error("Check that you have the right output sign for your function");
                     }
 
                     if (res == value) {
                         if (value > 0) {
-                            std::cerr << "Check that you bound the positive saturation value" << std::endl;
+                            spdlog::error("Check that you bound the positive saturation value");
                         } else if (value < 0) {
-                            std::cerr << "Check that you bound the negative saturation value" << std::endl;
+                            spdlog::error("Check that you bound the negative saturation value");
                         }
                     }
 
@@ -77,7 +74,7 @@ int check_saturate() {
             }
         }
     } else {
-        std::cerr << "float saturate(float, float) not available\n";
+        spdlog::error("float saturate(float, float) not available");
         success = 0;
     }
 
@@ -85,7 +82,7 @@ int check_saturate() {
 }
 
 CheckFunctions checker() {
-    std::cout << "Checking HW4" << std::endl;
+    spdlog::info("Checking HW 4");
 
     return {
         &check_initialization,
