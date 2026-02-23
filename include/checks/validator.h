@@ -4,7 +4,7 @@
 
 #ifndef AUTOMATICGRADER_VALIDATOR_H
 #define AUTOMATICGRADER_VALIDATOR_H
-#include "pthread.h"
+#include <thread>
 #include <vector>
 
 class Validator;
@@ -26,7 +26,7 @@ public:
 
 private:
     CheckFunctions checkFunctions;
-    pthread_t main_thread;
+    std::jthread main_thread;
 };
 
 CheckFunctions checker();

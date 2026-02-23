@@ -23,22 +23,15 @@
 #endif
 
 
-Validator::Validator(const std::vector<CheckFunction> &checkFunctions) : checkFunctions(checkFunctions),
-                                                                         main_thread(0) {
-}
-
-void *thread_runner(void *args) {
-    temp_main();
-    return nullptr;
+Validator::Validator(const std::vector<CheckFunction> &checkFunctions) : checkFunctions(checkFunctions) {
 }
 
 void Validator::start_main_thread() {
-    pthread_create(&main_thread, nullptr, thread_runner, nullptr);
+    main_thread = std::jthread(temp_main);
+    main_thread.detach();
 
     // Wait for 1 second for us to reach the main internal loop
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    pthread_detach(main_thread);
 }
 
 int Validator::check() {
