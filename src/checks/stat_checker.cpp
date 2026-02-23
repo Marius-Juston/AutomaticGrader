@@ -5,7 +5,7 @@
 #include "checks/state_checker.h"
 #include "checks/generated.hpp"
 
-void HardwareStateValidator::populate_map() {
+void HardwareStateValidator::populate_all_zero() {
     tracker_["AccessProtectionRegs"] = [] {
         return check_zero(const_cast<const ACCESS_PROTECTION_REGS &>(AccessProtectionRegs), "AccessProtectionRegs");
     };

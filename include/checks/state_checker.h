@@ -29,8 +29,7 @@ const inline CheckFunc<T> defaultComparator = [
 
 class HardwareStateValidator {
 public:
-    HardwareStateValidator(): tracker_(DEFAULT_NUM_SPOTS) {
-        populate_map();
+    HardwareStateValidator() : tracker_(DEFAULT_NUM_SPOTS) {
     }
 
     void mark_as_used(const std::string &reg_name) {
@@ -76,7 +75,6 @@ public:
     template<typename T>
     void register_custom_copy(const std::string &reg_name, const T actual_reg, const T expected_state,
                               const CheckFunc<T> &check_func = defaultComparator<T>) {
-
         if (tracker_.contains(reg_name)) {
             std::cout << "Be careful as " << reg_name << " is already used as a key" << std::endl;
         }
@@ -98,10 +96,10 @@ public:
         return all_clean;
     }
 
+    void populate_all_zero();
+
 private:
     std::unordered_map<std::string, ZeroCheckFunc> tracker_;
-
-    void populate_map();
 };
 
 

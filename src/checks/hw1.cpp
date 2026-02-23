@@ -15,9 +15,11 @@
 
 #define LAUNCHPAD_CPU_FREQUENCY 200
 
-HardwareStateValidator validator;
 
 int check_initialization() {
+    HardwareStateValidator validator;
+    validator.populate_all_zero();
+
     std::cout << "Check initialization" << std::endl;
 
     int success = 0;
@@ -28,8 +30,8 @@ int check_initialization() {
 
     {
         GpioSetup expected[MAX_GPIO];
-        for (size_t i = 0; i < MAX_GPIO; ++i) {
-            expected[i] = {};
+        for (auto & i : expected) {
+            i = {};
         }
 
         expected[31] = {GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL};
@@ -90,7 +92,7 @@ int check_initialization() {
 
 
     {
-        const uint16_t expected = M_INT1 | M_INT8 | M_INT9 | M_INT12 | M_INT13 | M_INT14;
+        constexpr uint16_t expected = M_INT1 | M_INT8 | M_INT9 | M_INT12 | M_INT13 | M_INT14;
         validator.register_custom("IER", IER, expected);
     }
 
@@ -150,7 +152,30 @@ int check_initialization() {
         expected.GPCSET.bit.GPIO66 = 1;
         expected.GPDSET.bit.GPIO125 = 1;
 
-        validator.register_comparison("GpioDataRegs", GpioDataRegs, expected);
+        validator.register_comparison_copy("GpioDataRegs", GpioDataRegs, expected);
+    }
+
+    success &= validator.validate();
+
+    {
+        bool state_changed = updateGPIOState();
+
+        std::cout << "GPIO state change " << state_changed << std::endl;
+
+        GPIO_DATA_REGS expected = {};
+
+        expected.GPADAT.bit.GPIO31 = 1;
+        expected.GPBDAT.bit.GPIO34 = 1;
+        expected.GPADAT.bit.GPIO0 = 1;
+        expected.GPADAT.bit.GPIO1 = 1;
+        expected.GPADAT.bit.GPIO19 = 1;
+        expected.GPADAT.bit.GPIO29 = 1;
+        expected.GPBDAT.bit.GPIO32 = 1;
+        expected.GPADAT.bit.GPIO9 = 1;
+        expected.GPCDAT.bit.GPIO66 = 1;
+        expected.GPDDAT.bit.GPIO125 = 1;
+
+        validator.register_comparison_copy("GpioDataRegs Set Data", GpioDataRegs, expected);
     }
 
     success &= validator.validate();
@@ -169,19 +194,20 @@ int check_timer1() {
 }
 
 int check_timer2() {
+    HardwareStateValidator validator;
     std::cout << "Check timer 2" << std::endl;
 
-    GPIO_DATA_REGS initialState = GpioDataRegs;
+    const GPIO_DATA_REGS initialState = GpioDataRegs;
 
-    uint16_t UARTPrintTemp = UARTPrint;
+    const uint16_t UARTPrintTemp = UARTPrint;
 
     {
         uint16_t expected = 0;
         validator.register_custom_copy("UARTPrint Start", UARTPrint, expected);
     }
 
-    size_t expectedTimeStep = (250000.f / CpuTimer2.PeriodInUSec);
-    size_t expectedTimeStepToggle = (100000.f / CpuTimer2.PeriodInUSec);
+    const size_t expectedTimeStep = 250000.f / CpuTimer2.PeriodInUSec;
+    const size_t expectedTimeStepToggle = 100000.f / CpuTimer2.PeriodInUSec;
 
     {
         // Make sure that the toggles are set at the proper timeings
@@ -216,7 +242,7 @@ int check_timer2() {
     }
 
     {
-        uint16_t expected = 1;
+        const uint16_t expected = 1;
         validator.register_custom_copy("UARTPrint End", UARTPrint, expected);
     }
 

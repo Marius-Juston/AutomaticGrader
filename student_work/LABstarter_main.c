@@ -248,9 +248,9 @@ void main(void)
     PieVectTable.SCIC_TX_INT = &TXCINT_data_sent;
     PieVectTable.SCID_TX_INT = &TXDINT_data_sent;
 
-    PieVectTable.EMIF_ERROR_INT = &SWI_isr;
+	DacaRegs.DACTRIM.all = 0x3245;
+    // PieVectTable.EMIF_ERROR_INT = &SWI_isr;
     EDIS;    // This is needed to disable write to EALLOW protected registers
-
 
     // Initialize the CpuTimers Device Peripheral. This function can be
     // found in F2837xD_CpuTimers.c
@@ -399,8 +399,8 @@ __interrupt void cpu_timer2_isr(void)
 	    GpioDataRegs.GPATOGGLE.bit.GPIO27 = 1; // Toggle LED 10
 	}
 
-	uint16_t button_1 = GpioDataRegs.GPADAT.bit.GPIO4;
-	uint16_t button_4 = GpioDataRegs.GPADAT.bit.GPIO7;
+	const uint16_t button_1 = GpioDataRegs.GPADAT.bit.GPIO4;
+	const uint16_t button_4 = GpioDataRegs.GPADAT.bit.GPIO7;
 
 	if(button_1 == 1  && prev_button_1 == 0){ //If Button 1 is pressed
 	        // Toggle LED 12 and 13
