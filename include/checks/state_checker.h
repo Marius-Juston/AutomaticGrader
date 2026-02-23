@@ -12,6 +12,8 @@
 
 #include "checks/compare_generated.hpp"
 
+#define DEFAULT_NUM_SPOTS 200 // Needed otherwise we have string hash collisions
+
 
 using ZeroCheckFunc = std::function<bool()>;
 
@@ -27,7 +29,7 @@ const inline CheckFunc<T> defaultComparator = [
 
 class HardwareStateValidator {
 public:
-    HardwareStateValidator() {
+    HardwareStateValidator(): tracker_(DEFAULT_NUM_SPOTS) {
         populate_map();
     }
 
