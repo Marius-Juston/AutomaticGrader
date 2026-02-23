@@ -425,9 +425,6 @@ struct WD_REGS WdRegs;
 
 struct XINT_REGS XintRegs;
 
-struct XINT_REGS Xint2Regs;
-
-
 struct CPUTIMER_VARS CpuTimer0;
 struct CPUTIMER_VARS CpuTimer1;
 struct CPUTIMER_VARS CpuTimer2;

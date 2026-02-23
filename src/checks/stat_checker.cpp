@@ -399,11 +399,17 @@ void HardwareStateValidator::populate_all_zero() {
         return check_zero(const_cast<const XINT_REGS &>(XintRegs), "XintRegs");
     };
 
-    tracker_["GpioSetup"] = [] {
-        return check_zero(gpiosSetup, "GpioSetup");
+    tracker_["CpuTimer0"] = [] {
+        return check_zero(const_cast<const CPUTIMER_VARS &>(CpuTimer0), "CpuTimer0");
     };
 
-    tracker_["AdcSetup"] = [] {
-        return check_zero(adcSetup, "AdcSetup");
+    tracker_["CpuTimer1"] = [] {
+        return check_zero(const_cast<const CPUTIMER_VARS &>(CpuTimer1), "CpuTimer1");
     };
+
+    tracker_["CpuTimer2"] = [] {
+        return check_zero(const_cast<const CPUTIMER_VARS &>(CpuTimer2), "CpuTimer2");
+    };
+
+    // contains 101 entries, ensure your hashmap has at least this many reserved
 }
