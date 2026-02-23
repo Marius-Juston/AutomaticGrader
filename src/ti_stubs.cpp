@@ -88,7 +88,7 @@ void UART_printfLine(unsigned char line, char *fmt, ...) {
     }
 
     uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
-
+    // Necessary because of \r\n which cause printing to console problems
     rtrim(serial_printf_bufSCIA, write_len);
 
     spdlog::info("UART: Line {:d}: {}", line, serial_printf_bufSCIA);
@@ -143,6 +143,7 @@ uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
 
     uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
 
+    // Necessary because of \r\n which cause printing to console problems
     rtrim(serial_printf_bufSCIA, write_len);
 
     spdlog::info("serial: {}", serial_printf_bufSCIA);
