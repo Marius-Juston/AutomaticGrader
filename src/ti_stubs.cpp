@@ -6,6 +6,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+#include <array>
 
 
 serialSCIA_t SerialA;
@@ -14,33 +15,40 @@ serialSCIC_t SerialC;
 serialSCID_t SerialD;
 
 extern "C" {
-uint16_t init_serialSCIA(serialSCIA_t *s, Uint32 baud) {
+uint16_t init_serialSCIA(serialSCIA_t* s, Uint32 baud)
+{
     return 0; // Returning a dummy value to satisfy the non-void return type warning
 }
 
-uint16_t init_serialSCIB(serialSCIB_t *s, Uint32 baud) {
+uint16_t init_serialSCIB(serialSCIB_t* s, Uint32 baud)
+{
     return 0;
 }
 
-uint16_t init_serialSCIC(serialSCIC_t *s, Uint32 baud) {
+uint16_t init_serialSCIC(serialSCIC_t* s, Uint32 baud)
+{
     return 0;
 }
 
-uint16_t init_serialSCID(serialSCID_t *s, Uint32 baud) {
+uint16_t init_serialSCID(serialSCID_t* s, Uint32 baud)
+{
     return 0;
 }
 
-uint16_t serial_sendSCIC(serialSCIC_t *s, char *data, uint16_t len) {
+uint16_t serial_sendSCIC(serialSCIC_t* s, char* data, uint16_t len)
+{
     return 0;
 }
 
-uint16_t serial_sendSCID(serialSCID_t *s, char *data, uint16_t len) {
+uint16_t serial_sendSCID(serialSCID_t* s, char* data, uint16_t len)
+{
     return 0;
 }
 
 char UART_printf_bufferSCIB[BUF_SIZESCIB];
 
-void UART_printfLine(unsigned char line, char *format, ...) {
+void UART_printfLine(unsigned char line, char* format, ...)
+{
     va_list ap;
     va_start(ap, format);
     vsprintf(UART_printf_bufferSCIB, format, ap);
@@ -49,34 +57,44 @@ void UART_printfLine(unsigned char line, char *format, ...) {
     printf(UART_printf_bufferSCIB, format, ap);
 }
 
-void TXDINT_data_sent(void) {
+void TXDINT_data_sent(void)
+{
 }
 
-void TXCINT_data_sent(void) {
+void TXCINT_data_sent(void)
+{
 }
 
-void TXBINT_data_sent(void) {
+void TXBINT_data_sent(void)
+{
 }
 
-void TXAINT_data_sent(void) {
+void TXAINT_data_sent(void)
+{
 }
 
-void RXAINT_recv_ready(void) {
+void RXAINT_recv_ready(void)
+{
 }
 
-void RXBINT_recv_ready(void) {
+void RXBINT_recv_ready(void)
+{
 }
 
-void RXCINT_recv_ready(void) {
+void RXCINT_recv_ready(void)
+{
 }
 
-void RXDINT_recv_ready(void) {
+void RXDINT_recv_ready(void)
+{
 }
 
-void InitCpuTimers(void) {
+void InitCpuTimers(void)
+{
 }
 
-void ConfigCpuTimer(struct CPUTIMER_VARS *Timer, float Freq, float Period) {
+void ConfigCpuTimer(struct CPUTIMER_VARS* Timer, float Freq, float Period)
+{
     Timer->CPUFreqInMHz = Freq;
     Timer->PeriodInUSec = Period;
 
@@ -85,7 +103,8 @@ void ConfigCpuTimer(struct CPUTIMER_VARS *Timer, float Freq, float Period) {
 
 char serial_printf_bufSCIA[BUF_SIZESCIA];
 
-uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
+uint16_t serial_printf(serialSCIA_t* s, char* fmt, ...)
+{
     va_list ap;
 
     va_start(ap, fmt);
@@ -95,12 +114,14 @@ uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
     return printf(fmt, ap);
 }
 
-uint16_t step_execution(void) {
+uint16_t step_execution(void)
+{
     static uint32_t execution_cycles = 0;
 
     const uint32_t MAX_CYCLES = 2;
 
-    if (++execution_cycles > MAX_CYCLES) {
+    if (++execution_cycles > MAX_CYCLES)
+    {
         return 0;
     }
 
@@ -410,3 +431,120 @@ struct XINT_REGS Xint2Regs;
 struct CPUTIMER_VARS CpuTimer0;
 struct CPUTIMER_VARS CpuTimer1;
 struct CPUTIMER_VARS CpuTimer2;
+
+
+constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioDataRegister = {
+    &GpioDataRegs.GPADAT.all,
+    &GpioDataRegs.GPBDAT.all,
+    &GpioDataRegs.GPCDAT.all,
+    &GpioDataRegs.GPDDAT.all,
+    &GpioDataRegs.GPEDAT.all,
+    &GpioDataRegs.GPFDAT.all,
+};
+
+constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioSetRegister = {
+    &GpioDataRegs.GPASET.all,
+    &GpioDataRegs.GPBSET.all,
+    &GpioDataRegs.GPCSET.all,
+    &GpioDataRegs.GPDSET.all,
+    &GpioDataRegs.GPESET.all,
+    &GpioDataRegs.GPFSET.all,
+};
+
+constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioClearRegister = {
+    &GpioDataRegs.GPACLEAR.all,
+    &GpioDataRegs.GPBCLEAR.all,
+    &GpioDataRegs.GPCCLEAR.all,
+    &GpioDataRegs.GPDCLEAR.all,
+    &GpioDataRegs.GPECLEAR.all,
+    &GpioDataRegs.GPFCLEAR.all,
+};
+
+constexpr std::array<Uint32*, NUM_GPIO_BUCKETS> gpioToggleRegister = {
+    &GpioDataRegs.GPATOGGLE.all,
+    &GpioDataRegs.GPATOGGLE.all,
+    &GpioDataRegs.GPATOGGLE.all,
+    &GpioDataRegs.GPATOGGLE.all,
+    &GpioDataRegs.GPATOGGLE.all,
+    &GpioDataRegs.GPATOGGLE.all,
+};
+
+bool updateGPIOSet()
+{
+    bool changed = false;
+
+    for (size_t i = 0; i < gpioSetRegister.size(); ++i)
+    {
+        Uint32* gpio = gpioSetRegister[i];
+
+        // A bit has been set
+        if (*gpio)
+        {
+            // Set the specific bits
+            *gpioDataRegister[i] |= *gpio;
+            changed = true;
+        }
+
+        // clear the bit-field
+        *gpio = 0;
+    }
+
+    return changed;
+}
+
+bool updateGPIOClear()
+{
+    bool changed = false;
+
+    for (size_t i = 0; i < gpioClearRegister.size(); ++i)
+    {
+        Uint32* gpio = gpioClearRegister[i];
+
+        // A bit has been set
+        if (*gpio)
+        {
+            // Clear the specific bits
+            *gpioDataRegister[i] &= ~(*gpio);
+            changed = true;
+        }
+
+        // clear the bit-field
+        *gpio = 0;
+    }
+
+    return changed;
+}
+
+bool updateGPIOToggle()
+{
+    bool changed = false;
+
+    for (size_t i = 0; i < gpioToggleRegister.size(); ++i)
+    {
+        Uint32* gpio = gpioToggleRegister[i];
+
+        // A bit has been set
+        if (*gpio)
+        {
+            // Set the specific bits
+            *gpioDataRegister[i] ^= *gpio;
+            changed = true;
+        }
+
+        // clear the bit-field
+        *gpio = 0;
+    }
+
+    return changed;
+}
+
+bool updateGPIOState()
+{
+    bool changed = false;
+
+    changed |= updateGPIOSet();
+    changed |= updateGPIOClear();
+    changed |= updateGPIOToggle();
+
+    return changed;
+}

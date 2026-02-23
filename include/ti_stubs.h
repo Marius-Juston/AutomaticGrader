@@ -6,6 +6,7 @@
 #define AUTOMATICGRADER_TI_STUBS_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define interrupt
 #define __interrupt
@@ -148,6 +149,14 @@ uint16_t step_execution(void);
 #endif
 
 #define while(condition) while( (condition) && step_execution() )
+
+#define NUM_GPIO_BUCKETS 6
+#define NUM_GPIO_PER_BUCKETS 32
+
+bool updateGPIOState();
+bool updateGPIOSet();
+bool updateGPIOClear();
+bool updateGPIOToggle();
 
 
 #endif //AUTOMATICGRADER_TI_STUBS_H
