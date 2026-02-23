@@ -91,7 +91,7 @@ void UART_printfLine(unsigned char line, char *fmt, ...) {
 
     rtrim(serial_printf_bufSCIA, write_len);
 
-    spdlog::info("UART: Line {:d}: {}",line ,serial_printf_bufSCIA);
+    spdlog::info("UART: Line {:d}: {}", line, serial_printf_bufSCIA);
 }
 
 void TXDINT_data_sent(void) {

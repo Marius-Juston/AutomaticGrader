@@ -5,7 +5,7 @@ template<typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name) {
     if (value != 0) {
-        spdlog::warn("{} is non-zero",  name);
+        spdlog::warn("{} is non-zero", name);
         return false;
     }
     return true;
@@ -13,7 +13,7 @@ check_zero(const T &value, const std::string &name) {
 
 bool check_zero(const PINT &obj, const std::string &name) {
     if (obj != nullptr) {
-        spdlog::warn("{} is non-zero",  name);
+        spdlog::warn("{} is non-zero", name);
         return false;
     }
     return true;

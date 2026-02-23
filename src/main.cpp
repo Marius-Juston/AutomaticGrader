@@ -5,11 +5,11 @@ int main() {
     Validator validator = get_validator();
     int result = validator.check();
 
-    spdlog::info("Homework: {}",  HW );
+    spdlog::info("Homework: {}", HW);
 
     if (result != 0) {
         spdlog::warn("Did not sucessed all checks");
-    }else {
+    } else {
         spdlog::info("Succeeded all tests!", HW, result);
     }
 
