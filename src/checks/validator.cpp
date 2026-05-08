@@ -18,6 +18,8 @@
 #include "checks/hw3.h"
 #elif HW == 4
 #include "checks/hw4.h"
+#elif HW == 5
+#include "checks/hw5.h"
 #else
 #error "Invalid HW selection"
 #endif

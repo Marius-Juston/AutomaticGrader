@@ -33,7 +33,7 @@ void setDACB(float dacouta1) {
     DacbRegs.DACVALS.bit.DACVALS = dacouta1 * 4095.0 / 3.0; // perform scaling of 0-3 to 0-4095
 }
 
-uint16_t readbuttons(void) {
+__attribute__((weak)) uint16_t readbuttons(void) {
     uint16_t returnvalue = 0;
 
     if (GpioDataRegs.GPEDAT.bit.GPIO157 == 0) {

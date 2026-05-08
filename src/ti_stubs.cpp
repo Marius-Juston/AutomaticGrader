@@ -182,6 +182,19 @@ uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
 struct GpioSetup gpiosSetup[MAX_GPIO];
 struct AdcSetup adcSetup[MAX_ADC];
 uint16_t IER = 0;
+
+// HW4: GPIO -> XINT binding map. xintPinMap[N] = gpio number bound to XINTN.
+// Index 0 unused; valid range [1..5]. Populated by GPIO_SetupXINT{1..5}Gpio.
+uint16_t xintPinMap[8] = {0};
+
+extern "C" {
+void GPIO_SetupXINT1Gpio(Uint16 gpioNumber) { xintPinMap[1] = gpioNumber; }
+void GPIO_SetupXINT2Gpio(Uint16 gpioNumber) { xintPinMap[2] = gpioNumber; }
+void GPIO_SetupXINT3Gpio(Uint16 gpioNumber) { xintPinMap[3] = gpioNumber; }
+void GPIO_SetupXINT4Gpio(Uint16 gpioNumber) { xintPinMap[4] = gpioNumber; }
+void GPIO_SetupXINT5Gpio(Uint16 gpioNumber) { xintPinMap[5] = gpioNumber; }
+}
+
 uint16_t IFR = 0;
 
 

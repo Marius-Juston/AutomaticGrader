@@ -84,6 +84,21 @@ extern struct AdcSetup adcSetup[MAX_ADC];
 extern uint16_t IER;
 extern uint16_t IFR;
 
+// HW4: GPIO -> XINT binding map. xintPinMap[N] = gpio bound to XINTN (1..5).
+extern uint16_t xintPinMap[8];
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+void GPIO_SetupXINT1Gpio(Uint16 gpioNumber);
+void GPIO_SetupXINT2Gpio(Uint16 gpioNumber);
+void GPIO_SetupXINT3Gpio(Uint16 gpioNumber);
+void GPIO_SetupXINT4Gpio(Uint16 gpioNumber);
+void GPIO_SetupXINT5Gpio(Uint16 gpioNumber);
+#ifdef __cplusplus
+}
+#endif
+
 static inline void GPIO_SetupPinOptions(Uint16 gpioNumber, Uint16 output, Uint16 flags) {
     if (gpioNumber >= MAX_GPIO) {
         return;
