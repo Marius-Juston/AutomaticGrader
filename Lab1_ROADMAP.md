@@ -18,17 +18,21 @@
 
 ## Stubs needed
 
-- [ ] All HW1-style GPIO + timer stubs (already in place).
-- [ ] **Shared:** `serial_printf` capture (with port detection) and `inject_serial_rx(SCIA, char)` to simulate keyboard input via `RXAINT_recv_ready` invocation.
+- [x] All HW1-style GPIO + timer stubs (already in place).
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls` (with port detection across SCIA/B/C/D/UART_LCD). Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
+- [ ] **Deferred:** `inject_serial_rx(SCIA, char)` to simulate keyboard input via `RXAINT_recv_ready`. Not in slice 1 — student-side SCI RX still requires writing to `SciaRegs.SCIRXBUF` directly and invoking the ISR.
 
 ## Checks to implement
 
 - [ ] `check_initialization` — `gpiosSetup[]` for all 6 LED pins; `CpuTimer0.PeriodInUSec == 10000`, `CpuTimer2.PeriodInUSec == 40000`; `PieVectTable.{TIMER0_INT, TIMER2_INT, SCIA_RX_INT}` registered.
 - [ ] `check_timer0` — drive ISR; assert `numTimer0calls` increments; LED activity per spec.
 - [ ] `check_timer2` — drive ISR for 1 second synthetic; assert print count matches modulus (e.g. 25 prints if mod 1, 2-3 if mod 10).
-- [ ] `check_uart_rx_echo` — `inject_serial_rx(SCIA, 'a')`, drive `RXAINT_recv_ready()`, assert `GpioDataRegs.GPBTOGGLE.bit.GPIO34 == 1` (red LED toggle). Same for 'b'. Inject other chars → no toggle.
+- [ ] `check_uart_rx_echo` — write `'a'` to `SciaRegs.SCIRXBUF.all` (deferred `inject_serial_rx` not yet shipped), drive `RXAINT_recv_ready()`, assert `GpioDataRegs.GPBTOGGLE.bit.GPIO34 == 1` (red LED toggle). Same for 'b'. Inject other chars → no toggle.
 - [ ] `check_print_cadence` — assert spec'd rate (~400 ms); ±10%.
-- [ ] `check_print_format` — `expect_arg_types` matches `int32_t` (`%ld`) and `int16_t` (`%d`) variables.
+- [ ] `check_print_format` — `expect_arg_types(latest, {grader::ArgType::Int32, grader::ArgType::Int16, ...})` matches `int32_t` (`%ld`) and `int16_t` (`%d`) variables.
 
 ## Validation matrix (deep)
 

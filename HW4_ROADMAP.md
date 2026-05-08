@@ -22,7 +22,10 @@
 - [ ] `XINT_enableInterrupt(xintN)` → `XintRegs.XINTnCR.bit.ENABLE = 1`
 - [ ] `GPIO_setQualificationMode` → `GpioCtrlRegs.GPxQSEL{1,2}`, `GPxCTRL.QUALPRD`
 - [ ] (Older driverlib) `GPIO_SetupXINTnGpio(gpio_num)` shorthand — same effect as the pair
-- [ ] **Shared:** `serial_printf` capture; stimulus helpers (`press_button` already simulates GPIO; trigger XINT via direct `xint1_isr()` call).
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp`. `grader::press_button(int gpio)` simulates the GPIO low; trigger XINT via direct `xint1_isr()` call.
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
 
 ## Checks to implement (`src/checks/hw4.cpp`)
 
@@ -35,10 +38,10 @@
   - `setEPWM8A_RCServo(-200.0f)` → `CMPA == 2500` (saturated)
   - `setEPWM8A_RCServo(45.0f)` → `CMPA ≈ 6250` ±1 (linearity)
 - [ ] `check_setEPWM8B_RCServo` — same matrix asserting `CMPB.bit.CMPB`.
-- [ ] `check_xint1_button` — `Xint1Count = 0`; simulate 5 button presses by calling `xint1_isr()` (with optional `press_button(6)`/`release_button(6)` around each). Assert `Xint1Count == 5`. If reference toggles an LED in the ISR, also verify `GpioDataRegs`.
+- [ ] `check_xint1_button` — `Xint1Count = 0`; simulate 5 button presses by calling `xint1_isr()` (with optional `grader::press_button(6)`/`grader::release_button(6)` around each). Assert `Xint1Count == 5`. If reference toggles an LED in the ISR, also verify `GpioDataRegs`.
 - [ ] `check_xint2_button` — same for `Xint2Count` and GPIO7.
 - [ ] `check_print_cadence` — **[ambiguous]** — HW4 spec doesn't pin a print rate for Ex. 4 button counts. Skip cadence check unless spec wording dictates.
-- [ ] `check_print_format` — if Ex. 3/4 prints exist per spec, `expect_arg_types(latest, ...)` for the documented variables (likely button counts as `ARG_INT32` or `ARG_INT16`).
+- [ ] `check_print_format` — if Ex. 3/4 prints exist per spec, `expect_arg_types(latest, ...)` for the documented variables (likely button counts as `grader::ArgType::Int32` or `grader::ArgType::Int16`).
 
 ## Validation matrix (deep)
 

@@ -7,8 +7,11 @@
 #include <cstdio>
 #include <cstring>
 #include <array>
+#include <string_view>
 
 #include <spdlog/spdlog.h>
+
+#include "checks/printf_capture.h"
 
 
 serialSCIA_t SerialA;
@@ -80,18 +83,26 @@ void UART_printfLine(unsigned char line, char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    const uint32_t len = vsnprintf(UART_printf_bufferSCIB, BUF_SIZESCIB, fmt, ap);
+    const int len = vsnprintf(UART_printf_bufferSCIB, BUF_SIZESCIB, fmt, ap);
     va_end(ap);
 
     if (len <= 0) {
+        grader::recordPrintfCall(grader::SerialPort::UART_LCD,
+                                 fmt ? std::string_view(fmt) : std::string_view{},
+                                 std::string_view{}, line);
         return;
     }
 
-    uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
-    // Necessary because of \r\n which cause printing to console problems
-    rtrim(serial_printf_bufSCIA, write_len);
+    uint32_t write_len = (static_cast<uint32_t>(len) < BUF_SIZESCIB)
+                             ? static_cast<uint32_t>(len)
+                             : (BUF_SIZESCIB - 1);
+    const std::string_view rendered_full(UART_printf_bufferSCIB, write_len);
+    grader::recordPrintfCall(grader::SerialPort::UART_LCD,
+                             std::string_view(fmt),
+                             rendered_full, line);
 
-    spdlog::info("UART: Line {:d}: {}", line, serial_printf_bufSCIA);
+    rtrim(UART_printf_bufferSCIB, write_len);
+    spdlog::info("UART: Line {:d}: {}", line, UART_printf_bufferSCIB);
 }
 
 void TXDINT_data_sent(void) {
@@ -129,26 +140,42 @@ void ConfigCpuTimer(struct CPUTIMER_VARS *Timer, float Freq, float Period) {
 }
 
 
+static grader::SerialPort classify_sci_pointer(const void *s) noexcept {
+    if (s == &SerialA) return grader::SerialPort::SCIA;
+    if (s == &SerialB) return grader::SerialPort::SCIB;
+    if (s == &SerialC) return grader::SerialPort::SCIC;
+    if (s == &SerialD) return grader::SerialPort::SCID;
+    return grader::SerialPort::SCIA;
+}
+
 uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
     clearBuffers();
     va_list ap;
 
     va_start(ap, fmt);
-    const uint32_t len = vsnprintf(serial_printf_bufSCIA, BUF_SIZESCIA, fmt, ap);
+    const int len = vsnprintf(serial_printf_bufSCIA, BUF_SIZESCIA, fmt, ap);
     va_end(ap);
 
+    const grader::SerialPort port = classify_sci_pointer(s);
+
     if (len <= 0) {
+        grader::recordPrintfCall(port,
+                                 fmt ? std::string_view(fmt) : std::string_view{},
+                                 std::string_view{});
         return 0;
     }
 
-    uint32_t write_len = (len < BUF_SIZESCIA) ? len : (BUF_SIZESCIA - 1);
+    uint32_t write_len = (static_cast<uint32_t>(len) < BUF_SIZESCIA)
+                             ? static_cast<uint32_t>(len)
+                             : (BUF_SIZESCIA - 1);
+    const std::string_view rendered_full(serial_printf_bufSCIA, write_len);
+    grader::recordPrintfCall(port, std::string_view(fmt), rendered_full);
 
-    // Necessary because of \r\n which cause printing to console problems
     rtrim(serial_printf_bufSCIA, write_len);
 
-    spdlog::info("serial: {}", serial_printf_bufSCIA);
+    spdlog::info("serial[{}]: {}", grader::serial_port_name(port), serial_printf_bufSCIA);
 
-    return len;
+    return static_cast<uint16_t>(len);
 }
 }
 

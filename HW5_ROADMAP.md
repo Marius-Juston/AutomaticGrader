@@ -28,7 +28,10 @@ HW5.tex is brief — most content is "extend HW4 state machine" and "personal pr
 - [ ] `DMA_setInterruptMode`, `DMA_enableTrigger`, `DMA_startChannel` → `dmaConfig[ch].running = true`
 - [ ] `DMA_initController` — no-op
 - [ ] **`RFFT_f32` shim** — no-op by default; for `check_peak_detection` the test pre-populates `pwrSpec[]` so the shim can stay no-op.
-- [ ] **Shared:** `serial_printf` capture; stimulus helpers.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
 
 ## Checks to implement (`src/checks/hw5.cpp`)
 
@@ -44,7 +47,7 @@ HW5.tex is brief — most content is "extend HW4 state machine" and "personal pr
 - [ ] `check_dma_isr_advance` — `DMAcount = 0`; call `DMA_isr()` 5×; assert `DMAcount == 5`.
 - [ ] `check_servo_carryover` — same `setEPWM8A_RCServo` / `setEPWM8B_RCServo` parameter sweep as HW4 (HW5 inherits servo).
 - [ ] `check_print_cadence` — drive ISR for 1000 ms synthetic; assert N prints per spec'd cadence (likely 100 ms or 200 ms — **[ambiguous]**).
-- [ ] `check_print_format` — `expect_arg_types(latest, ...)` for peak-frequency print. Float for frequency.
+- [ ] `check_print_format` — `expect_arg_types(latest, {grader::ArgType::Float, ...})` for peak-frequency print. Float for frequency.
 
 ## Validation matrix (deep)
 

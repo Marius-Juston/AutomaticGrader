@@ -23,23 +23,27 @@
 
 - [ ] All HW3 SPI stubs (MPU-9250).
 - [ ] All Lab3 EPWM/EQEP + Lab4 ADCC stubs.
-- [ ] LADAR stubs: SCIC RX/TX + `inject_lidar_frame(uint16_t distances[228])` helper that fills the ping/pong buffer.
-- [ ] UARTD stubs (or shared SCI capture extended to D).
-- [ ] SWI post stubs: `PostSWI1`, `PostSWI3` — record post events.
-- [ ] **Shared:** `serial_printf` capture per port (extend to SCID).
+- [x] **Shared (shipped):** LADAR ping/pong frame injection — `grader::inject_lidar_frame(std::span<const float, 228>)` (also `inject_lidar_ping` / `inject_lidar_pong`). Fills `ladar_data[228].distance_{ping,pong}` directly.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture — auto-wired with port classifier covering SCIA/B/C/D + `UART_LCD`. Consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
+- [ ] **Deferred:** SCIC RX/TX byte-stream simulation for the raw LADAR serial stream (slice 1 covers the post-decoded `ladar_data[]` buffer; the upstream SCIC RX path still needs an `inject_serial_rx(SCIC, byte)` helper).
+- [ ] **Deferred:** UARTD-specific TX-byte capture beyond the existing 4-port `serial_printf` classifier.
+- [ ] **Deferred:** SWI post stubs — `PostSWI1`, `PostSWI3` — to record post events for the wall-follow state machine.
 
 ## Checks to implement
 
 - [ ] `check_initialization` — Lab3+4+5 baseline + LADAR/SPIB/UARTD config. Verify SCIC baud, SPIB at 1 MHz mode 01, UARTD at 2083332. SWI vector entries.
-- [ ] `check_lidar_parsing` — `inject_lidar_frame()` with synthetic distances (e.g. all `1000` mm); drive `cpu_timer1_isr()`; assert `LADARfront == 1000`, `LADARrightfront == 1000`. Test with a wall on one side: distances `[3000]*113 + [200]*5 + [3000]*110` → `LADARfront ≈ 200`.
-- [ ] `check_lidar_xy_conversion` — known robot pose (0,0,0); LADAR reading at index 113 = 1000 mm → `ladar_pts[113] ≈ (1.0/0.3048, 0)` ft (forward, x-axis). Verify trig for 90° offset etc.
+- [ ] `check_lidar_parsing` — `grader::inject_lidar_frame(...)` with synthetic distances (e.g. all `1000.0f` mm); drive `cpu_timer1_isr()`; assert `LADARfront == 1000`, `LADARrightfront == 1000`. Test with a wall on one side: distances `[3000]*113 + [200]*5 + [3000]*110` → `LADARfront ≈ 200`.
+- [ ] `check_lidar_xy_conversion` — known robot pose (0,0,0); `inject_lidar_ping` with index 113 = 1000.0f mm → `ladar_pts[113] ≈ (1.0/0.3048, 0)` ft (forward, x-axis). Verify trig for 90° offset etc.
 - [ ] `check_mpu9250_full_init` — same as HW3 `check_imu_full_init`.
 - [ ] `check_dead_reckoning` — drive ISR with `velLeft = 1.0`, `velRight = 1.0`, gyro = 0 for 1 s synthetic. Assert `ROBOTps.x ≈ 1.0` ft, `theta ≈ 0`. Set gyro to constant rate; verify theta integrates.
-- [ ] `check_wall_follow_state_left_turn` — `inject_lidar_frame()` with `LADARfront < threshold`; drive `SWI1`; assert state transitions to "Left Turn", `turn` adjusted accordingly.
+- [ ] `check_wall_follow_state_left_turn` — `grader::inject_lidar_frame(...)` with `LADARfront < threshold`; drive `SWI1`; assert state transitions to "Left Turn", `turn` adjusted accordingly. (Note: `PostSWI1` capture still deferred — drive the SWI ISR by direct call until that ships.)
 - [ ] `check_wall_follow_state_right_follow` — similar with front clear, right wall present.
 - [ ] `check_swi_priority` — verify SWI1 ISR is in highest-priority PIE group, SWI2 middle, SWI3 lowest. Inspect `PieVectTable` and IFR registers.
 - [ ] `check_print_cadence` — 100 ms; ±10%.
-- [ ] `check_print_format` — wide `expect_arg_types({...})` per spec.
+- [ ] `check_print_format` — wide `expect_arg_types(latest, {grader::ArgType::*, ...})` per spec.
 
 ## Validation matrix (deep)
 

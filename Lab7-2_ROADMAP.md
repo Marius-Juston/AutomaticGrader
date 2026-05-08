@@ -20,22 +20,25 @@
 ## Stubs needed
 
 - [ ] All Lab6 stubs (LADAR, dead-reckoning baseline).
-- [ ] OpenMV / RPI4 stub: `inject_blob(color_idx, area, row, col)` helper that writes into the student-readable blob arrays.
-- [ ] OptiTrack stub: `inject_optitrack(x, y, theta)` for Kalman fusion test.
-- [ ] **Shared:** `serial_printf` capture.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
+- [ ] **Deferred:** OpenMV / RPI4 stub — `inject_blob(color_idx, area, row, col)` helper that writes into the student-readable blob arrays.
+- [ ] **Deferred:** OptiTrack stub — `inject_optitrack(x, y, theta)` for the Kalman fusion test.
 
 ## Checks to implement
 
 - [ ] `check_initialization` — Lab6 baseline + vision globals (`RobotState`, `MaxAreaThreshold1/2`, `MaxColThreshold1/2`, `MaxRowThreshold1/2`, `kpvision`, distance fit coefficients) defaults.
 - [ ] `check_distance_curve_fit` — for each calibration point in spec (rows at known distances), assert `student's row→distance fn` returns expected ft within tolerance.
-- [ ] `check_ball_follow_orange_state_20_to_22` — set `RobotState = 20`, `inject_blob(orange, area=large, row=mid, col=0)`, drive SWI1; assert `Vref ≈ 0.75`, `turn ≈ 0`. Increase `area` past trigger; assert state transitions to 22 and motors stop.
+- [ ] `check_ball_follow_orange_state_20_to_22` — set `RobotState = 20`, `inject_blob(orange, area=large, row=mid, col=0)` (deferred — write the blob globals directly until `inject_blob` ships), drive SWI1; assert `Vref ≈ 0.75`, `turn ≈ 0`. Increase `area` past trigger; assert state transitions to 22 and motors stop.
 - [ ] `check_ball_follow_orange_state_22_to_24_to_26` — drive timer for 1 s; assert state advance 22→24 (reverse), then after another second 24→26 (stop), then to 1 with 2 s inhibit.
 - [ ] `check_ball_follow_purple` — same but with RobotState 30/32/34/36.
 - [ ] `check_centering_proportional_control` — set `colcentroid = +50` and -50; assert `turn = -50*kpvision` and `+50*kpvision` respectively.
 - [ ] `check_xy_waypoint_state_1` — set `RobotState = 1`, target (5, 0); call `xy_control(5, 0)`; assert returns 0 (not at target). With current pose at (5, 0), assert returns 1.
-- [ ] `check_optitrack_fusion` — `inject_optitrack(2, 3, 0.5)`; drive Kalman update; assert `ROBOTps` shifts toward injected pose (relative to dead-reckoned estimate).
+- [ ] `check_optitrack_fusion` — `inject_optitrack(2, 3, 0.5)` (deferred — write `Optitrackdata[]` directly until the helper ships); drive Kalman update; assert `ROBOTps` shifts toward injected pose (relative to dead-reckoned estimate).
 - [ ] `check_print_cadence` — 100 ms.
-- [ ] `check_print_format` — wide `expect_arg_types({ARG_INT16, ARG_FLOAT, ARG_FLOAT, ...})` per spec.
+- [ ] `check_print_format` — wide `expect_arg_types(latest, {grader::ArgType::Int16, grader::ArgType::Float, grader::ArgType::Float, ...})` per spec.
 
 ## Validation matrix (deep)
 

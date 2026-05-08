@@ -20,8 +20,10 @@
 
 - [x] `GPIO_SetupPinMux`, `GPIO_SetupPinOptions` — populate `gpiosSetup[]`
 - [x] `ConfigCpuTimer` — populate `CpuTimer{0,1,2}` `PeriodInUSec` and `CPUFreqInMHz`
-- [ ] **Shared with HW2+:** `serial_printf` capture into `g_printfCalls` (added with the format-verification stub layer)
-- [ ] **Shared with HW2+:** stimulus helpers in `include/checks/stimulus.hpp`
+- [x] **Shared with HW2+:** `serial_printf` / `UART_printfLine` capture into `g_printfCalls` — `src/ti_stubs.cpp:143` records `{port, fmt, parsed_specifiers, rendered, synthetic_timestamp_us}` per call.
+- [x] **Shared with HW2+:** stimulus helpers in `include/checks/stimulus.hpp` — `press_button` / `release_button` / `inject_adc_result` / `inject_spi_rx` / `inject_encoder_count` / `inject_lidar_frame`.
+- [x] **Shared with HW2+:** synthetic-clock + `run_isr_for_us` in `include/checks/synthetic_clock.h`.
+- [x] **Shared with HW2+:** format-string parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` (`include/checks/format_parser.h`, `include/checks/expectations.h`). Run `./AutomaticGrader --selftest` to exercise the infrastructure end-to-end.
 
 ## Checks to implement / fix in `src/checks/hw1.cpp`
 
@@ -37,10 +39,10 @@
   - [ ] With `press_button(7)`: `GPETOGGLE.bit.GPIO158 = 1` and `GPETOGGLE.bit.GPIO159 = 1`.
   - [ ] After 250 ms of synthetic time, `CpuTimer2.InterruptCount` advanced by `250000 / period_us`.
   - [ ] After each block, snapshot/restore `GpioDataRegs`, `UARTPrint`, `CpuTimer2.InterruptCount`.
-- [ ] `check_print_cadence` (new) — `resetPrintfCapture()`, `run_isr_for_us(cpu_timer2_isr, CpuTimer2.PeriodInUSec, 1000000)` (1 s synthetic), assert `g_printfCalls.size() == 4` ± 0 (cadence is integer; tolerance 0). All entries on `SCIA`.
-- [ ] `check_print_format` (new) — inspect `g_printfCalls.back()`. Accept either:
-  - Ex. 5 untouched: `expect_format(call, "Num Timer2:%ld Num SerialRX: %ld\r\n")` and `expect_arg_types(call, {ARG_INT32, ARG_INT32})`
-  - Ex. 8 final: `expect_format(call, "Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n")` and `expect_arg_types(call, {ARG_INT32, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT})`
+- [ ] `check_print_cadence` (new) — `grader::resetPrintfCapture()`, `grader::run_isr_for_us(cpu_timer2_isr, CpuTimer2.PeriodInUSec, 1'000'000)` (1 s synthetic), then `grader::expect_print_cadence(grader::SerialPort::SCIA, 4, 0.0)` (cadence is integer; tolerance 0).
+- [ ] `check_print_format` (new) — inspect `grader::latestPrintfCall(grader::SerialPort::SCIA)`. Accept either:
+  - Ex. 5 untouched: `expect_format(call, "Num Timer2:%ld Num SerialRX: %ld\r\n")` and `expect_arg_types(call, {grader::ArgType::Int32, grader::ArgType::Int32})`
+  - Ex. 8 final: `expect_format(call, "Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n")` and `expect_arg_types(call, {grader::ArgType::Int32, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float})`
   - **Reject** any `%d` where `%ld` is required (the most common student bug).
   - **Reject** `%.2f` where `%.3f` is required for `sinvalue`.
 - [ ] `check_sin_math` (new, **[racy]**) — set `UARTPrint = 1`, sleep 50 ms to let the main thread's while-loop process one cycle, then assert: `timeint == previous + 1`, `time == timeint * 0.25` (exact), `sinvalue ≈ 3.0 * sin(2π · 0.05 · time) + 0.25` ± 1e-3, `satvalue == saturate(sinvalue, 2.65)` (exact). If race-driven flakiness shows up in CI, downgrade to format-only verification.
@@ -60,7 +62,7 @@
 - [x] Mutation B — delete `numTimer0calls++` → fails on `numTimer0calls expected 250 but was 0`
 - [x] Mutation C — delete `GPIO_SetupPinOptions(31, …)` → fails on `GpioSetup[31] Output type`
 - [x] Mutation D — break `saturate` (drop positive branch) → fails on `saturate(0.5, 0.25) = 0.25 got 0.5`
-- [ ] Mutation E (post-rework) — `%ld` → `%d` in the Ex. 8 print → `check_print_format` fails on `arg 1: expected ARG_INT32 (specifier %ld), got %d (ARG_INT16)`
+- [ ] Mutation E (post-rework) — `%ld` → `%d` in the Ex. 8 print → `check_print_format` fails on `argument #1: expected %ld (ArgType::Int32), got %d (ArgType::Int16)` plus the 16-bit-`int` hint from `expectations.cpp`.
 - [ ] Mutation F (post-rework) — change print modulus from 50 to 100 → `check_print_cadence` fails on `expected 4 prints in 1000 ms, got 2`
 - [ ] Mutation G (post-rework) — comment out `if (GPADAT.bit.GPIO4 == 0)` branch → `check_timer2[PB1]` fails on missing GPIO61/157 toggle
 - [x] Three consecutive runs against current reference → identical pass (snapshot hygiene clean)

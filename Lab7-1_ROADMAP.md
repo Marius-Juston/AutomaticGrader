@@ -20,7 +20,11 @@
 - [ ] All HW2 EPWM stubs (EPWM3, 5, 6 use the same calls as 4, 8, 12).
 - [ ] EQEP3 from Lab3 (carryover).
 - [ ] SWI post mechanism from Lab6.
-- [ ] **Shared:** `serial_printf` capture; `inject_encoder_count(EQEP3, count)`.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`grader::inject_encoder_count(grader::EqepModule::Eqep3, count)` for the command knob).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
+- [ ] **Deferred (carried from Lab6):** SWI post capture (`PostSWI3`) — drive the SWI ISR by direct call until that ships.
 
 ## Checks to implement
 
@@ -31,9 +35,9 @@
 - [ ] `check_setEPWM5B_RCServo` — same matrix, `EPwm5Regs.CMPB`.
 - [ ] `check_setEPWM6A_RCServo` — same matrix, `EPwm6Regs.CMPA`.
 - [ ] `check_swi3_posts_servos` — drive `cpu_timer2_isr()` once; assert `PostSWI3` was called. Drive `SWI3_LowestPriority()`; assert all 5 `EPwm*Regs.CMPA/CMPB` updated to reflect the current `RCangle`.
-- [ ] `check_RCangle_from_encoder` — `inject_encoder_count(EQEP3, count)`; drive ISR; assert `RCangle == readEncWheel()` derived value, clamped to [-90, 90].
+- [ ] `check_RCangle_from_encoder` — `grader::inject_encoder_count(grader::EqepModule::Eqep3, count)`; drive ISR; assert `RCangle == readEncWheel()` derived value, clamped to [-90, 90].
 - [ ] `check_print_cadence` — 100 ms.
-- [ ] `check_print_format` — `expect_arg_types(latest, {ARG_FLOAT})`.
+- [ ] `check_print_format` — `expect_arg_types(latest, {grader::ArgType::Float})`.
 
 ## Validation matrix (deep)
 

@@ -28,20 +28,23 @@
 - [ ] `SPI_enableFIFO`, `SPI_disableFIFO` → `SPIFFTX.bit.SPIRST`/`SPIFFENA`
 - [ ] `SPI_setFIFOInterruptLevel` → `SPIFFTX.TXFFIL`, `SPIFFRX.RXFFIL`
 - [ ] `SPI_enableInterrupt` → `SPIFFRX.RXFFIENA`
-- [ ] **`spibTxLog[]`** + `spibRxLog[]` capture: extend SPI write/read paths to log the 16-bit words. Stimuli test inspects `spibTxLog`; `inject_spi_rx(SPIB, word)` pushes into a queue that `SpibRegs.SPIRXBUF` reads pull from.
-- [ ] **Shared:** `serial_printf` capture; stimulus helpers.
+- [ ] **Deferred (slice 3):** `spibTxLog[]` capture — extend SPI write paths to log the 16-bit words written to `SpibRegs.SPITXBUF`. Slice 1 ships the RX side (`grader::inject_spi_rx(SpiModule::B, word)` writes `SPIRXBUF` and bumps `SPIFFRX.RXFFST`); the TX-log capture is still TBD because struct-field writes can't be intercepted without a wrapper around `SPITXBUF`.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
 
 ## Checks to implement (`src/checks/hw3.cpp`)
 
 - [ ] `check_initialization` — HW1 baseline + HW3 SPI/EPWM9 register state. Verify GPIO63/64/65/66 muxes; `SpibRegs.{SPICCR.SPICHAR, SPIBRR, SPICTL.CLK_PHASE, SPICCR.CLKPOLARITY, SPIPRI, SPIFFTX, SPIFFRX}`; EPWM9 AQCTLA. `PieVectTable.SPIB_RX_INT == &SPIB_isr`. CpuTimer1=125000 µs, CpuTimer2=40000 µs.
 - [ ] `check_song_playback` — `resetPrintfCapture()`, snapshot `EPwm9Regs`, drive `cpu_timer1_isr()` 96×; after each tick assert `EPwm9Regs.TBPRD == songarray[i]`. After tick 97, assert `GpioCtrlRegs.GPAGMUX2.bit.GPIO16 == 0` and `GPACLEAR.bit.GPIO16 == 1`.
 - [ ] `check_spib_request_format` — clear `spibTxLog`. Drive `cpu_timer2_isr()` once. Assert `spibTxLog` contains exactly `{0x8000 | (0x46 << 8), 0x0000}` in that order.
-- [ ] `check_spib_isr_scaling` — `inject_spi_rx(SPIB, 0x4000)` (=16384, half-scale positive); call `SPIB_isr()`. Assert `gyrozraw == 16384`; `gyroz ≈ 125.0` deg/s ±1e-3. Test negative: `inject_spi_rx(SPIB, 0xC000)` (=-16384) → `gyroz ≈ -125.0`.
+- [ ] `check_spib_isr_scaling` — `grader::inject_spi_rx(grader::SpiModule::B, 0x4000)` (=16384, half-scale positive); call `SPIB_isr()`. Assert `gyrozraw == 16384`; `gyroz ≈ 125.0` deg/s ±1e-3. Test negative: `inject_spi_rx(SpiModule::B, 0xC000)` (=-16384) → `gyroz ≈ -125.0`.
 - [ ] `check_imu_full_init` — clear `spibTxLog`, run `setupSpib()` (or wait for it during main-thread init). Assert the spec'd init sequence appears in `spibTxLog`: writes to CONFIG=0x02, ACCEL_CONFIG=0x08, GYRO_CONFIG=0x00, XA_OFFSH/L=-2679, YA_OFFSH/L=2173, ZA_OFFSH/L=4264.
 - [ ] `check_print_cadence_ex5_single` — drive ISR for 1000 ms synthetic; assert 10 ± 1 prints (100 ms cadence).
 - [ ] `check_print_cadence_ex5_final` — drive ISR for 1000 ms synthetic; assert 5 ± 1 prints (200 ms cadence).
-- [ ] `check_print_format_ex5_single` — `expect_arg_types(latest, {ARG_INT16})` with format containing `%d` (not `%ld`).
-- [ ] `check_print_format_ex5_final` — `expect_arg_types(latest, {ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT})`.
+- [ ] `check_print_format_ex5_single` — `expect_arg_types(latest, {grader::ArgType::Int16})` with format containing `%d` (not `%ld`).
+- [ ] `check_print_format_ex5_final` — `expect_arg_types(latest, {grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float})`.
 
 ## Validation matrix (deep)
 

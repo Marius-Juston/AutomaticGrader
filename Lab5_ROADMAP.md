@@ -23,7 +23,10 @@
 
 - [ ] All Lab3 EPWM + EQEP stubs.
 - [ ] All Lab4 ADCC stubs.
-- [ ] **Shared:** `serial_printf` capture; `inject_encoder_count`.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`grader::inject_encoder_count(grader::EqepModule::Eqep3, count)` for the command knob).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
 
 ## Checks to implement
 
@@ -32,9 +35,9 @@
 - [ ] `check_PI_anti_windup` — drive `errLeft` to push `uLeft` > 10. Assert `IKLeft` is held at previous value (not advanced) when saturated.
 - [ ] `check_PI_coupled` — set `velLeft != velRight` and `turn != 0`; verify the differential term in `errLeft` matches `Kp_turn*(turn - (velRight-velLeft)/wheelbase)`.
 - [ ] `check_bearing_integration` — inject constant gyro voltage corresponding to known angular rate; drive ISR for 1 s synthetic; assert `bearing` integrated to `rate * 1.0` ±tolerance.
-- [ ] `check_Vref_from_encoder_knob` — `inject_encoder_count(EQEP3, 200)`; trigger ISR; assert `Vref == 200/20 = 10.0`.
+- [ ] `check_Vref_from_encoder_knob` — `grader::inject_encoder_count(grader::EqepModule::Eqep3, 200)`; trigger ISR; assert `Vref == 200/20 = 10.0`.
 - [ ] `check_print_cadence` — 100 ms; ±10%.
-- [ ] `check_print_format` — `expect_arg_types(latest, {ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT})` with the spec'd order.
+- [ ] `check_print_format` — `expect_arg_types(latest, {grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float})` with the spec'd order.
 
 ## Validation matrix (deep)
 

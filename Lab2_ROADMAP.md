@@ -18,7 +18,10 @@
 ## Stubs needed
 
 - [ ] GPIO pullup-disable / pullup-enable stubs (`GpioCtrlRegs.GP*PUD` writes).
-- [ ] **Shared:** `serial_printf` capture; stimulus helpers.
+- [x] **Shared (shipped):** `serial_printf` / `UART_printfLine` capture → `g_printfCalls`. Auto-wired in `src/ti_stubs.cpp`; consume via `include/checks/printf_capture.h`.
+- [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (`press_button`, `inject_adc_result`, `inject_spi_rx`, `inject_encoder_count`, `inject_lidar_*`).
+- [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` — `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the infra after edits.
 
 ## Checks to implement
 
@@ -27,8 +30,8 @@
 - [ ] `check_ReadSwitches` — for each of 32 switch combos, set `GP?DAT` for GPIO157..160 (and the 5th switch — confirm GPIO from spec), call `ReadSwitches()`, assert returned int16_t equals the bitfield.
 - [ ] `check_timer_rate_arbitrary` — verify the student's `ConfigCpuTimer` reflects the exercise's rate (test with each of 0.1 s, 0.25 s, 1 ms — if the reference has the final 1 ms, only that case is asserted).
 - [ ] `check_print_cadence` — drive ISR at 1 ms for 1 s synthetic; assert ~10 prints (100 ms cadence) ±10%.
-- [ ] `check_print_format` — `expect_arg_types(...)` for the documented variables.
-- [ ] `check_button_response` — wrap `press_button(N)`/`release_button(N)` for each switch; drive ISR; assert LED state mirrors switch state (since `SetLEDsOnOff(ReadSwitches())` is the typical idiom).
+- [ ] `check_print_format` — `expect_arg_types(latest, {...})` for the documented variables (use `grader::ArgType::*` tags).
+- [ ] `check_button_response` — wrap `grader::press_button(N)` / `grader::release_button(N)` for each switch; drive ISR; assert LED state mirrors switch state (since `SetLEDsOnOff(ReadSwitches())` is the typical idiom).
 
 ## Validation matrix (deep)
 
