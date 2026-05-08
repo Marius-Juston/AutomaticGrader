@@ -10,7 +10,7 @@ std::enable_if_t<std::is_arithmetic_v<T>, bool>
 check_zero(const T &value, const std::string &name);
 
 template<typename T, std::size_t N>
-bool check_zero(const T (&arr)[N], const std::string &name) {
+bool check_zero(const T(&arr)[N], const std::string & name) {
     bool all_zero = true;
     std::stringstream ss;
 

@@ -172,7 +172,7 @@ float readEncWheel(void) {
 
 uint16_t dummyread = 0;
 
-void setupSpib(void) //for mpu9250
+__attribute__((weak)) void setupSpib(void) //for mpu9250
 {
     GPIO_SetupPinMux(63, GPIO_MUX_CPU1, 15); //Set GPIO63 pin to SPISIMOB
     GPIO_SetupPinMux(64, GPIO_MUX_CPU1, 15); //Set GPIO64 pin to SPISOMIB

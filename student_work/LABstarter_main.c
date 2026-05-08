@@ -29,8 +29,11 @@
 
 // Interrupt Service Routines predefinition
 __interrupt void cpu_timer0_isr(void);
+
 __interrupt void cpu_timer1_isr(void);
+
 __interrupt void cpu_timer2_isr(void);
+
 __interrupt void SWI_isr(void);
 
 float saturate(float, float);
@@ -53,100 +56,99 @@ int32_t timeint = 0;
 float satvalue = 0;
 #define SAT_LIMIT 2.65
 
-void main(void)
-{
+void main(void) {
     // PLL, WatchDog, enable Peripheral Clocks
     // This example function is found in the F2837xD_SysCtrl.c file.
     InitSysCtrl();
 
     InitGpio();
 
-	// Blue LED on LaunchPad
+    // Blue LED on LaunchPad
     GPIO_SetupPinMux(31, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(31, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO31 = 1;
 
-	// Red LED on LaunchPad
+    // Red LED on LaunchPad
     GPIO_SetupPinMux(34, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(34, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBSET.bit.GPIO34 = 1;
 
-	// LED1 and PWM Pin
+    // LED1 and PWM Pin
     GPIO_SetupPinMux(22, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(22, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO22 = 1;
 
-	// LED2
+    // LED2
     GPIO_SetupPinMux(94, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(94, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCCLEAR.bit.GPIO94 = 1;
 
-	// LED3
+    // LED3
     GPIO_SetupPinMux(95, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(95, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCCLEAR.bit.GPIO95 = 1;
 
-	// LED4
+    // LED4
     GPIO_SetupPinMux(97, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(97, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDCLEAR.bit.GPIO97 = 1;
 
-	// LED5
+    // LED5
     GPIO_SetupPinMux(111, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(111, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDCLEAR.bit.GPIO111 = 1;
 
-	// LED6
+    // LED6
     GPIO_SetupPinMux(130, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(130, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO130 = 1;
 
-	// LED7
+    // LED7
     GPIO_SetupPinMux(131, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(131, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO131 = 1;
 
-	// LED8
+    // LED8
     GPIO_SetupPinMux(25, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(25, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO25 = 1;
 
-	// LED9
+    // LED9
     GPIO_SetupPinMux(26, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(26, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO26 = 1;
 
-	// LED10
+    // LED10
     GPIO_SetupPinMux(27, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(27, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO27 = 1;
 
-	// LED11
+    // LED11
     GPIO_SetupPinMux(60, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(60, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBCLEAR.bit.GPIO60 = 1;
 
-	// LED12
+    // LED12
     GPIO_SetupPinMux(61, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(61, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;
 
-	// LED13
+    // LED13
     GPIO_SetupPinMux(157, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(157, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO157 = 1;
 
-	// LED14
+    // LED14
     GPIO_SetupPinMux(158, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(158, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO158 = 1;
 
-	// LED15
+    // LED15
     GPIO_SetupPinMux(159, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(159, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO159 = 1;
 
-	// LED16
+    // LED16
     GPIO_SetupPinMux(160, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(160, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPFCLEAR.bit.GPIO160 = 1;
@@ -161,7 +163,7 @@ void main(void)
     GPIO_SetupPinOptions(1, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO1 = 1;
 
-	//SPIRAM  CS  Chip Select
+    //SPIRAM  CS  Chip Select
     GPIO_SetupPinMux(19, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(19, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO19 = 1;
@@ -186,7 +188,7 @@ void main(void)
     GPIO_SetupPinOptions(66, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCSET.bit.GPIO66 = 1;
 
-	//WIZNET  CS  Chip Select
+    //WIZNET  CS  Chip Select
     GPIO_SetupPinMux(125, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(125, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDSET.bit.GPIO125 = 1;
@@ -207,7 +209,7 @@ void main(void)
     GPIO_SetupPinMux(7, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(7, GPIO_INPUT, GPIO_PULLUP);
 
-	//Joy Stick Pushbutton
+    //Joy Stick Pushbutton
     GPIO_SetupPinMux(8, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(8, GPIO_INPUT, GPIO_PULLUP);
 
@@ -235,7 +237,7 @@ void main(void)
 
     // Interrupts that are used in this example are re-mapped to
     // ISR functions found within this project
-    EALLOW;  // This is needed to write to EALLOW protected registers
+    EALLOW; // This is needed to write to EALLOW protected registers
     PieVectTable.TIMER0_INT = &cpu_timer0_isr;
     PieVectTable.TIMER1_INT = &cpu_timer1_isr;
     PieVectTable.TIMER2_INT = &cpu_timer2_isr;
@@ -248,9 +250,9 @@ void main(void)
     PieVectTable.SCIC_TX_INT = &TXCINT_data_sent;
     PieVectTable.SCID_TX_INT = &TXDINT_data_sent;
 
-	DacaRegs.DACTRIM.all = 0x3245;
+    DacaRegs.DACTRIM.all = 0x3245;
     // PieVectTable.EMIF_ERROR_INT = &SWI_isr;
-    EDIS;    // This is needed to disable write to EALLOW protected registers
+    EDIS; // This is needed to disable write to EALLOW protected registers
 
     // Initialize the CpuTimers Device Peripheral. This function can be
     // found in F2837xD_CpuTimers.c
@@ -267,7 +269,7 @@ void main(void)
     CpuTimer1Regs.TCR.all = 0x4000;
     CpuTimer2Regs.TCR.all = 0x4000;
 
-    init_serialSCIA(&SerialA,115200);
+    init_serialSCIA(&SerialA, 115200);
     //    init_serialSCIC(&SerialC,115200);
     //    init_serialSCID(&SerialD,115200);
 
@@ -276,62 +278,57 @@ void main(void)
     // which is connected to CPU-Timer 1, and CPU int 14, which is connected
     // to CPU-Timer 2:  int 12 is for the SWI.
     IER |= M_INT1;
-    IER |= M_INT8;  // SCIC SCID
-    IER |= M_INT9;  // SCIA
+    IER |= M_INT8; // SCIC SCID
+    IER |= M_INT9; // SCIA
     IER |= M_INT12;
     IER |= M_INT13;
     IER |= M_INT14;
 
     // Enable TINT0 in the PIE: Group 1 interrupt 7
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-	// Enable SWI in the PIE: Group 12 interrupt 9
+    // Enable SWI in the PIE: Group 12 interrupt 9
     PieCtrlRegs.PIEIER12.bit.INTx9 = 1;
 
     // Enable global Interrupts and higher priority real-time debug events
-    EINT;  // Enable Global interrupt INTM
-    ERTM;  // Enable Global realtime interrupt DBGM
+    EINT; // Enable Global interrupt INTM
+    ERTM; // Enable Global realtime interrupt DBGM
 
 
     // IDLE loop. Just sit and loop forever (optional):
-    while(1)
-    {
-        if (UARTPrint == 1 ) {
+    while (1) {
+        if (UARTPrint == 1) {
             //            Excercise 8
             ++timeint;
             time = timeint * 0.25;
-            sinvalue = ampl*sin(2 * PI * frequency * time) + offset;
+            sinvalue = ampl * sin(2 * PI * frequency * time) + offset;
 
             satvalue = saturate(sinvalue, SAT_LIMIT);
-            serial_printf(&SerialA,"Timeint = %ld (wrong: %d), Time = %.2fsec, Input = %.3f, SatOut = %.2f\r\n",timeint,timeint, time, sinvalue, satvalue);
+            serial_printf(&SerialA, "Timeint = %ld (wrong: %d), Time = %.2fsec, Input = %.3f, SatOut = %.2f\r\n",
+                          timeint, timeint, time, sinvalue, satvalue);
 
-//            serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
+            //            serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
             UARTPrint = 0;
         }
     }
 }
 
-float saturate(float input, float saturation_limit){
-    if(input > saturation_limit){
+float saturate(float input, float saturation_limit) {
+    if (input > saturation_limit) {
         return saturation_limit;
-    }
-    else if (input < -saturation_limit){
+    } else if (input < -saturation_limit) {
         return -saturation_limit;
     }
     return input;
 }
 
 
-
-
 // SWI_isr,  Using this interrupt as a Software started interrupt
 __interrupt void SWI_isr(void) {
-
     // These three lines of code allow SWI_isr, to be interrupted by other interrupt functions
-	// making it lower priority than all other Hardware interrupts.
-	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
-    asm("       NOP");                    // Wait one cycle
-    EINT;                                 // Clear INTM to enable interrupts
-
+    // making it lower priority than all other Hardware interrupts.
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+    asm("       NOP"); // Wait one cycle
+    EINT; // Clear INTM to enable interrupts
 
 
     // Insert SWI ISR Code here.......
@@ -340,40 +337,36 @@ __interrupt void SWI_isr(void) {
     numSWIcalls++;
 
     DINT;
-
 }
 
 // cpu_timer0_isr - CPU Timer0 ISR
-__interrupt void cpu_timer0_isr(void)
-{
+__interrupt void cpu_timer0_isr(void) {
     CpuTimer0.InterruptCount++;
 
     numTimer0calls++;
 
-//    if ((numTimer0calls%50) == 0) {
-//        PieCtrlRegs.PIEIFR12.bit.INTx9 = 1;  // Manually cause the interrupt for the SWI
-//    }
+    //    if ((numTimer0calls%50) == 0) {
+    //        PieCtrlRegs.PIEIFR12.bit.INTx9 = 1;  // Manually cause the interrupt for the SWI
+    //    }
 
-    if ((numTimer0calls%250) == 0) {
-//        displayLEDletter(LEDdisplaynum);
+    if ((numTimer0calls % 250) == 0) {
+        //        displayLEDletter(LEDdisplaynum);
         LEDdisplaynum++;
-        if (LEDdisplaynum == 0xFFFF) {  // prevent roll over exception
+        if (LEDdisplaynum == 0xFFFF) {
+            // prevent roll over exception
             LEDdisplaynum = 0;
         }
     }
 
-	// Blink LaunchPad Red LED
-//    GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+    // Blink LaunchPad Red LED
+    //    GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
 
     // Acknowledge this interrupt to receive more interrupts from group 1
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 
 // cpu_timer1_isr - CPU Timer1 ISR
-__interrupt void cpu_timer1_isr(void)
-{
-
-
+__interrupt void cpu_timer1_isr(void) {
     CpuTimer1.InterruptCount++; // MJ Increments the timer's internal interrupt counter
 }
 
@@ -381,36 +374,35 @@ uint16_t prev_button_1 = 0;
 uint16_t prev_button_4 = 0;
 
 // cpu_timer2_isr CPU Timer2 ISR
-__interrupt void cpu_timer2_isr(void)
-{
-
-
-	// Blink LaunchPad Blue LED
+__interrupt void cpu_timer2_isr(void) {
+    // Blink LaunchPad Blue LED
     GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
 
     CpuTimer2.InterruptCount++;
 
-	if ((CpuTimer2.InterruptCount % 50) == 0) {
-		UARTPrint = 1;
-	}
+    if ((CpuTimer2.InterruptCount % 50) == 0) {
+        UARTPrint = 1;
+    }
 
-	if((CpuTimer2.InterruptCount % 20) == 0){
-	    GpioDataRegs.GPBTOGGLE.bit.GPIO60 = 1; // Toggle LED 11
-	    GpioDataRegs.GPATOGGLE.bit.GPIO27 = 1; // Toggle LED 10
-	}
+    if ((CpuTimer2.InterruptCount % 20) == 0) {
+        GpioDataRegs.GPBTOGGLE.bit.GPIO60 = 1; // Toggle LED 11
+        GpioDataRegs.GPATOGGLE.bit.GPIO27 = 1; // Toggle LED 10
+    }
 
-	const uint16_t button_1 = GpioDataRegs.GPADAT.bit.GPIO4;
-	const uint16_t button_4 = GpioDataRegs.GPADAT.bit.GPIO7;
+    const uint16_t button_1 = GpioDataRegs.GPADAT.bit.GPIO4;
+    const uint16_t button_4 = GpioDataRegs.GPADAT.bit.GPIO7;
 
-	if(button_1 == 1  && prev_button_1 == 0){ //If Button 1 is pressed
-	        // Toggle LED 12 and 13
+    if (button_1 == 1 && prev_button_1 == 0) {
+        //If Button 1 is pressed
+        // Toggle LED 12 and 13
         GpioDataRegs.GPBTOGGLE.bit.GPIO61 = 1; // Toggle LED 12
         GpioDataRegs.GPETOGGLE.bit.GPIO157 = 1; // Toggle LED 13
-	}
-	prev_button_1 = button_1;
+    }
+    prev_button_1 = button_1;
 
-    if(button_4 == 1  && prev_button_4 == 0){ //If Button 4 is pressed
-            // Toggle LED 14 and 15
+    if (button_4 == 1 && prev_button_4 == 0) {
+        //If Button 4 is pressed
+        // Toggle LED 14 and 15
         GpioDataRegs.GPETOGGLE.bit.GPIO159 = 1; // Toggle LED 14
         GpioDataRegs.GPFTOGGLE.bit.GPIO160 = 1; // Toggle LED 15
     }
