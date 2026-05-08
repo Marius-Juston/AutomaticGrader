@@ -257,7 +257,7 @@ uint16_t LED_E[15] = {1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1};
 uint16_t LED_F[15] = {1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0};
 
 
-void setLEDLetter(uint16_t *letter) {
+void setLEDLetter(const uint16_t *letter) {
     if (letter[0] == 0) {
         GpioDataRegs.GPACLEAR.bit.GPIO22 = 1;
     } else {
