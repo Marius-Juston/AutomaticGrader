@@ -6,9 +6,14 @@
 
 ## Decision: out-of-scope for `AutomaticGrader`
 
-HW6.tex covers (a) A* path planning over a course map (12 fill-in items in `astar.cpp`, modify `mapCourseStart[176]`) and (b) Kalman filter tuning in MATLAB (Q/R 3×3 matrices, OptiTrack + wheel + gyro fusion). Neither targets a TMS320F28379D peripheral, so the existing register-state validator infrastructure is not applicable.
+HW6.tex covers (a) A* path planning over a course map (12 fill-in items in `astar.cpp`, modify `mapCourseStart[176]`)
+and (b) Kalman filter tuning in MATLAB (Q/R 3×3 matrices, OptiTrack + wheel + gyro fusion). Neither targets a
+TMS320F28379D peripheral, so the existing register-state validator infrastructure is not applicable.
 
-> The slice-1 firmware-grader infrastructure (printf capture, stimulus, synthetic clock, `expect_*`) does **not** apply to HW6 — HW6 is a host-side algorithm grader with no peripheral state to intercept and no `temp_main`/`serial_printf` flow. Re-using the slice-1 headers in a separate Option-B harness would only add link-time bloat without giving any of the test categories a useful hook.
+> The slice-1 firmware-grader infrastructure (printf capture, stimulus, synthetic clock, `expect_*`) does **not** apply
+> to HW6 — HW6 is a host-side algorithm grader with no peripheral state to intercept and no `temp_main`/`serial_printf`
+> flow. Re-using the slice-1 headers in a separate Option-B harness would only add link-time bloat without giving any of
+> the test categories a useful hook.
 
 **Recommended:** the parent CI repo's workspace manifest routes HW6 to a **separate desktop/Python harness** that:
 
@@ -41,10 +46,12 @@ If course staff want HW6 inside this repo:
 ## Open questions
 
 - [ ] Confirm with course staff: is HW6 graded automatically, or is it review-only?
-- [ ] If automated: should the harness live in this repo (Option B) or a sibling Python project? Recommend sibling for clean separation of firmware-grader vs. algorithm-grader.
+- [ ] If automated: should the harness live in this repo (Option B) or a sibling Python project? Recommend sibling for
+  clean separation of firmware-grader vs. algorithm-grader.
 - [ ] What's the canonical `mapCourseStart[]` fixture set? Need at least 3: open map, single-obstacle, fully blocked.
 - [ ] Kalman portion: confirm grading method (manual review of plots vs. tolerance-checked MATLAB asserts).
 
 ## Note on the `ASSIGNMENT` selector
 
-`ASSIGNMENT=HW6` will fail at the CMake mapping step (`hw6.cpp not found`) until Option B lands. This is intentional — fail-fast is preferable to silently building a no-op grader.
+`ASSIGNMENT=HW6` will fail at the CMake mapping step (`hw6.cpp not found`) until Option B lands. This is intentional —
+fail-fast is preferable to silently building a no-op grader.
