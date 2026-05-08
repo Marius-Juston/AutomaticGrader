@@ -4,14 +4,19 @@
 
 #include "checks/hw1.h"
 
+#include <chrono>
+#include <cmath>
 #include <iostream>
 #include <ostream>
-#include <cmath>
+#include <thread>
 
 #include "checks/compare_generated.hpp"
+#include "checks/expectations.h"
+#include "checks/printf_capture.h"
 #include "checks/state_checker.h"
+#include "checks/stimulus.hpp"
+#include "checks/synthetic_clock.h"
 #include "checks/validator.h"
-#include "checks/state_checker.h"
 
 #define LAUNCHPAD_CPU_FREQUENCY 200
 
@@ -257,75 +262,302 @@ int check_timer1(Validator *) {
     return validator.validate();
 }
 
-int check_timer2(Validator *) {
-    HardwareStateValidator validator;
-    spdlog::info("Check timer 2");
-
-    const GPIO_DATA_REGS initialState = GpioDataRegs;
-    const uint16_t UARTPrintTemp = UARTPrint;
-    const uint32_t initialInterruptCount = CpuTimer2.InterruptCount;
-
-    // Force all four pushbuttons (and joystick) released so the conditional
-    // LED-pattern blocks inside cpu_timer2_isr don't fire and pollute the
-    // GPIO state we're trying to validate.
-    GpioDataRegs.GPADAT.bit.GPIO4 = 1;
-    GpioDataRegs.GPADAT.bit.GPIO5 = 1;
-    GpioDataRegs.GPADAT.bit.GPIO6 = 1;
-    GpioDataRegs.GPADAT.bit.GPIO7 = 1;
-
-    validator.mark_as_used("GpioDataRegs");
-
-    {
-        uint16_t expected = 0;
-        validator.register_custom_copy("UARTPrint Start", UARTPrint, expected);
+namespace {
+    bool toggle_bit_set(uint32_t reg_all, int bit_in_bucket) noexcept {
+        return (reg_all & (uint32_t{1} << bit_in_bucket)) != 0;
     }
 
-    const size_t expectedTimeStep = 250000.f / CpuTimer2.PeriodInUSec;
+    void clear_all_toggle_regs() noexcept {
+        GpioDataRegs.GPATOGGLE.all = 0;
+        GpioDataRegs.GPBTOGGLE.all = 0;
+        GpioDataRegs.GPCTOGGLE.all = 0;
+        GpioDataRegs.GPDTOGGLE.all = 0;
+        GpioDataRegs.GPETOGGLE.all = 0;
+        GpioDataRegs.GPFTOGGLE.all = 0;
+    }
 
-    {
-        // After the first ISR call the blue-LED toggle bit must be set
-        // (HW1fy_main.c:373). Capture state immediately after.
-        GPIO_DATA_REGS expectedToggleSet = GpioDataRegs;
-        expectedToggleSet.GPATOGGLE.bit.GPIO31 = 1;
+    struct Hw1Phase3Snapshot {
+        GPIO_DATA_REGS data{};
+        uint16_t uart_print{0};
+        uint32_t interrupt_count{0};
+    };
 
-        for (size_t i = 0; i < expectedTimeStep; ++i) {
-            cpu_timer2_isr();
+    Hw1Phase3Snapshot take_snapshot() {
+        return Hw1Phase3Snapshot{GpioDataRegs, UARTPrint, CpuTimer2.InterruptCount};
+    }
 
-            if (i == 0) {
-                validator.register_custom_copy("Toggle set", GpioDataRegs, expectedToggleSet);
+    void restore_snapshot(const Hw1Phase3Snapshot &s) {
+        GpioDataRegs = s.data;
+        UARTPrint = s.uart_print;
+        CpuTimer2.InterruptCount = s.interrupt_count;
+    }
+
+    bool report(bool cond, const char *label, const char *hint = nullptr) {
+        if (!cond) {
+            spdlog::error("[check_timer2] {}", label);
+            if (hint) {
+                spdlog::error("  spec: {}", hint);
             }
+        }
+        return cond;
+    }
+}
+
+// Spec-strict check_timer2 (HW1.tex Exercise 9):
+//   - Always toggle blue LED10 (GPIO27, GPATOGGLE) and LED11 (GPIO60, GPBTOGGLE)
+//     every 100 ms tick of CpuTimer2.
+//   - GPIO31 (the "BLUE" status LED) must toggle every ISR invocation.
+//   - If PB1 (GPIO4, active-low) is pressed at the 100 ms boundary, also toggle
+//     LED12 (GPIO61, GPBTOGGLE) and LED13 (GPIO157, GPETOGGLE).
+//   - If PB4 (GPIO7) is pressed, toggle LED14 (GPIO158) and LED15 (GPIO159).
+//
+// We accept either a level-based or edge-on-press student implementation: each
+// sub-check runs a single primer ISR call with the buttons released so that any
+// student edge-detector latches `prev_button=1`, then presses the button and
+// drives 100 ms worth of ticks. A spec-compliant implementation must emit the
+// LED toggle within that window; the LABstarter reference's edge-on-RELEASE
+// logic is correctly caught as a spec deviation.
+int check_timer2(Validator *) {
+    spdlog::info("Check timer 2 (spec-strict)");
+
+    const Hw1Phase3Snapshot baseline = take_snapshot();
+    int success = 1;
+
+    const uint32_t period_us = static_cast<uint32_t>(CpuTimer2.PeriodInUSec);
+    if (period_us == 0) {
+        spdlog::error("[check_timer2] CpuTimer2.PeriodInUSec is 0 — student did not call ConfigCpuTimer");
+        restore_snapshot(baseline);
+        return 0;
+    }
+    const size_t ticks_per_100ms = 100000u / period_us;
+    if (ticks_per_100ms == 0) {
+        spdlog::error("[check_timer2] CpuTimer2 period {} us yields zero ticks per 100 ms boundary",
+                      period_us);
+        restore_snapshot(baseline);
+        return 0;
+    }
+
+    auto run_window = [&](const char *label, bool press_pb1, bool press_pb4) {
+        // Reset registers and counter for a clean window.
+        GpioDataRegs = baseline.data;
+        CpuTimer2.InterruptCount = 0;
+        UARTPrint = 0;
+        clear_all_toggle_regs();
+
+        // Primer: one ISR call with all buttons released — lets edge-detector
+        // students latch `prev_button = 1`.
+        grader::release_button(4);
+        grader::release_button(5);
+        grader::release_button(6);
+        grader::release_button(7);
+        grader::release_button(8);
+        cpu_timer2_isr();
+        clear_all_toggle_regs();
+        CpuTimer2.InterruptCount = 0;
+
+        if (press_pb1) grader::press_button(4);
+        else grader::release_button(4);
+        if (press_pb4) grader::press_button(7);
+        else grader::release_button(7);
+
+        // Drive enough ticks to span at least one 100 ms boundary.
+        for (size_t i = 0; i < ticks_per_100ms + 2; ++i) {
+            cpu_timer2_isr();
+        }
+        spdlog::debug("[check_timer2/{}] CpuTimer2.InterruptCount = {} after window",
+                      label, static_cast<uint32_t>(CpuTimer2.InterruptCount));
+    };
+
+    // ----- Sub-check A: all buttons released through the boundary -----
+    run_window("released", false, false);
+    success &= report(toggle_bit_set(GpioDataRegs.GPATOGGLE.all, 31),
+                      "released-buttons: GPIO31 (status BLUE LED) toggle bit not set",
+                      "every ISR call must execute GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1")
+                   ? 1
+                   : 0;
+    success &= report(toggle_bit_set(GpioDataRegs.GPATOGGLE.all, 27),
+                      "released-buttons: GPIO27 (LED10) toggle bit not set at 100 ms boundary",
+                      "every 100 ms boundary must toggle LED10 (GPIO27)")
+                   ? 1
+                   : 0;
+    success &= report(toggle_bit_set(GpioDataRegs.GPBTOGGLE.all, 60 - 32),
+                      "released-buttons: GPIO60 (LED11) toggle bit not set at 100 ms boundary",
+                      "every 100 ms boundary must toggle LED11 (GPIO60)")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPBTOGGLE.all, 61 - 32),
+                      "released-buttons: GPIO61 (LED12) toggled when PB1 was released",
+                      "LED12/13 must toggle ONLY when PB1 (GPIO4 == 0) is held")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 157 - 128),
+                      "released-buttons: GPIO157 (LED13) toggled when PB1 was released",
+                      "LED12/13 must toggle ONLY when PB1 is held")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 158 - 128),
+                      "released-buttons: GPIO158 (LED14) toggled when PB4 was released",
+                      "LED14/15 must toggle ONLY when PB4 (GPIO7 == 0) is held")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 159 - 128),
+                      "released-buttons: GPIO159 (LED15) toggled when PB4 was released",
+                      "LED14/15 must toggle ONLY when PB4 is held")
+                   ? 1
+                   : 0;
+
+    // ----- Sub-check B: PB1 held pressed -----
+    run_window("PB1-pressed", true, false);
+    success &= report(toggle_bit_set(GpioDataRegs.GPBTOGGLE.all, 61 - 32),
+                      "PB1-pressed: GPIO61 (LED12) toggle bit not set",
+                      "spec Ex.9: 'If PB1 (GPIO4) pressed (DAT==0), toggle LED12 (GPIO61)'")
+                   ? 1
+                   : 0;
+    success &= report(toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 157 - 128),
+                      "PB1-pressed: GPIO157 (LED13) toggle bit not set",
+                      "spec Ex.9: '...toggle LED13 (GPIO157)'")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 158 - 128),
+                      "PB1-pressed: GPIO158 toggled while PB4 was released",
+                      "PB4 LEDs must remain idle while only PB1 is pressed")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 159 - 128),
+                      "PB1-pressed: GPIO159 toggled while PB4 was released",
+                      "PB4 LEDs must remain idle while only PB1 is pressed")
+                   ? 1
+                   : 0;
+
+    // ----- Sub-check C: PB4 held pressed -----
+    run_window("PB4-pressed", false, true);
+    success &= report(toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 158 - 128),
+                      "PB4-pressed: GPIO158 (LED14) toggle bit not set",
+                      "spec Ex.9: 'If PB4 (GPIO7) pressed, toggle LED14 (GPIO158)'")
+                   ? 1
+                   : 0;
+    success &= report(toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 159 - 128),
+                      "PB4-pressed: GPIO159 (LED15) toggle bit not set",
+                      "spec Ex.9: '...toggle LED15 (GPIO159)'")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPBTOGGLE.all, 61 - 32),
+                      "PB4-pressed: GPIO61 toggled while PB1 was released",
+                      "PB1 LEDs must remain idle while only PB4 is pressed")
+                   ? 1
+                   : 0;
+    success &= report(!toggle_bit_set(GpioDataRegs.GPETOGGLE.all, 157 - 128),
+                      "PB4-pressed: GPIO157 toggled while PB1 was released",
+                      "PB1 LEDs must remain idle while only PB4 is pressed")
+                   ? 1
+                   : 0;
+
+    restore_snapshot(baseline);
+    return success;
+}
+
+// Spec Ex.5: serial_printf must fire every 250 ms via CpuTimer2's modulus.
+int check_print_cadence(Validator *) {
+    spdlog::info("Check print cadence");
+
+    const Hw1Phase3Snapshot baseline = take_snapshot();
+    const uint32_t period_us = static_cast<uint32_t>(CpuTimer2.PeriodInUSec);
+    if (period_us == 0) {
+        spdlog::error("[check_print_cadence] CpuTimer2.PeriodInUSec is 0");
+        restore_snapshot(baseline);
+        return 0;
+    }
+
+    grader::release_button(4);
+    grader::release_button(7);
+
+    grader::resetPrintfCapture();
+    UARTPrint = 0;
+    CpuTimer2.InterruptCount = 0;
+
+    // Drive 1 s of synthetic time in four 250 ms bursts; sleep briefly between
+    // bursts to let the main thread process each UARTPrint=1 transition.
+    for (int burst = 0; burst < 4; ++burst) {
+        grader::run_isr_for_us(cpu_timer2_isr, period_us, 250'000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    const bool ok = grader::expect_print_cadence(grader::SerialPort::SCIA, 4, 0.25,
+                                                 "check_print_cadence");
+    if (!ok) {
+        spdlog::error("  spec Ex.5: serial_printf must fire every 250 ms — that's 4 prints in 1 s");
+    }
+
+    restore_snapshot(baseline);
+    return ok ? 1 : 0;
+}
+
+// Spec Ex.8: the print format must be
+//   "Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n"
+// with arguments (timeint, time, sinvalue, satvalue). The most common student
+// bug is %d-for-int32_t — `expect_format` flags that explicitly.
+int check_print_format(Validator *) {
+    spdlog::info("Check print format");
+
+    const Hw1Phase3Snapshot baseline = take_snapshot();
+    const uint32_t period_us = static_cast<uint32_t>(CpuTimer2.PeriodInUSec);
+    if (period_us == 0) {
+        spdlog::error("[check_print_format] CpuTimer2.PeriodInUSec is 0");
+        restore_snapshot(baseline);
+        return 0;
+    }
+
+    grader::release_button(4);
+    grader::release_button(7);
+
+    grader::resetPrintfCapture();
+    UARTPrint = 0;
+    CpuTimer2.InterruptCount = 0;
+
+    grader::run_isr_for_us(cpu_timer2_isr, period_us, 500'000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    const grader::PrintfCall *latest = grader::latestPrintfCall(grader::SerialPort::SCIA);
+    if (!latest) {
+        spdlog::error("[check_print_format] no SCIA prints captured — main thread may not be servicing UARTPrint");
+        restore_snapshot(baseline);
+        return 0;
+    }
+
+    const bool ex8_ok = grader::expect_format(
+        latest,
+        "Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n",
+        "check_print_format[Ex.8]");
+    bool overall = ex8_ok;
+    if (!ex8_ok) {
+        // Ex.5 fallback: spec also allows the original Ex.5 format if the student
+        // hasn't reached Ex.8.
+        const bool ex5_ok = grader::expect_format(
+            latest,
+            "Num Timer2:%ld Num SerialRX: %ld\r\n",
+            "check_print_format[Ex.5-fallback]");
+        if (ex5_ok) {
+            spdlog::warn("[check_print_format] format matches the Ex.5 placeholder, not the Ex.8 spec");
+            overall = true;
         }
     }
 
-    {
-        CPUTIMER_VARS expected = CpuTimer2;
-        expected.InterruptCount = initialInterruptCount + expectedTimeStep;
-        validator.register_comparison_copy("CpuTimer2", CpuTimer2, expected);
+    if (overall) {
+        const bool args_ok = grader::expect_arg_types(
+            latest,
+            {grader::ArgType::Int32, grader::ArgType::Float, grader::ArgType::Float, grader::ArgType::Float},
+            "check_print_format[Ex.8 arg types]");
+        if (!args_ok) {
+            // Tolerate Ex.5 fallback (two %ld) — re-check.
+            const bool ex5_args = grader::expect_arg_types(
+                latest, {grader::ArgType::Int32, grader::ArgType::Int32}, "check_print_format[Ex.5 args]");
+            overall = ex5_args;
+        }
     }
 
-    {
-        // After 50 ticks (250 ms), UARTPrint must be 1 (HW1fy_main.c:500-502).
-        // The student's main while-loop may race-reset it, so we sample
-        // immediately after the ISR loop and tolerate either 1 (pre-print)
-        // or 0 (post-print). We assert it transitioned at all by checking
-        // that the print-side state advanced.
-        const uint16_t expected = 1;
-        const CheckFunc<uint16_t> tolerateRace =
-                [](const uint16_t &actual, const uint16_t & /*expect*/, const std::string &name) -> bool {
-            if (actual == 0 || actual == 1) {
-                return true;
-            }
-            spdlog::warn("{} expected 0 or 1, got {}", name, actual);
-            return false;
-        };
-        validator.register_custom_copy<uint16_t>("UARTPrint End", UARTPrint, expected, tolerateRace);
-    }
-
-    UARTPrint = UARTPrintTemp;
-    CpuTimer2.InterruptCount = initialInterruptCount;
-    GpioDataRegs = initialState;
-
-    return validator.validate();
+    restore_snapshot(baseline);
+    return overall ? 1 : 0;
 }
 
 int check_saturate(Validator *) {
@@ -385,6 +617,8 @@ CheckFunctions checker() {
         &check_timer0,
         &check_timer1,
         &check_timer2,
-        &check_saturate
+        &check_saturate,
+        &check_print_cadence,
+        &check_print_format,
     };
 }
