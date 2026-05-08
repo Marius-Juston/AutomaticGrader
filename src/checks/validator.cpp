@@ -35,10 +35,10 @@ void Validator::start_main_thread() {
 }
 
 int Validator::check() {
-    int result = 0;
+    int result = 1;
 
     for (const auto &checkFunction: checkFunctions) {
-        result = checkFunction(this);
+        result &= checkFunction(this);
     }
 
     return result;
