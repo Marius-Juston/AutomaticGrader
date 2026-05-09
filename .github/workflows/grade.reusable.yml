@@ -128,11 +128,21 @@ jobs:
             echo "::error::Student source not found: $SRC"
             exit 1
           fi
-          # Emit an absolute path so CMake doesn't resolve it relative to the
-          # grader source dir (CMakeLists prefers ENV{STUDENT_SRC} over -D).
-          ABS_SRC="$(realpath "$SRC")"
+          # CCS projects ship sibling TI driverlib headers (F28379dSerial.h,
+          # F2837xD_*.h, etc.) next to *_main.c. GCC searches the source
+          # file's own directory first for `#include "..."`, so those would
+          # shadow the grader's stub headers and cause redefinition errors.
+          # Stage just the *_main.c into a clean directory; the grader's
+          # include path then resolves the headers unambiguously.
+          STAGE_DIR="$RUNNER_TEMP/grader_stage_${{ matrix.id }}"
+          rm -rf "$STAGE_DIR"
+          mkdir -p "$STAGE_DIR"
+          STAGED="$STAGE_DIR/$(basename "$SRC")"
+          cp "$SRC" "$STAGED"
+          ABS_SRC="$(realpath "$STAGED")"
           echo "src=$ABS_SRC" >> "$GITHUB_OUTPUT"
-          echo "Resolved student source: $ABS_SRC"
+          echo "Original student source: $SRC"
+          echo "Staged at: $ABS_SRC"
 
       - name: Configure & build grader
         env:
