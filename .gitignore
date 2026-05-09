@@ -165,29 +165,17 @@ dkms.conf
 
 
 # Prerequisites
-*.d
 
 # Compiled Object files
 *.slo
-*.lo
-*.o
-*.obj
 
 # Precompiled Headers
-*.gch
-*.pch
 
 # Linker files
-*.ilk
 
 # Debugger Files
-*.pdb
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-*.so.*
 
 
 # Fortran module files
@@ -196,14 +184,8 @@ dkms.conf
 
 # Compiled Static libraries
 *.lai
-*.la
-*.a
-*.lib
 
 # Executables
-*.exe
-*.out
-*.app
 
 # Build directories
 build/
@@ -212,11 +194,6 @@ build-*/
 
 # CMake generated files
 CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-install_manifest.txt
-compile_commands.json
 
 # Temporary files
 *.tmp
@@ -228,7 +205,6 @@ compile_commands.json
 vcpkg_installed/
 
 # debug information files
-*.dwo
 
 # test output & cache
 Testing/

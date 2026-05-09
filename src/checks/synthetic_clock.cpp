@@ -15,7 +15,7 @@ namespace grader {
         g_clock_us.store(0, std::memory_order_relaxed);
     }
 
-    void synthetic_clock_advance(uint64_t us) noexcept {
+    void synthetic_clock_advance(const uint64_t us) noexcept {
         g_clock_us.fetch_add(us, std::memory_order_relaxed);
     }
 }

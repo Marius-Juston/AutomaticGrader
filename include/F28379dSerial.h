@@ -49,7 +49,7 @@ void uninit_serialSCIA(serialSCIA_t *s);
 
 uint16_t serial_sendSCIA(serialSCIA_t *s, char *data, Uint16 len);
 
-uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...);
+uint16_t serial_printf(const serialSCIA_t *s, char *fmt, ...);
 
 // For Text LCD
 void UART_printfLine(unsigned char line, char *fmt, ...);
@@ -91,7 +91,7 @@ __interrupt void RXCINT_recv_ready(void);
 __interrupt void RXDINT_recv_ready(void);
 
 
-uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...);
+uint16_t serial_printf(const serialSCIA_t *s, char *fmt, ...);
 
 
 #endif //AUTOMATICGRADER_F28379DSERIAL_H

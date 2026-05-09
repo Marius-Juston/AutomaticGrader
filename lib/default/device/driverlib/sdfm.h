@@ -403,8 +403,6 @@ static inline void
 SDFM_setFilterType(uint32_t base, SDFM_FilterNumber filterNumber,
                    SDFM_FilterType filterType)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
 
     address = base + SDFM_O_SDDFPARM1 + ((uint32_t)filterNumber * 16U);
@@ -437,8 +435,6 @@ static inline void
 SDFM_setFilterOverSamplingRatio(uint32_t base, SDFM_FilterNumber filterNumber,
                                 uint16_t overSamplingRatio)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
     ASSERT(overSamplingRatio < 256U);
 
@@ -471,8 +467,6 @@ static inline void
 SDFM_setupModulatorClock(uint32_t base, SDFM_FilterNumber filterNumber,
                          SDFM_ModulatorClockMode clockMode)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
 
     address = base + SDFM_O_SDCTLPARM1 + ((uint32_t)filterNumber * 16U);
@@ -505,8 +499,6 @@ static inline void
 SDFM_setOutputDataFormat(uint32_t base, SDFM_FilterNumber filterNumber,
                          SDFM_OutputDataFormat dataFormat)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
 
     address = base + SDFM_O_SDDPARM1 + ((uint32_t)filterNumber * 16U);
@@ -540,8 +532,6 @@ static inline void
 SDFM_setDataShiftValue(uint32_t base, SDFM_FilterNumber filterNumber,
                        uint16_t shiftValue)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
     ASSERT(shiftValue < 32U);
 
@@ -576,8 +566,6 @@ static inline void
 SDFM_setCompFilterHighThreshold(uint32_t base, SDFM_FilterNumber filterNumber,
                                 uint16_t highThreshold)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
     ASSERT(highThreshold < 0x7FFFU);
 
@@ -611,8 +599,6 @@ static inline void
 SDFM_setCompFilterLowThreshold(uint32_t base, SDFM_FilterNumber filterNumber,
                                uint16_t lowThreshold)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
     ASSERT(lowThreshold < 0x7FFFU);
 
@@ -648,8 +634,6 @@ static inline void
 SDFM_enableInterrupt(uint32_t base, SDFM_FilterNumber filterNumber,
                      uint16_t intFlags)
 {
-    uint16_t offset;
-
     ASSERT(SDFM_isBaseValid(base));
 
     offset = (uint16_t)filterNumber * 16U;
@@ -704,8 +688,6 @@ static inline void
 SDFM_disableInterrupt(uint32_t base, SDFM_FilterNumber filterNumber,
                       uint16_t intFlags)
 {
-    uint16_t offset;
-
     ASSERT(SDFM_isBaseValid(base));
 
     offset = (uint16_t)filterNumber * 16U;
@@ -756,8 +738,6 @@ static inline void
 SDFM_setComparatorFilterType(uint32_t base, SDFM_FilterNumber filterNumber,
                              SDFM_FilterType filterType)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
 
     address = base + SDFM_O_SDCPARM1 + ((uint32_t)filterNumber * 16U);
@@ -791,8 +771,6 @@ SDFM_setCompFilterOverSamplingRatio(uint32_t base,
                                     SDFM_FilterNumber filterNumber,
                                     uint16_t overSamplingRatio)
 {
-    uint32_t address;
-
     ASSERT(SDFM_isBaseValid(base));
     ASSERT(overSamplingRatio < 32U);
 

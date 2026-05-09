@@ -17,7 +17,7 @@ namespace grader {
         }
     }
 
-    std::string_view serial_port_name(SerialPort p) noexcept {
+    std::string_view serial_port_name(const SerialPort p) noexcept {
         switch (p) {
             case SerialPort::SCIA: return "SCIA";
             case SerialPort::SCIB: return "SCIB";
@@ -44,7 +44,7 @@ namespace grader {
         return g_printfCalls;
     }
 
-    std::vector<const PrintfCall *> getPrintfCallsForPort(SerialPort port) {
+    std::vector<const PrintfCall *> getPrintfCallsForPort(const SerialPort port) {
         std::vector<const PrintfCall *> out;
         out.reserve(g_printfCalls.size());
         for (const auto &call: g_printfCalls) {
@@ -55,7 +55,7 @@ namespace grader {
         return out;
     }
 
-    const PrintfCall *latestPrintfCall(SerialPort port) noexcept {
+    const PrintfCall *latestPrintfCall(const SerialPort port) noexcept {
         for (auto it = g_printfCalls.rbegin(); it != g_printfCalls.rend(); ++it) {
             if (it->port == port) {
                 return &(*it);
@@ -64,7 +64,7 @@ namespace grader {
         return nullptr;
     }
 
-    std::size_t printfCallCount(SerialPort port) noexcept {
+    std::size_t printfCallCount(const SerialPort port) noexcept {
         std::size_t n = 0;
         for (const auto &call: g_printfCalls) {
             if (call.port == port) {
@@ -74,10 +74,10 @@ namespace grader {
         return n;
     }
 
-    void recordPrintfCall(SerialPort port,
-                          std::string_view fmt,
-                          std::string_view rendered,
-                          uint16_t lcd_line) {
+    void recordPrintfCall(const SerialPort port,
+                          const std::string_view fmt,
+                          const std::string_view rendered,
+                          const uint16_t lcd_line) {
         std::lock_guard<std::mutex> lk(capture_mutex());
         PrintfCall call;
         call.port = port;

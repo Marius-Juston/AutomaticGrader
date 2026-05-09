@@ -487,8 +487,6 @@ I2C_getFIFOInterruptLevel(uint32_t base, I2C_TxFIFOLevel *txLevel,
 static inline I2C_TxFIFOLevel
 I2C_getTxFIFOStatus(uint32_t base)
 {
-    uint16_t level;
-
     //
     // Check the arguments.
     //
@@ -520,8 +518,6 @@ I2C_getTxFIFOStatus(uint32_t base)
 static inline I2C_RxFIFOLevel
 I2C_getRxFIFOStatus(uint32_t base)
 {
-    uint16_t level;
-
     //
     // Check the arguments.
     //

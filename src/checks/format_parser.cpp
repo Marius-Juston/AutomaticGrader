@@ -5,11 +5,11 @@
 
 namespace grader {
     namespace {
-        bool is_decimal_digit(char c) noexcept {
+        bool is_decimal_digit(const char c) noexcept {
             return c >= '0' && c <= '9';
         }
 
-        bool consume_flag(char c, uint8_t &flags) noexcept {
+        bool consume_flag(const char c, uint8_t &flags) noexcept {
             switch (c) {
                 case '-': flags |= flag_bits::Minus;
                     return true;
@@ -27,7 +27,7 @@ namespace grader {
             }
         }
 
-        Conversion classify_conversion(char c) noexcept {
+        Conversion classify_conversion(const char c) noexcept {
             switch (c) {
                 case 'd': return Conversion::d;
                 case 'i': return Conversion::i;
@@ -63,7 +63,7 @@ namespace grader {
         std::size_t literal_start = 0;
         std::size_t arg_idx = 0;
 
-        auto flush_literal = [&](std::size_t until_offset) {
+        auto flush_literal = [&](const std::size_t until_offset) {
             if (literal.empty()) {
                 literal_start = until_offset;
                 return;
@@ -79,8 +79,7 @@ namespace grader {
 
         std::size_t i = 0;
         while (i < fmt.size()) {
-            const char c = fmt[i];
-            if (c != '%') {
+            if (const char c = fmt[i]; c != '%') {
                 literal.push_back(c);
                 ++i;
                 continue;
@@ -249,7 +248,7 @@ namespace grader {
         }
     }
 
-    std::string_view length_modifier_name(LengthModifier lm) noexcept {
+    std::string_view length_modifier_name(const LengthModifier lm) noexcept {
         switch (lm) {
             case LengthModifier::None: return "(none)";
             case LengthModifier::hh: return "hh";
@@ -264,7 +263,7 @@ namespace grader {
         return "?";
     }
 
-    std::string_view conversion_name(Conversion c) noexcept {
+    std::string_view conversion_name(const Conversion c) noexcept {
         switch (c) {
             case Conversion::d: return "d";
             case Conversion::i: return "i";
@@ -290,7 +289,7 @@ namespace grader {
         return "?";
     }
 
-    std::string_view arg_type_name(ArgType t) noexcept {
+    std::string_view arg_type_name(const ArgType t) noexcept {
         switch (t) {
             case ArgType::Unknown: return "Unknown";
             case ArgType::None: return "(no arg)";

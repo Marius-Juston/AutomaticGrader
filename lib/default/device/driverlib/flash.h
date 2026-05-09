@@ -1509,7 +1509,6 @@ Flash_getECCTestErrorPosition(uint32_t eccBase)
 static inline Flash_SingleBitErrorIndicator
 Flash_getECCTestSingleBitErrorType(uint32_t eccBase)
 {
-    uint32_t errorType;
     //
     // Check the arguments.
     //

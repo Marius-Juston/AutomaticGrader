@@ -31,7 +31,7 @@
 #define LAUNCHPAD_CPU_FREQUENCY 200
 
 namespace {
-    bool report(bool cond, const char *check, const std::string &msg, const char *hint = nullptr) {
+    bool report(const bool cond, const char *check, const std::string &msg, const char *hint = nullptr) {
         if (!cond) {
             spdlog::error("[{}] {}", check, msg);
             if (hint) spdlog::error("  spec: {}", hint);
@@ -39,7 +39,7 @@ namespace {
         return cond;
     }
 
-    bool approx_eq(float a, float b, float tol = 1e-3f) noexcept {
+    bool approx_eq(const float a, const float b, const float tol = 1e-3f) noexcept {
         return std::fabs(a - b) <= tol;
     }
 }
@@ -51,8 +51,7 @@ namespace {
 // post-init register state.
 static void hw3_unblock_setup_spib() {
     using namespace std::chrono_literals;
-    const std::vector<uint16_t> sequence = {7, 4, 1, 1, 1, 1, 1, 1, 1, 1};
-    for (uint16_t v: sequence) {
+    for (const std::vector<uint16_t> sequence = {7, 4, 1, 1, 1, 1, 1, 1, 1, 1}; const uint16_t v: sequence) {
         for (int retry = 0; retry < 5; ++retry) {
             SpibRegs.SPIFFRX.bit.RXFFST = v;
             std::this_thread::sleep_for(2ms);
@@ -214,7 +213,7 @@ int check_spib_isr_scaling(Validator *) {
     const float saved_gyroz_val = gyroz_val;
     const int32_t saved_count = (&SPIBCount) ? SPIBCount : 0;
 
-    auto run_case = [&](uint16_t spi_word, float expected_gyroz_dps, const char *label) {
+    auto run_case = [&](const uint16_t spi_word, const float expected_gyroz_dps, const char *label) {
         grader::clear_spi_state(grader::SpiModule::B);
         grader::inject_spi_rx(grader::SpiModule::B, spi_word);
         SPIB_isr();

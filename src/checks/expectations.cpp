@@ -8,7 +8,7 @@
 
 namespace grader {
     namespace {
-        std::string make_label(std::string_view check_name, std::string_view default_label) {
+        std::string make_label(const std::string_view check_name, const std::string_view default_label) {
             return std::string(check_name.empty() ? default_label : check_name);
         }
 
@@ -26,7 +26,7 @@ namespace grader {
         }
 
         void emit_format_hint(const std::string &label,
-                              std::size_t arg_index,
+                              const std::size_t arg_index,
                               const FormatSpec &expected,
                               const FormatSpec &actual) {
             using L = LengthModifier;
@@ -73,7 +73,7 @@ namespace grader {
         }
 
         bool format_matches(const ParsedFormat &expected, const PrintfCall &call,
-                            const std::string &label, std::string_view expected_fmt) {
+                            const std::string &label, const std::string_view expected_fmt) {
             const auto &actual = call.parsed;
             if (!actual.ok()) {
                 spdlog::error("[{}] could not parse student's format string: {}", label, actual.error);
@@ -98,8 +98,7 @@ namespace grader {
             bool ok = true;
             for (std::size_t i = 0; i < actual.specs.size(); ++i) {
                 const auto &exp = expected.specs[i];
-                const auto &act = actual.specs[i];
-                if (!format_specs_equivalent(exp, act)) {
+                if (const auto &act = actual.specs[i]; !format_specs_equivalent(exp, act)) {
                     spdlog::error("[{}] argument #{}: format specifier mismatch", label, i + 1);
                     spdlog::error("  expected: \"{}\"   ({})",
                                   format_spec_canonical(exp),
@@ -120,7 +119,7 @@ namespace grader {
 
     bool expect_format(const PrintfCall *call,
                        std::string_view expected_fmt,
-                       std::string_view check_name) {
+                       const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_format");
         if (!call) {
             spdlog::error("[{}] no captured printf call to compare against. Expected fmt: \"{}\"",
@@ -140,14 +139,14 @@ namespace grader {
     }
 
     bool expect_format(const PrintfCall &call,
-                       std::string_view expected_fmt,
-                       std::string_view check_name) {
+                       const std::string_view expected_fmt,
+                       const std::string_view check_name) {
         return expect_format(&call, expected_fmt, check_name);
     }
 
     bool expect_arg_types(const PrintfCall *call,
                           std::initializer_list<ArgType> types,
-                          std::string_view check_name) {
+                          const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_arg_types");
         if (!call) {
             spdlog::error("[{}] no captured printf call available", label);
@@ -166,8 +165,7 @@ namespace grader {
         bool ok = true;
         auto it = types.begin();
         for (std::size_t i = 0; i < call->parsed.specs.size(); ++i, ++it) {
-            const ArgType actual_arg = expected_arg_type(call->parsed.specs[i]);
-            if (actual_arg != *it) {
+            if (const ArgType actual_arg = expected_arg_type(call->parsed.specs[i]); actual_arg != *it) {
                 spdlog::error("[{}] argument #{}: expected {}, got {} (specifier \"{}\")",
                               label, i + 1,
                               arg_type_name(*it),
@@ -183,15 +181,15 @@ namespace grader {
     }
 
     bool expect_arg_types(const PrintfCall &call,
-                          std::initializer_list<ArgType> types,
-                          std::string_view check_name) {
+                          const std::initializer_list<ArgType> types,
+                          const std::string_view check_name) {
         return expect_arg_types(&call, types, check_name);
     }
 
-    bool expect_print_cadence(SerialPort port,
+    bool expect_print_cadence(const SerialPort port,
                               std::size_t expected_count,
-                              double tolerance_pct,
-                              std::string_view check_name) {
+                              const double tolerance_pct,
+                              const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_print_cadence");
         const std::size_t actual = printfCallCount(port);
 
@@ -206,8 +204,7 @@ namespace grader {
 
         const double dexp = static_cast<double>(expected_count);
         const double low = std::floor(dexp * (1.0 - tolerance_pct));
-        const double high = std::ceil(dexp * (1.0 + tolerance_pct));
-        if (static_cast<double>(actual) < low || static_cast<double>(actual) > high) {
+        if (const double high = std::ceil(dexp * (1.0 + tolerance_pct)); static_cast<double>(actual) < low || static_cast<double>(actual) > high) {
             spdlog::error("[{}] expected ~{} prints on {} (tolerance ±{:.0f}% → window [{}, {}]), got {}",
                           label, expected_count,
                           serial_port_name(port),
@@ -233,13 +230,12 @@ namespace grader {
         return true;
     }
 
-    bool expect_print_cadence_window(SerialPort port,
+    bool expect_print_cadence_window(const SerialPort port,
                                      std::size_t min_count,
                                      std::size_t max_count,
-                                     std::string_view check_name) {
+                                     const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_print_cadence_window");
-        const std::size_t actual = printfCallCount(port);
-        if (actual < min_count || actual > max_count) {
+        if (const std::size_t actual = printfCallCount(port); actual < min_count || actual > max_count) {
             spdlog::error("[{}] expected {}..{} prints on {}, got {}",
                           label, min_count, max_count,
                           serial_port_name(port), actual);
@@ -248,12 +244,11 @@ namespace grader {
         return true;
     }
 
-    bool expect_min_print_calls(SerialPort port,
+    bool expect_min_print_calls(const SerialPort port,
                                 std::size_t min_count,
-                                std::string_view check_name) {
+                                const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_min_print_calls");
-        const std::size_t actual = printfCallCount(port);
-        if (actual < min_count) {
+        if (const std::size_t actual = printfCallCount(port); actual < min_count) {
             spdlog::error("[{}] expected at least {} prints on {}, got {}",
                           label, min_count, serial_port_name(port), actual);
             return false;
@@ -261,9 +256,9 @@ namespace grader {
         return true;
     }
 
-    bool expect_format_any(SerialPort port,
+    bool expect_format_any(const SerialPort port,
                            std::string_view expected_fmt,
-                           std::string_view check_name) {
+                           const std::string_view check_name) {
         const std::string label = make_label(check_name, "expect_format_any");
         auto expected = parse_format(expected_fmt);
         if (!expected.ok()) {
@@ -271,7 +266,7 @@ namespace grader {
                           label, expected_fmt, expected.error);
             return false;
         }
-        auto calls = getPrintfCallsForPort(port);
+        const auto calls = getPrintfCallsForPort(port);
         if (calls.empty()) {
             spdlog::error("[{}] no calls captured on {} to compare against fmt \"{}\"",
                           label, serial_port_name(port), expected_fmt);

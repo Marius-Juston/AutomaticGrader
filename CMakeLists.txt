@@ -224,7 +224,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/lib/default
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32> ${CMAKE_DL_LIBS})
+
+# Export symbols so dladdr can resolve check_function names in --report-json output.
+if(NOT MINGW)
+    target_link_options(${PROJECT_NAME} PRIVATE -rdynamic)
+endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-Wno-volatile>

@@ -280,7 +280,6 @@ DCSM_secureZone2(void)
 static inline DCSM_SecurityStatus
 DCSM_getZone1CSMSecurityStatus(void)
 {
-    uint16_t status;
     DCSM_SecurityStatus returnStatus;
     status = HWREGH(DCSM_Z1_BASE + DCSM_O_Z1_CR);
 
@@ -318,7 +317,6 @@ DCSM_getZone1CSMSecurityStatus(void)
 static inline DCSM_SecurityStatus
 DCSM_getZone2CSMSecurityStatus(void)
 {
-    uint16_t status;
     DCSM_SecurityStatus returnStatus;
     status = HWREGH(DCSM_Z2_BASE + DCSM_O_Z2_CR);
 
@@ -434,9 +432,6 @@ DCSM_getRAMZone(DCSM_RAMModule module)
 static inline DCSM_MemoryStatus
 DCSM_getFlashSectorZone(DCSM_Sector sector)
 {
-    uint32_t sectStat;
-    uint16_t shift;
-
     //
     // Get the Sector status register for the specific bank
     //

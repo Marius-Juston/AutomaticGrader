@@ -1,0 +1,231 @@
+name: AutomaticGrader (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      manifest:
+        description: Path inside the student repo to the assignment manifest
+        type: string
+        default: workspace/assignment.txt
+      workspace:
+        description: Folder inside the student repo containing per-assignment subfolders
+        type: string
+        default: workspace
+      report-dir:
+        description: Folder inside the student repo where the bot writes the cumulative report
+        type: string
+        default: autograder
+      grader-ref:
+        description: Tag, branch, or SHA of AutomaticGrader to use
+        type: string
+        default: master
+      grader-repo:
+        description: owner/repo of AutomaticGrader
+        type: string
+        default: Marius-Juston/AutomaticGrader
+      force-all:
+        description: Re-grade every manifest entry, regardless of which folders changed
+        type: boolean
+        default: false
+      commit-results:
+        description: Commit the rendered report back to the caller branch
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  select:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+      any: ${{ steps.pick.outputs.any }}
+    steps:
+      - name: Checkout student repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Checkout AutomaticGrader
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ inputs.grader-repo }}
+          ref: ${{ inputs.grader-ref }}
+          path: _grader
+
+      - name: Compute matrix
+        id: pick
+        run: |
+          set -euo pipefail
+          BEFORE="${{ github.event.before }}"
+          HEAD="${{ github.sha }}"
+          FORCE_FLAG=""
+          if [ "${{ inputs.force-all }}" = "true" ]; then FORCE_FLAG="--force-all"; fi
+          python3 _grader/tools/select_assignments.py \
+            --manifest "${{ inputs.manifest }}" \
+            --workspace "${{ inputs.workspace }}" \
+            --before "$BEFORE" \
+            --head "$HEAD" \
+            --output github $FORCE_FLAG \
+            >> "$GITHUB_OUTPUT"
+
+  grade:
+    needs: select
+    if: needs.select.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.select.outputs.matrix) }}
+    steps:
+      - name: Checkout student repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Checkout AutomaticGrader
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ inputs.grader-repo }}
+          ref: ${{ inputs.grader-ref }}
+          path: _grader
+
+      - name: Install build deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake ccache libspdlog-dev
+
+      - name: Restore ccache
+        uses: actions/cache@v5
+        with:
+          path: ~/.ccache
+          key: ccache-${{ inputs.grader-ref }}-${{ matrix.id }}-${{ hashFiles(format('{0}/{1}/**/*.c', inputs.workspace, matrix.folder)) }}
+          restore-keys: |
+            ccache-${{ inputs.grader-ref }}-${{ matrix.id }}-
+            ccache-${{ inputs.grader-ref }}-
+
+      - name: Locate student source
+        id: src
+        run: |
+          set -euo pipefail
+          FOLDER="${{ inputs.workspace }}/${{ matrix.folder }}"
+          if [ -n "${{ matrix.main }}" ]; then
+            SRC="$FOLDER/${{ matrix.main }}"
+          else
+            mapfile -t MAINS < <(find "$FOLDER" -maxdepth 1 -name '*_main.c' -type f | sort)
+            if [ "${#MAINS[@]}" -eq 0 ]; then
+              echo "::error::No *_main.c found in $FOLDER. Add a 3rd column to ${{ inputs.manifest }} pointing at the entry source."
+              exit 1
+            fi
+            if [ "${#MAINS[@]}" -gt 1 ]; then
+              echo "::error::Multiple *_main.c in $FOLDER (${MAINS[*]}). Add a 3rd column to ${{ inputs.manifest }} to disambiguate."
+              exit 1
+            fi
+            SRC="${MAINS[0]}"
+          fi
+          if [ ! -f "$SRC" ]; then
+            echo "::error::Student source not found: $SRC"
+            exit 1
+          fi
+          echo "src=$SRC" >> "$GITHUB_OUTPUT"
+          echo "Resolved student source: $SRC"
+
+      - name: Configure & build grader
+        env:
+          ASSIGNMENT: ${{ matrix.id }}
+          STUDENT_SRC: ${{ steps.src.outputs.src }}
+        run: |
+          set -euo pipefail
+          cmake -S _grader -B _build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DASSIGNMENT="$ASSIGNMENT" \
+            -DSTUDENT_SRC="$PWD/$STUDENT_SRC"
+          cmake --build _build -j
+
+      - name: Run grader
+        id: run
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+          mkdir -p out
+          ./_build/AutomaticGrader \
+            --report-json "out/${{ matrix.id }}.json" \
+            2>&1 | tee "out/${{ matrix.id }}.log"
+          echo "rc=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload per-assignment results
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-${{ matrix.id }}
+          path: out/
+          if-no-files-found: error
+
+  aggregate:
+    needs: [select, grade]
+    if: always() && needs.select.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout student repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Checkout AutomaticGrader
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ inputs.grader-repo }}
+          ref: ${{ inputs.grader-ref }}
+          path: _grader
+
+      - name: Download all results
+        uses: actions/download-artifact@v8
+        with:
+          path: _results
+          pattern: results-*
+          merge-multiple: true
+
+      - name: Render reports
+        id: render
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+          python3 _grader/tools/render_report.py \
+            --results-dir _results \
+            --manifest "${{ inputs.manifest }}" \
+            --report-dir "${{ inputs.report-dir }}" \
+            --commit "${{ github.sha }}" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --step-summary "$GITHUB_STEP_SUMMARY"
+          echo "rc=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Upload combined results
+        uses: actions/upload-artifact@v4
+        with:
+          name: autograder-combined
+          path: |
+            _results/**
+            ${{ inputs.report-dir }}/**
+
+      - name: Commit report back to branch
+        if: ${{ inputs.commit-results }}
+        run: |
+          set -euo pipefail
+          git config user.name 'autograder[bot]'
+          git config user.email 'autograder[bot]@users.noreply.github.com'
+          git add "${{ inputs.report-dir }}"
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+            exit 0
+          fi
+          git commit -m "autograder: $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          # Push back to the branch the workflow ran on. For PRs, ref_name is the
+          # PR head branch; for plain pushes it's the pushed branch.
+          git push origin HEAD:"${{ github.head_ref || github.ref_name }}"
+
+      - name: Fail job if any check failed
+        if: steps.render.outputs.rc != '0'
+        run: |
+          echo "::error::One or more autograder checks failed. See the Step Summary above."
+          exit 1

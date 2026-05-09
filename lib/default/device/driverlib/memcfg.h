@@ -454,8 +454,6 @@ MemCfg_disableViolationInterrupt(uint32_t intFlags)
 static inline uint32_t
 MemCfg_getViolationInterruptStatus(void)
 {
-    uint32_t status;
-
     //
     // Read and return RAM access status flags.
     //

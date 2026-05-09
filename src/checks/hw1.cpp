@@ -263,7 +263,7 @@ int check_timer1(Validator *) {
 }
 
 namespace {
-    bool toggle_bit_set(uint32_t reg_all, int bit_in_bucket) noexcept {
+    bool toggle_bit_set(const uint32_t reg_all, const int bit_in_bucket) noexcept {
         return (reg_all & (uint32_t{1} << bit_in_bucket)) != 0;
     }
 
@@ -292,7 +292,7 @@ namespace {
         CpuTimer2.InterruptCount = s.interrupt_count;
     }
 
-    bool report(bool cond, const char *label, const char *hint = nullptr) {
+    bool report(const bool cond, const char *label, const char *hint = nullptr) {
         if (!cond) {
             spdlog::error("[check_timer2] {}", label);
             if (hint) {
@@ -337,7 +337,7 @@ int check_timer2(Validator *) {
         return 0;
     }
 
-    auto run_window = [&](const char *label, bool press_pb1, bool press_pb4) {
+    auto run_window = [&](const char *label, const bool press_pb1, const bool press_pb4) {
         // Reset registers and counter for a clean window.
         GpioDataRegs = baseline.data;
         CpuTimer2.InterruptCount = 0;
@@ -567,9 +567,8 @@ int check_saturate(Validator *) {
 
     if (saturate) {
         const std::vector<float> values = {-10., -2., -1., -0.5, 0, 0.5, -1, -2, -10};
-        const std::vector<float> saturatation_vals = {0.25, 1.0, 1.5, 2.0, 15.0};
 
-        for (const float &sat: saturatation_vals) {
+        for (const std::vector<float> saturatation_vals = {0.25, 1.0, 1.5, 2.0, 15.0}; const float &sat: saturatation_vals) {
             for (const float &value: values) {
                 const float res = saturate(value, sat);
 

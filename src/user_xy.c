@@ -61,9 +61,7 @@ float my_atanf(float dy, float dx) {
 
 int16_t xy_control(float *vref_forxy, float *turn_forxy, float turn_thres, float x_pos, float y_pos, float x_desired,
                    float y_desired, float thetaabs, float target_radius, float target_radius_near) {
-    float dx, dy, alpha;
     float dist = 0.0F;
-    float dir;
     float theta;
     int16_t target_near = 0;
     float turnerror = 0;
@@ -77,13 +75,13 @@ int16_t xy_control(float *vref_forxy, float *turn_forxy, float turn_thres, float
         theta = thetaabs;
     }
 
-    dx = x_desired - x_pos;
-    dy = y_desired - y_pos;
+    const float dx = x_desired - x_pos;
+    const float dy = y_desired - y_pos;
     dist = sqrtf(dx * dx + dy * dy);
-    dir = 1.0F;
+    float dir = 1.0F;
 
     // calculate alpha (trajectory angle) between -PI and PI
-    alpha = my_atanf(dy, dx);
+    const float alpha = my_atanf(dy, dx);
 
     // calculate turn error
     turnerror = theta - alpha;

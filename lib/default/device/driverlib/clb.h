@@ -532,8 +532,6 @@ static inline void CLB_writeInterface(uint32_t base, uint32_t address,
 static inline void CLB_selectInputFilter(uint32_t base, CLB_Inputs inID,
                                          CLB_FilterType filterType)
 {
-    uint16_t shiftVal;
-
     ASSERT(CLB_isBaseValid(base));
 
     //
@@ -694,8 +692,6 @@ static inline uint32_t CLB_getGPREG(uint32_t base)
 static inline void CLB_configLocalInputMux(uint32_t base, CLB_Inputs inID,
                                             CLB_LocalInputMux localMuxCfg)
 {
-    uint16_t shiftVal;
-
     ASSERT(CLB_isBaseValid(base));
 
     //
@@ -749,8 +745,6 @@ static inline void CLB_configLocalInputMux(uint32_t base, CLB_Inputs inID,
 static inline void CLB_configGlobalInputMux(uint32_t base, CLB_Inputs inID,
                                             CLB_GlobalInputMux globalMuxCfg)
 {
-    uint16_t shiftVal;
-
     ASSERT(CLB_isBaseValid(base));
 
     //

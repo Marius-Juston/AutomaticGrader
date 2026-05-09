@@ -274,9 +274,6 @@ static inline void ECAP_setEventPolarity(uint32_t base,
                                          ECAP_Events event,
                                          ECAP_EventPolarity polarity)
 {
-
-    uint16_t shift;
-
     ASSERT(ECAP_isBaseValid(base));
 
     shift = ((uint16_t)event) << 1U;

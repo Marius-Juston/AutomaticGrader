@@ -27,7 +27,7 @@
 #define LAUNCHPAD_CPU_FREQUENCY 200
 
 namespace {
-    bool report(bool cond, const char *check, const char *msg, const char *hint = nullptr) {
+    bool report(const bool cond, const char *check, const char *msg, const char *hint = nullptr) {
         if (!cond) {
             spdlog::error("[{}] {}", check, msg);
             if (hint) spdlog::error("  spec: {}", hint);
@@ -35,7 +35,7 @@ namespace {
         return cond;
     }
 
-    bool approx_eq(float a, float b, float tol = 1e-3f) noexcept {
+    bool approx_eq(const float a, const float b, const float tol = 1e-3f) noexcept {
         return std::fabs(a - b) <= tol;
     }
 }
@@ -70,7 +70,7 @@ int check_initialization(Validator *val) {
         // EPWM12A on GPIO22 (mux 5).
         expected[22] = {GPIO_MUX_CPU1, 5, GPIO_OUTPUT, GPIO_PUSHPULL};
         // LEDs (output, push-pull).
-        for (int g: {
+        for (const int g: {
                  31, 34, 94, 95, 97, 111, 130, 131,
                  25, 26, 27, 60, 61, 157, 158, 159, 160,
                  0, 1, 19, 29, 32, 9, 66, 125
@@ -80,7 +80,7 @@ int check_initialization(Validator *val) {
             }
         }
         // Pushbuttons + joystick (input, pullup).
-        for (int g: {4, 5, 6, 7, 8}) {
+        for (const int g: {4, 5, 6, 7, 8}) {
             expected[g] = {GPIO_MUX_CPU1, 0, GPIO_INPUT, GPIO_PULLUP};
         }
         validator.register_comparison("GpioSetup", gpiosSetup, expected);
@@ -238,7 +238,7 @@ int check_adc_isr_scaling(Validator *) {
         return 0;
     }
 
-    struct Snapshot {
+    const struct Snapshot {
         int16_t adca4r, jxr, jyr;
         float adca4v, jxv, jyv;
         int32_t count;
@@ -248,7 +248,7 @@ int check_adc_isr_scaling(Validator *) {
         &AdcaInterruptCount ? AdcaInterruptCount : 0
     };
 
-    auto run_case = [&](uint16_t r0, uint16_t r1, uint16_t r2, const char *label) {
+    auto run_case = [&](const uint16_t r0, const uint16_t r1, const uint16_t r2, const char *label) {
         grader::inject_adc_result(grader::AdcModule::A, 0, r0);
         grader::inject_adc_result(grader::AdcModule::A, 1, r1);
         grader::inject_adc_result(grader::AdcModule::A, 2, r2);

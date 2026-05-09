@@ -32,7 +32,7 @@
 extern uint16_t xintPinMap[8];
 
 namespace {
-    bool report(bool cond, const char *check, const std::string &msg, const char *hint = nullptr) {
+    bool report(const bool cond, const char *check, const std::string &msg, const char *hint = nullptr) {
         if (!cond) {
             spdlog::error("[{}] {}", check, msg);
             if (hint) spdlog::error("  spec: {}", hint);
@@ -190,8 +190,7 @@ namespace {
         for (const auto &c: cases) {
             fn(c.angle);
             const uint16_t got = read();
-            const bool ok = std::abs(static_cast<int>(got) - static_cast<int>(c.expected)) <= 2;
-            if (!ok) {
+            if (const bool ok = std::abs(static_cast<int>(got) - static_cast<int>(c.expected)) <= 2; !ok) {
                 spdlog::error("[HW4/{}] {}({:.1f}) -> {} != expected {} ({})",
                               label, label, c.angle, got, c.expected, c.hint);
                 success = 0;
@@ -208,7 +207,7 @@ int check_setEPWM8A_RCServo(Validator *) {
         return 0;
     }
     const uint16_t saved = EPwm8Regs.CMPA.bit.CMPA;
-    int s = sweep_axis("EPWM8A", &setEPWM8A_RCServo,
+    const int s = sweep_axis("EPWM8A", &setEPWM8A_RCServo,
                        []() -> uint16_t { return EPwm8Regs.CMPA.bit.CMPA; });
     EPwm8Regs.CMPA.bit.CMPA = saved;
     return s;
@@ -221,7 +220,7 @@ int check_setEPWM8B_RCServo(Validator *) {
         return 0;
     }
     const uint16_t saved = EPwm8Regs.CMPB.bit.CMPB;
-    int s = sweep_axis("EPWM8B", &setEPWM8B_RCServo,
+    const int s = sweep_axis("EPWM8B", &setEPWM8B_RCServo,
                        []() -> uint16_t { return EPwm8Regs.CMPB.bit.CMPB; });
     EPwm8Regs.CMPB.bit.CMPB = saved;
     return s;
@@ -261,8 +260,7 @@ int check_xint2_button(Validator *) {
         xint2_isr();
         grader::release_button(7);
     }
-    const uint32_t got = Xint2Count - before;
-    if (got != presses) {
+    if (const uint32_t got = Xint2Count - before; got != presses) {
         spdlog::error("[HW4/xint2] Xint2Count advanced by {} (expected {})", got, presses);
         return 0;
     }
@@ -291,7 +289,7 @@ int check_print_format(Validator *) {
         spdlog::warn("[HW4/print_format] no SCIA prints captured — spec is ambiguous on Ex.4 cadence");
         return 1;
     }
-    bool ok = grader::expect_arg_types(latest,
+    const bool ok = grader::expect_arg_types(latest,
                                        {grader::ArgType::Int32, grader::ArgType::Int32},
                                        "HW4/print_format[two-int32]");
     return ok ? 1 : 0;

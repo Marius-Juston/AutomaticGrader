@@ -2288,7 +2288,6 @@ EPWM_setCounterCompareShadowLoadMode(uint32_t base,
     uint16_t syncModeOffset;
     uint16_t loadModeOffset;
     uint16_t shadowModeOffset;
-    uint32_t registerOffset;
 
     //
     // Check the arguments
@@ -2350,7 +2349,6 @@ EPWM_disableCounterCompareShadowLoadMode(uint32_t base,
                                          EPWM_CounterCompareModule compModule)
 {
     uint16_t shadowModeOffset;
-    uint32_t registerOffset;
 
     //
     // Check the arguments
@@ -2403,8 +2401,6 @@ static inline void
 EPWM_setCounterCompareValue(uint32_t base, EPWM_CounterCompareModule compModule,
                             uint16_t compCount)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -2455,7 +2451,6 @@ EPWM_setCounterCompareValue(uint32_t base, EPWM_CounterCompareModule compModule,
 static inline uint16_t
 EPWM_getCounterCompareValue(uint32_t base, EPWM_CounterCompareModule compModule)
 {
-    uint32_t registerOffset;
     uint16_t compCount;
 
     //
@@ -2568,9 +2563,6 @@ EPWM_setActionQualifierShadowLoadMode(uint32_t base,
                                       EPWM_ActionQualifierModule aqModule,
                                       EPWM_ActionQualifierLoadMode loadMode)
 {
-    uint16_t syncModeOffset;
-    uint16_t shadowModeOffset;
-
     //
     // Check the arguments
     //
@@ -2612,8 +2604,6 @@ static inline void
 EPWM_disableActionQualifierShadowLoadMode(uint32_t base,
                                           EPWM_ActionQualifierModule aqModule)
 {
-    uint16_t shadowModeOffset;
-
     //
     // Check the arguments
     //
@@ -2752,9 +2742,6 @@ EPWM_setActionQualifierAction(uint32_t base,
                               EPWM_ActionQualifierOutput output,
                               EPWM_ActionQualifierOutputEvent event)
 {
-    uint32_t registerOffset;
-    uint32_t registerTOffset;
-
     //
     // Check the arguments
     //
@@ -2878,8 +2865,6 @@ EPWM_setActionQualifierActionComplete(uint32_t base,
                                    EPWM_ActionQualifierOutputModule epwmOutput,
                                    uint16_t action)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -2962,8 +2947,6 @@ EPWM_setAdditionalActionQualifierActionComplete(uint32_t base,
                                EPWM_ActionQualifierOutputModule epwmOutput,
                                uint16_t action)
 {
-    uint32_t registerTOffset;
-
     //
     // Check the arguments
     //
@@ -3187,8 +3170,6 @@ static inline void
 EPWM_setDeadBandOutputSwapMode(uint32_t base, EPWM_DeadBandOutput output,
                                bool enableSwapMode)
 {
-    uint16_t mask;
-
     //
     // Check the arguments
     //
@@ -3238,8 +3219,6 @@ static inline void
 EPWM_setDeadBandDelayMode(uint32_t base, EPWM_DeadBandDelayMode delayMode,
                           bool enableDelayMode)
 {
-    uint16_t mask;
-
     //
     // Check the arguments
     //
@@ -3289,8 +3268,6 @@ EPWM_setDeadBandDelayPolarity(uint32_t base,
                               EPWM_DeadBandDelayMode delayMode,
                               EPWM_DeadBandPolarity polarity)
 {
-    uint16_t shift;
-
     //
     // Check the arguments
     //
@@ -6121,8 +6098,6 @@ EPWM_setDigitalCompareEventSource(uint32_t base,
                                   EPWM_DigitalCompareEvent dcEvent,
                                   EPWM_DigitalCompareEventSource dcEventSource)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6181,8 +6156,6 @@ EPWM_setDigitalCompareEventSyncMode(uint32_t base,
                                     EPWM_DigitalCompareEvent dcEvent,
                                     EPWM_DigitalCompareSyncMode syncMode)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6229,8 +6202,6 @@ static inline void
 EPWM_enableDigitalCompareADCTrigger(uint32_t base,
                                     EPWM_DigitalCompareModule dcModule)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6267,8 +6238,6 @@ static inline void
 EPWM_disableDigitalCompareADCTrigger(uint32_t base,
                                      EPWM_DigitalCompareModule dcModule)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6305,8 +6274,6 @@ static inline void
 EPWM_enableDigitalCompareSyncEvent(uint32_t base,
                                    EPWM_DigitalCompareModule dcModule)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6343,8 +6310,6 @@ static inline void
 EPWM_disableDigitalCompareSyncEvent(uint32_t base,
                                     EPWM_DigitalCompareModule dcModule)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6541,8 +6506,6 @@ EPWM_enableDigitalCompareTripCombinationInput(uint32_t base,
                                               uint16_t tripInput,
                                               EPWM_DigitalCompareType dcType)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //
@@ -6595,8 +6558,6 @@ EPWM_disableDigitalCompareTripCombinationInput(uint32_t base,
                                                uint16_t tripInput,
                                                EPWM_DigitalCompareType dcType)
 {
-    uint32_t registerOffset;
-
     //
     // Check the arguments
     //

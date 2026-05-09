@@ -59,8 +59,8 @@ void setEPWM1A(float controleffort) {
     if (controleffort > 10) {
         controleffort = 10;
     }
-    uint16_t period = EPwm1Regs.TBPRD;
-    float value = (controleffort + 10) * period / 20.0;
+    const uint16_t period = EPwm1Regs.TBPRD;
+    const float value = (controleffort + 10) * period / 20.0;
     EPwm1Regs.CMPA.bit.CMPA = value;
 }
 
@@ -71,8 +71,8 @@ void setEPWM2A(float controleffort) {
     if (controleffort > 10) {
         controleffort = 10;
     }
-    uint16_t period = EPwm2Regs.TBPRD;
-    float value = (controleffort + 10) * period / 20.0;
+    const uint16_t period = EPwm2Regs.TBPRD;
+    const float value = (controleffort + 10) * period / 20.0;
     EPwm2Regs.CMPA.bit.CMPA = value;
 }
 
@@ -142,7 +142,7 @@ void init_eQEPs(void) {
 
 float readEncLeft(void) {
     int32_t raw = 0;
-    uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U
+    const uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U
 
     raw = EQep1Regs.QPOSCNT;
     if (raw >= QEP_maxvalue / 2) raw -= QEP_maxvalue; // I don't think this is needed and never true
@@ -152,7 +152,7 @@ float readEncLeft(void) {
 
 float readEncRight(void) {
     int32_t raw = 0;
-    uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U  -1 32bit signed int
+    const uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U  -1 32bit signed int
 
     raw = EQep2Regs.QPOSCNT;
     if (raw >= QEP_maxvalue / 2) raw -= QEP_maxvalue; // I don't think this is needed and never true
@@ -162,7 +162,7 @@ float readEncRight(void) {
 
 float readEncWheel(void) {
     int32_t raw = 0;
-    uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U  -1 32bit signed int
+    const uint32_t QEP_maxvalue = 0xFFFFFFFFU; //4294967295U  -1 32bit signed int
 
     raw = EQep3Regs.QPOSCNT;
     if (raw >= QEP_maxvalue / 2) raw -= QEP_maxvalue; // I don't think this is needed and never true

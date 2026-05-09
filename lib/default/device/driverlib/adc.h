@@ -510,8 +510,6 @@ static inline void
 ADC_setupSOC(uint32_t base, ADC_SOCNumber socNumber, ADC_Trigger trigger,
              ADC_Channel channel, uint32_t sampleWindow)
 {
-    uint32_t ctlRegAddr;
-
     //
     // Check the arguments.
     //
@@ -564,8 +562,6 @@ static inline void
 ADC_setInterruptSOCTrigger(uint32_t base, ADC_SOCNumber socNumber,
                            ADC_IntSOCTrigger trigger)
 {
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -961,8 +957,6 @@ ADC_isBusy(uint32_t base)
 static inline void
 ADC_setBurstModeConfig(uint32_t base, ADC_Trigger trigger, uint16_t burstSize)
 {
-    uint16_t regValue;
-
     //
     // Check the arguments.
     //
@@ -1143,8 +1137,6 @@ ADC_configOSDetectMode(uint32_t base, ADC_OSDetectMode modeVal)
 static inline void
 ADC_setupPPB(uint32_t base, ADC_PPBNumber ppbNumber, ADC_SOCNumber socNumber)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1415,8 +1407,6 @@ ADC_readPPBResult(uint32_t resultBase, ADC_PPBNumber ppbNumber)
 static inline uint16_t
 ADC_getPPBDelayTimeStamp(uint32_t base, ADC_PPBNumber ppbNumber)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1463,8 +1453,6 @@ static inline void
 ADC_setPPBCalibrationOffset(uint32_t base, ADC_PPBNumber ppbNumber,
                             int16_t offset)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1512,8 +1500,6 @@ static inline void
 ADC_setPPBReferenceOffset(uint32_t base, ADC_PPBNumber ppbNumber,
                           uint16_t offset)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1550,8 +1536,6 @@ ADC_setPPBReferenceOffset(uint32_t base, ADC_PPBNumber ppbNumber,
 static inline void
 ADC_enablePPBTwosComplement(uint32_t base, ADC_PPBNumber ppbNumber)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1590,8 +1574,6 @@ ADC_enablePPBTwosComplement(uint32_t base, ADC_PPBNumber ppbNumber)
 static inline void
 ADC_disablePPBTwosComplement(uint32_t base, ADC_PPBNumber ppbNumber)
 {
-    uint32_t ppbOffset;
-
     //
     // Check the arguments.
     //
@@ -1631,9 +1613,6 @@ ADC_disablePPBTwosComplement(uint32_t base, ADC_PPBNumber ppbNumber)
 static inline void
 ADC_enableInterrupt(uint32_t base, ADC_IntNumber adcIntNum)
 {
-    uint32_t intRegAddr;
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -1677,9 +1656,6 @@ ADC_enableInterrupt(uint32_t base, ADC_IntNumber adcIntNum)
 static inline void
 ADC_disableInterrupt(uint32_t base, ADC_IntNumber adcIntNum)
 {
-    uint32_t intRegAddr;
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -1727,9 +1703,6 @@ static inline void
 ADC_setInterruptSource(uint32_t base, ADC_IntNumber adcIntNum,
                        ADC_SOCNumber socNumber)
 {
-    uint32_t intRegAddr;
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -1776,9 +1749,6 @@ ADC_setInterruptSource(uint32_t base, ADC_IntNumber adcIntNum,
 static inline void
 ADC_enableContinuousMode(uint32_t base, ADC_IntNumber adcIntNum)
 {
-    uint32_t intRegAddr;
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -1824,9 +1794,6 @@ ADC_enableContinuousMode(uint32_t base, ADC_IntNumber adcIntNum)
 static inline void
 ADC_disableContinuousMode(uint32_t base, ADC_IntNumber adcIntNum)
 {
-    uint32_t intRegAddr;
-    uint16_t shiftVal;
-
     //
     // Check the arguments.
     //
@@ -1869,7 +1836,6 @@ static inline int16_t
 ADC_getTemperatureC(uint16_t tempResult, float32_t vref)
 {
     int16_t tsOffset, tsSlope;
-    float32_t temp;
 
     //
     // Check the device revision
@@ -1923,7 +1889,6 @@ static inline int16_t
 ADC_getTemperatureK(uint16_t tempResult, float32_t vref)
 {
     int16_t tsOffset, tsSlope;
-    float32_t temp;
 
     //
     // Check the device revision

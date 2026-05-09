@@ -24,7 +24,7 @@ namespace grader {
     } while (0)
 
         void test_format_parser_basic() {
-            auto p = parse_format("Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n");
+            const auto p = parse_format("Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n");
             EXPECT(p.ok());
             EXPECT(p.specs.size() == 4u);
             EXPECT(p.specs[0].conversion == Conversion::d);
@@ -139,7 +139,7 @@ namespace grader {
             EXPECT(g_printfCalls[1].synthetic_timestamp_us > g_printfCalls[0].synthetic_timestamp_us);
             EXPECT(printfCallCount(SerialPort::SCIA) == 2u);
 
-            auto sciaCalls = getPrintfCallsForPort(SerialPort::SCIA);
+            const auto sciaCalls = getPrintfCallsForPort(SerialPort::SCIA);
             EXPECT(sciaCalls.size() == 2u);
             auto *latest = latestPrintfCall(SerialPort::SCIA);
             EXPECT(latest != nullptr);

@@ -265,8 +265,6 @@ SCI_setParityMode(uint32_t base, SCI_ParityType parity)
 static inline SCI_ParityType
 SCI_getParityMode(uint32_t base)
 {
-    uint16_t parity;
-
     //
     // Check the arguments.
     //

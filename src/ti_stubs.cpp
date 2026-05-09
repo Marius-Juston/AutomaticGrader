@@ -148,7 +148,7 @@ static grader::SerialPort classify_sci_pointer(const void *s) noexcept {
     return grader::SerialPort::SCIA;
 }
 
-uint16_t serial_printf(serialSCIA_t *s, char *fmt, ...) {
+uint16_t serial_printf(const serialSCIA_t *s, char *fmt, ...) {
     clearBuffers();
     va_list ap;
 

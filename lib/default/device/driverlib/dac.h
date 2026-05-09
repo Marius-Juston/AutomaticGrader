@@ -466,8 +466,6 @@ DAC_setOffsetTrim(uint32_t base, int16_t offset)
 static inline int16_t
 DAC_getOffsetTrim(uint32_t base)
 {
-    uint16_t value;
-
     //
     // Check the arguments.
     //

@@ -415,8 +415,6 @@ GPIO_getInterruptCounter(GPIO_ExternalIntNum extIntNum)
 static inline uint32_t
 GPIO_readPin(uint32_t pin)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Check the arguments.
     //
@@ -448,9 +446,6 @@ GPIO_readPin(uint32_t pin)
 static inline void
 GPIO_writePin(uint32_t pin, uint32_t outVal)
 {
-    volatile uint32_t *gpioDataReg;
-    uint32_t pinMask;
-
     //
     // Check the arguments.
     //
@@ -489,8 +484,6 @@ GPIO_writePin(uint32_t pin, uint32_t outVal)
 static inline void
 GPIO_togglePin(uint32_t pin)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Check the arguments.
     //
@@ -517,8 +510,6 @@ GPIO_togglePin(uint32_t pin)
 static inline uint32_t
 GPIO_readPortData(GPIO_Port port)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and return DATA.
     //
@@ -551,8 +542,6 @@ GPIO_readPortData(GPIO_Port port)
 static inline void
 GPIO_writePortData(GPIO_Port port, uint32_t outVal)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to DATA.
     //
@@ -584,8 +573,6 @@ GPIO_writePortData(GPIO_Port port, uint32_t outVal)
 static inline void
 GPIO_setPortPins(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to SET.
     //
@@ -617,8 +604,6 @@ GPIO_setPortPins(GPIO_Port port, uint32_t pinMask)
 static inline void
 GPIO_clearPortPins(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to CLEAR.
     //
@@ -650,8 +635,6 @@ GPIO_clearPortPins(GPIO_Port port, uint32_t pinMask)
 static inline void
 GPIO_togglePortPins(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to TOGGLE.
     //
@@ -687,8 +670,6 @@ GPIO_togglePortPins(GPIO_Port port, uint32_t pinMask)
 static inline void
 GPIO_lockPortConfig(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to the lock.
     //
@@ -722,8 +703,6 @@ GPIO_lockPortConfig(GPIO_Port port, uint32_t pinMask)
 static inline void
 GPIO_unlockPortConfig(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to the lock.
     //
@@ -761,8 +740,6 @@ GPIO_unlockPortConfig(GPIO_Port port, uint32_t pinMask)
 static inline void
 GPIO_commitPortConfig(GPIO_Port port, uint32_t pinMask)
 {
-    volatile uint32_t *gpioDataReg;
-
     //
     // Get the starting address of the port's registers and write to the lock.
     //

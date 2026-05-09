@@ -885,9 +885,6 @@ SysCtl_deviceCal(void)
 static inline void
 SysCtl_resetPeripheral(SysCtl_PeripheralSOFTPRES peripheral)
 {
-    uint16_t regIndex;
-    uint16_t bitIndex;
-
     //
     // Decode the peripheral variable.
     //
@@ -941,9 +938,6 @@ SysCtl_resetPeripheral(SysCtl_PeripheralSOFTPRES peripheral)
 static inline void
 SysCtl_enablePeripheral(SysCtl_PeripheralPCLOCKCR peripheral)
 {
-    uint16_t regIndex;
-    uint16_t bitIndex;
-
     //
     // Decode the peripheral variable.
     //
@@ -977,9 +971,6 @@ SysCtl_enablePeripheral(SysCtl_PeripheralPCLOCKCR peripheral)
 static inline void
 SysCtl_disablePeripheral(SysCtl_PeripheralPCLOCKCR peripheral)
 {
-    uint16_t regIndex;
-    uint16_t bitIndex;
-
     //
     // Decode the peripheral variable.
     //
@@ -1060,8 +1051,6 @@ SysCtl_resetDevice(void)
 static inline uint32_t
 SysCtl_getResetCause(void)
 {
-    uint32_t resetCauses;
-
     //
     // Read CPU reset register
     //
@@ -1616,8 +1605,6 @@ SysCtl_enterHibernateMode(void)
 static inline void
 SysCtl_enableLPMWakeupPin(uint32_t pin)
 {
-    uint32_t pinMask;
-
     //
     // Check the arguments.
     //
@@ -1660,8 +1647,6 @@ SysCtl_enableLPMWakeupPin(uint32_t pin)
 static inline void
 SysCtl_disableLPMWakeupPin(uint32_t pin)
 {
-    uint32_t pinMask;
-
     //
     // Check the arguments.
     //
@@ -2011,8 +1996,6 @@ SysCtl_resetWatchdog(void)
 static inline void
 SysCtl_setWatchdogPrescaler(SysCtl_WDPrescaler prescaler)
 {
-    uint16_t regVal;
-
     regVal = (uint16_t)prescaler | (uint16_t)SYSCTL_WD_CHKBITS;
 
     EALLOW;
@@ -2325,8 +2308,6 @@ SysCtl_clearNMIStatus(uint32_t nmiFlags)
 static inline void
 SysCtl_clearAllNMIFlags(void)
 {
-    uint16_t nmiFlags;
-
     //
     // Read the flag status register and then write to the clear register,
     // clearing all the flags that were returned plus the NMI flag.
@@ -2672,8 +2653,6 @@ static inline void
 SysCtl_setSyncInputConfig(SysCtl_SyncInput syncInput,
                           SysCtl_SyncInputSource syncSrc)
 {
-    uint32_t clearMask;
-
     //
     // Write the input sync source selection to the appropriate register.
     //
@@ -2858,9 +2837,6 @@ static inline void
 SysCtl_selectCPUForPeripheralInstance(SysCtl_CPUSelPeriphInstance peripheral,
                                       SysCtl_CPUSel cpuInst)
 {
-    uint16_t regIndex;
-    uint16_t bitIndex;
-
     //
     // Identify the register index and bit position
     //
@@ -2914,7 +2890,6 @@ static inline void
 SysCtl_selectCPUForPeripheral(SysCtl_CPUSelPeripheral peripheral,
                               uint16_t peripheralInst, SysCtl_CPUSel cpuInst)
 {
-    uint32_t tempValue;
     uint16_t shift;
 
     if(SYSCTL_CPUSEL14_DAC == peripheral)

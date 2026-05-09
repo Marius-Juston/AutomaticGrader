@@ -799,7 +799,6 @@ static inline void
 EMIF_setAsyncTimingParams(uint32_t base, EMIF_AsyncCSOffset offset,
                           const EMIF_AsyncTimingParams *tParam)
 {
-    uint32_t temp;
     //
     // Check the arguments.
     //
@@ -1011,7 +1010,6 @@ EMIF_clearAsyncInterruptStatus(uint32_t base, uint16_t intFlags)
 static inline void
 EMIF_setSyncTimingParams(uint32_t base, const EMIF_SyncTimingParams *tParam)
 {
-    uint32_t temp;
     //
     // Check the arguments.
     //
@@ -1120,7 +1118,6 @@ EMIF_setSyncRefreshRate(uint32_t base, uint16_t refRate)
 static inline void
 EMIF_setSyncMemoryConfig(uint32_t base, const EMIF_SyncConfig *config)
 {
-    uint32_t temp;
     //
     // Check the arguments.
     //
