@@ -19,6 +19,15 @@ serialSCIB_t SerialB;
 serialSCIC_t SerialC;
 serialSCID_t SerialD;
 
+char RXAdata = 0;
+char RXBdata = 0;
+char RXCdata = 0;
+char RXDdata = 0;
+uint32_t numRXA = 0;
+uint32_t numRXB = 0;
+uint32_t numRXC = 0;
+uint32_t numRXD = 0;
+
 
 inline void rtrim(char *buffer, uint32_t &length) {
     if (!buffer || length == 0) {
