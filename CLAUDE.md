@@ -95,7 +95,8 @@ uses these to include the right `hw{N}.h` / `lab{N}.h`.
 
 1. **Read the spec first** — `context/homeworks/HW{N}.tex` or `context/lab/Lab{N}.txt`. Quote spec sentences in the
    roadmap as the source-of-truth for each assertion.
-2. Read `HW{N}_ROADMAP.md` / `Lab{N}_ROADMAP.md`; it lists the exact stubs and checks derived from step 1.
+2. Read `progress/HW{N}_ROADMAP.md` / `progress/Lab{N}_ROADMAP.md`; it lists the exact stubs and checks derived from
+   step 1.
 3. Add capturing stubs to `src/ti_stubs.cpp` (mirror the `GPIO_SetupPinMux` pattern at `src/ti_stubs.cpp:155` — read the
    register pointer, write the bitfield, return). Prefer extending the existing `*Regs` global over inventing a new
    shadow array, so existing `check_compare` overloads pick up the state for free. For the *shared* test categories (

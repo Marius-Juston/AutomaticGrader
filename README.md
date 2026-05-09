@@ -52,7 +52,7 @@ reference is allowed to fail checks (with the failure documented in the correspo
 | `context/homeworks/HW{N}.tex`                   | **Authoritative** homework specs.                                                                     |
 | `context/lab/Lab{N}.txt`                        | **Authoritative** lab specs.                                                                          |
 | `context/code_solutions/`                       | Non-authoritative reference solutions (one fixture per assignment).                                   |
-| `HW{N}_ROADMAP.md`, `Lab{N}_ROADMAP.md`         | Per-assignment implementation checklist + deep-validation matrix (mutation tests + cadence + format). |
+| `progress/HW{N}_ROADMAP.md`, `progress/Lab{N}_ROADMAP.md`         | Per-assignment implementation checklist + deep-validation matrix (mutation tests + cadence + format). |
 | `CLAUDE.md`                                     | Architecture and contributor guide.                                                                   |
 
 ## Requirements
@@ -88,22 +88,22 @@ A failed check logs each diverging register field via `spdlog::warn` and the bin
 
 ## Per-assignment status
 
-| Assignment | Status                                                                                                                                  | Roadmap                                |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| HW1        | Implemented (init + timer0/1/2 + saturate). Pending spec rework: Exercise 9 LED10/11 + button-press LED toggles, format/cadence checks. | [HW1_ROADMAP.md](HW1_ROADMAP.md)       |
-| HW2        | Not started — needs EPWM/ADC capturing stubs first.                                                                                     | [HW2_ROADMAP.md](HW2_ROADMAP.md)       |
-| HW3        | Not started — needs SPI stubs with TX/RX buffer capture.                                                                                | [HW3_ROADMAP.md](HW3_ROADMAP.md)       |
-| HW4        | Not started — needs XINT + GPIO-qualification stubs.                                                                                    | [HW4_ROADMAP.md](HW4_ROADMAP.md)       |
-| HW5        | Not started — needs DMA stubs and an `RFFT_f32` shim.                                                                                   | [HW5_ROADMAP.md](HW5_ROADMAP.md)       |
-| HW6        | Out of scope for the firmware grader (A* + Kalman). Route to a separate harness.                                                        | [HW6_ROADMAP.md](HW6_ROADMAP.md)       |
-| Lab1       | Roadmap only.                                                                                                                           | [Lab1_ROADMAP.md](Lab1_ROADMAP.md)     |
-| Lab2       | Roadmap only.                                                                                                                           | [Lab2_ROADMAP.md](Lab2_ROADMAP.md)     |
-| Lab3       | Roadmap only — needs EQEP stubs.                                                                                                        | [Lab3_ROADMAP.md](Lab3_ROADMAP.md)     |
-| Lab4       | Roadmap only — needs ADCB/ADCC/ADCD + DAC stubs.                                                                                        | [Lab4_ROADMAP.md](Lab4_ROADMAP.md)     |
-| Lab5       | Roadmap only.                                                                                                                           | [Lab5_ROADMAP.md](Lab5_ROADMAP.md)     |
-| Lab6       | Roadmap only — needs LADAR + SCID + SWI stubs.                                                                                          | [Lab6_ROADMAP.md](Lab6_ROADMAP.md)     |
-| Lab7-1     | Roadmap only.                                                                                                                           | [Lab7-1_ROADMAP.md](Lab7-1_ROADMAP.md) |
-| Lab7-2     | Roadmap only — needs OpenMV blob + OptiTrack injection stubs.                                                                           | [Lab7-2_ROADMAP.md](Lab7-2_ROADMAP.md) |
+| Assignment | Status                                                                                                                                  | Roadmap                                         |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+| HW1        | Implemented (init + timer0/1/2 + saturate). Pending spec rework: Exercise 9 LED10/11 + button-press LED toggles, format/cadence checks. | [HW1_ROADMAP.md](progress/HW1_ROADMAP.md)       |
+| HW2        | Not started — needs EPWM/ADC capturing stubs first.                                                                                     | [HW2_ROADMAP.md](progress/HW2_ROADMAP.md)       |
+| HW3        | Not started — needs SPI stubs with TX/RX buffer capture.                                                                                | [HW3_ROADMAP.md](progress/HW3_ROADMAP.md)       |
+| HW4        | Not started — needs XINT + GPIO-qualification stubs.                                                                                    | [HW4_ROADMAP.md](progress/HW4_ROADMAP.md)       |
+| HW5        | Not started — needs DMA stubs and an `RFFT_f32` shim.                                                                                   | [HW5_ROADMAP.md](progress/HW5_ROADMAP.md)       |
+| HW6        | Out of scope for the firmware grader (A* + Kalman). Route to a separate harness.                                                        | [HW6_ROADMAP.md](progress/HW6_ROADMAP.md)       |
+| Lab1       | Roadmap only.                                                                                                                           | [Lab1_ROADMAP.md](progress/Lab1_ROADMAP.md)     |
+| Lab2       | Roadmap only.                                                                                                                           | [Lab2_ROADMAP.md](progress/Lab2_ROADMAP.md)     |
+| Lab3       | Roadmap only — needs EQEP stubs.                                                                                                        | [Lab3_ROADMAP.md](progress/Lab3_ROADMAP.md)     |
+| Lab4       | Roadmap only — needs ADCB/ADCC/ADCD + DAC stubs.                                                                                        | [Lab4_ROADMAP.md](progress/Lab4_ROADMAP.md)     |
+| Lab5       | Roadmap only.                                                                                                                           | [Lab5_ROADMAP.md](progress/Lab5_ROADMAP.md)     |
+| Lab6       | Roadmap only — needs LADAR + SCID + SWI stubs.                                                                                          | [Lab6_ROADMAP.md](progress/Lab6_ROADMAP.md)     |
+| Lab7-1     | Roadmap only.                                                                                                                           | [Lab7-1_ROADMAP.md](progress/Lab7-1_ROADMAP.md) |
+| Lab7-2     | Roadmap only — needs OpenMV blob + OptiTrack injection stubs.                                                                           | [Lab7-2_ROADMAP.md](progress/Lab7-2_ROADMAP.md) |
 
 ## How a check is structured
 
@@ -123,7 +123,7 @@ extending the original three with a print-cadence/format phase):
    `expect_format(latest, "spec'd format string with correct %ld/%.2f/%.3f specifiers")`. Catches `%d`-for-`int32_t` (
    the most common student bug — invisible in rendered output on 32-bit-int Linux but breaks on the C2000 target).
 
-See `CLAUDE.md` for the full contributor guide and the per-assignment `*_ROADMAP.md` files for what each checker must
+See `CLAUDE.md` for the full contributor guide and the per-assignment `progress/*_ROADMAP.md` files for what each checker must
 cover.
 
 ## Authoring tip — convert TI calls into expected[] entries
@@ -158,10 +158,11 @@ Replace the corresponding `generated.cpp`, `compare_generated.cpp`, or the body 
 
 ## Validating a new checker
 
-For each new assignment, walk the **Validation matrix** in `HW{N}_ROADMAP.md` / `Lab{N}_ROADMAP.md`:
+For each new assignment, walk the **Validation matrix** in `progress/HW{N}_ROADMAP.md` / `progress/Lab{N}_ROADMAP.md`:
 
-1. Reference solution from `context/code_solutions/.../{HW,Lab}{N}/` → all checks pass, zero `spdlog::warn` lines, exit 0. (For HW1 specifically, the reference deviates from spec in Exercise 9 and is expected to fail those checks —
-that's documented in the roadmap.)
+1. Reference solution from `context/code_solutions/.../{HW,Lab}{N}/` → all checks pass, zero `spdlog::warn` lines, exit
+   0. (For HW1 specifically, the reference deviates from spec in Exercise 9 and is expected to fail those checks —
+   that's documented in the roadmap.)
 2. At least 5 hand-authored mutations of the reference, covering: numeric constants (period, TBPRD, threshold),
    structural (drop a setup line), format-string (`%ld` → `%d`), cadence (modulus change), stimulus (drop a button
    branch). Each must fail on the *exact* field name that diverged.

@@ -50,7 +50,7 @@
     - `PieVectTable.SPIB_RX_INT == &SPIB_isr`.
     - `EPwm9Regs.AQCTLA.ZRO == 3` (toggle on zero), `TBCTL.CTRMODE == 0`.
     -
-    `SpibRegs.{SPICCR.SPICHAR=15, SPIBRR.SPI_BIT_RATE=49, SPICTL.CLK_PHASE=1, SPICCR.CLKPOLARITY=0, SPICTL.MASTER_SLAVE=1, SPIFFTX.SPIFFENA=1}`.
+  `SpibRegs.{SPICCR.SPICHAR=15, SPIBRR.SPI_BIT_RATE=49, SPICTL.CLK_PHASE=1, SPICCR.CLKPOLARITY=0, SPICTL.MASTER_SLAVE=1, SPIFFTX.SPIFFENA=1}`.
     - Skipped registers: HW2 set + `SpibRegs`, `EPwm9Regs`, all `CpuTimer*` and `CpuTimer*Regs`, `PieVectTable`,
       `PieCtrlRegs`.
     - **Required workaround:** the reference's `setupSpib()` busy-waits on `SpibRegs.SPIFFRX.bit.RXFFST` (values 7, 4,
@@ -81,7 +81,8 @@
   explicit `missing student symbols` errors (`SPIB_isr`, `gyroz_raw`, `gyroz_val`).
 - [ ] Mutation A: `SPIBRR` 49→24 (would be 2 MHz) → `check_initialization` fails on `SPIBRR != 49`
 - [ ] Mutation B: flip `CLKPOLARITY` 0→1 → fails on `SPICCR.CLKPOLARITY != 0`
-- [ ] Mutation C: read wrong gyro register (0x46 → 0x47) — **deferred** until `check_spib_request_format` ships in slice 4.
+- [ ] Mutation C: read wrong gyro register (0x46 → 0x47) — **deferred** until `check_spib_request_format` ships in slice
+  4.
 - [ ] Mutation D: drop the `mux back to GPIO` step at end of song — **deferred** (`check_song_playback` not active).
 - [ ] Mutation E: `%d` instead of `%f` for accel/gyro print → `check_print_format` falls through all 3 acceptance modes
   and fails with the TI-C2000 16-bit `int` hint.

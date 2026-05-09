@@ -314,13 +314,13 @@ int check_print_format(Validator *) {
 // Slice-3 deferred: requires SPI TX-side word log (`spibTxLog[]`).
 int check_spib_request_format(Validator *) {
     spdlog::warn("[HW3] check_spib_request_format SKIPPED — SPI TX-side capture "
-        "(spibTxLog[]) not yet implemented in slice 1. See HW3_ROADMAP.md.");
+        "(spibTxLog[]) not yet implemented in slice 1. See progress/HW3_ROADMAP.md.");
     return 1;
 }
 
 int check_imu_full_init(Validator *) {
     spdlog::warn("[HW3] check_imu_full_init SKIPPED — SPI TX-side capture "
-        "(spibTxLog[]) not yet implemented in slice 1. See HW3_ROADMAP.md.");
+        "(spibTxLog[]) not yet implemented in slice 1. See progress/HW3_ROADMAP.md.");
     return 1;
 }
 
