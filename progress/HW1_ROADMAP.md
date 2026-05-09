@@ -30,6 +30,12 @@
 - [x] **Shared with HW2+:** format-string parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` (
   `include/checks/format_parser.h`, `include/checks/expectations.h`). Run `./AutomaticGrader --selftest` to exercise the
   infrastructure end-to-end.
+- [x] **Shared with HW2+:** cooperative main-loop driver — `grader::run_student_init()`,
+  `grader::step_main_loop()`, `grader::drive_isr_with_main_pump()` in
+  `include/checks/main_loop_driver.h`. The student source is patched at build time by
+  `tools/patch_student_source.py` so the `while (1)` IDLE loop becomes a harness-driven
+  step function. Print-cadence checks must use `drive_isr_with_main_pump` instead of
+  `run_isr_for_us` + sleeps. See CLAUDE.md "Cooperative main-loop driver" for details.
 
 ## Checks to implement / fix in `src/checks/hw1.cpp`
 
@@ -47,9 +53,10 @@
     - [x] Sub-check C (`grader::press_button(7)`): asserts `GPETOGGLE.GPIO158` (LED14) and `GPETOGGLE.GPIO159` (LED15)
       toggled; LED12/13 idle.
     - [x] Snapshot/restore of `GpioDataRegs`, `UARTPrint`, `CpuTimer2.InterruptCount` per sub-check.
-- [x] `check_print_cadence` — `grader::resetPrintfCapture()`, drive 1 s synthetic in 4 × 250 ms bursts (
-  `grader::run_isr_for_us`), 20 ms wall-sleep between bursts to let the main thread service `UARTPrint`. Asserts
-  `expect_print_cadence(SCIA, 4, 0.25)`.
+- [x] `check_print_cadence` — `grader::resetPrintfCapture()`, then
+  `grader::drive_isr_with_main_pump(cpu_timer2_isr, period_us, 1'000'000 / period_us)`
+  (1 s synthetic, lockstep ISR + one main-loop iteration per tick — no detached thread,
+  no real-time sleeps). Asserts `expect_print_cadence(SCIA, 4, 0.10)`.
 - [x] `check_print_format` — inspects `grader::latestPrintfCall(grader::SerialPort::SCIA)`. Accepts either:
     - Ex. 5 untouched: `"Num Timer2:%ld Num SerialRX: %ld\r\n"` with `{Int32, Int32}` args
     - Ex. 8 final: `"Timeint = %ld, Time = %.2f sec, Input = %.3f, SatOut = %.2f\r\n"` with

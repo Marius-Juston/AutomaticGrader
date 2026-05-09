@@ -18,6 +18,7 @@
 #include <spdlog/spdlog.h>
 
 #include "checks/expectations.h"
+#include "checks/main_loop_driver.h"
 #include "checks/printf_capture.h"
 #include "checks/state_checker.h"
 #include "checks/stimulus.hpp"
@@ -323,18 +324,15 @@ int check_print_cadence(Validator *) {
     UARTPrint = 0;
     const int32_t initialCount = (&AdcaInterruptCount) ? AdcaInterruptCount : 0;
 
-    // Drive ADCA_ISR 1000 times in 10 bursts of 100 (each burst should trigger one print).
-    for (int burst = 0; burst < 10; ++burst) {
-        for (int i = 0; i < 100; ++i) {
-            ADCA_ISR();
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    // Drive ADCA_ISR 1000 times via the cooperative driver. Each ISR call is
+    // followed by exactly one main-loop iteration, so any UARTPrint=1 set by
+    // the ISR is consumed deterministically on the next step.
+    // ADCA fires at 10 kHz (100 us); print every 100 ticks → 10 prints total.
+    grader::drive_isr_with_main_pump(ADCA_ISR, 100, 1000);
 
     if (&AdcaInterruptCount) AdcaInterruptCount = initialCount;
 
-    return grader::expect_print_cadence(grader::SerialPort::SCIA, 10, 0.30,
+    return grader::expect_print_cadence(grader::SerialPort::SCIA, 10, 0.10,
                                         "HW2/print_cadence")
                ? 1
                : 0;
@@ -356,8 +354,7 @@ int check_print_format(Validator *) {
     UARTPrint = 0;
     const int32_t initialCount = (&AdcaInterruptCount) ? AdcaInterruptCount : 0;
 
-    for (int i = 0; i < 200; ++i) ADCA_ISR();
-    std::this_thread::sleep_for(std::chrono::milliseconds(80));
+    grader::drive_isr_with_main_pump(ADCA_ISR, 100, 200);
 
     if (&AdcaInterruptCount) AdcaInterruptCount = initialCount;
 

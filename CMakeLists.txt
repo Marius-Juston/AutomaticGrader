@@ -92,6 +92,26 @@ if (NOT EXISTS "${STUDENT_SRC_ABS}")
 endif ()
 message(STATUS "Student firmware source: ${STUDENT_SRC_ABS}")
 
+# Patch the student source so its `while(1)` IDLE loop becomes the harness-controlled
+# `GRADER_MAIN_LOOP` macro (defined in include/ti_stubs.h under AUTO_GRADER).
+# This lets the cooperative main-loop driver step the student's main() body
+# deterministically, eliminating the race between the ISR-driving test thread
+# and a detached `temp_main` thread. See ~/.claude/plans/based-on-hw1mj-main-from-resilient-steele.md
+set(STUDENT_PATCHED_DIR "${CMAKE_CURRENT_BINARY_DIR}/student_patched")
+set(STUDENT_PATCHED "${STUDENT_PATCHED_DIR}/student.c")
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+add_custom_command(
+        OUTPUT ${STUDENT_PATCHED}
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${STUDENT_PATCHED_DIR}"
+        COMMAND ${Python3_EXECUTABLE}
+        "${PROJECT_SOURCE_DIR}/tools/patch_student_source.py"
+        "${STUDENT_SRC_ABS}"
+        "${STUDENT_PATCHED}"
+        DEPENDS ${STUDENT_SRC_ABS}
+        "${PROJECT_SOURCE_DIR}/tools/patch_student_source.py"
+        VERBATIM)
+add_custom_target(grader_student_patch DEPENDS ${STUDENT_PATCHED})
+
 if (NOT TARGET spdlog)
     find_package(spdlog REQUIRED)
 endif ()
@@ -147,6 +167,7 @@ add_library(grader_stubs OBJECT
         src/OptiTrack.c
         src/SE423Lib.c
         src/user_xy.c
+        src/checks/main_loop_driver.cpp
 )
 target_include_directories(grader_stubs PUBLIC
         ${PROJECT_SOURCE_DIR}/include
@@ -180,9 +201,11 @@ target_compile_options(grader_assignment PRIVATE
 )
 
 # Student firmware (renamed main → temp_main so it coexists with src/main.cpp).
+# We compile the *patched* copy where `while(1)` has been rewritten to GRADER_MAIN_LOOP.
 add_library(grader_student OBJECT
-        ${STUDENT_SRC_ABS}
+        ${STUDENT_PATCHED}
 )
+add_dependencies(grader_student grader_student_patch)
 target_include_directories(grader_student PUBLIC
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/lib/C2000Ware_4_01_00_00/device_support/f2837xd/common/include
@@ -196,9 +219,10 @@ target_compile_options(grader_student PRIVATE
         -include ti_stubs.h
 )
 set_source_files_properties(
-        ${STUDENT_SRC_ABS}
+        ${STUDENT_PATCHED}
         PROPERTIES
         COMPILE_DEFINITIONS "main=temp_main"
+        GENERATED TRUE
 )
 
 # ---- Main executable -------------------------------------------------------
@@ -227,9 +251,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32> ${CMAKE_DL_LIBS})
 
 # Export symbols so dladdr can resolve check_function names in --report-json output.
-if(NOT MINGW)
+if (NOT MINGW)
     target_link_options(${PROJECT_NAME} PRIVATE -rdynamic)
-endif()
+endif ()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:-Wno-volatile>

@@ -28,6 +28,13 @@
 - [x] **Shared (shipped):** stimulus helpers — `include/checks/stimulus.hpp` (
   `grader::inject_encoder_count(grader::EqepModule::Eqep3, count)` for the command knob).
 - [x] **Shared (shipped):** synthetic clock + `run_isr_for_us` — `include/checks/synthetic_clock.h`.
+- [x] **Shared (shipped):** cooperative main-loop driver — `grader::run_student_init()`,
+  `grader::step_main_loop()`, `grader::drive_isr_with_main_pump()` in
+  `include/checks/main_loop_driver.h`. Use `drive_isr_with_main_pump` for any check
+  whose print path is gated by `UARTPrint` (or any flag set in an ISR and consumed in
+  main’s while-loop body). The student source’s `while (1)` loop is patched at
+  build time by `tools/patch_student_source.py`. See CLAUDE.md "Cooperative main-loop
+  driver".
 - [x] **Shared (shipped):** format parser + `expect_format` / `expect_arg_types` / `expect_print_cadence` —
   `include/checks/format_parser.h` + `include/checks/expectations.h`. Run `./AutomaticGrader --selftest` to verify the
   infra after edits.

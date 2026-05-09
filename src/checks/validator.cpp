@@ -18,6 +18,8 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/base_sink.h"
 
+#include "checks/main_loop_driver.h"
+
 #if HW == 1
 #include "checks/hw1.h"
 #elif HW == 2
@@ -33,110 +35,118 @@
 #endif
 
 namespace {
+    class CaptureSink final : public spdlog::sinks::base_sink<std::mutex> {
+    public:
+        std::vector<std::string> messages;
 
-class CaptureSink final : public spdlog::sinks::base_sink<std::mutex> {
-public:
-    std::vector<std::string> messages;
-
-protected:
-    void sink_it_(const spdlog::details::log_msg &msg) override {
-        spdlog::memory_buf_t formatted;
-        formatter_->format(msg, formatted);
-        messages.emplace_back(fmt::to_string(formatted));
-    }
-
-    void flush_() override {}
-};
-
-std::string resolve_check_name(const CheckFunction fp, const std::size_t fallback_index) {
-    Dl_info info{};
-    if (dladdr(reinterpret_cast<void *>(fp), &info) != 0 && info.dli_sname != nullptr) {
-        int status = 0;
-        char *demangled = abi::__cxa_demangle(info.dli_sname, nullptr, nullptr, &status);
-        std::string name = (status == 0 && demangled != nullptr) ? std::string(demangled) : std::string(info.dli_sname);
-        std::free(demangled);
-        // Strip parameter list and any namespace prefix for a friendlier display.
-        if (const auto paren = name.find('('); paren != std::string::npos) {
-            name.resize(paren);
+    protected:
+        void sink_it_(const spdlog::details::log_msg &msg) override {
+            spdlog::memory_buf_t formatted;
+            formatter_->format(msg, formatted);
+            messages.emplace_back(fmt::to_string(formatted));
         }
-        if (const auto colon = name.rfind("::"); colon != std::string::npos) {
-            name = name.substr(colon + 2);
-        }
-        return name;
-    }
-    return "check_" + std::to_string(fallback_index);
-}
 
-std::string json_escape(const std::string &s) {
-    std::string out;
-    out.reserve(s.size() + 2);
-    for (const unsigned char c : s) {
-        switch (c) {
-            case '"':  out += "\\\""; break;
-            case '\\': out += "\\\\"; break;
-            case '\b': out += "\\b"; break;
-            case '\f': out += "\\f"; break;
-            case '\n': out += "\\n"; break;
-            case '\r': out += "\\r"; break;
-            case '\t': out += "\\t"; break;
-            default:
-                if (c < 0x20) {
-                    char buf[8];
-                    std::snprintf(buf, sizeof(buf), "\\u%04x", c);
-                    out += buf;
-                } else {
-                    out += static_cast<char>(c);
-                }
+        void flush_() override {
         }
-    }
-    return out;
-}
+    };
 
-void write_json_report(const std::string &path,
-                       const std::vector<CheckResult> &results,
-                       const int hw_id) {
-    std::ofstream f(path);
-    if (!f) {
-        spdlog::warn("Could not open --report-json path '{}'", path);
-        return;
-    }
-    int passed = 0;
-    int failed = 0;
-    for (const auto &r : results) (r.passed ? passed : failed)++;
-    f << "{\n";
-    f << "  \"assignment\": \"HW" << hw_id << "\",\n";
-    f << "  \"passed\": " << passed << ",\n";
-    f << "  \"failed\": " << failed << ",\n";
-    f << "  \"checks\": [\n";
-    for (std::size_t i = 0; i < results.size(); ++i) {
-        const auto &[name, passed, messages] = results[i];
-        f << "    {\n";
-        f << "      \"name\": \"" << json_escape(name) << "\",\n";
-        f << "      \"status\": \"" << (passed ? "pass" : "fail") << "\",\n";
-        f << "      \"messages\": [";
-        for (std::size_t j = 0; j < messages.size(); ++j) {
-            if (j) f << ", ";
-            f << "\"" << json_escape(messages[j]) << "\"";
+    std::string resolve_check_name(const CheckFunction fp, const std::size_t fallback_index) {
+        Dl_info info{};
+        if (dladdr(reinterpret_cast<void *>(fp), &info) != 0 && info.dli_sname != nullptr) {
+            int status = 0;
+            char *demangled = abi::__cxa_demangle(info.dli_sname, nullptr, nullptr, &status);
+            std::string name = (status == 0 && demangled != nullptr)
+                                   ? std::string(demangled)
+                                   : std::string(info.dli_sname);
+            std::free(demangled);
+            // Strip parameter list and any namespace prefix for a friendlier display.
+            if (const auto paren = name.find('('); paren != std::string::npos) {
+                name.resize(paren);
+            }
+            if (const auto colon = name.rfind("::"); colon != std::string::npos) {
+                name = name.substr(colon + 2);
+            }
+            return name;
         }
-        f << "]\n";
-        f << "    }" << (i + 1 == results.size() ? "" : ",") << "\n";
+        return "check_" + std::to_string(fallback_index);
     }
-    f << "  ]\n";
-    f << "}\n";
-}
 
-}  // namespace
+    std::string json_escape(const std::string &s) {
+        std::string out;
+        out.reserve(s.size() + 2);
+        for (const unsigned char c: s) {
+            switch (c) {
+                case '"': out += "\\\"";
+                    break;
+                case '\\': out += "\\\\";
+                    break;
+                case '\b': out += "\\b";
+                    break;
+                case '\f': out += "\\f";
+                    break;
+                case '\n': out += "\\n";
+                    break;
+                case '\r': out += "\\r";
+                    break;
+                case '\t': out += "\\t";
+                    break;
+                default:
+                    if (c < 0x20) {
+                        char buf[8];
+                        std::snprintf(buf, sizeof(buf), "\\u%04x", c);
+                        out += buf;
+                    } else {
+                        out += static_cast<char>(c);
+                    }
+            }
+        }
+        return out;
+    }
+
+    void write_json_report(const std::string &path,
+                           const std::vector<CheckResult> &results,
+                           const int hw_id) {
+        std::ofstream f(path);
+        if (!f) {
+            spdlog::warn("Could not open --report-json path '{}'", path);
+            return;
+        }
+        int passed = 0;
+        int failed = 0;
+        for (const auto &r: results) (r.passed ? passed : failed)++;
+        f << "{\n";
+        f << "  \"assignment\": \"HW" << hw_id << "\",\n";
+        f << "  \"passed\": " << passed << ",\n";
+        f << "  \"failed\": " << failed << ",\n";
+        f << "  \"checks\": [\n";
+        for (std::size_t i = 0; i < results.size(); ++i) {
+            const auto &[name, passed, messages] = results[i];
+            f << "    {\n";
+            f << "      \"name\": \"" << json_escape(name) << "\",\n";
+            f << "      \"status\": \"" << (passed ? "pass" : "fail") << "\",\n";
+            f << "      \"messages\": [";
+            for (std::size_t j = 0; j < messages.size(); ++j) {
+                if (j) f << ", ";
+                f << "\"" << json_escape(messages[j]) << "\"";
+            }
+            f << "]\n";
+            f << "    }" << (i + 1 == results.size() ? "" : ",") << "\n";
+        }
+        f << "  ]\n";
+        f << "}\n";
+    }
+} // namespace
 
 
 Validator::Validator(const std::vector<CheckFunction> &checkFunctions) : checkFunctions(checkFunctions) {
 }
 
 void Validator::start_main_thread() {
-    main_thread = std::jthread(temp_main);
-    main_thread.detach();
-
-    // Wait for 1 second for us to reach the main internal loop
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    // Cooperative model: run the student's main() once with the patched
+    // GRADER_MAIN_LOOP set to 0 iterations. Init code populates all
+    // peripheral globals, while(1)-body executes zero times, main returns.
+    // No detached thread = no race against ISR-driving test code.
+    grader::run_student_init();
 }
 
 int Validator::check() {

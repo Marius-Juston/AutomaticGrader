@@ -21,6 +21,7 @@
 #include <spdlog/spdlog.h>
 
 #include "checks/expectations.h"
+#include "checks/main_loop_driver.h"
 #include "checks/printf_capture.h"
 #include "checks/state_checker.h"
 #include "checks/stimulus.hpp"
@@ -78,114 +79,146 @@ int check_initialization(Validator *val) {
     success &= report(EPwm8Regs.TBPRD == 62500,
                       "HW4/init", "EPwm8Regs.TBPRD != 62500 (50 Hz @ EPWMCLK/16)",
                       "TBPRD = 62500 with CLKDIV=4 yields 50 MHz/16/62500 = 50 Hz")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.TBCTL.bit.CLKDIV == 4,
                       "HW4/init", "EPwm8Regs.TBCTL.CLKDIV != 4 (divide by 16)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.TBCTL.bit.CTRMODE == 0,
                       "HW4/init", "EPwm8Regs.TBCTL.CTRMODE != 0 (count-up)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.AQCTLA.bit.ZRO == 2,
                       "HW4/init", "EPwm8Regs.AQCTLA.ZRO != 2 (set high on counter==0)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.AQCTLA.bit.CAU == 1,
                       "HW4/init", "EPwm8Regs.AQCTLA.CAU != 1 (clear on counter==CMPA)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.AQCTLB.bit.ZRO == 2,
                       "HW4/init", "EPwm8Regs.AQCTLB.ZRO != 2 (set high on counter==0)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.AQCTLB.bit.CBU == 1,
                       "HW4/init", "EPwm8Regs.AQCTLB.CBU != 1 (clear on counter==CMPB)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.CMPA.bit.CMPA >= 2500 && EPwm8Regs.CMPA.bit.CMPA <= 7500,
                       "HW4/init", "EPwm8Regs.CMPA.CMPA out of [-90,+90] servo range",
                       "valid CMPA range is 2500..7500 (4%..12% duty)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(EPwm8Regs.CMPB.bit.CMPB >= 2500 && EPwm8Regs.CMPB.bit.CMPB <= 7500,
                       "HW4/init", "EPwm8Regs.CMPB.CMPB out of [-90,+90] servo range")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- GPIO mux for EPWM8A/B: GPIO14 / GPIO15 with mux 1 (reference) ----
     success &= report(gpiosSetup[14].muxPosition == 1 && gpiosSetup[14].cpu == GPIO_MUX_CPU1,
                       "HW4/init", "GPIO14 mux not set to EPWM8A (mux=1, CPU1)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(gpiosSetup[15].muxPosition == 1 && gpiosSetup[15].cpu == GPIO_MUX_CPU1,
                       "HW4/init", "GPIO15 mux not set to EPWM8B (mux=1, CPU1)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- PB3/PB4 inputs with pullup ----
     success &= report(gpiosSetup[6].output == GPIO_INPUT && gpiosSetup[6].flags == GPIO_PULLUP,
                       "HW4/init", "GPIO6 (PB3) must be input + pullup for XINT1")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(gpiosSetup[7].output == GPIO_INPUT && gpiosSetup[7].flags == GPIO_PULLUP,
                       "HW4/init", "GPIO7 (PB4) must be input + pullup for XINT2")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- XINT bindings (XINT1->GPIO6, XINT2->GPIO7) ----
     success &= report(xintPinMap[1] == 6,
                       "HW4/init", "GPIO_SetupXINT1Gpio(6) not called — XINT1 must trigger on GPIO6 (PB3)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(xintPinMap[2] == 7,
                       "HW4/init", "GPIO_SetupXINT2Gpio(7) not called — XINT2 must trigger on GPIO7 (PB4)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- XintRegs: falling-edge polarity, enabled ----
     success &= report(XintRegs.XINT1CR.bit.POLARITY == 0,
                       "HW4/init", "XintRegs.XINT1CR.POLARITY != 0 (must be falling edge)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(XintRegs.XINT1CR.bit.ENABLE == 1,
                       "HW4/init", "XintRegs.XINT1CR.ENABLE != 1")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(XintRegs.XINT2CR.bit.POLARITY == 0,
                       "HW4/init", "XintRegs.XINT2CR.POLARITY != 0 (must be falling edge)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(XintRegs.XINT2CR.bit.ENABLE == 1,
                       "HW4/init", "XintRegs.XINT2CR.ENABLE != 1")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- GPIO qualification: 6-sample debounce on GPIO6/GPIO7 ----
     success &= report(GpioCtrlRegs.GPAQSEL1.bit.GPIO6 == 2,
                       "HW4/init", "GpioCtrlRegs.GPAQSEL1.GPIO6 != 2 (6-sample debounce)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(GpioCtrlRegs.GPAQSEL1.bit.GPIO7 == 2,
                       "HW4/init", "GpioCtrlRegs.GPAQSEL1.GPIO7 != 2 (6-sample debounce)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(GpioCtrlRegs.GPACTRL.bit.QUALPRD0 != 0,
                       "HW4/init", "GpioCtrlRegs.GPACTRL.QUALPRD0 must be set for XINT debounce")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     // ---- PIE vectors + enables ----
     if (&xint1_isr) {
         success &= report(PieVectTable.XINT1_INT == &xint1_isr,
-                          "HW4/init", "PieVectTable.XINT1_INT != &xint1_isr") ? 1 : 0;
+                          "HW4/init", "PieVectTable.XINT1_INT != &xint1_isr")
+                       ? 1
+                       : 0;
     }
     if (&xint2_isr) {
         success &= report(PieVectTable.XINT2_INT == &xint2_isr,
-                          "HW4/init", "PieVectTable.XINT2_INT != &xint2_isr") ? 1 : 0;
+                          "HW4/init", "PieVectTable.XINT2_INT != &xint2_isr")
+                       ? 1
+                       : 0;
     }
     success &= report(PieCtrlRegs.PIEIER1.bit.INTx4 == 1,
                       "HW4/init", "PieCtrlRegs.PIEIER1.INTx4 != 1 (XINT1 enable)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
     success &= report(PieCtrlRegs.PIEIER1.bit.INTx5 == 1,
                       "HW4/init", "PieCtrlRegs.PIEIER1.INTx5 != 1 (XINT2 enable)")
-                   ? 1 : 0;
+                   ? 1
+                   : 0;
 
     success &= validator.validate();
     return success;
 }
 
 namespace {
-    template <typename ReadFn>
+    template<typename ReadFn>
     int sweep_axis(const char *label, void (*fn)(float), ReadFn read) {
         int success = 1;
-        struct Case { float angle; uint16_t expected; const char *hint; };
+        struct Case {
+            float angle;
+            uint16_t expected;
+            const char *hint;
+        };
         const Case cases[] = {
-            {  0.0f,  5000, "0 deg -> 8% duty (5000)"},
-            {-90.0f,  2500, "-90 deg -> 4% duty (2500)"},
-            { 90.0f,  7500, "+90 deg -> 12% duty (7500)"},
-            {200.0f,  7500, "+200 must saturate to +90 (7500)"},
+            {0.0f, 5000, "0 deg -> 8% duty (5000)"},
+            {-90.0f, 2500, "-90 deg -> 4% duty (2500)"},
+            {90.0f, 7500, "+90 deg -> 12% duty (7500)"},
+            {200.0f, 7500, "+200 must saturate to +90 (7500)"},
             {-200.0f, 2500, "-200 must saturate to -90 (2500)"},
-            { 45.0f,  6250, "+45 deg -> 10% duty (6250) linearity"},
+            {45.0f, 6250, "+45 deg -> 10% duty (6250) linearity"},
         };
         for (const auto &c: cases) {
             fn(c.angle);
@@ -208,7 +241,7 @@ int check_setEPWM8A_RCServo(Validator *) {
     }
     const uint16_t saved = EPwm8Regs.CMPA.bit.CMPA;
     const int s = sweep_axis("EPWM8A", &setEPWM8A_RCServo,
-                       []() -> uint16_t { return EPwm8Regs.CMPA.bit.CMPA; });
+                             []() -> uint16_t { return EPwm8Regs.CMPA.bit.CMPA; });
     EPwm8Regs.CMPA.bit.CMPA = saved;
     return s;
 }
@@ -221,7 +254,7 @@ int check_setEPWM8B_RCServo(Validator *) {
     }
     const uint16_t saved = EPwm8Regs.CMPB.bit.CMPB;
     const int s = sweep_axis("EPWM8B", &setEPWM8B_RCServo,
-                       []() -> uint16_t { return EPwm8Regs.CMPB.bit.CMPB; });
+                             []() -> uint16_t { return EPwm8Regs.CMPB.bit.CMPB; });
     EPwm8Regs.CMPB.bit.CMPB = saved;
     return s;
 }
@@ -278,11 +311,8 @@ int check_print_format(Validator *) {
         spdlog::error("[HW4/print_format] CpuTimer2.PeriodInUSec is 0");
         return 0;
     }
-    for (int burst = 0; burst < 4; ++burst) {
-        grader::run_isr_for_us(cpu_timer2_isr, period_us, 2'000'000);
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    // Cooperative driver: 8 s of synthetic time, one main-loop iteration per ISR.
+    grader::drive_isr_with_main_pump(cpu_timer2_isr, period_us, 8'000'000ull / period_us);
 
     const grader::PrintfCall *latest = grader::latestPrintfCall(grader::SerialPort::SCIA);
     if (!latest) {
@@ -290,8 +320,8 @@ int check_print_format(Validator *) {
         return 1;
     }
     const bool ok = grader::expect_arg_types(latest,
-                                       {grader::ArgType::Int32, grader::ArgType::Int32},
-                                       "HW4/print_format[two-int32]");
+                                             {grader::ArgType::Int32, grader::ArgType::Int32},
+                                             "HW4/print_format[two-int32]");
     return ok ? 1 : 0;
 }
 

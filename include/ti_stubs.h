@@ -169,5 +169,32 @@ bool updateGPIOClear();
 
 bool updateGPIOToggle();
 
+// ---- Cooperative main-loop driver -----------------------------------------
+// Under AUTO_GRADER, the build patches the student's `while (1)` IDLE loop
+// into the GRADER_MAIN_LOOP macro: a for-loop bounded by an iteration count
+// that the harness sets before re-entering temp_main(). The harness owns
+// control flow over the main-loop body. Init code is re-run on each entry
+// but is idempotent at register level; checks that depend on running
+// counters (e.g. CpuTimer*.InterruptCount) save/restore them around the
+// step. See src/checks/main_loop_driver.cpp.
+#ifdef AUTO_GRADER
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern int grader_main_loop_iterations(void);
+#ifdef __cplusplus
+}
+#endif
+// Guard injected at the top of main() by tools/patch_student_source.py.
+// First call to temp_main() runs init normally; every subsequent call jumps
+// straight to the GRADER_MAIN_LOOP label, skipping init (and any busy-waits
+// the student's init may contain — e.g. setupSpib() in HW3 reference).
+#define GRADER_MAIN_INIT_GUARD \
+    static int _grader_inited; \
+    if (_grader_inited) goto _grader_loop_start; \
+    _grader_inited = 1
+#define GRADER_MAIN_LOOP \
+    for (int _grader_i = 0; _grader_i < grader_main_loop_iterations(); ++_grader_i)
+#endif
 
 #endif //AUTOMATICGRADER_TI_STUBS_H

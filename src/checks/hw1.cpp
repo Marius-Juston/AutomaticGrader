@@ -12,6 +12,7 @@
 
 #include "checks/compare_generated.hpp"
 #include "checks/expectations.h"
+#include "checks/main_loop_driver.h"
 #include "checks/printf_capture.h"
 #include "checks/state_checker.h"
 #include "checks/stimulus.hpp"
@@ -475,15 +476,13 @@ int check_print_cadence(Validator *) {
     UARTPrint = 0;
     CpuTimer2.InterruptCount = 0;
 
-    // Drive 1 s of synthetic time in four 250 ms bursts; sleep briefly between
-    // bursts to let the main thread process each UARTPrint=1 transition.
-    for (int burst = 0; burst < 4; ++burst) {
-        grader::run_isr_for_us(cpu_timer2_isr, period_us, 250'000);
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    // Drive 1 s of synthetic time, interleaving one main-loop iteration per
+    // ISR call. Single-threaded and deterministic — no race against a
+    // detached temp_main thread.
+    const uint64_t total_ticks = 1'000'000ull / period_us;
+    grader::drive_isr_with_main_pump(cpu_timer2_isr, period_us, total_ticks);
 
-    const bool ok = grader::expect_print_cadence(grader::SerialPort::SCIA, 4, 0.25,
+    const bool ok = grader::expect_print_cadence(grader::SerialPort::SCIA, 4, 0.10,
                                                  "check_print_cadence");
     if (!ok) {
         spdlog::error("  spec Ex.5: serial_printf must fire every 250 ms — that's 4 prints in 1 s");
@@ -515,8 +514,8 @@ int check_print_format(Validator *) {
     UARTPrint = 0;
     CpuTimer2.InterruptCount = 0;
 
-    grader::run_isr_for_us(cpu_timer2_isr, period_us, 500'000);
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    const uint64_t total_ticks = 500'000ull / period_us;
+    grader::drive_isr_with_main_pump(cpu_timer2_isr, period_us, total_ticks);
 
     const grader::PrintfCall *latest = grader::latestPrintfCall(grader::SerialPort::SCIA);
     if (!latest) {
@@ -568,7 +567,8 @@ int check_saturate(Validator *) {
     if (saturate) {
         const std::vector<float> values = {-10., -2., -1., -0.5, 0, 0.5, -1, -2, -10};
 
-        for (const std::vector<float> saturatation_vals = {0.25, 1.0, 1.5, 2.0, 15.0}; const float &sat: saturatation_vals) {
+        for (const std::vector<float> saturatation_vals = {0.25, 1.0, 1.5, 2.0, 15.0}; const float &sat:
+             saturatation_vals) {
             for (const float &value: values) {
                 const float res = saturate(value, sat);
 

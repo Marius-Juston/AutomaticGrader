@@ -30,6 +30,57 @@ The grader emits PASS/FAIL feedback to the GitHub Action log and to a markdown r
 3. Reference solutions inform stub design (which TI driverlib functions to capture, which globals must be `extern`-able)
    and serve as one positive-test fixture. They do not dictate behavior.
 
+## Cooperative main-loop driver (single-threaded execution model)
+
+**Important**: the grader does **not** run the student's `temp_main` on a detached thread. At
+build time, `tools/patch_student_source.py` rewrites the student source so that:
+
+1. Inside `main()`'s opening brace, a `GRADER_MAIN_INIT_GUARD` macro is injected: a static
+   flag plus `goto _grader_loop_start;` that skips all init code on every re-entry after
+   the first.
+2. `while (1)` is replaced with `_grader_loop_start: ; GRADER_MAIN_LOOP`, where
+   `GRADER_MAIN_LOOP` expands to `for (int _i = 0; _i < grader_main_loop_iterations(); ++_i)`.
+
+The driver lives in `src/checks/main_loop_driver.cpp` (header
+`include/checks/main_loop_driver.h`) and exposes:
+
+| API                                                             | What it does                                                                                                                                                                                |
+|-----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grader::run_student_init()`                                    | Calls `temp_main()` once with iterations = 0. Init runs, the patched loop body executes 0 times, main returns. **`Validator::start_main_thread()` is now a thin wrapper around this call.** |
+| `grader::step_main_loop(n)`                                     | Re-enters `temp_main()` with iterations = n. The init-guard goto skips init, so only the body runs n times.                                                                                 |
+| `grader::drive_isr_with_main_pump(isr, period_us, total_ticks)` | Lockstep driver: for `total_ticks` iterations, advance the synthetic clock, fire one ISR, then run one main-loop iteration. **Use this for every print/cadence check.**                     |
+| `grader::reset_student_init()`                                  | Test-only; forces the next `run_student_init()` to re-run init.                                                                                                                             |
+
+**Why this matters**:
+
+- No detached thread means no `volatile`-qualifier issues on student-side polled flags
+  (`UARTPrint`, etc.) and no need for real-time sleeps to "let the main thread catch up".
+- Cadence is exact: each ISR is paired with exactly one main-loop iteration, so a print
+  gated by `if (Counter % 50 == 0) UARTPrint = 1;` produces deterministic output.
+- Format checks see a populated capture log every time — no "no SCIA prints captured"
+  flake.
+- The init-guard handles even student code with **busy-waits in init** (the HW3
+  reference's `setupSpib()` polls `SpibRegs.SPIFFRX.bit.RXFFST`); the busy-wait runs only
+  on first call. For the *first* init run, HW3's `check_initialization` still spawns a
+  parallel `std::jthread` watchdog (`hw3_unblock_setup_spib`) that feeds the FIFO state
+  register the values the busy-wait expects.
+
+**When writing a new print check**: do NOT call `grader::run_isr_for_us` followed by
+`std::this_thread::sleep_for`. Use `grader::drive_isr_with_main_pump(...)` and assert with
+`grader::expect_print_cadence(..., tolerance=0.10)`. Tighten the tolerance — the loose
+±25–30% slop in the old code only existed to mask races that no longer exist.
+
+**Constraints the rewrite imposes on student code**:
+
+- Student must have exactly one `while (1)` (or any whitespace variant matching
+  `while\s*\(\s*1\s*\)`) inside `main`. `for (;;)` and `while (true)` are *not* currently
+  rewritten — extend `tools/patch_student_source.py` if a fixture needs them.
+- Init code must be idempotent if a check legitimately needs to run init twice
+  (e.g. cross-fixture tests); we currently don't, but `reset_student_init()` is the
+  escape hatch.
+- The patched student source lives at `${BUILD}/student_patched/student.c`; inspect it
+  when debugging a fixture mismatch.
+
 ## Three new test categories (apply uniformly across HW + Lab)
 
 1. **Stimulus simulation.** Drive the stimuli the student is supposed to react to:
@@ -100,11 +151,13 @@ uses these to include the right `hw{N}.h` / `lab{N}.h`.
 3. Add capturing stubs to `src/ti_stubs.cpp` (mirror the `GPIO_SetupPinMux` pattern at `src/ti_stubs.cpp:155` — read the
    register pointer, write the bitfield, return). Prefer extending the existing `*Regs` global over inventing a new
    shadow array, so existing `check_compare` overloads pick up the state for free. For the *shared* test categories (
-   printf capture, stimulus, synthetic clock, expectations), do not re-implement — consume the slice-1 APIs from
-   `include/checks/printf_capture.h`, `include/checks/stimulus.hpp`, `include/checks/synthetic_clock.h`, and
-   `include/checks/expectations.h`. Capture is automatic: every `serial_printf` / `UART_printfLine` call already lands
-   in `g_printfCalls` with the SCI port classified — you only need to extend if a *new* SCI port (beyond
-   SCIA/B/C/D/UART_LCD) is added.
+   printf capture, stimulus, synthetic clock, expectations, cooperative main-loop driver), do not re-implement —
+   consume the APIs from `include/checks/printf_capture.h`, `include/checks/stimulus.hpp`,
+   `include/checks/synthetic_clock.h`, `include/checks/expectations.h`, and `include/checks/main_loop_driver.h`.
+   Capture is automatic: every `serial_printf` / `UART_printfLine` call already lands in `g_printfCalls` with the SCI
+   port classified — you only need to extend if a *new* SCI port (beyond SCIA/B/C/D/UART_LCD) is added. Use
+   `grader::drive_isr_with_main_pump(...)` for any check whose effect is observed via a print or any flag the main
+   loop body consumes; `run_isr_for_us` remains correct only for ISR-internal state checks.
 4. Add `src/checks/{hw,lab}{N}.cpp` and `include/checks/{hw,lab}{N}.h` mirroring `hw1.cpp`/`hw1.h`. Define `checker()`
    returning the `CheckFunctions` list. Use the four-phase pattern below.
 5. Walk the validation matrix at the bottom of the roadmap: build, run reference solution(s), run at least 3 mutated
@@ -122,17 +175,21 @@ uses these to include the right `hw{N}.h` / `lab{N}.h`.
 - **Phase 3 — ISR-driven dynamics with stimuli.** Snapshot volatile globals (
   `const GPIO_DATA_REGS initial = GpioDataRegs; uint16_t saveU = UARTPrint;`). Apply stimuli (`grader::press_button(4)`,
   `grader::inject_adc_result(grader::AdcModule::A, 0, 4095)`, `grader::inject_spi_rx(grader::SpiModule::B, 0x4000)`,
-  `grader::inject_lidar_frame(...)`, etc.) before each ISR loop. Drive `cpu_timerN_isr()` / `xintN_isr()` /
-  `ADCA_isr()` / `DMA_isr()` for a known synthetic duration via `grader::run_isr_for_us(isr, period_us, total_us)` (each
-  call advances the synthetic clock by `period_us`; read it back with `grader::synthetic_clock_now_us()`). Register
-  expectations at predicted tick boundaries (e.g. `expectedTimeStep = 250000.f / CpuTimer2.PeriodInUSec`), validate, *
-  *then restore snapshots before returning** so subsequent checks aren't polluted.
+  `grader::inject_lidar_frame(...)`, etc.) before each ISR loop. For ISR-only state (LED toggles, register snapshots
+  at boundaries) use `grader::run_isr_for_us(isr, period_us, total_us)` directly. **For any check whose effect is
+  observed via a print** (or any other state set in main's while-loop body), use
+  `grader::drive_isr_with_main_pump(isr, period_us, total_ticks)` — it pairs each ISR call with exactly one main-loop
+  iteration via the cooperative driver, so flag-gated prints fire deterministically. Register expectations at
+  predicted tick boundaries (e.g. `expectedTimeStep = 250000.f / CpuTimer2.PeriodInUSec`), validate, **then restore
+  snapshots before returning** so subsequent checks aren't polluted.
 - **Phase 4 — print cadence + format.** Call `grader::resetPrintfCapture()` before driving the ISR loop in Phase 3 (this
-  also resets the synthetic clock). After the loop, call
+  also resets the synthetic clock). Use `grader::drive_isr_with_main_pump(...)` (NOT `run_isr_for_us` + sleeps) — the
+  former is single-threaded and deterministic. After the loop, call
   `grader::expect_print_cadence(grader::SerialPort::SCIA, expected_count, 0.10)` and
   `grader::expect_format(grader::latestPrintfCall(grader::SerialPort::SCIA), "fmt with correct %ld/%.2f/%.3f specifiers")`.
   Cadence uses synthetic timestamps (no wall-clock racing); format check parses both expected and actual format strings
-  into specifier sequences.
+  into specifier sequences. **Tolerance ≤ ±10%** — the old slack of ±25–30% was masking the race that the cooperative
+  driver eliminates.
 
 `HardwareStateValidator` registration variants:
 
@@ -179,13 +236,14 @@ uses these to include the right `hw{N}.h` / `lab{N}.h`.
 All five headers below are part of the `grader_infra` object library and are already wired into every assignment build.
 Future checkers consume them directly; do not duplicate the functionality.
 
-| Header                             | Purpose                                                  | Key symbols                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-|------------------------------------|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `include/checks/format_parser.h`   | C printf format-string parser.                           | `grader::FormatSpec`, `grader::ParsedFormat`, `grader::ArgType`, `parse_format()`, `expected_arg_type()`, `format_specs_equivalent()`, `format_spec_canonical()`.                                                                                                                                                                                                                                                                                                                        |
-| `include/checks/synthetic_clock.h` | Tick-based clock decoupled from wall time.               | `grader::synthetic_clock_now_us()`, `synthetic_clock_advance(us)`, `synthetic_clock_reset()`, `run_isr_for_us(isr, period_us, total_us)`.                                                                                                                                                                                                                                                                                                                                                |
-| `include/checks/printf_capture.h`  | Captures every `serial_printf` / `UART_printfLine` call. | `grader::PrintfCall`, `grader::SerialPort` (`SCIA`/`SCIB`/`SCIC`/`SCID`/`UART_LCD`), `resetPrintfCapture()`, `clearPrintfCalls()`, `getPrintfCalls()`, `getPrintfCallsForPort(port)`, `latestPrintfCall(port)`, `printfCallCount(port)`, `dumpPrintfCalls()`, the global `std::vector<grader::PrintfCall> g_printfCalls`.                                                                                                                                                                |
-| `include/checks/stimulus.hpp`      | Drive simulated peripheral state.                        | `grader::press_button(int)`, `release_button(int)`, `set_gpio_input(int,bool)`, `read_gpio_input(int)`, `inject_adc_result(AdcModule, soc, value)`, `inject_spi_rx(SpiModule, word \| std::span)`, `spi_rx_fifo_size`, `clear_spi_state`, `inject_encoder_count(EqepModule, int32_t)`, `inject_lidar_ping/pong/frame(std::span<const float, 228>)`, `clear_lidar_frame`, `reset_all_stimulus`. Modules: `AdcModule::{A,B,C,D}`, `SpiModule::{A,B,C}`, `EqepModule::{Eqep1,Eqep2,Eqep3}`. |
-| `include/checks/expectations.h`    | Pointed assertion APIs over the capture log.             | `grader::expect_format(call, expected_fmt, name)`, `expect_arg_types(call, {…}, name)`, `expect_print_cadence(port, count, tol_pct, name)`, `expect_print_cadence_window(port, min, max, name)`, `expect_min_print_calls(port, min, name)`, `expect_format_any(port, expected_fmt, name)`. Each emits a multi-line `spdlog::error` with student-debug hints (most importantly the TI-C2000 16-bit `int` warning when `%d` is used where `%ld` is required).                              |
+| Header                              | Purpose                                                               | Key symbols                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|-------------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `include/checks/format_parser.h`    | C printf format-string parser.                                        | `grader::FormatSpec`, `grader::ParsedFormat`, `grader::ArgType`, `parse_format()`, `expected_arg_type()`, `format_specs_equivalent()`, `format_spec_canonical()`.                                                                                                                                                                                                                                                                                                                        |
+| `include/checks/synthetic_clock.h`  | Tick-based clock decoupled from wall time.                            | `grader::synthetic_clock_now_us()`, `synthetic_clock_advance(us)`, `synthetic_clock_reset()`, `run_isr_for_us(isr, period_us, total_us)`.                                                                                                                                                                                                                                                                                                                                                |
+| `include/checks/printf_capture.h`   | Captures every `serial_printf` / `UART_printfLine` call.              | `grader::PrintfCall`, `grader::SerialPort` (`SCIA`/`SCIB`/`SCIC`/`SCID`/`UART_LCD`), `resetPrintfCapture()`, `clearPrintfCalls()`, `getPrintfCalls()`, `getPrintfCallsForPort(port)`, `latestPrintfCall(port)`, `printfCallCount(port)`, `dumpPrintfCalls()`, the global `std::vector<grader::PrintfCall> g_printfCalls`.                                                                                                                                                                |
+| `include/checks/stimulus.hpp`       | Drive simulated peripheral state.                                     | `grader::press_button(int)`, `release_button(int)`, `set_gpio_input(int,bool)`, `read_gpio_input(int)`, `inject_adc_result(AdcModule, soc, value)`, `inject_spi_rx(SpiModule, word \| std::span)`, `spi_rx_fifo_size`, `clear_spi_state`, `inject_encoder_count(EqepModule, int32_t)`, `inject_lidar_ping/pong/frame(std::span<const float, 228>)`, `clear_lidar_frame`, `reset_all_stimulus`. Modules: `AdcModule::{A,B,C,D}`, `SpiModule::{A,B,C}`, `EqepModule::{Eqep1,Eqep2,Eqep3}`. |
+| `include/checks/expectations.h`     | Pointed assertion APIs over the capture log.                          | `grader::expect_format(call, expected_fmt, name)`, `expect_arg_types(call, {…}, name)`, `expect_print_cadence(port, count, tol_pct, name)`, `expect_print_cadence_window(port, min, max, name)`, `expect_min_print_calls(port, min, name)`, `expect_format_any(port, expected_fmt, name)`. Each emits a multi-line `spdlog::error` with student-debug hints (most importantly the TI-C2000 16-bit `int` warning when `%d` is used where `%ld` is required).                              |
+| `include/checks/main_loop_driver.h` | Cooperative single-threaded driver for the student's main while-loop. | `grader::run_student_init()` (called by `Validator::start_main_thread()`), `grader::step_main_loop(n)`, `grader::drive_isr_with_main_pump(isr, period_us, total_ticks)`, `grader::reset_student_init()`. Backed by `tools/patch_student_source.py` (build-time rewrite of `while(1)` + injection of `GRADER_MAIN_INIT_GUARD`).                                                                                                                                                           |
 
 `g_printfCalls` is declared in the **global** namespace (its element type is `grader::PrintfCall`); every other slice-1
 symbol lives in the `grader::` namespace.

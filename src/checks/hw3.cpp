@@ -22,6 +22,7 @@
 #include <spdlog/spdlog.h>
 
 #include "checks/expectations.h"
+#include "checks/main_loop_driver.h"
 #include "checks/printf_capture.h"
 #include "checks/state_checker.h"
 #include "checks/stimulus.hpp"
@@ -80,12 +81,15 @@ int check_initialization(Validator *val) {
     int success = 1;
     success &= validator.validate();
 
+    // Under the cooperative driver, run_student_init() runs the student's
+    // init synchronously on the test thread. The reference's setupSpib()
+    // busy-waits on SpibRegs.SPIFFRX.bit.RXFFST, so we must feed the
+    // expected sequence from a parallel watchdog thread that pokes the
+    // register while init runs. The jthread is joined when it goes out of
+    // scope (its body has a finite sequence and terminates on its own).
+    std::jthread spib_watchdog(hw3_unblock_setup_spib);
     val->start_main_thread();
-    // Drive the SPI RX FIFO state register through the sequence the reference's
-    // setupSpib() busy-waits on; without this the student thread hangs forever.
-    hw3_unblock_setup_spib();
-    // HW3 init has more steps than HW1; give the main thread a moment to reach
-    // the EPWM9/SPIB initialisation block before sampling registers.
+    spib_watchdog.join();
     std::this_thread::sleep_for(std::chrono::milliseconds(150));
 
     // ---- GPIO baseline (focus on HW3-specific pins) ----
@@ -255,12 +259,10 @@ int check_print_cadence(Validator *) {
     UARTPrint = 0;
     const int32_t initialCount = (&SPIBCount) ? SPIBCount : 0;
 
-    // 1000 SPIB_isr calls in 5 bursts of 200 (each burst should fire UARTPrint).
-    for (int burst = 0; burst < 5; ++burst) {
-        for (int i = 0; i < 200; ++i) SPIB_isr();
-        std::this_thread::sleep_for(std::chrono::milliseconds(15));
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    // 1000 SPIB_isr calls via the cooperative driver — each ISR is followed by
+    // exactly one main-loop iteration so any UARTPrint=1 set by SPIB_isr is
+    // consumed deterministically. SPIB fires at 10 kHz (100 us synthetic).
+    grader::drive_isr_with_main_pump(SPIB_isr, 100, 1000);
 
     if (&SPIBCount) SPIBCount = initialCount;
 
@@ -285,8 +287,7 @@ int check_print_format(Validator *) {
     grader::resetPrintfCapture();
     UARTPrint = 0;
 
-    for (int i = 0; i < 400; ++i) SPIB_isr();
-    std::this_thread::sleep_for(std::chrono::milliseconds(80));
+    grader::drive_isr_with_main_pump(SPIB_isr, 100, 400);
 
     const grader::PrintfCall *latest = grader::latestPrintfCall(grader::SerialPort::SCIA);
     if (!latest) {
