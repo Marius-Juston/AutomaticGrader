@@ -100,8 +100,9 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.ccache
-          key: ccache-${{ inputs.grader-ref }}-${{ matrix.id }}-${{ hashFiles(format('{0}/{1}/**/*.c', inputs.workspace, matrix.folder)) }}
+          key: ccache-${{ inputs.grader-ref }}-${{ matrix.slot }}-${{ hashFiles(format('{0}/{1}/**/*.c', inputs.workspace, matrix.folder)) }}
           restore-keys: |
+            ccache-${{ inputs.grader-ref }}-${{ matrix.slot }}-
             ccache-${{ inputs.grader-ref }}-${{ matrix.id }}-
             ccache-${{ inputs.grader-ref }}-
 
@@ -134,7 +135,7 @@ jobs:
           # shadow the grader's stub headers and cause redefinition errors.
           # Stage just the *_main.c into a clean directory; the grader's
           # include path then resolves the headers unambiguously.
-          STAGE_DIR="$RUNNER_TEMP/grader_stage_${{ matrix.id }}"
+          STAGE_DIR="$RUNNER_TEMP/grader_stage_${{ matrix.slot }}"
           rm -rf "$STAGE_DIR"
           mkdir -p "$STAGE_DIR"
           STAGED="$STAGE_DIR/$(basename "$SRC")"
@@ -159,18 +160,33 @@ jobs:
       - name: Run grader
         id: run
         continue-on-error: true
+        env:
+          SLOT: ${{ matrix.slot }}
+          ASSIGNMENT_ID: ${{ matrix.id }}
+          ASSIGNMENT_FOLDER: ${{ matrix.folder }}
+          COMMIT_SHA: ${{ github.sha }}
         run: |
           set -uo pipefail
           mkdir -p out
           ./_build/AutomaticGrader \
-            --report-json "out/${{ matrix.id }}.json" \
-            2>&1 | tee "out/${{ matrix.id }}.log"
+            --report-json "out/${SLOT}.json" \
+            2>&1 | tee "out/${SLOT}.log"
           echo "rc=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+          # Sidecar metadata so render_report can attribute the result to
+          # the exact (id, folder, commit) that produced it — this is what
+          # makes duplicate-id manifests verifiable later.
+          python3 - "$SLOT" "$ASSIGNMENT_ID" "$ASSIGNMENT_FOLDER" "$COMMIT_SHA" <<'PY'
+          import json, sys
+          slot, aid, folder, commit = sys.argv[1:5]
+          with open(f"out/{slot}.meta.json", "w") as fh:
+              json.dump({"slot": slot, "id": aid, "folder": folder,
+                         "commit": commit}, fh, indent=2, sort_keys=True)
+          PY
 
       - name: Upload per-assignment results
         uses: actions/upload-artifact@v7
         with:
-          name: results-${{ matrix.id }}
+          name: results-${{ matrix.slot }}
           path: out/
           if-no-files-found: error
 

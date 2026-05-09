@@ -47,11 +47,54 @@ class ManifestEntry:
     folder: str
     main: str | None  # explicit main file, optional
 
-    def as_dict(self, source: str) -> dict:
-        d = {"id": self.id, "folder": self.folder, "source": source}
+    def as_dict(self, source: str, slot: str | None = None) -> dict:
+        d = {
+            "id": self.id,
+            "folder": self.folder,
+            "slot": slot or self.id,
+            "source": source,
+        }
         if self.main:
             d["main"] = self.main
         return d
+
+
+def _slugify(s: str) -> str:
+    """Reduce a folder path to a filesystem-/artifact-safe token."""
+    out = []
+    for ch in s:
+        if ch.isalnum() or ch in ("-", "_"):
+            out.append(ch)
+        else:
+            out.append("-")
+    slug = "".join(out).strip("-_")
+    return slug or "x"
+
+
+def assign_slots(entries: Sequence[ManifestEntry]) -> list[str]:
+    """Return one slot per entry. Slot == id when id is unique in the manifest;
+    otherwise slot == f"{id}__{slug(folder)}" so duplicate-id rows produce
+    distinct artifact names, JSON filenames, and history keys."""
+    counts: dict[str, int] = {}
+    for e in entries:
+        counts[e.id] = counts.get(e.id, 0) + 1
+    used: set[str] = set()
+    slots: list[str] = []
+    for e in entries:
+        if counts[e.id] == 1:
+            slot = e.id
+        else:
+            slot = f"{e.id}__{_slugify(e.folder)}"
+        # Disambiguate if even (id, folder-slug) collides (two manifest rows
+        # with the same folder spelling but different `main` overrides).
+        base = slot
+        i = 2
+        while slot in used:
+            slot = f"{base}__{i}"
+            i += 1
+        used.add(slot)
+        slots.append(slot)
+    return slots
 
 
 def parse_manifest(text: str) -> list[ManifestEntry]:
@@ -77,20 +120,21 @@ def select(
     force_all: bool,
     first_push: bool,
 ) -> list[dict]:
+    slots = assign_slots(entries)
     if force_all or first_push:
         source = "force" if force_all else "first-push"
-        return [e.as_dict(source) for e in entries]
+        return [e.as_dict(source, slot=s) for e, s in zip(entries, slots)]
 
     changed_set = set(changed)
     if manifest_path in changed_set:
-        return [e.as_dict("manifest") for e in entries]
+        return [e.as_dict("manifest", slot=s) for e, s in zip(entries, slots)]
 
     workspace_prefix = workspace.rstrip("/") + "/"
     selected: list[dict] = []
-    for e in entries:
+    for e, s in zip(entries, slots):
         folder_prefix = f"{workspace_prefix}{e.folder}/"
         if any(p == folder_prefix.rstrip("/") or p.startswith(folder_prefix) for p in changed_set):
-            selected.append(e.as_dict("changed"))
+            selected.append(e.as_dict("changed", slot=s))
     return selected
 
 
@@ -214,12 +258,48 @@ def run_self_tests() -> int:
                force_all=False, first_push=False)
     check("exact folder match", [e["id"] for e in m] == ["HW1"], str(m))
 
+    # Slot defaults to id when id is unique in the manifest.
+    m = select(**base, changed=[], force_all=True, first_push=False)
+    check("unique id -> slot==id",
+          [e["slot"] for e in m] == ["HW1", "HW2", "Lab5"], str(m))
+
+    # Duplicate ids → slots are disambiguated by folder slug.
+    dup_entries = parse_manifest(
+        """
+        HW1 HW1mj
+        HW1 HW1_attempt2
+        HW2 HW2mj
+        """
+    )
+    dup_base = dict(entries=dup_entries, workspace="workspace",
+                    manifest_path="workspace/assignment.txt")
+    m = select(**dup_base, changed=[], force_all=True, first_push=False)
+    slots = [e["slot"] for e in m]
+    check("dup id slots unique",
+          slots == ["HW1__HW1mj", "HW1__HW1_attempt2", "HW2"], str(slots))
+
+    # Touching one of the duplicate folders only schedules that one.
+    m = select(**dup_base,
+               changed=["workspace/HW1_attempt2/foo.c"],
+               force_all=False, first_push=False)
+    check("dup id selective",
+          [(e["id"], e["folder"], e["slot"]) for e in m]
+          == [("HW1", "HW1_attempt2", "HW1__HW1_attempt2")], str(m))
+
+    # Slugify produces filesystem-safe slots even for path-y folder names.
+    odd = parse_manifest("HW3 sub/dir HW3_main.c\nHW3 sub/dir2\n")
+    m = select(entries=odd, workspace="workspace",
+               manifest_path="workspace/assignment.txt",
+               changed=[], force_all=True, first_push=False)
+    check("slugified slots",
+          [e["slot"] for e in m] == ["HW3__sub-dir", "HW3__sub-dir2"], str(m))
+
     if failures:
         print("FAILED:")
         for f in failures:
             print("  -", f)
         return 1
-    print(f"all {12} self-tests passed")
+    print("all self-tests passed")
     return 0
 
 
