@@ -33,7 +33,7 @@ public:
 
     void set_json_report_path(std::string path) { json_report_path = std::move(path); }
 
-    [[nodiscard]] const std::vector<CheckResult>& results() const { return check_results; }
+    [[nodiscard]] const std::vector<CheckResult> &results() const { return check_results; }
 
 private:
     CheckFunctions checkFunctions;

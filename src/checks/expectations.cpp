@@ -204,7 +204,8 @@ namespace grader {
 
         const double dexp = static_cast<double>(expected_count);
         const double low = std::floor(dexp * (1.0 - tolerance_pct));
-        if (const double high = std::ceil(dexp * (1.0 + tolerance_pct)); static_cast<double>(actual) < low || static_cast<double>(actual) > high) {
+        if (const double high = std::ceil(dexp * (1.0 + tolerance_pct));
+            static_cast<double>(actual) < low || static_cast<double>(actual) > high) {
             spdlog::error("[{}] expected ~{} prints on {} (tolerance ±{:.0f}% → window [{}, {}]), got {}",
                           label, expected_count,
                           serial_port_name(port),

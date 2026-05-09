@@ -29,8 +29,8 @@ namespace grader {
     // Drive `total_ticks` ISR calls, interleaving one main-loop iteration
     // after each ISR. Synthetic clock advances by `period_us` per ISR.
     // Single-threaded, no real-time sleeps, no races with a detached thread.
-    template <typename IsrFn>
-    inline void drive_isr_with_main_pump(IsrFn&& isr,
+    template<typename IsrFn>
+    inline void drive_isr_with_main_pump(IsrFn &&isr,
                                          std::uint64_t period_us,
                                          std::uint64_t total_ticks) {
         for (std::uint64_t i = 0; i < total_ticks; ++i) {

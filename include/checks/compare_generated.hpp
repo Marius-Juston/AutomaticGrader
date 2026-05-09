@@ -26,7 +26,7 @@ bool check_compare(const T &value, const T &expected, const std::string &name) {
 }
 
 template<typename T, std::size_t N>
-bool check_compare(const T(&arr)[N], const T(&expected)[N], const std::string & name) {
+bool check_compare(const T (&arr)[N], const T (&expected)[N], const std::string &name) {
     bool all_zero = true;
     std::stringstream ss;
 

@@ -91,9 +91,13 @@ extern uint16_t xintPinMap[8];
 extern "C" {
 #endif
 void GPIO_SetupXINT1Gpio(Uint16 gpioNumber);
+
 void GPIO_SetupXINT2Gpio(Uint16 gpioNumber);
+
 void GPIO_SetupXINT3Gpio(Uint16 gpioNumber);
+
 void GPIO_SetupXINT4Gpio(Uint16 gpioNumber);
+
 void GPIO_SetupXINT5Gpio(Uint16 gpioNumber);
 #ifdef __cplusplus
 }
@@ -180,6 +184,7 @@ bool updateGPIOToggle();
 #ifdef AUTO_GRADER
 #ifdef __cplusplus
 extern "C" {
+
 #endif
 extern int grader_main_loop_iterations(void);
 #ifdef __cplusplus
