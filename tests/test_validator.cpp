@@ -39,6 +39,7 @@ namespace {
     bool g_log_in_b = false;
     const char *g_log_msg_a = "msg-from-a";
     const char *g_log_msg_b = "msg-from-b";
+    std::string g_long_log_msg_a;
 
     void reset_fake_state() {
         g_call_count_a = 0;
@@ -51,13 +52,20 @@ namespace {
         g_log_in_b = false;
         g_log_msg_a = "msg-from-a";
         g_log_msg_b = "msg-from-b";
+        g_long_log_msg_a.clear();
     }
 
     int fake_check_alpha(Validator *) {
         ++g_call_count_a;
         if (g_throw_std_in_a) throw std::runtime_error("alpha-boom");
         if (g_throw_int_in_a) throw 42;
-        if (g_log_in_a) spdlog::error("{}", g_log_msg_a);
+        if (g_log_in_a) {
+            if (!g_long_log_msg_a.empty()) {
+                spdlog::error("{}", g_long_log_msg_a);
+            } else {
+                spdlog::error("{}", g_log_msg_a);
+            }
+        }
         return g_return_a;
     }
 
@@ -69,6 +77,7 @@ namespace {
 
     int fake_check_always_pass(Validator *) { return 1; }
     int fake_check_always_fail(Validator *) { return 0; }
+    int fake_check_throws(Validator *) { throw std::runtime_error("triple-throw"); }
 
     class ValidatorTest : public ::testing::Test {
     protected:
@@ -84,43 +93,83 @@ namespace {
             std::filesystem::remove(p, ec);
             return p;
         }
+
+        // Bracket-balance scanner shared by JSON-structure tests.
+        static void check_brackets_balanced(const std::string &body) {
+            int braces = 0, brackets = 0;
+            bool in_string = false;
+            bool escape = false;
+            for (char c: body) {
+                if (escape) {
+                    escape = false;
+                    continue;
+                }
+                if (c == '\\') {
+                    escape = true;
+                    continue;
+                }
+                if (c == '"') {
+                    in_string = !in_string;
+                    continue;
+                }
+                if (in_string) continue;
+                if (c == '{') ++braces;
+                else if (c == '}') --braces;
+                else if (c == '[') ++brackets;
+                else if (c == ']') --brackets;
+            }
+            EXPECT_EQ(braces, 0) << body.substr(0, 200);
+            EXPECT_EQ(brackets, 0) << body.substr(0, 200);
+        }
     };
 
     // ---------- empty checker list ----------
 
     TEST_F(ValidatorTest, Check_EmptyCheckList_ReturnsOne) {
-        // The product code initializes `result = 1` and AND-folds; an empty list
-        // therefore returns 1 (vacuous pass). This is the documented contract for
-        // the weak `checker()` fallback case.
+        // Arrange: empty list (vacuous-pass contract for the weak checker fallback).
         Validator v({});
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 1);
         EXPECT_TRUE(v.results().empty());
     }
 
     // ---------- happy-path AND fold ----------
 
     TEST_F(ValidatorTest, Check_AllPassing_ReturnsOne) {
+        // Arrange
         Validator v({fake_check_always_pass, fake_check_always_pass});
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 1);
         ASSERT_EQ(v.results().size(), 2u);
         EXPECT_TRUE(v.results()[0].passed);
         EXPECT_TRUE(v.results()[1].passed);
     }
 
     TEST_F(ValidatorTest, Check_OneFailing_ReturnsZero) {
+        // Arrange
         Validator v({fake_check_always_pass, fake_check_always_fail});
-        EXPECT_EQ(v.check(), 0);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 0);
         ASSERT_EQ(v.results().size(), 2u);
         EXPECT_TRUE(v.results()[0].passed);
         EXPECT_FALSE(v.results()[1].passed);
     }
 
     TEST_F(ValidatorTest, Check_AllChecksRunEvenAfterFailure) {
-        // Boundary: failing first check must NOT short-circuit subsequent checks.
-        g_return_a = 0; // alpha fails
-        g_return_b = 1; // beta passes
+        // Arrange: failing first check must NOT short-circuit subsequent checks.
+        g_return_a = 0;
+        g_return_b = 1;
         Validator v({fake_check_alpha, fake_check_beta});
-        EXPECT_EQ(v.check(), 0);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 0);
         EXPECT_EQ(g_call_count_a, 1);
         EXPECT_EQ(g_call_count_b, 1);
     }
@@ -128,13 +177,16 @@ namespace {
     // ---------- exception handling ----------
 
     TEST_F(ValidatorTest, Check_StdExceptionThrown_TreatedAsFailure) {
+        // Arrange
         g_throw_std_in_a = true;
         Validator v({fake_check_alpha, fake_check_beta});
-        EXPECT_EQ(v.check(), 0);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 0);
         ASSERT_EQ(v.results().size(), 2u);
         EXPECT_FALSE(v.results()[0].passed);
         EXPECT_TRUE(v.results()[1].passed);
-        // The error message captured should mention the exception text.
         bool found = false;
         for (const auto &m: v.results()[0].messages) {
             if (m.find("alpha-boom") != std::string::npos) found = true;
@@ -143,9 +195,13 @@ namespace {
     }
 
     TEST_F(ValidatorTest, Check_NonStdExceptionThrown_TreatedAsFailure) {
+        // Arrange
         g_throw_int_in_a = true;
         Validator v({fake_check_alpha});
-        EXPECT_EQ(v.check(), 0);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 0);
         ASSERT_EQ(v.results().size(), 1u);
         EXPECT_FALSE(v.results()[0].passed);
         bool found = false;
@@ -158,19 +214,21 @@ namespace {
     // ---------- per-check message capture ----------
 
     TEST_F(ValidatorTest, Check_MessagesAttributedToCorrectCheck) {
+        // Arrange
         g_log_in_a = true;
         g_log_msg_a = "alpha-only-message";
         g_log_in_b = true;
         g_log_msg_b = "beta-only-message";
         Validator v({fake_check_alpha, fake_check_beta});
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 1);
         ASSERT_EQ(v.results().size(), 2u);
-
         auto contains = [](const std::vector<std::string> &msgs, const std::string &sub) {
             for (const auto &m: msgs) if (m.find(sub) != std::string::npos) return true;
             return false;
         };
-
         EXPECT_TRUE(contains(v.results()[0].messages, "alpha-only-message"));
         EXPECT_FALSE(contains(v.results()[0].messages, "beta-only-message"));
         EXPECT_TRUE(contains(v.results()[1].messages, "beta-only-message"));
@@ -178,8 +236,12 @@ namespace {
     }
 
     TEST_F(ValidatorTest, Check_NoMessagesLogged_PerCheckMessagesEmpty) {
+        // Arrange
         Validator v({fake_check_always_pass});
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 1);
         ASSERT_EQ(v.results().size(), 1u);
         EXPECT_TRUE(v.results()[0].messages.empty());
     }
@@ -187,17 +249,23 @@ namespace {
     // ---------- JSON report ----------
 
     TEST_F(ValidatorTest, JsonReport_NotWritten_WhenPathUnset) {
+        // Arrange
         auto p = tmp_path();
         Validator v({fake_check_always_pass});
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        (void) v.check();
+        // Assert
         EXPECT_FALSE(std::filesystem::exists(p));
     }
 
     TEST_F(ValidatorTest, JsonReport_WrittenToConfiguredPath) {
+        // Arrange
         auto p = tmp_path();
         Validator v({fake_check_always_pass, fake_check_always_fail});
         v.set_json_report_path(p.string());
+        // Act
         (void) v.check();
+        // Assert
         ASSERT_TRUE(std::filesystem::exists(p));
         std::ifstream in(p);
         std::stringstream ss;
@@ -212,78 +280,109 @@ namespace {
     }
 
     TEST_F(ValidatorTest, JsonReport_StructureIsWellFormed) {
+        // Arrange
         auto p = tmp_path();
         Validator v({fake_check_always_pass});
         v.set_json_report_path(p.string());
+        // Act
         (void) v.check();
+        // Assert
         std::ifstream in(p);
         std::stringstream ss;
         ss << in.rdbuf();
-        const std::string body = ss.str();
-        // Bracket balance check (cheap proxy for well-formedness without dragging
-        // in a JSON parser dep).
-        int braces = 0, brackets = 0;
-        bool in_string = false;
-        bool escape = false;
-        for (char c: body) {
-            if (escape) {
-                escape = false;
-                continue;
-            }
-            if (c == '\\') {
-                escape = true;
-                continue;
-            }
-            if (c == '"') {
-                in_string = !in_string;
-                continue;
-            }
-            if (in_string) continue;
-            if (c == '{') ++braces;
-            else if (c == '}') --braces;
-            else if (c == '[') ++brackets;
-            else if (c == ']') --brackets;
-        }
-        EXPECT_EQ(braces, 0) << body;
-        EXPECT_EQ(brackets, 0) << body;
+        check_brackets_balanced(ss.str());
         std::filesystem::remove(p);
     }
 
     TEST_F(ValidatorTest, JsonReport_BadPath_DoesNotCrash) {
-        // Boundary: unwritable path. Validator::check() must still return.
+        // Arrange: unwritable path. Validator::check() must still return.
         Validator v({fake_check_always_pass});
         v.set_json_report_path("/nonexistent_dir_xyz_/out.json");
-        EXPECT_EQ(v.check(), 1);
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 1);
     }
 
     TEST_F(ValidatorTest, JsonReport_MessagesAreJsonEscaped) {
+        // Arrange
         g_log_in_a = true;
         g_log_msg_a = "has \"quote\" and \\backslash and\nnewline";
         auto p = tmp_path();
         Validator v({fake_check_alpha});
         v.set_json_report_path(p.string());
+        // Act
         (void) v.check();
+        // Assert
         std::ifstream in(p);
         std::stringstream ss;
         ss << in.rdbuf();
         const std::string body = ss.str();
-        // Must NOT contain raw newline inside the messages array entry; it must be
-        // escaped to \n. We check for the escaped forms.
         EXPECT_NE(body.find("\\\""), std::string::npos);
         EXPECT_NE(body.find("\\\\"), std::string::npos);
         EXPECT_NE(body.find("\\n"), std::string::npos);
         std::filesystem::remove(p);
     }
 
+    TEST_F(ValidatorTest, JsonReport_VeryLongMessageWithSpecials_RemainsWellFormed) {
+        // Arrange: ~64 KiB log message with embedded ", \, and newlines —
+        // exercises the streaming-escape path under load.
+        std::string big;
+        big.reserve(64 * 1024);
+        const char chunk[] = "x\"y\\z\nw";
+        while (big.size() < 64 * 1024) big.append(chunk);
+        g_log_in_a = true;
+        g_long_log_msg_a = big;
+        auto p = tmp_path();
+        Validator v({fake_check_alpha});
+        v.set_json_report_path(p.string());
+        // Act
+        (void) v.check();
+        // Assert
+        std::ifstream in(p);
+        std::stringstream ss;
+        ss << in.rdbuf();
+        const std::string body = ss.str();
+        check_brackets_balanced(body);
+        EXPECT_NE(body.find("\\\""), std::string::npos);
+        EXPECT_NE(body.find("\\\\"), std::string::npos);
+        EXPECT_NE(body.find("\\n"), std::string::npos);
+        std::filesystem::remove(p);
+    }
+
+    // ---------- BVA: pass/fail/throw transitions ----------
+
+    TEST_F(ValidatorTest, JsonReport_OnePassOneFailOneThrow_CountersIncrementCorrectly) {
+        // Arrange: covers the passed/failed counter increment at every transition.
+        auto p = tmp_path();
+        Validator v({fake_check_always_pass, fake_check_always_fail, fake_check_throws});
+        v.set_json_report_path(p.string());
+        // Act
+        const int rc = v.check();
+        // Assert
+        EXPECT_EQ(rc, 0);
+        ASSERT_EQ(v.results().size(), 3u);
+        EXPECT_TRUE(v.results()[0].passed);
+        EXPECT_FALSE(v.results()[1].passed);
+        EXPECT_FALSE(v.results()[2].passed);
+        std::ifstream in(p);
+        std::stringstream ss;
+        ss << in.rdbuf();
+        const std::string body = ss.str();
+        EXPECT_NE(body.find("\"passed\": 1"), std::string::npos) << body;
+        EXPECT_NE(body.find("\"failed\": 2"), std::string::npos) << body;
+        std::filesystem::remove(p);
+    }
+
     // ---------- resolve_check_name ----------
 
     TEST_F(ValidatorTest, CheckName_ResolvesFreeFunctionName) {
-        // dladdr should resolve `fake_check_always_pass` (visible in dynamic symbol
-        // table when -rdynamic is set; falls back to "check_<i>" otherwise).
-        // We accept either form — what matters is that names are NON-EMPTY and
-        // distinct between two distinct checks.
+        // Arrange
         Validator v({fake_check_always_pass, fake_check_always_fail});
+        // Act
         (void) v.check();
+        // Assert: dladdr resolves names if -rdynamic; otherwise falls back to
+        // "check_<i>". Either way names must be NON-EMPTY.
         ASSERT_EQ(v.results().size(), 2u);
         EXPECT_FALSE(v.results()[0].name.empty());
         EXPECT_FALSE(v.results()[1].name.empty());
@@ -291,12 +390,15 @@ namespace {
 
     // ---------- weak checker() fallback ----------
 
-    TEST_F(ValidatorTest, WeakChecker_DefaultReturnsEmpty) {
-        // No per-assignment checker linked into the test binary, so the weak
-        // default ::checker() must return an empty list, and get_validator()
-        // must yield a Validator that passes vacuously.
+    TEST_F(ValidatorTest, WeakChecker_DefaultReturnsEmptyResultList) {
+        // Arrange: no per-assignment checker linked into the test binary, so
+        // the weak default ::checker() returns an empty list.
         Validator v = get_validator();
-        EXPECT_EQ(v.check(), 1);
-        EXPECT_TRUE(v.results().empty());
+        // Act
+        const int rc = v.check();
+        // Assert: empty results list AND vacuous pass — both must hold.
+        EXPECT_EQ(rc, 1);
+        EXPECT_TRUE(v.results().empty())
+            << "A strong checker() was linked; the weak-fallback test is no longer valid.";
     }
 } // namespace

@@ -46,23 +46,30 @@ namespace {
     }
 
     TEST(ParseArgs, NullArgv_ReturnsDefaults) {
-        // Boundary: defensive nullptr argv
+        // Arrange: defensive nullptr argv
+        // Act
         auto out = grader_main::parse_args(5, nullptr);
+        // Assert
         EXPECT_FALSE(out.selftest);
         EXPECT_FALSE(out.report_json_set);
     }
 
     TEST(ParseArgs, OnlyProgramName_ReturnsDefaults) {
+        // Arrange
         Argv a{"prog"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_FALSE(out.selftest);
         EXPECT_FALSE(out.report_json_set);
     }
 
     TEST(ParseArgs, UnknownFlags_AreIgnored) {
-        // Equivalence partition: unknown args
+        // Arrange: equivalence partition — unknown args
         Argv a{"prog", "--frobnicate", "-x", "positional"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_FALSE(out.selftest);
         EXPECT_FALSE(out.report_json_set);
     }
@@ -70,62 +77,81 @@ namespace {
     // ---------- --selftest ----------
 
     TEST(ParseArgs, Selftest_LongFlag_SetsSelftestTrue) {
+        // Arrange
         Argv a{"prog", "--selftest"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.selftest);
     }
 
     TEST(ParseArgs, Selftest_AmongOtherFlags_StillRecognized) {
+        // Arrange
         Argv a{"prog", "--unknown", "--selftest", "garbage"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.selftest);
     }
 
     TEST(ParseArgs, Selftest_PrefixOnly_NotMatched) {
-        // Boundary: --selftest must match exactly, --selftesty should NOT match.
+        // Arrange: --selftest must match exactly, --selftesty should NOT match.
         Argv a{"prog", "--selftesty"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_FALSE(out.selftest);
     }
 
     // ---------- --report-json space form ----------
 
     TEST(ParseArgs, ReportJsonSpaceForm_SetsPath) {
+        // Arrange
         Argv a{"prog", "--report-json", "/tmp/out.json"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "/tmp/out.json");
     }
 
     TEST(ParseArgs, ReportJsonSpaceForm_MissingValueAtEnd_NotSet) {
-        // Boundary: --report-json with no following arg must NOT set the path.
+        // Arrange: --report-json with no following arg must NOT set the path.
         Argv a{"prog", "--report-json"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_FALSE(out.report_json_set);
     }
 
     // ---------- --report-json=value form ----------
 
     TEST(ParseArgs, ReportJsonEqualsForm_SetsPath) {
+        // Arrange
         Argv a{"prog", "--report-json=/tmp/x.json"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "/tmp/x.json");
     }
 
     TEST(ParseArgs, ReportJsonEqualsForm_EmptyValue_StillSetsButPathEmpty) {
-        // Boundary: "--report-json=" has empty value; the parser sets the flag
-        // (path == ""). The grader will then no-op (write_json_report fails to
-        // open ""), but argv parsing itself accepts it.
+        // Arrange: "--report-json=" has empty value; the parser sets the flag.
         Argv a{"prog", "--report-json="};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "");
     }
 
     TEST(ParseArgs, ReportJsonEqualsForm_PathWithEqualsInIt_Preserved) {
+        // Arrange
         Argv a{"prog", "--report-json=/tmp/key=val.json"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "/tmp/key=val.json");
     }
@@ -133,16 +159,22 @@ namespace {
     // ---------- combined ----------
 
     TEST(ParseArgs, SelftestAndReportJson_BothSet) {
+        // Arrange
         Argv a{"prog", "--selftest", "--report-json", "/tmp/r.json"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.selftest);
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "/tmp/r.json");
     }
 
     TEST(ParseArgs, ReportJsonRepeated_LastWins) {
+        // Arrange
         Argv a{"prog", "--report-json", "/tmp/a", "--report-json=/tmp/b"};
+        // Act
         auto out = grader_main::parse_args(a.argc(), a.argv());
+        // Assert
         EXPECT_TRUE(out.report_json_set);
         EXPECT_EQ(out.report_json_path, "/tmp/b");
     }
@@ -150,24 +182,39 @@ namespace {
     // ---------- selftest_env_active ----------
 
     TEST(SelftestEnvActive, Nullptr_ReturnsFalse) {
-        EXPECT_FALSE(grader_main::selftest_env_active(nullptr));
+        // Arrange
+        // Act
+        const bool active = grader_main::selftest_env_active(nullptr);
+        // Assert
+        EXPECT_FALSE(active);
     }
 
     TEST(SelftestEnvActive, EmptyString_ReturnsFalse) {
-        EXPECT_FALSE(grader_main::selftest_env_active(""));
+        // Arrange
+        // Act
+        const bool active = grader_main::selftest_env_active("");
+        // Assert
+        EXPECT_FALSE(active);
     }
 
     TEST(SelftestEnvActive, ZeroFirstByte_ReturnsFalse) {
-        // Equivalence partition: starts with '0' => disabled
+        // Arrange: equivalence partition — starts with '0' => disabled.
+        // Act + Assert (one logical partition)
         EXPECT_FALSE(grader_main::selftest_env_active("0"));
         EXPECT_FALSE(grader_main::selftest_env_active("0xdeadbeef"));
     }
 
     TEST(SelftestEnvActive, OneFirstByte_ReturnsTrue) {
-        EXPECT_TRUE(grader_main::selftest_env_active("1"));
+        // Arrange
+        // Act
+        const bool active = grader_main::selftest_env_active("1");
+        // Assert
+        EXPECT_TRUE(active);
     }
 
     TEST(SelftestEnvActive, NonZeroNonEmpty_ReturnsTrue) {
+        // Arrange: equivalence partition — non-empty, non-'0'-prefix strings.
+        // Act + Assert
         EXPECT_TRUE(grader_main::selftest_env_active("yes"));
         EXPECT_TRUE(grader_main::selftest_env_active("true"));
         EXPECT_TRUE(grader_main::selftest_env_active(" 0")); // leading space, not '0'
