@@ -1,5 +1,7 @@
 # Automatic Grader — SE 423 (UIUC) Homework & Lab
 
+[![Tests](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml) [![Tests](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml)
+
 Automated checker for the SE 423 course at UIUC. Compiles student firmware written for the TI C2000 (TMS320F28379D
 LaunchPad) against Linux stubs, runs the student's `main()` on a background thread, and grades the submission by
 inspecting simulated peripheral register state.
