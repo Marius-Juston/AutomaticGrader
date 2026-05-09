@@ -16,6 +16,15 @@ Inputs (CLI):
                            reader can trace a given result back to the
                            exact source).
     --run-url <url>        link to the GitHub Actions run (optional).
+    --repo-url <url>       base URL of the student repo, e.g.
+                           https://github.com/owner/repo. When set, the
+                           rendered report turns each folder name into a
+                           link to that folder at the run's commit
+                           (`<repo-url>/tree/<sha>/<workspace>/<folder>`)
+                           and each commit SHA into a link to the commit
+                           (`<repo-url>/commit/<sha>`). Optional.
+    --workspace <dir>      workspace prefix used when building folder URLs
+                           (defaults to `workspace`).
     --step-summary <path>  if set, also write a Markdown summary suitable
                            for $GITHUB_STEP_SUMMARY.
 
@@ -61,6 +70,42 @@ HISTORY_LIMIT = 50
 STATUS_EMOJI = {"pass": "✅", "fail": "❌", "skip": "⚪"}
 
 
+def _commit_url(repo_url: str, commit: str) -> str | None:
+    if not repo_url or not commit or commit == "—":
+        return None
+    return f"{repo_url.rstrip('/')}/commit/{commit}"
+
+
+def _folder_url(repo_url: str, commit: str, workspace: str, folder: str) -> str | None:
+    if not repo_url or not commit or commit == "—" or not folder or folder == "—":
+        return None
+    base = repo_url.rstrip("/")
+    ws = (workspace or "").strip("/")
+    path = f"{ws}/{folder}".lstrip("/") if ws else folder
+    return f"{base}/tree/{commit}/{path}"
+
+
+def _md_link(text: str, url: str | None) -> str:
+    return f"[{text}]({url})" if url else text
+
+
+def _commit_md(repo_url: str, commit: str) -> str:
+    """Render a commit SHA as `short` in markdown, hyperlinked when possible."""
+    if not commit or commit == "—":
+        return "—"
+    short = commit[:8]
+    url = _commit_url(repo_url, commit)
+    return _md_link(f"`{short}`", url)
+
+
+def _folder_md(repo_url: str, commit: str, workspace: str, folder: str) -> str:
+    """Render a folder name as `folder` in markdown, hyperlinked when possible."""
+    if not folder or folder == "—":
+        return "`—`"
+    url = _folder_url(repo_url, commit, workspace, folder)
+    return _md_link(f"`{folder}`", url)
+
+
 def _now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -82,21 +127,23 @@ def load_manifest(path: Path) -> list[tuple[str, str]]:
     return out
 
 
-def render_assignment_md(report: dict, log_text: str | None) -> str:
+def render_assignment_md(report: dict, log_text: str | None,
+                         repo_url: str = "", workspace: str = "") -> str:
     """Detail page for a single graded run (one slot)."""
     aid = report["assignment"]
     folder = report.get("folder", "—")
     commit = report.get("commit", "—")
-    commit_short = commit[:8] if commit and commit != "—" else "—"
     passed = report.get("passed", 0)
     failed = report.get("failed", 0)
     total = passed + failed
     badge = "✅" if failed == 0 and total > 0 else ("❌" if failed > 0 else "⚪")
-    title = aid if folder in ("—", "", None) else f"{aid} — `{folder}`"
+    folder_md = _folder_md(repo_url, commit, workspace, folder)
+    commit_md = _commit_md(repo_url, commit)
+    title_folder = "" if folder in ("—", "", None) else f" — {folder_md}"
     lines = [
-        f"# {title} — {badge} {passed}/{total} passed",
+        f"# {aid}{title_folder} — {badge} {passed}/{total} passed",
         "",
-        f"_Folder:_ `{folder}`  _Commit:_ `{commit_short}`  "
+        f"_Folder:_ {folder_md}  _Commit:_ {commit_md}  "
         f"_Graded:_ {report.get('timestamp', '—')}",
         "",
         "| Check | Status | Detail |",
@@ -129,21 +176,26 @@ def render_assignment_md(report: dict, log_text: str | None) -> str:
     return "\n".join(lines) + "\n"
 
 
-def render_aggregate_md(aid: str, runs: list[dict], commit: str) -> str:
-    """Aggregate page for an ID that has multiple manifest rows."""
+def render_aggregate_md(aid: str, runs: list[dict], commit: str,
+                        repo_url: str = "", workspace: str = "") -> str:
+    """Aggregate page for an ID that has multiple manifest rows.
+
+    The folder cell links to that folder at the commit it was graded
+    against (each row may have its own commit, since unchanged siblings
+    keep their original commit across partial regrades). The header
+    commit links to the most recent run's commit."""
     total_passed = sum(r.get("passed", 0) for r in runs)
     total_failed = sum(r.get("failed", 0) for r in runs)
     total = total_passed + total_failed
     badge = "✅" if total_failed == 0 and total > 0 else ("❌" if total_failed > 0 else "⚪")
-    commit_short = commit[:8] if commit and commit != "—" else "—"
     lines = [
         f"# {aid} (aggregate) — {badge} {total_passed}/{total} passed",
         "",
-        f"_Commit:_ `{commit_short}`  _Submissions:_ {len(runs)}  "
+        f"_Commit:_ {_commit_md(repo_url, commit)}  _Submissions:_ {len(runs)}  "
         f"_Last update:_ {_now_short()}",
         "",
-        "| Folder | Status | Passed / Total | Slot | Detail |",
-        "|---|---|---|---|---|",
+        "| Folder | Status | Passed / Total | Commit | Slot | Detail |",
+        "|---|---|---|---|---|---|",
     ]
     for r in runs:
         passed = r.get("passed", 0)
@@ -154,26 +206,30 @@ def render_aggregate_md(aid: str, runs: list[dict], commit: str) -> str:
         emoji = STATUS_EMOJI.get(status, "⚪")
         slot = r.get("slot", aid)
         folder = r.get("folder", "—")
+        sub_commit = r.get("commit", commit)
         lines.append(
-            f"| `{folder}` | {emoji} {status.upper()} | {passed}/{sub_total} "
+            f"| {_folder_md(repo_url, sub_commit, workspace, folder)} "
+            f"| {emoji} {status.upper()} | {passed}/{sub_total} "
+            f"| {_commit_md(repo_url, sub_commit)} "
             f"| `{slot}` | [{slot}.md]({slot}.md) |"
         )
     lines.append("")
     lines.append(
         "Each row is an independent grading run against the named folder at "
-        f"commit `{commit_short}`. The matching `<slot>.json` and "
-        "`history/<slot>.jsonl` files preserve the full per-run record so a "
-        "reviewer can verify any result against the exact source tree."
+        "the listed commit — click the folder to open the source tree at that "
+        "commit, or the commit SHA to view the commit itself. Per-run history "
+        "lives in `history/<slot>.jsonl`."
     )
     return "\n".join(lines) + "\n"
 
 
-def render_index_md(rows: list[dict], commit: str, run_url: str | None) -> str:
+def render_index_md(rows: list[dict], commit: str, run_url: str | None,
+                    repo_url: str = "", workspace: str = "") -> str:
     lines = [
         "# Autograder report",
         "",
         f"_Last update: {_now_short()}_  "
-        f"_Commit: `{commit[:8] if commit else '—'}`_"
+        f"_Commit: {_commit_md(repo_url, commit)}_"
         + (f"  _[Run]({run_url})_" if run_url else ""),
         "",
         "| Assignment | Folder(s) | Status | Passed / Total | Last graded | Detail |",
@@ -184,13 +240,20 @@ def render_index_md(rows: list[dict], commit: str, run_url: str | None) -> str:
         passed = r.get("passed", 0)
         total = r.get("total", 0)
         last = r.get("last_commit", "—")
-        last_short = last[:8] if last and last != "—" else "—"
         folders = r.get("folders") or [r.get("folder", "—")]
-        folder_cell = ", ".join(f"`{f}`" for f in folders)
+        # Each folder links to that folder at the commit it was last graded
+        # against. When per-folder commit info is available (multi-row IDs
+        # that came through the aggregator), prefer it; otherwise fall back
+        # to the row-level last_commit.
+        per_folder_commits = r.get("folder_commits") or {}
+        folder_cell = ", ".join(
+            _folder_md(repo_url, per_folder_commits.get(f, last), workspace, f)
+            for f in folders
+        )
         link = r.get("detail_link") or "—"
         lines.append(
             f"| {r['id']} | {folder_cell} | {emoji} {r['status'].upper()} "
-            f"| {passed}/{total} | `{last_short}` | {link} |"
+            f"| {passed}/{total} | {_commit_md(repo_url, last)} | {link} |"
         )
     lines.append("")
     lines.append(
@@ -298,6 +361,7 @@ def _build_index_rows(manifest: list[tuple[str, str]],
         is_multi = len(manifest_rows) > 1
         if aid in fresh_by_id:
             runs = fresh_by_id[aid]
+            folder_commits: dict[str, str] = {}
             if is_multi:
                 # Prefer the aggregate JSON we just wrote (it merges fresh
                 # runs over any prior per-slot results we have on disk), so
@@ -307,6 +371,11 @@ def _build_index_rows(manifest: list[tuple[str, str]],
                 passed = agg.get("passed", sum(r.get("passed", 0) for r in runs))
                 failed = agg.get("failed", sum(r.get("failed", 0) for r in runs))
                 folders = agg.get("folders") or [m[1] for m in manifest_rows]
+                for sub in agg.get("runs", []):
+                    f = sub.get("folder")
+                    c = sub.get("commit")
+                    if f and c:
+                        folder_commits[f] = c
                 detail_link = (
                     f"[{aid}.md]({aid}.md)"
                     if (report_dir / f"{aid}.md").exists() else "—"
@@ -315,6 +384,11 @@ def _build_index_rows(manifest: list[tuple[str, str]],
                 passed = sum(r.get("passed", 0) for r in runs)
                 failed = sum(r.get("failed", 0) for r in runs)
                 folders = [r.get("folder", "—") for r in runs]
+                for r in runs:
+                    f = r.get("folder")
+                    c = r.get("commit")
+                    if f and c:
+                        folder_commits[f] = c
                 slot = runs[0].get("slot", aid)
                 detail_link = (
                     f"[{slot}.md]({slot}.md)"
@@ -325,6 +399,7 @@ def _build_index_rows(manifest: list[tuple[str, str]],
                 "fail" if failed > 0 else "skip")
             commit = next((r.get("commit", "—") for r in runs if r.get("commit")), "—")
         else:
+            folder_commits = {}
             agg = _load_existing_aggregate(report_dir, aid)
             if agg:
                 passed = agg.get("passed", 0)
@@ -334,6 +409,11 @@ def _build_index_rows(manifest: list[tuple[str, str]],
                     "fail" if failed > 0 else "skip")
                 commit = agg.get("commit", "—")
                 folders = agg.get("folders") or folders_by_id[aid]
+                for sub in agg.get("runs", []):
+                    f = sub.get("folder")
+                    c = sub.get("commit")
+                    if f and c:
+                        folder_commits[f] = c
                 detail_link = (
                     f"[{aid}.md]({aid}.md)"
                     if (report_dir / f"{aid}.md").exists()
@@ -352,6 +432,7 @@ def _build_index_rows(manifest: list[tuple[str, str]],
             "passed": passed,
             "total": total,
             "last_commit": commit,
+            "folder_commits": folder_commits,
             "detail_link": detail_link,
         })
     return rows
@@ -364,6 +445,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--report-dir", required=True, type=Path)
     p.add_argument("--commit", default="")
     p.add_argument("--run-url", default="")
+    p.add_argument("--repo-url", default="")
+    p.add_argument("--workspace", default="workspace")
     p.add_argument("--step-summary", default="")
     args = p.parse_args(argv)
 
@@ -406,7 +489,9 @@ def main(argv: list[str] | None = None) -> int:
 
         # Per-slot detail files.
         (args.report_dir / f"{slot}.md").write_text(
-            render_assignment_md(data, log_text)
+            render_assignment_md(data, log_text,
+                                 repo_url=args.repo_url,
+                                 workspace=args.workspace)
         )
         (args.report_dir / f"{slot}.json").write_text(
             json.dumps(data, indent=2, sort_keys=True) + "\n"
@@ -465,7 +550,9 @@ def main(argv: list[str] | None = None) -> int:
                     ordered.append(sub)
 
             (args.report_dir / f"{aid}.md").write_text(
-                render_aggregate_md(aid, ordered, args.commit or "—")
+                render_aggregate_md(aid, ordered, args.commit or "—",
+                                    repo_url=args.repo_url,
+                                    workspace=args.workspace)
             )
             agg_passed = sum(s.get("passed", 0) for s in ordered)
             agg_failed = sum(s.get("failed", 0) for s in ordered)
@@ -495,7 +582,8 @@ def main(argv: list[str] | None = None) -> int:
 
     rows = _build_index_rows(manifest, args.report_dir, fresh_by_id)
     (args.report_dir / "index.md").write_text(
-        render_index_md(rows, args.commit or "—", args.run_url or None)
+        render_index_md(rows, args.commit or "—", args.run_url or None,
+                        repo_url=args.repo_url, workspace=args.workspace)
     )
 
     if args.step_summary:

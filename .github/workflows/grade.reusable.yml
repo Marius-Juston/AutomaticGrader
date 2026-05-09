@@ -224,7 +224,9 @@ jobs:
             --results-dir _results \
             --manifest "${{ inputs.manifest }}" \
             --report-dir "${{ inputs.report-dir }}" \
+            --workspace "${{ inputs.workspace }}" \
             --commit "${{ github.sha }}" \
+            --repo-url "${{ github.server_url }}/${{ github.repository }}" \
             --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             --step-summary "$GITHUB_STEP_SUMMARY"
           echo "rc=$?" >> "$GITHUB_OUTPUT"
