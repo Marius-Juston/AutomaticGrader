@@ -284,3 +284,12 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
         $<$<CONFIG:Release>:-O2 -DNDEBUG>
 )
+
+# ---- Optional unit tests ---------------------------------------------------
+# Disabled by default to keep CI/build-as-CI-subcomponent times unchanged.
+# Enable with -DGRADER_BUILD_TESTS=ON.
+option(GRADER_BUILD_TESTS "Build harness unit tests (GTest)." OFF)
+if (GRADER_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif ()

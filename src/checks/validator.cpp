@@ -19,6 +19,7 @@
 #include "spdlog/sinks/base_sink.h"
 
 #include "checks/main_loop_driver.h"
+#include "checks/json_escape.h"
 
 #if HW == 1
 #include "checks/hw1.h"
@@ -71,37 +72,7 @@ namespace {
         return "check_" + std::to_string(fallback_index);
     }
 
-    std::string json_escape(const std::string &s) {
-        std::string out;
-        out.reserve(s.size() + 2);
-        for (const unsigned char c: s) {
-            switch (c) {
-                case '"': out += "\\\"";
-                    break;
-                case '\\': out += "\\\\";
-                    break;
-                case '\b': out += "\\b";
-                    break;
-                case '\f': out += "\\f";
-                    break;
-                case '\n': out += "\\n";
-                    break;
-                case '\r': out += "\\r";
-                    break;
-                case '\t': out += "\\t";
-                    break;
-                default:
-                    if (c < 0x20) {
-                        char buf[8];
-                        std::snprintf(buf, sizeof(buf), "\\u%04x", c);
-                        out += buf;
-                    } else {
-                        out += static_cast<char>(c);
-                    }
-            }
-        }
-        return out;
-    }
+    using grader_json::json_escape;
 
     void write_json_report(const std::string &path,
                            const std::vector<CheckResult> &results,

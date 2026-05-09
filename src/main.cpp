@@ -1,6 +1,6 @@
 #include <cstdlib>
-#include <cstring>
 
+#include "checks/cli_args.h"
 #include "checks/validator.h"
 #include "spdlog/spdlog.h"
 
@@ -9,29 +9,17 @@ int run_selftest();
 }
 
 int main(int argc, char** argv) {
-    bool selftest = false;
-    const char* report_json_path = nullptr;
-    for (int i = 1; i < argc; ++i) {
-        if (std::strcmp(argv[i], "--selftest") == 0) {
-            selftest = true;
-        } else if (std::strcmp(argv[i], "--report-json") == 0 && i + 1 < argc) {
-            report_json_path = argv[++i];
-        } else if (std::strncmp(argv[i], "--report-json=", 14) == 0) {
-            report_json_path = argv[i] + 14;
-        }
+    auto args = grader_main::parse_args(argc, argv);
+    if (!args.selftest && grader_main::selftest_env_active(std::getenv("GRADER_SELFTEST"))) {
+        args.selftest = true;
     }
-    if (!selftest) {
-        if (const char* env = std::getenv("GRADER_SELFTEST"); env && env[0] != '\0' && env[0] != '0') {
-            selftest = true;
-        }
-    }
-    if (selftest) {
+    if (args.selftest) {
         return grader::run_selftest();
     }
 
     Validator validator = get_validator();
-    if (report_json_path != nullptr) {
-        validator.set_json_report_path(report_json_path);
+    if (args.report_json_set) {
+        validator.set_json_report_path(args.report_json_path);
     }
     const int result = validator.check();
 
