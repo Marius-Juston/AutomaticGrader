@@ -58,15 +58,24 @@ jobs:
           # Run Doxygen and tee both streams so failures show up in logs.
           doxygen Doxyfile 2>&1 | tee doxygen.log
           echo "--- doxygen-out tree ---"
-          ls -la doxygen-out/ || { echo "ERROR: doxygen produced no output dir" >&2; exit 1; }
-          ls doxygen-out/html/ | head -20
+          ls -la doxygen-out/ \
+            || { echo "ERROR: doxygen produced no output dir" >&2; exit 1; }
           test -f doxygen-out/html/index.html \
             || { echo "ERROR: doxygen-out/html/index.html missing" >&2; exit 1; }
           # Count HTML files — empty output is a silent failure mode.
-          n=$(find doxygen-out/html -name '*.html' | wc -l)
+          # `find -print0 | wc -l` would miscount on filenames with newlines;
+          # using -printf '.' avoids both that and the SIGPIPE/pipefail trap
+          # that `ls | head` hits when the dir has many files.
+          n=$(find doxygen-out/html -maxdepth 1 -name '*.html' -printf '.' | wc -c)
           echo "doxygen produced $n HTML files"
           test "$n" -gt 5 \
             || { echo "ERROR: doxygen produced only $n HTML files (expected many)" >&2; exit 1; }
+          # Sample a few filenames for the log without piping through `head`
+          # (which closes stdin after N lines and EPIPEs `ls`/`find` under pipefail).
+          echo "--- sample files ---"
+          for f in $(find doxygen-out/html -maxdepth 1 -name '*.html' | sort | sed -n '1,20p'); do
+            echo "  $f"
+          done
 
       - name: Build MkDocs site (strict)
         run: |
