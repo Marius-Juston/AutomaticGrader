@@ -94,9 +94,12 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
+      - name: Install lint deps
+        run: python -m pip install --quiet pyyaml
+
       - name: Lint workflow YAML
         run: |
-          python -c "import yaml, sys; yaml.safe_load(open('.github/workflows/grade.reusable.yml')); yaml.safe_load(open('.github/workflows/tests.yml'))"
+          python -c "import yaml; yaml.safe_load(open('.github/workflows/grade.reusable.yml')); yaml.safe_load(open('.github/workflows/tests.yml'))"
 
       - name: select_assignments self-test
         run: python tools/select_assignments.py --self-test
