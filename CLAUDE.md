@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Human-facing documentation** lives on the docs site at
+> <https://marius-juston.github.io/AutomaticGrader/> (source under `docs/`,
+> built with MkDocs Material). When the human-facing material diverges from
+> what's in this file, prefer the docs site — this file is intentionally
+> Claude-focused operational guidance.
+
 ## What this project is
 
 Auto-grader for SE 423 (UIUC) homework and lab code targeting the TI C2000 TMS320F28379D LaunchPad. It compiles the

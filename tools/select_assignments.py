@@ -14,19 +14,21 @@ Manifest format — one entry per line:
 
 Blank lines and `#` comments are ignored.
 
-CLI:
+CLI::
+
     select_assignments.py --manifest <path> --workspace <dir>
                           --before <sha> --head <sha>
                           [--force-all] [--changed-from-stdin]
                           [--output github|json]
 
-`--changed-from-stdin` reads newline-separated paths from stdin instead of
-running `git diff` (used by tests and by the workflow when it has already
-collected the diff).
+The ``--changed-from-stdin`` flag reads newline-separated paths from stdin
+instead of running ``git diff`` (used by tests and by the workflow when it
+has already collected the diff).
 
-`--output github` prints `matrix=<json>` for $GITHUB_OUTPUT consumption.
+The ``--output github`` form prints ``matrix=<json>`` for $GITHUB_OUTPUT
+consumption.
 
-Run with `--self-test` to execute the in-file unit tests (stdlib only).
+Run with ``--self-test`` to execute the in-file unit tests (stdlib only).
 """
 from __future__ import annotations
 

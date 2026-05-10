@@ -1,12 +1,30 @@
 # Automatic Grader — SE 423 (UIUC) Homework & Lab
 
-[![Tests](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml) [![Tests](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml)
+[![Tests](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/tests.yml) [![Docs](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/docs.yml/badge.svg)](https://github.com/Marius-Juston/AutomaticGrader/actions/workflows/docs.yml)
 
 Automated checker for the SE 423 course at UIUC. Compiles student firmware written for the TI C2000 (TMS320F28379D
-LaunchPad) against Linux stubs, runs the student's `main()` on a background thread, and grades the submission by
-inspecting simulated peripheral register state.
+LaunchPad) against Linux stubs, drives the student's `main()` cooperatively from a single thread, and grades the
+submission by inspecting simulated peripheral register state plus captured `serial_printf` output.
 
 Designed to be dropped into a course CI/CD pipeline so submissions can be graded before they reach Gradescope.
+
+## 📚 Documentation
+
+Full documentation — architecture, contributor tutorial, CI/CD walkthrough, C++ + Python API reference — is published as
+a GitHub Pages site:
+
+**<https://marius-juston.github.io/AutomaticGrader/>**
+
+Quick links:
+
+- **[Getting started](https://marius-juston.github.io/AutomaticGrader/getting-started/)** — build and run locally in under five minutes.
+- **[Add a new checker](https://marius-juston.github.io/AutomaticGrader/contributing/add-a-checker/)** — the contributor tutorial.
+- **[Architecture overview](https://marius-juston.github.io/AutomaticGrader/architecture/overview/)** — three-layer model + cooperative driver + capture pipeline.
+- **[CI/CD workflow](https://marius-juston.github.io/AutomaticGrader/workflow/ci-cd/)** — reusable workflow, manifest, slot keying, report traceability.
+- **[Course staff guide](https://marius-juston.github.io/AutomaticGrader/course-staff/instructor-guide/)** — how to wire it into a course repo.
+
+The detailed reference content that used to live in this README has moved into the docs site. The sections below are a
+condensed quick-start.
 
 ## Repository role in the larger course pipeline
 
@@ -90,86 +108,11 @@ A failed check logs each diverging register field via `spdlog::warn` and the bin
 
 ## Per-assignment status
 
-| Assignment | Status                                                                                                                                  | Roadmap                                         |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
-| HW1        | Implemented (init + timer0/1/2 + saturate). Pending spec rework: Exercise 9 LED10/11 + button-press LED toggles, format/cadence checks. | [HW1_ROADMAP.md](progress/HW1_ROADMAP.md)       |
-| HW2        | Not started — needs EPWM/ADC capturing stubs first.                                                                                     | [HW2_ROADMAP.md](progress/HW2_ROADMAP.md)       |
-| HW3        | Not started — needs SPI stubs with TX/RX buffer capture.                                                                                | [HW3_ROADMAP.md](progress/HW3_ROADMAP.md)       |
-| HW4        | Not started — needs XINT + GPIO-qualification stubs.                                                                                    | [HW4_ROADMAP.md](progress/HW4_ROADMAP.md)       |
-| HW5        | Not started — needs DMA stubs and an `RFFT_f32` shim.                                                                                   | [HW5_ROADMAP.md](progress/HW5_ROADMAP.md)       |
-| HW6        | Out of scope for the firmware grader (A* + Kalman). Route to a separate harness.                                                        | [HW6_ROADMAP.md](progress/HW6_ROADMAP.md)       |
-| Lab1       | Roadmap only.                                                                                                                           | [Lab1_ROADMAP.md](progress/Lab1_ROADMAP.md)     |
-| Lab2       | Roadmap only.                                                                                                                           | [Lab2_ROADMAP.md](progress/Lab2_ROADMAP.md)     |
-| Lab3       | Roadmap only — needs EQEP stubs.                                                                                                        | [Lab3_ROADMAP.md](progress/Lab3_ROADMAP.md)     |
-| Lab4       | Roadmap only — needs ADCB/ADCC/ADCD + DAC stubs.                                                                                        | [Lab4_ROADMAP.md](progress/Lab4_ROADMAP.md)     |
-| Lab5       | Roadmap only.                                                                                                                           | [Lab5_ROADMAP.md](progress/Lab5_ROADMAP.md)     |
-| Lab6       | Roadmap only — needs LADAR + SCID + SWI stubs.                                                                                          | [Lab6_ROADMAP.md](progress/Lab6_ROADMAP.md)     |
-| Lab7-1     | Roadmap only.                                                                                                                           | [Lab7-1_ROADMAP.md](progress/Lab7-1_ROADMAP.md) |
-| Lab7-2     | Roadmap only — needs OpenMV blob + OptiTrack injection stubs.                                                                           | [Lab7-2_ROADMAP.md](progress/Lab7-2_ROADMAP.md) |
+The implementation status of each assignment lives in two places:
 
-## How a check is structured
-
-Each `hw{N}.cpp` / `lab{N}.cpp` defines `checker()` returning a list of `CheckFunction`s. The pattern is four phases (
-extending the original three with a print-cadence/format phase):
-
-1. **Phase 1 — pre-main zero state.** Confirm peripheral registers start clean.
-2. **Phase 2 — post-init.** Call `validator.start_main_thread()`, sleep 10 ms, build `expected` structs, register
-   comparisons against `gpiosSetup[]`, timers, IER, PieCtrlRegs, PieVectTable, GpioDataRegs, peripheral-specific
-   configs.
-3. **Phase 3 — ISR-driven dynamics + stimuli.** Snapshot volatile globals, apply stimuli (`press_button`,
-   `inject_adc_result`, `inject_spi_rx`, etc.), drive ISRs synthetically (synthetic clock advances `synthetic_clock_us`
-   by the configured period each call), assert state changes at predicted tick boundaries, restore snapshots before
-   returning.
-4. **Phase 4 — print cadence and format.** `resetPrintfCapture()` before Phase 3; afterwards call
-   `expect_print_cadence(SCIA, expected_count, ±10%)` and
-   `expect_format(latest, "spec'd format string with correct %ld/%.2f/%.3f specifiers")`. Catches `%d`-for-`int32_t` (
-   the most common student bug — invisible in rendered output on 32-bit-int Linux but breaks on the C2000 target).
-
-See `CLAUDE.md` for the full contributor guide and the per-assignment `progress/*_ROADMAP.md` files for what each checker must
-cover.
-
-## Authoring tip — convert TI calls into expected[] entries
-
-`tools/` contains a regex you can run in your editor to lift `GPIO_SetupPinMux`/`GPIO_SetupPinOptions` pairs out of a
-reference solution and turn them into `expected[]` initializers:
-
-Find:
-
-```regex
-GPIO_SetupPinMux\((\d+),(.+)\);\n+\s+GPIO_SetupPinOptions\(\d+,(.+)\);
-```
-
-Replace:
-
-```
-expectedGpioSetup[$1] = {$2, $3};
-```
-
-## Codegen
-
-When a TI header changes (or a new peripheral struct is added), regenerate the supporting files:
-
-```bash
-python -c "from tools.validation         import generate_zero_checks;        print(generate_zero_checks(open('lib/.../f2837xd_gpio.h').read()))"
-python -c "from tools.compare_validation import generate_zero_checks;        print(generate_zero_checks(open('lib/.../f2837xd_gpio.h').read()))"
-python -c "from tools.hash_map_setter    import generate_hashmap_initializer; print(generate_hashmap_initializer(open('lib/.../f2837xd_gpio.h').read()))"
-```
-
-Replace the corresponding `generated.cpp`, `compare_generated.cpp`, or the body of `populate_all_zero()` in
-`stat_checker.cpp`.
-
-## Validating a new checker
-
-For each new assignment, walk the **Validation matrix** in `progress/HW{N}_ROADMAP.md` / `progress/Lab{N}_ROADMAP.md`:
-
-1. Reference solution from `context/code_solutions/.../{HW,Lab}{N}/` → all checks pass, zero `spdlog::warn` lines, exit
-   0. (For HW1 specifically, the reference deviates from spec in Exercise 9 and is expected to fail those checks —
-   that's documented in the roadmap.)
-2. At least 5 hand-authored mutations of the reference, covering: numeric constants (period, TBPRD, threshold),
-   structural (drop a setup line), format-string (`%ld` → `%d`), cadence (modulus change), stimulus (drop a button
-   branch). Each must fail on the *exact* field name that diverged.
-3. Run twice without rebuilding → identical pass result (verifies snapshot/restore in Phase 3).
-4. Re-run prior assignments after adding new stubs → no regressions.
+- A condensed matrix in [CLAUDE.md](CLAUDE.md) (single source of truth for what's wired up).
+- Per-assignment roadmaps under [`progress/`](progress/) — each with the spec inventory, stub checklist, and the
+  validation matrix that the checker must satisfy.
 
 ## License & attribution
 

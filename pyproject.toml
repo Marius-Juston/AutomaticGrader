@@ -1,7 +1,20 @@
 [project]
 name = "automaticgrader"
 version = "0.1.0"
-description = "Add your description here"
+description = "SE 423 (UIUC) firmware autograder"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[dependency-groups]
+# Install with `uv sync --group docs` or `pip install -e .[docs]` (after
+# moving these into [project.optional-dependencies] if you're not on uv).
+# The docs CI workflow installs them directly so the lock file stays
+# minimal.
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.26",
+    "pymdown-extensions>=10",
+    "pyyaml>=6",
+]

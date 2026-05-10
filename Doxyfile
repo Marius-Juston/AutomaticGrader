@@ -1,0 +1,61 @@
+# Doxygen configuration for the AutomaticGrader C++ API reference.
+# Output is published as a subdirectory of the MkDocs site at /api/cpp/.
+# Designed to produce a usable reference even without /// comments;
+# Doxygen extracts every declaration and infers structure from filenames.
+
+PROJECT_NAME           = "AutomaticGrader"
+PROJECT_BRIEF          = "C++ API reference — shared grader infrastructure"
+OUTPUT_DIRECTORY       = doxygen-out
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+HTML_DYNAMIC_SECTIONS  = YES
+HTML_FILE_EXTENSION    = .html
+
+# Pull in the public C++ surface. We exclude the C2000Ware vendored
+# headers (lib/C2000Ware_*) so the reference doesn't drown in
+# Texas Instruments register structs.
+INPUT                  = include src
+FILE_PATTERNS          = *.h *.hpp *.cpp
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */lib/* */build/* */cmake-build-*/* */tests/*
+
+# Make Doxygen forgiving on undocumented entities — we want broad
+# coverage today and incremental /// comments over time.
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+# Better C++ parsing.
+EXTENSION_MAPPING      = h=C++ hpp=C++
+BUILTIN_STL_SUPPORT    = YES
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+
+# Quiet output for CI logs.
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARNINGS               = YES
+
+# Inheritance + call graphs need graphviz; the CI installs it.
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+CLASS_DIAGRAMS         = YES
+COLLABORATION_GRAPH    = NO
+TEMPLATE_RELATIONS     = YES
+GENERATE_LEGEND        = YES
+
+# Search.
+SEARCHENGINE           = YES
+SERVER_BASED_SEARCH    = NO
+
+# Stop Doxygen from generating noisy alphabetical class index that
+# duplicates the navigation tree.
+ALPHABETICAL_INDEX     = YES

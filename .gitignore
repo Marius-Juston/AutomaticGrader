@@ -1,5 +1,9 @@
 context/
 
+# MkDocs build output (the GitHub Pages workflow generates these).
+site/
+doxygen-out/
+
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

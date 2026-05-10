@@ -1,0 +1,125 @@
+# Doxygen output is merged into site/api/cpp/ AFTER `mkdocs build` runs,
+# so strict-mode link validation must not flag the cross-link from the
+# narrative page that points at it.
+validation:
+  links:
+    absolute_links: ignore
+    unrecognized_links: ignore
+    not_found: ignore
+    anchors: warn
+
+site_name: AutomaticGrader
+site_description: SE 423 (UIUC) firmware autograder — architecture, contributor guide, and reference.
+site_url: https://marius-juston.github.io/AutomaticGrader/
+repo_url: https://github.com/Marius-Juston/AutomaticGrader
+repo_name: Marius-Juston/AutomaticGrader
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - tools
+          options:
+            show_source: true
+            show_root_heading: true
+            heading_level: 2
+            docstring_style: google
+            members_order: source
+            separate_signature: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Marius-Juston/AutomaticGrader
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Build organisation: architecture/build-organisation.md
+      - Cooperative main-loop driver: architecture/cooperative-driver.md
+      - Capture pipeline: architecture/capture-pipeline.md
+      - Stimulus injection: architecture/stimulus-injection.md
+  - CI/CD workflow:
+      - Reusable workflow: workflow/ci-cd.md
+      - Manifest & slots: workflow/manifest-and-slots.md
+      - Reports & traceability: workflow/reports.md
+  - Contributing:
+      - Add a checker: contributing/add-a-checker.md
+      - Four-phase pattern: contributing/four-phase-pattern.md
+      - Using stimulus: contributing/using-stimulus.md
+      - Using expectations: contributing/using-expectations.md
+      - Common gotchas: contributing/common-gotchas.md
+      - Validation checklist: contributing/validation-checklist.md
+  - Reference:
+      - CLI flags: reference/cli-flags.md
+      - CMake options: reference/cmake-options.md
+      - Manifest format: reference/manifest-format.md
+      - Python tools: reference/python-tools.md
+      - C++ API: reference/cpp-api.md
+  - Course staff: course-staff/instructor-guide.md
+
+not_in_nav: |
+  AUTOGRADER_INSTRUCTOR.md
+
