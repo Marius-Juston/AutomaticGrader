@@ -58,13 +58,13 @@ reach Gradescope.
 
 ```mermaid
 flowchart LR
-    Spec[HW{N}.tex<br/>Lab{N}.txt]
-    Student[Student firmware<br/>workspace/&lt;folder&gt;]
-    Patcher[patch_student_source.py]
-    Driver[Cooperative<br/>main-loop driver]
-    Checker[hw{N}.cpp /<br/>lab{N}.cpp]
-    Stubs[TI peripheral<br/>stubs + capture]
-    Report[Markdown +<br/>JSON report]
+    Spec["HW#123;N#125;.tex<br>Lab#123;N#125;.txt"]
+    Student["Student firmware<br>workspace/&lt;folder&gt;"]
+    Patcher["patch_student_source.py"]
+    Driver["Cooperative<br>main-loop driver"]
+    Checker["hw#123;N#125;.cpp /<br>lab#123;N#125;.cpp"]
+    Stubs["TI peripheral<br>stubs + capture"]
+    Report["Markdown +<br>JSON report"]
 
     Spec -.authoritative.-> Checker
     Student --> Patcher --> Driver

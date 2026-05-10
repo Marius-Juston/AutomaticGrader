@@ -7,10 +7,10 @@ a file and immediately know where to look for "the printf check" or
 
 ```mermaid
 flowchart LR
-    P1[Phase 1<br/>Pre-main zero] --> P2[Phase 2<br/>Post-init compare]
-    P2 --> P3[Phase 3<br/>ISR + stimulus]
-    P3 --> P4[Phase 4<br/>Print cadence + format]
-    Restore[Snapshot/restore<br/>before return] -.applies to.-> P3
+    P1["Phase 1<br>Pre-main zero"] --> P2["Phase 2<br>Post-init compare"]
+    P2 --> P3["Phase 3<br>ISR + stimulus"]
+    P3 --> P4["Phase 4<br>Print cadence + format"]
+    Restore["Snapshot/restore<br>before return"] -.applies to.-> P3
     Restore -.applies to.-> P4
     classDef p fill:#dcfce7,stroke:#16a34a
     classDef r fill:#fef3c7,stroke:#d97706

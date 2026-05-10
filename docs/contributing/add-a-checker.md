@@ -13,18 +13,18 @@ Use it as a working example any time the prose here is ambiguous.
 
 ```mermaid
 flowchart TD
-    A[1. Read spec] --> B[2. Read roadmap]
-    B --> C{New stubs<br/>needed?}
-    C -- yes --> D[3. Extend src/ti_stubs.cpp]
+    A["1. Read spec"] --> B["2. Read roadmap"]
+    B --> C{"New stubs<br>needed?"}
+    C -- yes --> D["3. Extend src/ti_stubs.cpp"]
     C -- no --> E
-    D --> E[4. Add include/checks/hw{N}.h<br/>+ src/checks/hw{N}.cpp]
-    E --> F[5. Implement<br/>Phase 1-4 checks]
-    F --> G[6. Run reference<br/>fixture → green]
-    G --> H[7. Mutation matrix:<br/>≥5 broken copies → red]
-    H --> I[8. Run twice without rebuild<br/>→ identical pass]
-    I --> J[9. Re-run prior HWs<br/>→ no regressions]
-    J --> K[10. Update roadmap<br/>check the boxes]
-    K --> L[11. Open PR]
+    D --> E["4. Add include/checks/hw#123;N#125;.h<br>+ src/checks/hw#123;N#125;.cpp"]
+    E --> F["5. Implement<br>Phase 1–4 checks"]
+    F --> G["6. Run reference<br>fixture → green"]
+    G --> H["7. Mutation matrix:<br>≥5 broken copies → red"]
+    H --> I["8. Run twice without rebuild<br>→ identical pass"]
+    I --> J["9. Re-run prior HWs<br>→ no regressions"]
+    J --> K["10. Update roadmap<br>check the boxes"]
+    K --> L["11. Open PR"]
 ```
 
 ## 1 — Read the spec

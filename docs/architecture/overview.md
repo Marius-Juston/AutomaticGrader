@@ -10,29 +10,29 @@ substitution.
 flowchart TB
     subgraph L1["Layer 1 — TI hardware shim"]
         direction TB
-        Regs[Peripheral register structs<br/>GpioCtrlRegs, AdcaRegs, EPwm*Regs, ...]
-        Stubs[src/ti_stubs.cpp<br/>GPIO_SetupPinMux, InitSysCtrl, serial_printf, ...]
-        Headers[lib/C2000Ware_4_01_00_00/<br/>vendored TI headers]
-        Macro[ti_stubs.h<br/>neutralizes __interrupt, EALLOW, ...]
+        Regs["Peripheral register structs<br>GpioCtrlRegs, AdcaRegs, EPwm*Regs, …"]
+        Stubs["src/ti_stubs.cpp<br>GPIO_SetupPinMux, InitSysCtrl, serial_printf, …"]
+        Headers["lib/C2000Ware_4_01_00_00/<br>vendored TI headers"]
+        Macro["ti_stubs.h<br>neutralizes __interrupt, EALLOW, …"]
     end
 
     subgraph L2["Layer 2 — State tracking"]
         direction TB
-        Generated[generated.cpp<br/>compare_generated.cpp<br/>auto-generated overloads]
-        Validator[HardwareStateValidator<br/>register_comparison / mark_as_used]
-        ZeroPop[populate_all_zero()<br/>auto-generated]
+        Generated["generated.cpp<br>compare_generated.cpp<br>auto-generated overloads"]
+        Validator["HardwareStateValidator<br>register_comparison / mark_as_used"]
+        ZeroPop["populate_all_zero()<br>auto-generated"]
     end
 
     subgraph L3["Layer 3 — Grading harness"]
         direction TB
-        Main[src/main.cpp]
-        ValOwner[Validator<br/>(owns the check list)]
-        Checker[src/checks/hw{N}.cpp<br/>lab{N}.cpp]
-        Driver[Cooperative<br/>main-loop driver]
-        Capture[printf capture +<br/>synthetic clock]
+        Main["src/main.cpp"]
+        ValOwner["Validator<br>(owns the check list)"]
+        Checker["src/checks/hw#123;N#125;.cpp<br>lab#123;N#125;.cpp"]
+        Driver["Cooperative<br>main-loop driver"]
+        Capture["printf capture +<br>synthetic clock"]
     end
 
-    Student[Patched student firmware<br/>temp_main]
+    Student["Patched student firmware<br>temp_main"]
     Student --> Stubs
     Stubs --> Regs
     Macro -.force-include.-> Student
@@ -124,13 +124,13 @@ doesn't recompile them.
 ```mermaid
 sequenceDiagram
     autonumber
-    participant CLI as ./AutomaticGrader
-    participant Main as src/main.cpp
+    participant CLI as "./AutomaticGrader"
+    participant Main as "src/main.cpp"
     participant Val as Validator
-    participant Chk as hw{N}.cpp checker()
-    participant Drv as main-loop driver
-    participant Stu as patched temp_main
-    participant Stub as TI stubs / capture
+    participant Chk as "hw{N}.cpp checker()"
+    participant Drv as "main-loop driver"
+    participant Stu as "patched temp_main"
+    participant Stub as "TI stubs / capture"
 
     CLI->>Main: parse argv (--report-json, --selftest)
     Main->>Val: construct, register checks from checker()
@@ -138,14 +138,14 @@ sequenceDiagram
         Val->>Chk: invoke check_xxx(this)
         Chk->>Drv: run_student_init() (Phase 2)
         Drv->>Stu: temp_main() (init only, while-loop guarded)
-        Stu->>Stub: GPIO_SetupPinMux, ConfigCpuTimer, ...
+        Stu->>Stub: GPIO_SetupPinMux, ConfigCpuTimer, …
         Chk->>Chk: register_comparison + validate (Phase 2)
         Chk->>Drv: drive_isr_with_main_pump(isr, period, ticks)
         loop ticks
             Drv->>Drv: synthetic_clock_advance(period_us)
             Drv->>Stub: isr() — student ISR
             Drv->>Stu: step_main_loop(1) — body iteration
-            Stu-->>Stub: serial_printf -> g_printfCalls
+            Stu-->>Stub: serial_printf → g_printfCalls
         end
         Chk->>Chk: expect_format + expect_print_cadence (Phase 4)
         Chk-->>Val: pass/fail

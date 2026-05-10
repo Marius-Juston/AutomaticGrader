@@ -14,17 +14,17 @@ observes the injected state on its next read.
 
 ```mermaid
 flowchart LR
-    Check[Checker]
-    Stim["press_button(4)<br/>inject_adc_result(A, 0, 4095)<br/>inject_spi_rx(B, 0x4000)<br/>inject_lidar_frame(...)"]
+    Check["Checker"]
+    Stim["press_button(4)<br>inject_adc_result(A, 0, 4095)<br>inject_spi_rx(B, 0x4000)<br>inject_lidar_frame(…)"]
     GP["GpioDataRegs.GPADAT.bit.GPIO4 = 0"]
     AR["AdcaResultRegs.ADCRESULT0 = 4095"]
     SR["SpibRegs.SPIRXBUF + SPIFFRX.RXFFST"]
     LR["lidar ping/pong buffers"]
-    Student[Student ISR / main body]
+    Student["Student ISR / main body"]
     Check --> Stim
     Stim --> GP & AR & SR & LR
     GP & AR & SR & LR -.read by.-> Student
-    Student --> Effects["LED toggle / state change /<br/>serial_printf (captured)"]
+    Student --> Effects["LED toggle / state change /<br>serial_printf (captured)"]
 
     classDef chk fill:#dcfce7,stroke:#16a34a
     classDef stub fill:#fef3c7,stroke:#d97706

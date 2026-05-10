@@ -11,32 +11,32 @@ triggers a grading run.
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Push as git push (student)
-    participant Caller as caller workflow<br/>(course repo)
-    participant Select as job: select
-    participant Sel as select_assignments.py
-    participant Grade as job: grade (matrix)
-    participant Bin as AutomaticGrader<br/>--report-json
-    participant Agg as job: aggregate
-    participant Render as render_report.py
-    participant Repo as student repo branch
+    participant Push as "git push (student)"
+    participant Caller as "caller workflow (course repo)"
+    participant Select as "job: select"
+    participant Sel as "select_assignments.py"
+    participant Grade as "job: grade (matrix)"
+    participant Bin as "AutomaticGrader --report-json"
+    participant Agg as "job: aggregate"
+    participant Render as "render_report.py"
+    participant Repo as "student repo branch"
 
     Push->>Caller: trigger
     Caller->>Select: invoke reusable workflow
     Select->>Sel: --before $BEFORE --head $HEAD
-    Sel-->>Select: matrix=[{slot, id, folder}, ...]
+    Sel-->>Select: matrix=[ #123;slot, id, folder#125;, … ]
     par parallel per slot
         Select->>Grade: fan-out matrix
         Grade->>Grade: stage student_work/{folder}/*_main.c
-        Grade->>Grade: cmake -DASSIGNMENT=id -DSTUDENT_SRC=...
+        Grade->>Grade: cmake -DASSIGNMENT=id -DSTUDENT_SRC=…
         Grade->>Bin: ./AutomaticGrader --report-json out/{slot}.json
         Bin-->>Grade: rc=0|1 + JSON + log
         Grade->>Grade: write {slot}.meta.json (id/folder/commit)
         Grade->>Caller: upload artifact results-{slot}
     end
     Caller->>Agg: aggregate
-    Agg->>Render: --results-dir _results --repo-url ... --commit $SHA
-    Render->>Repo: write autograder/index.md, &lt;id&gt;.md,<br/>history/&lt;slot&gt;.jsonl
+    Agg->>Render: --results-dir _results --repo-url … --commit $SHA
+    Render->>Repo: write autograder/index.md, [id].md, history/[slot].jsonl
     Render-->>Agg: rc (1 if any check failed)
     Agg->>Repo: commit + push autograder/ [skip ci]
     Agg-->>Caller: pass/fail
@@ -125,18 +125,18 @@ coverage.
 
 ```mermaid
 flowchart TD
-    Start([push]) --> Manifest{manifest<br/>changed?}
-    Manifest -- yes --> All[grade every row]
-    Manifest -- no --> ForceAll{force-all<br/>flag?}
+    Start(["push"]) --> Manifest{"manifest<br>changed?"}
+    Manifest -- yes --> All["grade every row"]
+    Manifest -- no --> ForceAll{"force-all<br>flag?"}
     ForceAll -- yes --> All
-    ForceAll -- no --> FirstPush{no 'before'<br/>SHA?}
+    ForceAll -- no --> FirstPush{"no 'before'<br>SHA?"}
     FirstPush -- yes --> All
-    FirstPush -- no --> Touched{folder<br/>under workspace/<br/>changed?}
-    Touched -- yes --> Subset[grade only<br/>matching rows]
-    Touched -- no --> Empty[empty matrix —<br/>no grade job]
-    All --> Done([fan out matrix])
+    FirstPush -- no --> Touched{"folder under<br>workspace/<br>changed?"}
+    Touched -- yes --> Subset["grade only<br>matching rows"]
+    Touched -- no --> Empty["empty matrix —<br>no grade job"]
+    All --> Done(["fan out matrix"])
     Subset --> Done
-    Empty --> NoOp([workflow no-op])
+    Empty --> NoOp(["workflow no-op"])
 ```
 
 Selecting only the changed assignments keeps the typical CI time at

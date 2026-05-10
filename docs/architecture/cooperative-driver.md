@@ -26,16 +26,16 @@ when something looks wrong.
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Check as Check function
-    participant Driver as grader::*
-    participant Tm as temp_main()
-    participant Body as while(1) body
-    participant Stub as TI stubs
+    participant Check as "Check function"
+    participant Driver as "grader::*"
+    participant Tm as "temp_main()"
+    participant Body as "while(1) body"
+    participant Stub as "TI stubs"
 
     Note over Tm: First call only
     Check->>Driver: run_student_init()
     Driver->>Tm: enter, init guard not set
-    Tm->>Stub: InitSysCtrl, GPIO_SetupPinMux, ConfigCpuTimer, ...
+    Tm->>Stub: InitSysCtrl, GPIO_SetupPinMux, ConfigCpuTimer, …
     Tm->>Body: enter while(1) (0 iterations bound)
     Body-->>Tm: return immediately
     Tm-->>Driver: return

@@ -47,21 +47,21 @@ trimmed. The slot is the matrix-job identity used everywhere downstream:
 
 ```mermaid
 flowchart LR
-    Manifest[workspace/<br/>assignment.txt]
-    Sel[select_assignments.py]
-    Slot1[slot=HW1__HW1mj]
-    Slot2[slot=HW1__HW1_revised]
-    Slot3[slot=HW2]
-    Job1[grade job: HW1__HW1mj]
-    Job2[grade job: HW1__HW1_revised]
-    Job3[grade job: HW2]
-    Art1[results-HW1__HW1mj]
-    Art2[results-HW1__HW1_revised]
-    Art3[results-HW2]
-    Render[render_report.py]
-    Agg[autograder/HW1.md<br/>aggregate page]
-    Detail[autograder/HW1__HW1mj.md<br/>autograder/HW1__HW1_revised.md]
-    Single[autograder/HW2.md]
+    Manifest["workspace/<br>assignment.txt"]
+    Sel["select_assignments.py"]
+    Slot1["slot=HW1__HW1mj"]
+    Slot2["slot=HW1__HW1_revised"]
+    Slot3["slot=HW2"]
+    Job1["grade job: HW1__HW1mj"]
+    Job2["grade job: HW1__HW1_revised"]
+    Job3["grade job: HW2"]
+    Art1["results-HW1__HW1mj"]
+    Art2["results-HW1__HW1_revised"]
+    Art3["results-HW2"]
+    Render["render_report.py"]
+    Agg["autograder/HW1.md<br>aggregate page"]
+    Detail["autograder/HW1__HW1mj.md<br>autograder/HW1__HW1_revised.md"]
+    Single["autograder/HW2.md"]
 
     Manifest --> Sel
     Sel --> Slot1 & Slot2 & Slot3

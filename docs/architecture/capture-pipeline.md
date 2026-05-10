@@ -15,13 +15,13 @@ parsing can.
 ```mermaid
 flowchart LR
     Student["Student temp_main / ISR"]
-    SerialP["serial_printf<br/>(int port_no, char *fmt, ...)"]
-    UartLcd["UART_printfLine<br/>(line, fmt, ...)"]
-    Stubs["src/ti_stubs.cpp<br/>classify port, vsnprintf,<br/>parse format string"]
-    Capture["g_printfCalls<br/>std::vector&lt;PrintfCall&gt;"]
+    SerialP["serial_printf<br>(int port_no, char *fmt, …)"]
+    UartLcd["UART_printfLine<br>(line, fmt, …)"]
+    Stubs["src/ti_stubs.cpp<br>classify port, vsnprintf,<br>parse format string"]
+    Capture["g_printfCalls<br>std::vector&lt;PrintfCall&gt;"]
     Clock["synthetic_clock_now_us()"]
-    Expect["expect_format /<br/>expect_print_cadence /<br/>expect_arg_types"]
-    Checker["hw{N}.cpp / lab{N}.cpp"]
+    Expect["expect_format /<br>expect_print_cadence /<br>expect_arg_types"]
+    Checker["hw#123;N#125;.cpp / lab#123;N#125;.cpp"]
 
     Student --> SerialP
     Student --> UartLcd

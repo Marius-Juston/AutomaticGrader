@@ -51,6 +51,64 @@ jobs:
         run: |
           python -c "import yaml; [yaml.safe_load(open(f)) for f in ['.github/workflows/grade.reusable.yml', '.github/workflows/tests.yml', '.github/workflows/docs.yml']]"
 
+      - name: Set up Node (for Mermaid parser validation)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate Mermaid diagrams parse
+        run: |
+          set -euo pipefail
+          # Spin up a throwaway npm project and run Mermaid's own parser
+          # against every ```mermaid``` block in docs/. Catches syntax bugs
+          # before they reach a browser where they'd render as red error
+          # boxes ("Syntax error in text mermaid version X").
+          tmp=$(mktemp -d)
+          cd "$tmp"
+          npm init -y >/dev/null
+          npm install --silent --no-fund --no-audit mermaid@10.9.5 jsdom
+          cat > validate.mjs <<'JS'
+          import fs from "node:fs";
+          import path from "node:path";
+          import { JSDOM } from "jsdom";
+          const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>");
+          global.window = dom.window;
+          global.document = dom.window.document;
+          global.HTMLElement = dom.window.HTMLElement;
+          const mermaid = (await import("mermaid")).default;
+          mermaid.initialize({ startOnLoad: false });
+          const repoRoot = process.argv[2];
+          function* walk(dir) {
+            for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, e.name);
+              if (e.isDirectory()) yield* walk(p);
+              else if (e.name.endsWith(".md")) yield p;
+            }
+          }
+          let total = 0, failed = 0;
+          for (const file of walk(path.join(repoRoot, "docs"))) {
+            const md = fs.readFileSync(file, "utf8");
+            const re = /```mermaid\n([\s\S]*?)\n```/g;
+            let m;
+            while ((m = re.exec(md)) !== null) {
+              total++;
+              const lineNo = md.slice(0, m.index).split("\n").length;
+              try {
+                await mermaid.parse(m[1]);
+              } catch (err) {
+                failed++;
+                console.error(
+                  `FAIL ${path.relative(repoRoot, file)}:${lineNo}\n` +
+                  `     ${(err && err.message) || err}`
+                );
+              }
+            }
+          }
+          console.log(`${total - failed}/${total} diagrams parse cleanly`);
+          process.exit(failed === 0 ? 0 : 1);
+          JS
+          node validate.mjs "$GITHUB_WORKSPACE"
+
       - name: Generate Doxygen C++ API reference
         run: |
           set -euo pipefail

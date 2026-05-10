@@ -8,20 +8,20 @@ heavy auto-generated state tracker.
 flowchart LR
     subgraph Parallel[" "]
         direction TB
-        Infra[grader_infra<br/>format_parser, synthetic_clock,<br/>printf_capture, stimulus,<br/>expectations, selftest]
-        State[grader_state_check<br/>generated.cpp, compare_generated.cpp,<br/>stat_checker.cpp, validator.cpp]
-        Stubs[grader_stubs<br/>ti_stubs.cpp, lidar.cpp,<br/>OptiTrack.c, LEDPatterns.c,<br/>main_loop_driver.cpp]
-        Assign[grader_assignment<br/>src/checks/hw{N}.cpp<br/>OR lab{N}.cpp<br/>(selected by ASSIGNMENT=)]
-        Student[grader_student<br/>patched temp_main]
+        Infra["grader_infra<br>format_parser, synthetic_clock,<br>printf_capture, stimulus,<br>expectations, selftest"]
+        State["grader_state_check<br>generated.cpp, compare_generated.cpp,<br>stat_checker.cpp, validator.cpp"]
+        Stubs["grader_stubs<br>ti_stubs.cpp, lidar.cpp,<br>OptiTrack.c, LEDPatterns.c,<br>main_loop_driver.cpp"]
+        Assign["grader_assignment<br>src/checks/hw#123;N#125;.cpp<br>OR lab#123;N#125;.cpp<br>(selected by ASSIGNMENT=)"]
+        Student["grader_student<br>patched temp_main"]
     end
-    Patcher[patch_student_source.py] -.generates.-> Student
-    Main[src/main.cpp] --> Bin[AutomaticGrader executable]
+    Patcher["patch_student_source.py"] -.generates.-> Student
+    Main["src/main.cpp"] --> Bin["AutomaticGrader executable"]
     Infra --> Bin
     State --> Bin
     Stubs --> Bin
     Assign --> Bin
     Student --> Bin
-    Ccache[ccache] -.launcher.-> Parallel
+    Ccache["ccache"] -.launcher.-> Parallel
 
     classDef obj fill:#fef3c7,stroke:#d97706
     classDef bin fill:#dcfce7,stroke:#16a34a
