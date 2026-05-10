@@ -53,20 +53,44 @@ jobs:
 
       - name: Generate Doxygen C++ API reference
         run: |
-          doxygen Doxyfile
-          test -d doxygen-out/html
+          set -euo pipefail
+          doxygen --version
+          # Run Doxygen and tee both streams so failures show up in logs.
+          doxygen Doxyfile 2>&1 | tee doxygen.log
+          echo "--- doxygen-out tree ---"
+          ls -la doxygen-out/ || { echo "ERROR: doxygen produced no output dir" >&2; exit 1; }
+          ls doxygen-out/html/ | head -20
+          test -f doxygen-out/html/index.html \
+            || { echo "ERROR: doxygen-out/html/index.html missing" >&2; exit 1; }
+          # Count HTML files — empty output is a silent failure mode.
+          n=$(find doxygen-out/html -name '*.html' | wc -l)
+          echo "doxygen produced $n HTML files"
+          test "$n" -gt 5 \
+            || { echo "ERROR: doxygen produced only $n HTML files (expected many)" >&2; exit 1; }
 
       - name: Build MkDocs site (strict)
         run: |
+          set -euo pipefail
           mkdocs build --strict
+          test -f site/index.html
+          # Confirm Mermaid + Material icons are wired into the rendered HTML.
+          grep -q 'mermaid.min.js' site/index.html \
+            || { echo "ERROR: Mermaid JS not loaded in site/index.html" >&2; exit 1; }
+          grep -q 'class="mermaid"' site/architecture/overview/index.html \
+            || { echo "ERROR: Mermaid divs missing in overview page" >&2; exit 1; }
+          grep -q 'twemoji\|material-icon\|rocket-launch\|arrow-right-circle' site/index.html \
+            || echo "WARN: no Material icon SVGs detected in landing page"
 
       - name: Merge Doxygen output into site
         run: |
+          set -euo pipefail
           mkdir -p site/api/cpp
-          cp -r doxygen-out/html/. site/api/cpp/
-          # Sanity check.
-          test -f site/api/cpp/index.html
+          cp -a doxygen-out/html/. site/api/cpp/
+          test -f site/api/cpp/index.html \
+            || { echo "ERROR: site/api/cpp/index.html missing after merge" >&2; exit 1; }
           test -f site/index.html
+          n=$(find site/api/cpp -name '*.html' | wc -l)
+          echo "merged $n Doxygen HTML files under site/api/cpp/"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

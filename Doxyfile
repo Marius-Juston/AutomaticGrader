@@ -6,6 +6,7 @@
 PROJECT_NAME           = "AutomaticGrader"
 PROJECT_BRIEF          = "C++ API reference — shared grader infrastructure"
 OUTPUT_DIRECTORY       = doxygen-out
+HTML_OUTPUT            = html
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
 GENERATE_TREEVIEW      = YES
@@ -47,7 +48,6 @@ DOT_IMAGE_FORMAT       = svg
 INTERACTIVE_SVG        = YES
 CALL_GRAPH             = NO
 CALLER_GRAPH           = NO
-CLASS_DIAGRAMS         = YES
 COLLABORATION_GRAPH    = NO
 TEMPLATE_RELATIONS     = YES
 GENERATE_LEGEND        = YES

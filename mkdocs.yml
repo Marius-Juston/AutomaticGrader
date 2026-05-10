@@ -56,6 +56,9 @@ markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -71,6 +74,14 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+# Mermaid: MkDocs Material's built-in loader is wired through the
+# pymdownx.superfences custom_fence above, but the actual Mermaid runtime
+# must still be served. Load it from a pinned CDN so diagrams render on
+# the published Pages site.
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+  - assets/js/mermaid-init.js
 
 plugins:
   - search
