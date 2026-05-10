@@ -73,3 +73,33 @@ jobs:
 
       - name: Run --selftest
         run: ./build/AutomaticGrader --selftest
+
+  python-tools:
+    # Covers the workflow-side Python: select_assignments.py (matrix /
+    # duplicate-id slot derivation) and render_report.py (aggregate +
+    # per-folder hyperlinks + commit traceability). These are what the
+    # reusable grading workflow runs in production, so a regression here
+    # would silently break the student-facing report.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Lint workflow YAML
+        run: |
+          python -c "import yaml, sys; yaml.safe_load(open('.github/workflows/grade.reusable.yml')); yaml.safe_load(open('.github/workflows/tests.yml'))"
+
+      - name: select_assignments self-test
+        run: python tools/select_assignments.py --self-test
+
+      - name: Python unit tests
+        run: python -m unittest discover -s tests/python -v
