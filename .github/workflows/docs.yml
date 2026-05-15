@@ -52,7 +52,7 @@ jobs:
           python -c "import yaml; [yaml.safe_load(open(f)) for f in ['.github/workflows/grade.reusable.yml', '.github/workflows/tests.yml', '.github/workflows/docs.yml']]"
 
       - name: Set up Node (for Mermaid parser validation)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
 
